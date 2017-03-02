@@ -93,25 +93,25 @@
 </header>
     <div class="article-content">
         
-        <h1 id="逻辑回归模型"><a href="#逻辑回归模型" class="headerlink" title="逻辑回归模型"></a>逻辑回归模型</h1><h3 id="逻辑回归分布"><a href="#逻辑回归分布" class="headerlink" title="逻辑回归分布"></a>逻辑回归分布</h3><p>连续随机变量<code>$X$</code>服从逻辑回归分布，则<code>$X$</code>具有下列++分布函数和密度函数++：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">F(x)=P(X&lt;=x)=\frac&#123;1&#125;&#123;1+e^&#123;-(x-u)/r&#125;&#125;</div><div class="line"></div><div class="line">f(x)=F&apos;(x)=\frac&#123;e^&#123;-(x-u)/r&#125;&#125;&#123;r(1+e^&#123;-(x-u)/r&#125;)^2&#125;</div></pre></td></tr></table></figure></p>
+        <h1 id="逻辑回归模型"><a href="#逻辑回归模型" class="headerlink" title="逻辑回归模型"></a>逻辑回归模型</h1><h3 id="逻辑回归分布"><a href="#逻辑回归分布" class="headerlink" title="逻辑回归分布"></a>逻辑回归分布</h3><p>连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">F(x)=P(X&lt;=x)=\frac&#123;1&#125;&#123;1+e^&#123;-(x-u)/r&#125;&#125;</div><div class="line"></div><div class="line">f(x)=F&apos;(x)=\frac&#123;e^&#123;-(x-u)/r&#125;&#125;&#123;r(1+e^&#123;-(x-u)/r&#125;)^2&#125;</div></pre></td></tr></table></figure></p>
 <p>其中</p>
-<p><code>$u$</code>为位置参数</p>
-<p><code>$r&gt;0$</code>为形状参数</p>
+<p>$u$为位置参数</p>
+<p>$r&gt;0$为形状参数</p>
 <p>其中，密度函数与分布函数的形状如图所示<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png" alt=""> </p>
 <h4 id="分布密度函数与分布函数"><a href="#分布密度函数与分布函数" class="headerlink" title="分布密度函数与分布函数"></a>分布密度函数与分布函数</h4><p>感觉自己宛如一个智障，这些居然忘记了。哎，重新来吧。</p>
-<p>概率密度函数<code>$f(x)$</code>：表示瞬时值落在某区间的概率，是幅值的概率。++用来描述连续型随机变量取值的密集程度的。++<code>$f(x)$</code>表示X=x的概率是<code>$\int_0^1f(x)$</code>。</p>
-<p><code>$P(X=x|x \in (0,1))=\int_0^1f(x)$</code></p>
-<p>分布函数<code>$F(x)$</code>：描述随机变量落在任一区间的概率。</p>
-<p><code>$F(x)=P(X&lt;=x)$</code></p>
+<p>概率密度函数$f(x)$：表示瞬时值落在某区间的概率，是幅值的概率。++用来描述连续型随机变量取值的密集程度的。++$f(x)$表示X=x的概率是$\int_0^1f(x)$。</p>
+<p>$P(X=x|x \in (0,1))=\int_0^1f(x)$</p>
+<p>分布函数$F(x)$：描述随机变量落在任一区间的概率。</p>
+<p>$F(x)=P(X&lt;=x)$</p>
 <p>关系：</p>
-<p>分布函数<code>$F(x)$</code>是概率密度函数<code>$f(x)$</code>从负无穷到正无穷上的积分；</p>
+<p>分布函数$F(x)$是概率密度函数$f(x)$从负无穷到正无穷上的积分；</p>
 <p>在坐标轴上，概率密度函数的函数值y表示落在x点上的概率为y；分布函数的函数值y则表示x落在区间(-∞上的概率。</p>
 <h3 id="二项逻辑回归模型"><a href="#二项逻辑回归模型" class="headerlink" title="二项逻辑回归模型"></a>二项逻辑回归模型</h3><h4 id="用途：估计某个值的为哪一类的概率"><a href="#用途：估计某个值的为哪一类的概率" class="headerlink" title="用途：估计某个值的为哪一类的概率"></a>用途：估计某个值的为哪一类的概率</h4><p>logistic回归是分类问题。前面我们讲的分类问题的输出都是 “yes”或者“no”。但是在现实生活中，我们并不是总是希望结果那么肯定，而是概率（发生的可能性）。比如，我们希望知道这个房子在第三个星期被卖出去的概率。那么以前的分类算法就无法使用了，这时logistic 回归就派上了用场。 </p>
 <h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>二项逻辑斯蒂回归模型是如下的条件概率分布：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">P(Y=1|x)=\frac&#123;exp(wx+b)&#125;&#123;1+exp(wx+b)&#125;</div><div class="line"></div><div class="line">P(Y=0|x)=\frac&#123;1&#125;&#123;1+exp(wx+b)&#125;</div></pre></td></tr></table></figure>
-<p>其中：<br><code>$x \in R^n$</code> ：输入</p>
-<p><code>$Y \in (0,1)$</code> ：输出</p>
-<p>给定<code>$x$</code>，可以求得<code>$P(Y=1|x)$</code>和<code>$P(Y=0|x)$</code></p>
+<p>其中：<br>$x \in R^n$ ：输入</p>
+<p>$Y \in (0,1)$ ：输出</p>
+<p>给定$x$，可以求得$P(Y=1|x)$和$P(Y=0|x)$</p>
 <h4 id="逻辑斯蒂回归模型的特点"><a href="#逻辑斯蒂回归模型的特点" class="headerlink" title="逻辑斯蒂回归模型的特点"></a>逻辑斯蒂回归模型的特点</h4><p>几率（odds）= 该事件发生的概率/该事件不该发生的概率，则对数几率：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">log(odds)=log(\frac&#123;p&#125;&#123;1-p&#125;)=log(\frac&#123;P(Y=1|x)&#125;&#123;1-P(Y=1|x)&#125;)=wx</div></pre></td></tr></table></figure>
 <p>则：输出Y=1的对数几率=输入x的线性函数</p>
@@ -277,7 +277,7 @@
 <p>输出：实例的类别（±1）</p>
 <h1 id="感知机模型"><a href="#感知机模型" class="headerlink" title="感知机模型"></a>感知机模型</h1><p>感知机——由输入空间到输出空间的函数：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">f(x)=sign(wx+b)</div></pre></td></tr></table></figure>
-<p>###Tips:<br><code>$ w \in R^n $</code>：权值，weight<br><code>$ b \in R $</code>：偏值，bias<br>输入空间（特征空间）：<code>$ X \in R^n $</code><br>输出空间：<code>$ y={+1,-1} $</code><br>输入：<code>$ x \in X $</code>表示实例的特征向量，对应于输入空间的点<br>输出：<code>$ y \in Y $</code>，表示实例的类别</p>
+<p>###Tips:<br>$ w \in R^n $：权值，weight<br>$ b \in R $：偏值，bias<br>输入空间（特征空间）：$ X \in R^n $<br>输出空间：$ y={+1,-1} $<br>输入：$ x \in X $表示实例的特征向量，对应于输入空间的点<br>输出：$ y \in Y $，表示实例的类别</p>
 <h1 id="感知机学习策略"><a href="#感知机学习策略" class="headerlink" title="感知机学习策略"></a>感知机学习策略</h1><ol>
 <li>感知机学习目标：求得一个能将训练集正实例点和负实例点完全正确分开的分离超平面 = 确定模型参数w,b。</li>
 <li>感知机学习策略：定义（经验）损失函数并将损失函数极小化。</li>
@@ -477,11 +477,11 @@
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -714,7 +714,7 @@ var _hmt = _hmt || [];
 
 <!-- Tiny_search End --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["`$","$`"],["\\(","\\)"]]}});
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]]}});
 </script>
 
 <script type="text/x-mathjax-config">
