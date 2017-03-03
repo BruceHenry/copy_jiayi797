@@ -4,44 +4,45 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>逻辑回归（Logistic regression） | jiayi797的专栏</title>
+    <title>jiayi797的专栏</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="jiayi797">
     
 
     
-    <meta name="description" content="逻辑回归模型逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
-$$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$
-$$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$
-其中
-$u$为位置参数
-$r&amp;gt;0$为形状参数
-其中，密度函数与分布函数的形状如图所示">
+    <meta name="description" content="title: SVM（一） 线性可分date: 2017-03-03 11:05:48tags:
+- 算法
+
+SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
+线性可分SVM与（硬）间隔最大化1 线性可分SVM概念复习 参考文献输入空间：输入所有可能的取值的集合
+特征向量：每个具体的输入
+特征空间：所有特征向量存在的空间。特征空间可以是输入空">
 <meta property="og:type" content="article">
-<meta property="og:title" content="逻辑回归（Logistic regression）">
-<meta property="og:url" content="http://yoursite.com/child/2017/03/02/逻辑回归（Logistic-regression）/index.html">
+<meta property="og:title" content="jiayi797的专栏">
+<meta property="og:url" content="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="逻辑回归模型逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
-$$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$
-$$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$
-其中
-$u$为位置参数
-$r&amp;gt;0$为形状参数
-其中，密度函数与分布函数的形状如图所示">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png">
-<meta property="og:updated_time" content="2017-03-02T15:37:33.097Z">
+<meta property="og:description" content="title: SVM（一） 线性可分date: 2017-03-03 11:05:48tags:
+- 算法
+
+SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
+线性可分SVM与（硬）间隔最大化1 线性可分SVM概念复习 参考文献输入空间：输入所有可能的取值的集合
+特征向量：每个具体的输入
+特征空间：所有特征向量存在的空间。特征空间可以是输入空">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-14-56-13.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-15-06-02.png">
+<meta property="og:updated_time" content="2017-03-03T07:17:56.985Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="逻辑回归（Logistic regression）">
-<meta name="twitter:description" content="逻辑回归模型逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
-$$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$
-$$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$
-其中
-$u$为位置参数
-$r&amp;gt;0$为形状参数
-其中，密度函数与分布函数的形状如图所示">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png">
+<meta name="twitter:title" content="jiayi797的专栏">
+<meta name="twitter:description" content="title: SVM（一） 线性可分date: 2017-03-03 11:05:48tags:
+- 算法
+
+SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
+线性可分SVM与（硬）间隔最大化1 线性可分SVM概念复习 参考文献输入空间：输入所有可能的取值的集合
+特征向量：每个具体的输入
+特征空间：所有特征向量存在的空间。特征空间可以是输入空">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -103,14 +104,14 @@ $r&amp;gt;0$为形状参数
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/02/逻辑回归（Logistic-regression）/" title="逻辑回归（Logistic regression）" itemprop="url">逻辑回归（Logistic regression）</a>
+      <a href="/2017/03/03/SVM（一） 线性可分/" title="" itemprop="url"></a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
 		
   <p class="article-time">
-    <time datetime="2017-03-02T14:45:32.000Z" itemprop="datePublished"> 发表于 2017-03-02</time>
+    <time datetime="2017-03-03T03:05:48.767Z" itemprop="datePublished"> 发表于 2017-03-03</time>
     
   </p>
 </header>
@@ -119,53 +120,46 @@ $r&amp;gt;0$为形状参数
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归模型"><span class="toc-number">1.</span> <span class="toc-text">逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑回归分布"><span class="toc-number">1.0.1.</span> <span class="toc-text">逻辑回归分布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分布密度函数与分布函数"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">分布密度函数与分布函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二项逻辑回归模型"><span class="toc-number">1.0.2.</span> <span class="toc-text">二项逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：估计某个值的为哪一类的概率"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">用途：估计某个值的为哪一类的概率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型的特点"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">逻辑斯蒂回归模型的特点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模型参数估计"><span class="toc-number">2.</span> <span class="toc-text">模型参数估计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SVM简介"><span class="toc-number">1.</span> <span class="toc-text">SVM简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#线性可分SVM与（硬）间隔最大化"><span class="toc-number">2.</span> <span class="toc-text">线性可分SVM与（硬）间隔最大化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-线性可分SVM"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">1 线性可分SVM</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#概念复习-参考文献"><span class="toc-number">2.0.0.1.1.</span> <span class="toc-text">概念复习 参考文献</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#线性可分SVM学习目标"><span class="toc-number">2.0.0.1.2.</span> <span class="toc-text">线性可分SVM学习目标</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SVM与PLA区别"><span class="toc-number">2.0.0.1.3.</span> <span class="toc-text">SVM与PLA区别</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-函数间隔和几何间隔"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">2 函数间隔和几何间隔</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#函数间隔的概念"><span class="toc-number">2.0.0.2.1.</span> <span class="toc-text">函数间隔的概念</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-SVM学习基本想法-间隔最大化"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">3 SVM学习基本想法  间隔最大化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#基本想法"><span class="toc-number">2.0.0.3.1.</span> <span class="toc-text">基本想法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#支持向量"><span class="toc-number">2.0.0.3.2.</span> <span class="toc-text">支持向量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#间隔"><span class="toc-number">2.0.0.3.3.</span> <span class="toc-text">间隔</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#间隔边界"><span class="toc-number">2.0.0.3.4.</span> <span class="toc-text">间隔边界</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<h1 id="逻辑回归模型"><a href="#逻辑回归模型" class="headerlink" title="逻辑回归模型"></a>逻辑回归模型</h1><h3 id="逻辑回归分布"><a href="#逻辑回归分布" class="headerlink" title="逻辑回归分布"></a>逻辑回归分布</h3><p>连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：</p>
-<p>$$<br>F(x)=P(X&lt;=x)=\frac{1}{1+e^{-(x-u)/r}}<br>$$</p>
-<p>$$<br>f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}<br>$$</p>
-<p>其中</p>
-<p>$u$为位置参数</p>
-<p>$r&gt;0$为形状参数</p>
-<p>其中，密度函数与分布函数的形状如图所示<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png" alt=""> </p>
-<h4 id="分布密度函数与分布函数"><a href="#分布密度函数与分布函数" class="headerlink" title="分布密度函数与分布函数"></a>分布密度函数与分布函数</h4><p>感觉自己宛如一个智障，这些居然忘记了。哎，重新来吧。</p>
-<p>概率密度函数$f(x)$：表示瞬时值落在某区间的概率，是幅值的概率。++用来描述连续型随机变量取值的密集程度的。++$f(x)$表示X=x的概率是$\int_0^1f(x)$。</p>
-<p>$P(X=x|x \in (0,1))=\int_0^1f(x)$</p>
-<p>分布函数$F(x)$：描述随机变量落在任一区间的概率。</p>
-<p>$F(x)=P(X&lt;=x)$</p>
-<p>关系：</p>
-<p>分布函数$F(x)$是概率密度函数$f(x)$从负无穷到正无穷上的积分；</p>
-<p>在坐标轴上，概率密度函数的函数值y表示落在x点上的概率为y；分布函数的函数值y则表示x落在区间(-∞上的概率。</p>
-<h3 id="二项逻辑回归模型"><a href="#二项逻辑回归模型" class="headerlink" title="二项逻辑回归模型"></a>二项逻辑回归模型</h3><h4 id="用途：估计某个值的为哪一类的概率"><a href="#用途：估计某个值的为哪一类的概率" class="headerlink" title="用途：估计某个值的为哪一类的概率"></a>用途：估计某个值的为哪一类的概率</h4><p>logistic回归是分类问题。前面我们讲的分类问题的输出都是 “yes”或者“no”。但是在现实生活中，我们并不是总是希望结果那么肯定，而是概率（发生的可能性）。比如，我们希望知道这个房子在第三个星期被卖出去的概率。那么以前的分类算法就无法使用了，这时logistic 回归就派上了用场。 </p>
-<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>二项逻辑斯蒂回归模型是如下的条件概率分布：</p>
-<p>$$<br>P(Y=1|x)=\frac{exp(wx+b)}{1+exp(wx+b)}<br>$$</p>
-<p>$$<br>P(Y=0|x)=\frac{1}{1+exp(wx+b)}<br>$$</p>
-<p>其中：<br>$x \in R^n$ ：输入</p>
-<p>$Y \in (0,1)$ ：输出</p>
-<p>给定$x$，可以求得$P(Y=1|x)$和$P(Y=0|x)$</p>
-<h4 id="逻辑斯蒂回归模型的特点"><a href="#逻辑斯蒂回归模型的特点" class="headerlink" title="逻辑斯蒂回归模型的特点"></a>逻辑斯蒂回归模型的特点</h4><p>几率（odds）= 该事件发生的概率/该事件不该发生的概率，则对数几率：</p>
-<p>$$<br>log(odds)=log(\frac{p}{1-p})=log(\frac{P(Y=1|x)}{1-P(Y=1|x)})=wx<br>$$</p>
-<p>则：输出Y=1的对数几率=输入x的线性函数</p>
-<h1 id="模型参数估计"><a href="#模型参数估计" class="headerlink" title="模型参数估计"></a>模型参数估计</h1><p>输入： 一堆（x,y）</p>
-<p>目标：估计参数w,b</p>
-<p>方法：极大似然法</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png" alt=""> </p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>逻辑回归是一种预测y的各类别的概率的模型，即计算P(Y=1|x)或者P(Y=0|x)</li>
-<li>与机器学习过程类似，即 通过已知的大量（x,y），预测参数w,b，来计算后来输入的x对应的类别y</li>
-</ol>
+		<meta http-equiv="refresh" content="5">
+
+<hr>
+<p>title: SVM（一） 线性可分<br>date: 2017-03-03 11:05:48<br>tags:</p>
+<pre><code>- 算法
+</code></pre><hr>
+<h1 id="SVM简介"><a href="#SVM简介" class="headerlink" title="SVM简介"></a>SVM简介</h1><p>SVM - Support Vector Machines, 支持向量机。是二分类模型。</p>
+<h1 id="线性可分SVM与（硬）间隔最大化"><a href="#线性可分SVM与（硬）间隔最大化" class="headerlink" title="线性可分SVM与（硬）间隔最大化"></a>线性可分SVM与（硬）间隔最大化</h1><h4 id="1-线性可分SVM"><a href="#1-线性可分SVM" class="headerlink" title="1 线性可分SVM"></a>1 线性可分SVM</h4><h5 id="概念复习-参考文献"><a href="#概念复习-参考文献" class="headerlink" title="概念复习 参考文献"></a>概念复习 <a href="http://blog.csdn.net/kaka19880812/article/details/46419269" target="_blank" rel="external">参考文献</a></h5><p><em>输入空间</em>：输入所有可能的取值的集合</p>
+<p><em>特征向量</em>：每个具体的输入</p>
+<p><em>特征空间</em>：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。</p>
+<p><em>输出空间</em>：输出所有可能的取值的集合</p>
+<h5 id="线性可分SVM学习目标"><a href="#线性可分SVM学习目标" class="headerlink" title="线性可分SVM学习目标"></a>线性可分SVM学习目标</h5><p>在特征空间找到一个分离超平面 <code>wx+b=0</code> </p>
+<h5 id="SVM与PLA区别"><a href="#SVM与PLA区别" class="headerlink" title="SVM与PLA区别"></a>SVM与PLA区别</h5><p>PLA:误分类最小策略，求得分离超平面。解不唯一。<br>线性可分SVM:间隔最大化，求得分离超平面。解唯一。</p>
+<h4 id="2-函数间隔和几何间隔"><a href="#2-函数间隔和几何间隔" class="headerlink" title="2 函数间隔和几何间隔"></a>2 函数间隔和几何间隔</h4><h5 id="函数间隔的概念"><a href="#函数间隔的概念" class="headerlink" title="函数间隔的概念"></a>函数间隔的概念</h5><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png" alt=""> </p>
+<ul>
+<li>一个点距离分离超平面的远近<code>|wx+b|</code> 是 分类预测的确信程度。例如将A分为0的确信度很高，而将C分为0的确信度较低</li>
+<li><code>wx+b</code>与<code>y</code>的符号一致，则分类正确</li>
+<li><strong>函数间隔</strong>：<code>y(wx+b)</code>，表示分类的正确性及确信度</li>
+<li><strong>超平面的函数间隔*</strong>：<code>min{y(wx+b)}</code></li>
+<li><strong>几何间隔</strong>：规范化<code>||w||=1</code>，即为$y(\frac{w}{||w||}\cdot x + \frac{b}{||w||})$，使得间隔固定。（因为w和b成比例增加时，超平面不会改变，但函数间隔会变大）</li>
+</ul>
+<h4 id="3-SVM学习基本想法-间隔最大化"><a href="#3-SVM学习基本想法-间隔最大化" class="headerlink" title="3 SVM学习基本想法  间隔最大化"></a>3 SVM学习基本想法  间隔最大化</h4><h5 id="基本想法"><a href="#基本想法" class="headerlink" title="基本想法"></a>基本想法</h5><p>求解能够正确划分训练数据集，并且几何间隔最大的分离超平面</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-14-56-13.png" alt=""> </p>
+<h5 id="支持向量"><a href="#支持向量" class="headerlink" title="支持向量"></a>支持向量</h5><ul>
+<li>在线性可分的情况下，训练数据集的样本点中与分离超平面距离最近的样本点的实例，叫做支持向量（support vector）</li>
+<li>支持向量是使得约束条件等号成立的点</li>
+<li>决定分离超平面时，只有支持向量起作用，而其他点不起作用</li>
+<li>在H1，H2上的点就是支撑向量（很少，但很重要的点）</li>
+</ul>
+<h5 id="间隔"><a href="#间隔" class="headerlink" title="间隔"></a>间隔</h5><p>H1，H2之间，$d=\frac{2}{||w||}$</p>
+<h5 id="间隔边界"><a href="#间隔边界" class="headerlink" title="间隔边界"></a>间隔边界</h5><p>H1，H2<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-15-06-02.png" alt=""> </p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/算法/">算法</a>
-  </div>
 
 </div>
 
@@ -173,7 +167,7 @@ $r&amp;gt;0$为形状参数
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/child/2017/03/02/逻辑回归（Logistic-regression）/" data-title="逻辑回归（Logistic regression） | jiayi797的专栏" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/" data-title="jiayi797的专栏" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -186,19 +180,11 @@ $r&amp;gt;0$为形状参数
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/03/03/SVM（一） 线性可分/" title="">
-  <strong>上一篇：</strong><br/>
-  <span>
-  (no title)</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/03/02/SQL游标/"  title="SQL游标">
+<a href="/2017/03/02/逻辑回归（Logistic-regression）/"  title="逻辑回归（Logistic regression）">
  <strong>下一篇：</strong><br/> 
- <span>SQL游标
+ <span>逻辑回归（Logistic regression）
 </span>
 </a>
 </div>
@@ -207,7 +193,7 @@ $r&amp;gt;0$为形状参数
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/03/02/逻辑回归（Logistic-regression）/" data-title="逻辑回归（Logistic regression）" data-url="http://yoursite.com/child/2017/03/02/逻辑回归（Logistic-regression）/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/03/SVM（一） 线性可分/" data-title="" data-url="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/"></div>
 </section>
 
 
@@ -217,7 +203,7 @@ $r&amp;gt;0$为形状参数
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归模型"><span class="toc-number">1.</span> <span class="toc-text">逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑回归分布"><span class="toc-number">1.0.1.</span> <span class="toc-text">逻辑回归分布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分布密度函数与分布函数"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">分布密度函数与分布函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二项逻辑回归模型"><span class="toc-number">1.0.2.</span> <span class="toc-text">二项逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：估计某个值的为哪一类的概率"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">用途：估计某个值的为哪一类的概率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型的特点"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">逻辑斯蒂回归模型的特点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模型参数估计"><span class="toc-number">2.</span> <span class="toc-text">模型参数估计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SVM简介"><span class="toc-number">1.</span> <span class="toc-text">SVM简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#线性可分SVM与（硬）间隔最大化"><span class="toc-number">2.</span> <span class="toc-text">线性可分SVM与（硬）间隔最大化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-线性可分SVM"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">1 线性可分SVM</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#概念复习-参考文献"><span class="toc-number">2.0.0.1.1.</span> <span class="toc-text">概念复习 参考文献</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#线性可分SVM学习目标"><span class="toc-number">2.0.0.1.2.</span> <span class="toc-text">线性可分SVM学习目标</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SVM与PLA区别"><span class="toc-number">2.0.0.1.3.</span> <span class="toc-text">SVM与PLA区别</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-函数间隔和几何间隔"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">2 函数间隔和几何间隔</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#函数间隔的概念"><span class="toc-number">2.0.0.2.1.</span> <span class="toc-text">函数间隔的概念</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-SVM学习基本想法-间隔最大化"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">3 SVM学习基本想法  间隔最大化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#基本想法"><span class="toc-number">2.0.0.3.1.</span> <span class="toc-text">基本想法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#支持向量"><span class="toc-number">2.0.0.3.2.</span> <span class="toc-text">支持向量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#间隔"><span class="toc-number">2.0.0.3.3.</span> <span class="toc-text">间隔</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#间隔边界"><span class="toc-number">2.0.0.3.4.</span> <span class="toc-text">间隔边界</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
  
   </div>
 

@@ -4,44 +4,32 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>逻辑回归（Logistic regression） | jiayi797的专栏</title>
+    <title>从出租车行驶数据筛选出OD点数据 | jiayi797的专栏</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="jiayi797">
     
 
     
-    <meta name="description" content="逻辑回归模型逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
-$$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$
-$$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$
-其中
-$u$为位置参数
-$r&amp;gt;0$为形状参数
-其中，密度函数与分布函数的形状如图所示">
+    <meta name="description" content="动手前先动脑，这句话献给自己。
+目标从出租车行驶数据中，筛选出OD点。
+数据集123456789101112131415161718名称：2012年11月1日 北京市出租车GPS数据格式：txt文本文件数据项及顺序：车辆标识,触发事件,运营状态,GPS时间,GPS经度,GPS纬度,GPS速度,GPS方向,GPS状态车辆标识：6个字符触发事件：0=变空车，1=变载客，2=设防，3=撤防，4=其它运营">
 <meta property="og:type" content="article">
-<meta property="og:title" content="逻辑回归（Logistic regression）">
-<meta property="og:url" content="http://yoursite.com/child/2017/03/02/逻辑回归（Logistic-regression）/index.html">
+<meta property="og:title" content="从出租车行驶数据筛选出OD点数据">
+<meta property="og:url" content="http://yoursite.com/child/2017/03/02/从出租车行驶数据筛选出OD点数据/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="逻辑回归模型逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
-$$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$
-$$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$
-其中
-$u$为位置参数
-$r&amp;gt;0$为形状参数
-其中，密度函数与分布函数的形状如图所示">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png">
-<meta property="og:updated_time" content="2017-03-02T15:37:33.097Z">
+<meta property="og:description" content="动手前先动脑，这句话献给自己。
+目标从出租车行驶数据中，筛选出OD点。
+数据集123456789101112131415161718名称：2012年11月1日 北京市出租车GPS数据格式：txt文本文件数据项及顺序：车辆标识,触发事件,运营状态,GPS时间,GPS经度,GPS纬度,GPS速度,GPS方向,GPS状态车辆标识：6个字符触发事件：0=变空车，1=变载客，2=设防，3=撤防，4=其它运营">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-01-15-01-24.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-01-19-49-25.png">
+<meta property="og:updated_time" content="2017-03-03T07:43:25.290Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="逻辑回归（Logistic regression）">
-<meta name="twitter:description" content="逻辑回归模型逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
-$$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$
-$$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$
-其中
-$u$为位置参数
-$r&amp;gt;0$为形状参数
-其中，密度函数与分布函数的形状如图所示">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png">
+<meta name="twitter:title" content="从出租车行驶数据筛选出OD点数据">
+<meta name="twitter:description" content="动手前先动脑，这句话献给自己。
+目标从出租车行驶数据中，筛选出OD点。
+数据集123456789101112131415161718名称：2012年11月1日 北京市出租车GPS数据格式：txt文本文件数据项及顺序：车辆标识,触发事件,运营状态,GPS时间,GPS经度,GPS纬度,GPS速度,GPS方向,GPS状态车辆标识：6个字符触发事件：0=变空车，1=变载客，2=设防，3=撤防，4=其它运营">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-01-15-01-24.png">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -103,14 +91,14 @@ $r&amp;gt;0$为形状参数
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/02/逻辑回归（Logistic-regression）/" title="逻辑回归（Logistic regression）" itemprop="url">逻辑回归（Logistic regression）</a>
+      <a href="/2017/03/02/从出租车行驶数据筛选出OD点数据/" title="从出租车行驶数据筛选出OD点数据" itemprop="url">从出租车行驶数据筛选出OD点数据</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
 		
   <p class="article-time">
-    <time datetime="2017-03-02T14:45:32.000Z" itemprop="datePublished"> 发表于 2017-03-02</time>
+    <time datetime="2017-03-02T06:12:00.000Z" itemprop="datePublished"> 发表于 2017-03-02</time>
     
   </p>
 </header>
@@ -119,43 +107,42 @@ $r&amp;gt;0$为形状参数
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归模型"><span class="toc-number">1.</span> <span class="toc-text">逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑回归分布"><span class="toc-number">1.0.1.</span> <span class="toc-text">逻辑回归分布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分布密度函数与分布函数"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">分布密度函数与分布函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二项逻辑回归模型"><span class="toc-number">1.0.2.</span> <span class="toc-text">二项逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：估计某个值的为哪一类的概率"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">用途：估计某个值的为哪一类的概率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型的特点"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">逻辑斯蒂回归模型的特点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模型参数估计"><span class="toc-number">2.</span> <span class="toc-text">模型参数估计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目标"><span class="toc-number">1.</span> <span class="toc-text">目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据集"><span class="toc-number">2.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">3.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">4.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#车牌号段分析"><span class="toc-number">4.1.</span> <span class="toc-text">车牌号段分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分段"><span class="toc-number">4.2.</span> <span class="toc-text">分段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#伪代码"><span class="toc-number">4.3.</span> <span class="toc-text">伪代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结果"><span class="toc-number">4.4.</span> <span class="toc-text">结果</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h1 id="逻辑回归模型"><a href="#逻辑回归模型" class="headerlink" title="逻辑回归模型"></a>逻辑回归模型</h1><h3 id="逻辑回归分布"><a href="#逻辑回归分布" class="headerlink" title="逻辑回归分布"></a>逻辑回归分布</h3><p>连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：</p>
-<p>$$<br>F(x)=P(X&lt;=x)=\frac{1}{1+e^{-(x-u)/r}}<br>$$</p>
-<p>$$<br>f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}<br>$$</p>
-<p>其中</p>
-<p>$u$为位置参数</p>
-<p>$r&gt;0$为形状参数</p>
-<p>其中，密度函数与分布函数的形状如图所示<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png" alt=""> </p>
-<h4 id="分布密度函数与分布函数"><a href="#分布密度函数与分布函数" class="headerlink" title="分布密度函数与分布函数"></a>分布密度函数与分布函数</h4><p>感觉自己宛如一个智障，这些居然忘记了。哎，重新来吧。</p>
-<p>概率密度函数$f(x)$：表示瞬时值落在某区间的概率，是幅值的概率。++用来描述连续型随机变量取值的密集程度的。++$f(x)$表示X=x的概率是$\int_0^1f(x)$。</p>
-<p>$P(X=x|x \in (0,1))=\int_0^1f(x)$</p>
-<p>分布函数$F(x)$：描述随机变量落在任一区间的概率。</p>
-<p>$F(x)=P(X&lt;=x)$</p>
-<p>关系：</p>
-<p>分布函数$F(x)$是概率密度函数$f(x)$从负无穷到正无穷上的积分；</p>
-<p>在坐标轴上，概率密度函数的函数值y表示落在x点上的概率为y；分布函数的函数值y则表示x落在区间(-∞上的概率。</p>
-<h3 id="二项逻辑回归模型"><a href="#二项逻辑回归模型" class="headerlink" title="二项逻辑回归模型"></a>二项逻辑回归模型</h3><h4 id="用途：估计某个值的为哪一类的概率"><a href="#用途：估计某个值的为哪一类的概率" class="headerlink" title="用途：估计某个值的为哪一类的概率"></a>用途：估计某个值的为哪一类的概率</h4><p>logistic回归是分类问题。前面我们讲的分类问题的输出都是 “yes”或者“no”。但是在现实生活中，我们并不是总是希望结果那么肯定，而是概率（发生的可能性）。比如，我们希望知道这个房子在第三个星期被卖出去的概率。那么以前的分类算法就无法使用了，这时logistic 回归就派上了用场。 </p>
-<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>二项逻辑斯蒂回归模型是如下的条件概率分布：</p>
-<p>$$<br>P(Y=1|x)=\frac{exp(wx+b)}{1+exp(wx+b)}<br>$$</p>
-<p>$$<br>P(Y=0|x)=\frac{1}{1+exp(wx+b)}<br>$$</p>
-<p>其中：<br>$x \in R^n$ ：输入</p>
-<p>$Y \in (0,1)$ ：输出</p>
-<p>给定$x$，可以求得$P(Y=1|x)$和$P(Y=0|x)$</p>
-<h4 id="逻辑斯蒂回归模型的特点"><a href="#逻辑斯蒂回归模型的特点" class="headerlink" title="逻辑斯蒂回归模型的特点"></a>逻辑斯蒂回归模型的特点</h4><p>几率（odds）= 该事件发生的概率/该事件不该发生的概率，则对数几率：</p>
-<p>$$<br>log(odds)=log(\frac{p}{1-p})=log(\frac{P(Y=1|x)}{1-P(Y=1|x)})=wx<br>$$</p>
-<p>则：输出Y=1的对数几率=输入x的线性函数</p>
-<h1 id="模型参数估计"><a href="#模型参数估计" class="headerlink" title="模型参数估计"></a>模型参数估计</h1><p>输入： 一堆（x,y）</p>
-<p>目标：估计参数w,b</p>
-<p>方法：极大似然法</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png" alt=""> </p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>逻辑回归是一种预测y的各类别的概率的模型，即计算P(Y=1|x)或者P(Y=0|x)</li>
-<li>与机器学习过程类似，即 通过已知的大量（x,y），预测参数w,b，来计算后来输入的x对应的类别y</li>
+		<p>动手前先动脑，这句话献给自己。</p>
+<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>从出租车行驶数据中，筛选出OD点。</p>
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">名称：2012年11月1日 北京市出租车GPS数据</div><div class="line"></div><div class="line">格式：txt文本文件</div><div class="line"></div><div class="line">数据项及顺序：车辆标识,触发事件,运营状态,GPS时间,GPS经度,GPS纬度,GPS速度,GPS方向,GPS状态</div><div class="line">车辆标识：6个字符</div><div class="line">触发事件：0=变空车，1=变载客，2=设防，3=撤防，4=其它</div><div class="line">运营状态：0=空车，1=载客，2=驻车，3=停运，4=其它</div><div class="line">GPS时间</div><div class="line">GPS经度</div><div class="line">GPS纬度</div><div class="line">GPS速度：取值000-255内整数，以公里/小时为单位</div><div class="line">GPS方位：取值000-360内整数，以度为单位</div><div class="line">GPS状态：0=无效，1=有效</div><div class="line">结束串：回车符+换行符</div><div class="line"></div><div class="line">数据示例:</div><div class="line">123456,0,0,20110414160613,116.4078674,40.2220650,21,274,1</div></pre></td></tr></table></figure>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>将数据点按照“车牌号、运营时间、运营状态”依次从小到大排序</li>
+<li>筛出同一车牌号的运营状态变化的时刻的数据</li>
 </ol>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ul>
+<li><p>方法一：导入数据库，再写脚本操作数据。可能是我对数据库实在没缘分，这个方法没有成功。</p>
+</li>
+<li><p>方法二：将车牌号分段后，在每段上进行如上思路所示的操作。</p>
+</li>
+</ul>
+<p>为了更好地分段，我们先对车牌号段进行分析。</p>
+<h3 id="车牌号段分析"><a href="#车牌号段分析" class="headerlink" title="车牌号段分析"></a>车牌号段分析</h3><p>查询车的数目：12409个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT COUNT(DISTINCT id) FROM SET1</div></pre></td></tr></table></figure>
+<p>脚本名：data1IDcount.py</p>
+<p>地址：81服务器上，D:\jiayi\wxt</p>
+<p>听说数据集有三千多万，所以我决定每一千个数据取一条进行粗略分析。</p>
+<p>车牌号分布：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-01-15-01-24.png" alt=""> </p>
+<p>结果：</p>
+<ol>
+<li>车牌号分布在1-800000之间</li>
+<li>100000-200000的车最多</li>
+<li>一共有32885600条数据</li>
+</ol>
+<h3 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h3><p>脚本名：data2cut.py</p>
+<p>分段法：将车牌号分为10段，其中100000-200000为三段，其余段均分。 <del>简单起见，还是将车牌号均分为十段了(ERROR:Errcode: 28 - No space left on device))</del></p>
+<p>还是采用了数据库。是福不是祸，是祸躲不过呀。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-01-19-49-25.png" alt=""> </p>
+<h3 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">for i = 0:10000:800000</div><div class="line">    # 为本区间数据建立新表，并插入数据</div><div class="line">    CREATE TABLE to this range</div><div class="line">    INSERT data </div><div class="line">    #将本区间数据排序</div><div class="line">    ORDER BY id,timen,opevent</div><div class="line">    #遍历，筛出本段的OD点</div><div class="line">    for line in this range table</div><div class="line">    </div><div class="line">        #如果本条数据是跳跃点，则插入到OD表中</div><div class="line">        #vehicle:上一条数据的车牌号</div><div class="line">        #pre:上一条数据的opevent</div><div class="line">        </div><div class="line">        #第一条数据</div><div class="line">        if vehicle==&quot;&quot;:</div><div class="line">            vehicle = row[0]</div><div class="line">            pre=row[2]</div><div class="line">        else:#从第二条记录开始</div><div class="line">            # 如果与上一条是一个车</div><div class="line">            if vehicle==row[0]:</div><div class="line">                #如果与上一条记录是同一个车，且event有变化</div><div class="line">                if pre!=row[2]:</div><div class="line">                    INSERT to OD_table</div><div class="line">                    pre=row[2]</div><div class="line">                    vehicle=row[0]</div><div class="line">                else:</div><div class="line">                    continue</div><div class="line">            #如果与上一条不是同一个车</div><div class="line">            else:</div><div class="line">                vehicle=row[0]</div><div class="line">                pre=row[2]</div></pre></td></tr></table></figure>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p>原始数据：data.set1，32885600个</p>
+<p>OD点：data.set1_od ,645271个</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -164,7 +151,7 @@ $r&amp;gt;0$为形状参数
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/算法/">算法</a>
+  <span></span> <a href="/tags/数据预处理/">数据预处理</a>
   </div>
 
 </div>
@@ -173,7 +160,7 @@ $r&amp;gt;0$为形状参数
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/child/2017/03/02/逻辑回归（Logistic-regression）/" data-title="逻辑回归（Logistic regression） | jiayi797的专栏" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/child/2017/03/02/从出租车行驶数据筛选出OD点数据/" data-title="从出租车行驶数据筛选出OD点数据 | jiayi797的专栏" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -187,18 +174,18 @@ $r&amp;gt;0$为形状参数
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/03/03/SVM（一） 线性可分/" title="">
+ <a href="/2017/03/02/SQL游标/" title="SQL游标">
   <strong>上一篇：</strong><br/>
   <span>
-  (no title)</span>
+  SQL游标</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/03/02/SQL游标/"  title="SQL游标">
+<a href="/2017/02/28/PLA/"  title="PLA">
  <strong>下一篇：</strong><br/> 
- <span>SQL游标
+ <span>PLA
 </span>
 </a>
 </div>
@@ -207,7 +194,7 @@ $r&amp;gt;0$为形状参数
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/03/02/逻辑回归（Logistic-regression）/" data-title="逻辑回归（Logistic regression）" data-url="http://yoursite.com/child/2017/03/02/逻辑回归（Logistic-regression）/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/02/从出租车行驶数据筛选出OD点数据/" data-title="从出租车行驶数据筛选出OD点数据" data-url="http://yoursite.com/child/2017/03/02/从出租车行驶数据筛选出OD点数据/"></div>
 </section>
 
 
@@ -217,7 +204,7 @@ $r&amp;gt;0$为形状参数
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归模型"><span class="toc-number">1.</span> <span class="toc-text">逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑回归分布"><span class="toc-number">1.0.1.</span> <span class="toc-text">逻辑回归分布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分布密度函数与分布函数"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">分布密度函数与分布函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二项逻辑回归模型"><span class="toc-number">1.0.2.</span> <span class="toc-text">二项逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：估计某个值的为哪一类的概率"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">用途：估计某个值的为哪一类的概率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型的特点"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">逻辑斯蒂回归模型的特点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模型参数估计"><span class="toc-number">2.</span> <span class="toc-text">模型参数估计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目标"><span class="toc-number">1.</span> <span class="toc-text">目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据集"><span class="toc-number">2.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">3.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">4.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#车牌号段分析"><span class="toc-number">4.1.</span> <span class="toc-text">车牌号段分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分段"><span class="toc-number">4.2.</span> <span class="toc-text">分段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#伪代码"><span class="toc-number">4.3.</span> <span class="toc-text">伪代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结果"><span class="toc-number">4.4.</span> <span class="toc-text">结果</span></a></li></ol></li></ol>
  
   </div>
 
