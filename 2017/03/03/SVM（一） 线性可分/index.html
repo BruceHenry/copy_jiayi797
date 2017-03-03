@@ -4,44 +4,41 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>jiayi797的专栏</title>
+    <title>SVM（一） 线性可分 | jiayi797的专栏</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="jiayi797">
     
 
     
-    <meta name="description" content="title: SVM（一） 线性可分date: 2017-03-03 11:05:48tags:
-- 算法
-
-SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
+    <meta name="description" content="SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
 线性可分SVM与（硬）间隔最大化1 线性可分SVM概念复习 参考文献输入空间：输入所有可能的取值的集合
 特征向量：每个具体的输入
-特征空间：所有特征向量存在的空间。特征空间可以是输入空">
+特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。
+输出空间：输出所有可能的取值的集合
+线性可分SVM学习目标在特">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jiayi797的专栏">
+<meta property="og:title" content="SVM（一） 线性可分">
 <meta property="og:url" content="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="title: SVM（一） 线性可分date: 2017-03-03 11:05:48tags:
-- 算法
-
-SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
+<meta property="og:description" content="SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
 线性可分SVM与（硬）间隔最大化1 线性可分SVM概念复习 参考文献输入空间：输入所有可能的取值的集合
 特征向量：每个具体的输入
-特征空间：所有特征向量存在的空间。特征空间可以是输入空">
+特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。
+输出空间：输出所有可能的取值的集合
+线性可分SVM学习目标在特">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-14-56-13.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-15-06-02.png">
-<meta property="og:updated_time" content="2017-03-03T07:17:56.985Z">
+<meta property="og:updated_time" content="2017-03-03T07:46:24.052Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jiayi797的专栏">
-<meta name="twitter:description" content="title: SVM（一） 线性可分date: 2017-03-03 11:05:48tags:
-- 算法
-
-SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
+<meta name="twitter:title" content="SVM（一） 线性可分">
+<meta name="twitter:description" content="SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
 线性可分SVM与（硬）间隔最大化1 线性可分SVM概念复习 参考文献输入空间：输入所有可能的取值的集合
 特征向量：每个具体的输入
-特征空间：所有特征向量存在的空间。特征空间可以是输入空">
+特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。
+输出空间：输出所有可能的取值的集合
+线性可分SVM学习目标在特">
 <meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png">
 
     
@@ -104,14 +101,14 @@ SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/03/SVM（一） 线性可分/" title="" itemprop="url"></a>
+      <a href="/2017/03/03/SVM（一） 线性可分/" title="SVM（一） 线性可分" itemprop="url">SVM（一） 线性可分</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
 		
   <p class="article-time">
-    <time datetime="2017-03-03T03:05:48.767Z" itemprop="datePublished"> 发表于 2017-03-03</time>
+    <time datetime="2017-03-03T03:05:48.000Z" itemprop="datePublished"> 发表于 2017-03-03</time>
     
   </p>
 </header>
@@ -124,13 +121,7 @@ SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
 		
 		</div>
 		
-		<meta http-equiv="refresh" content="5">
-
-<hr>
-<p>title: SVM（一） 线性可分<br>date: 2017-03-03 11:05:48<br>tags:</p>
-<pre><code>- 算法
-</code></pre><hr>
-<h1 id="SVM简介"><a href="#SVM简介" class="headerlink" title="SVM简介"></a>SVM简介</h1><p>SVM - Support Vector Machines, 支持向量机。是二分类模型。</p>
+		<h1 id="SVM简介"><a href="#SVM简介" class="headerlink" title="SVM简介"></a>SVM简介</h1><p>SVM - Support Vector Machines, 支持向量机。是二分类模型。</p>
 <h1 id="线性可分SVM与（硬）间隔最大化"><a href="#线性可分SVM与（硬）间隔最大化" class="headerlink" title="线性可分SVM与（硬）间隔最大化"></a>线性可分SVM与（硬）间隔最大化</h1><h4 id="1-线性可分SVM"><a href="#1-线性可分SVM" class="headerlink" title="1 线性可分SVM"></a>1 线性可分SVM</h4><h5 id="概念复习-参考文献"><a href="#概念复习-参考文献" class="headerlink" title="概念复习 参考文献"></a>概念复习 <a href="http://blog.csdn.net/kaka19880812/article/details/46419269" target="_blank" rel="external">参考文献</a></h5><p><em>输入空间</em>：输入所有可能的取值的集合</p>
 <p><em>特征向量</em>：每个具体的输入</p>
 <p><em>特征空间</em>：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。</p>
@@ -161,13 +152,18 @@ SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
 <div class="article-catetags">
 
 
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/算法/">算法</a>
+  </div>
+
 </div>
 
 
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/" data-title="jiayi797的专栏" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/" data-title="SVM（一） 线性可分 | jiayi797的专栏" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -193,7 +189,7 @@ SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/03/03/SVM（一） 线性可分/" data-title="" data-url="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/03/SVM（一） 线性可分/" data-title="SVM（一） 线性可分" data-url="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/"></div>
 </section>
 
 
@@ -229,7 +225,11 @@ SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/算法/" title="算法">算法<sup>2</sup></a></li>
+				<li><a href="/tags/算法/" title="算法">算法<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 			
@@ -238,10 +238,6 @@ SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
 		
 			
 				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 		</ul>
