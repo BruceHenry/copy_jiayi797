@@ -80,20 +80,36 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/04/BootStrapping/" title="BootStrapping" itemprop="url">BootStrapping</a>
+      <a href="/2017/03/04/机器学习简介/" title="机器学习简介" itemprop="url">机器学习简介</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
 		
   <p class="article-time">
-    <time datetime="2017-03-04T09:31:52.000Z" itemprop="datePublished"> 发表于 2017-03-04</time>
+    <time datetime="2017-03-04T10:50:37.000Z" itemprop="datePublished"> 发表于 2017-03-04</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h1 id="Boot-strapping-简介"><a href="#Boot-strapping-简介" class="headerlink" title="Boot strapping 简介"></a>Boot strapping 简介</h1><p>Boot strapping，拔靴法：利用有限的样本资料经由<strong>多次重复抽样</strong>，重新建立起足以代表母体样本分布之新样本。</p>
+        <p>很多东西看了就忘。一定要好好做笔记。</p>
+<p>本节主要记录《机器学习基石》的常见符号。</p>
+<h1 id="基础符号"><a href="#基础符号" class="headerlink" title="基础符号"></a>基础符号</h1><p>输入： $ x \in X $<br>输出： $y \in Y $<br>目标函数： $f:X\rightarrow Y $ （理想中的，实际得不到）<br>假设函数：$g:X\rightarrow Y $ ，又称为<code>hypothesis</code>（学习到的g，希望跟f越像越好）<br>$g \in H $<br>假设函数集合：$H = \{h_k\} $ <code>hypothesis set</code><br>训练集：$D=\{(x_1,y_1),…,(x_N,y_N)\}$<br>机器学习演算法：$A$</p>
+<h1 id="机器学习流程"><a href="#机器学习流程" class="headerlink" title="机器学习流程"></a>机器学习流程</h1><ul>
+<li>从数据集D出发</li>
+<li>通过演算法A，来计算出一个g，使得g很接近f<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-09-29.png" alt=""> </li>
+</ul>
+<h1 id="误差E"><a href="#误差E" class="headerlink" title="误差E"></a>误差E</h1><p>输入误差：</p>
+<ul>
+<li>$E<em>{in}(h)=\frac{1}{N} \sum</em>{n=1}^N(h(x_n)-y_n)^2$</li>
+<li>样本（训练集）中出现的错误率</li>
+</ul>
+<p>输出误差：</p>
+<ul>
+<li>$E<em>{out}=\mathcal{E}</em>{(x,y)\text~P}(w^Tx-y)^2$</li>
+<li>总体（测试集+训练集）中出现的错误率</li>
+</ul>
 
         
         
@@ -118,7 +134,115 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="/2017/03/04/BootStrapping/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/04/BootStrapping/" data-count-type="comments">&nbsp;</a>
+		<a href="/2017/03/04/机器学习简介/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/04/机器学习简介/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/04/Bootstrap Aggregation/" title="自适应提升 Bootstrap Aggregation" itemprop="url">自适应提升 Bootstrap Aggregation</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-04T09:31:52.000Z" itemprop="datePublished"> 发表于 2017-03-04</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>[TOC]</p>
+<p>备注：本节是《机器学习技法》第8章笔记</p>
+<p>自适应提升 思路总结：</p>
+<ul>
+<li>一般，数据量过少时，我们无法得到更好的g.</li>
+<li>因此我们采取BootStrapping方法，生成多个数据集，得到多个g</li>
+<li>最后合成最好的g</li>
+</ul>
+<h1 id="Boot-strapping"><a href="#Boot-strapping" class="headerlink" title="Boot strapping"></a>Boot strapping</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>Boot strapping，拔靴法：利用有限的样本资料经由<strong>多次重复抽样</strong>，重新建立起足以代表母体样本分布之新样本。</p>
+<p>多次之后，得到一个非线性的结果（黑色线）<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-17-37-57.png" alt=""> </p>
+<h2 id="基本算法引入权重"><a href="#基本算法引入权重" class="headerlink" title="基本算法引入权重"></a>基本算法引入权重</h2><p>已知：一笔数据$D=\{(x_1,y_1),(x_2,y_2),(x_3,y_3),(x_4,y_4)\}$<br>根据<code>D</code>算出来的输入误差Ein为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-29-41.png" alt=""> </p>
+<p>通过Boot strapping，得到新的一笔数据$D_t=\{(x_1,y_1),(x_1,y_1),(x_2,y_2),(x_4,y_4)\}$<br>对应地，根据<code>Dt</code>算出来的Ein为：<br>（增加一个权重u即可）<br><code>u1=2,u2=1,u3=0,u4=1</code><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-31-04.png" alt=""> </p>
+<p><strong>结论：每一个bootstrapping得到了一个权重<code>u</code></strong></p>
+<h1 id="优化权重u"><a href="#优化权重u" class="headerlink" title="优化权重u"></a>优化权重<code>u</code></h1><h2 id="优化原理"><a href="#优化原理" class="headerlink" title="优化原理"></a>优化原理</h2><ul>
+<li>每一个bootstrapping得到了一个权重`u。</li>
+<li>为了综合得到更好的g,则需要抽取的数据集得到的g尽量地不同。</li>
+<li>改变<code>u</code>，使得<code>g</code>差异更大，才会更好地改进最终结果</li>
+</ul>
+<p>得到g差异很大的方法：</p>
+<ul>
+<li>第一轮$u_n^t$时，得到$g_t$<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-39-48.png" alt=""> </li>
+<li>第二轮，选择一个在$g_t$表现不好的$u<em>n^{t+1}$，得到$g</em>{t+1}$<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-41-02.png" alt=""><br>– 表现不好的定义：<br>— 将$u_n^{t+1}$作用在$g_t$上，得到一个归一化的错误率<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-45-01.png" alt=""><br>— 为了简便，定义橙色方块为所有犯错误的$u_n^{t+1}$的累加，绿色圆形为所有正确的$u_n^{t+1}$累加<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-47-12.png" alt=""><br>– 表现不好的选择方法：<br>— 将本次正确的$u_n^t$，除以一个错误的比例（缩小正确），赋给$u_n^{t+1}$<br>— 将本次错误的$u_n^t$，乘以一个正确的比例（放大错误），赋给$u_n^{t+1}$<br>— 这样得到的$u_n^{t+1}$的比率就会为2/1<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-51-21.png" alt=""> </li>
+</ul>
+<h2 id="优化权重u的方法————放缩因子"><a href="#优化权重u的方法————放缩因子" class="headerlink" title="优化权重u的方法————放缩因子"></a>优化权重<code>u</code>的方法————放缩因子</h2><p>放缩因子-Adaptive Boosting Algorithm<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-02-12.png" alt=""> </p>
+<ul>
+<li>◆t有更清晰的物理意义，通常情况下εt &lt; 1/2（因为是学习之后的结果，错误率应该小于0.5），</li>
+<li>◆t将大于1；</li>
+<li>那么，犯错的数据将乘上大于1的数，正确数据将除以大于1的数</li>
+<li>使得提升了犯错数据的权重(scale up incorrect)，</li>
+<li>降低做对数据的权重(scale down correct)</li>
+<li>这样使得更加专注在犯了错的地方，来得到不一样的假设(diverse hypotheses)。</li>
+</ul>
+<h1 id="Linear-Aggregation（聚集）-合成最终的g"><a href="#Linear-Aggregation（聚集）-合成最终的g" class="headerlink" title="Linear Aggregation（聚集） - 合成最终的g"></a>Linear Aggregation（聚集） - 合成最终的g</h1><p>目标：合成最终的的$G(x)=sign(\sum_{t=1}^T\alpha_t g_t(x)$</p>
+<ul>
+<li>其中 $\alpha_t$是系数</li>
+<li>要求好的$g_t$（错误率低），$\alpha_t$应该大一些</li>
+<li>坏的$g_t$（错误率高），$\alpha_t$应该小一些</li>
+<li>而◆t与错误率成反比</li>
+<li>则可令$\alpha_t=ln(\text{◆t})$</li>
+</ul>
+<p>算法流程：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-21-25.png" alt=""> </p>
+<p>这里之所以认为αt = ln(◆t)，处于下面的考虑：<br>如果εt = 1/2， 那么◆t = 1，则αt = 0，意思是随机乱猜的情况下（二元分类错误率为0.5），认为是坏的g，则一票不给个，不使用该g<br>如果εt = 0， 那么◆t = ∞，则αt = ∞，意思是正确率为0的情况，给它无限多票数</p>
+<h1 id="AdaBoost-自适应优化算法总结"><a href="#AdaBoost-自适应优化算法总结" class="headerlink" title="AdaBoost 自适应优化算法总结"></a>AdaBoost 自适应优化算法总结</h1><p>自适应优化算法 = 简单的学习A + 放缩权重 + 合成得到g<br>即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-25-49.png" alt=""> </p>
+<p>AdaBoost算法完整流程<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-26-16.png" alt=""> </p>
+<h1 id="AdaBoost理论特性"><a href="#AdaBoost理论特性" class="headerlink" title="AdaBoost理论特性"></a>AdaBoost理论特性</h1><p>通过之前的VC Bound，来约束测试误差，其中蓝色的部分是模型的复杂度，O(dvc(H))为g的模型复杂度，而O(dvc(H))·T·logT是模型G的复杂度。原作者证明说，可以用O(logN)次迭代可以将Ein(G)做到很小，并且当数据量N足够多的情况下，又可以使得模型复杂度变得很小，从而使得模型复杂度得到控制。最终预测效果Eout也会很好。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-27-24.png" alt=""><br>AdaBoost的保证是让一个很弱的算法不断变强，最终得到一个很强是算法（Ein=0，Eout is small）。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-27-48.png" alt=""> </p>
+<h1 id="Adaptive-Boosting的实际应用表现"><a href="#Adaptive-Boosting的实际应用表现" class="headerlink" title="Adaptive Boosting的实际应用表现"></a>Adaptive Boosting的实际应用表现</h1><p>上面的AdaBoost只需要一个很弱的算法就可以使用。<br>一般情况下，可以使用决策桩(Decision Stump)，该模型相当于在某一个维度上的Perceptron模型。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-28-27.png" alt=""> </p>
+<p>参考文献</p>
+<ol>
+<li>《机器学习技法》，林轩田</li>
+<li><a href="http://blog.csdn.net/JasonDing1354/article/details/46462711" target="_blank" rel="external">Jason Ding，【机器学习基础】自适应提升</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/机器学习/">机器学习</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/04/Bootstrap Aggregation/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/04/Bootstrap Aggregation/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
@@ -851,7 +975,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>3</sup></a></li>
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
 			
 		
 			
@@ -859,11 +983,11 @@
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
 			
 		
 			

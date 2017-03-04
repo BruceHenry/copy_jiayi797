@@ -4,47 +4,31 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>布置完毕 | jiayi797的专栏</title>
+    <title>机器学习简介 | jiayi797的专栏</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="jiayi797">
     
 
     
-    <meta name="description" content="可算是把博客布置得差不多了。还有很多功能待完善，先记下来，日后再说。
-1.RSS订阅功能
-2.新浪微博圈
-3.搜索功能
-4.评论功能
-5.访问量统计
-6.数学公式支持。已解决。参考文献，程数的博客
-7.图片一键上传到图床，已解决。参考文献MarkdownPicPicker-master
-8.sublime text编辑md。WEB实时刷新。sublime实时保存~并实时预览-MarkdownLiv">
+    <meta name="description" content="很多东西看了就忘。一定要好好做笔记。
+本节主要记录《机器学习基石》的常见符号。
+基础符号输入： $ x \in X $输出： $y \in Y $目标函数： $f:X\rightarrow Y $ （理想中的，实际得不到）假设函数：$g:X\rightarrow Y $ ，又称为hypothesis（学习到的g，希望跟f越像越好）$g \in H $假设函数集合：$H = \{h_k\} $ hy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="布置完毕">
-<meta property="og:url" content="http://yoursite.com/child/2017/02/28/t/index.html">
+<meta property="og:title" content="机器学习简介">
+<meta property="og:url" content="http://yoursite.com/child/2017/03/04/机器学习简介/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="可算是把博客布置得差不多了。还有很多功能待完善，先记下来，日后再说。
-1.RSS订阅功能
-2.新浪微博圈
-3.搜索功能
-4.评论功能
-5.访问量统计
-6.数学公式支持。已解决。参考文献，程数的博客
-7.图片一键上传到图床，已解决。参考文献MarkdownPicPicker-master
-8.sublime text编辑md。WEB实时刷新。sublime实时保存~并实时预览-MarkdownLiv">
-<meta property="og:updated_time" content="2017-03-03T05:24:36.599Z">
+<meta property="og:description" content="很多东西看了就忘。一定要好好做笔记。
+本节主要记录《机器学习基石》的常见符号。
+基础符号输入： $ x \in X $输出： $y \in Y $目标函数： $f:X\rightarrow Y $ （理想中的，实际得不到）假设函数：$g:X\rightarrow Y $ ，又称为hypothesis（学习到的g，希望跟f越像越好）$g \in H $假设函数集合：$H = \{h_k\} $ hy">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-09-29.png">
+<meta property="og:updated_time" content="2017-03-04T11:25:16.996Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="布置完毕">
-<meta name="twitter:description" content="可算是把博客布置得差不多了。还有很多功能待完善，先记下来，日后再说。
-1.RSS订阅功能
-2.新浪微博圈
-3.搜索功能
-4.评论功能
-5.访问量统计
-6.数学公式支持。已解决。参考文献，程数的博客
-7.图片一键上传到图床，已解决。参考文献MarkdownPicPicker-master
-8.sublime text编辑md。WEB实时刷新。sublime实时保存~并实时预览-MarkdownLiv">
+<meta name="twitter:title" content="机器学习简介">
+<meta name="twitter:description" content="很多东西看了就忘。一定要好好做笔记。
+本节主要记录《机器学习基石》的常见符号。
+基础符号输入： $ x \in X $输出： $y \in Y $目标函数： $f:X\rightarrow Y $ （理想中的，实际得不到）假设函数：$g:X\rightarrow Y $ ，又称为hypothesis（学习到的g，希望跟f越像越好）$g \in H $假设函数集合：$H = \{h_k\} $ hy">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-09-29.png">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -106,14 +90,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/28/t/" title="布置完毕" itemprop="url">布置完毕</a>
+      <a href="/2017/03/04/机器学习简介/" title="机器学习简介" itemprop="url">机器学习简介</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
 		
   <p class="article-time">
-    <time datetime="2017-02-28T12:19:10.000Z" itemprop="datePublished"> 发表于 2017-02-28</time>
+    <time datetime="2017-03-04T10:50:37.000Z" itemprop="datePublished"> 发表于 2017-03-04</time>
     
   </p>
 </header>
@@ -122,19 +106,27 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基础符号"><span class="toc-number">1.</span> <span class="toc-text">基础符号</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习流程"><span class="toc-number">2.</span> <span class="toc-text">机器学习流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#误差E"><span class="toc-number">3.</span> <span class="toc-text">误差E</span></a></li></ol>
 		
 		</div>
 		
-		<p>可算是把博客布置得差不多了。还有很多功能待完善，先记下来，日后再说。</p>
-<p>1.RSS订阅功能</p>
-<p>2.新浪微博圈</p>
-<p>3.搜索功能</p>
-<p>4.评论功能</p>
-<p>5.访问量统计</p>
-<p>6.数学公式支持。已解决。<a href="https://weylmann.github.io/2017/02/21/%E7%94%A8github-hexo-mathjax-%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" target="_blank" rel="external">参考文献，程数的博客</a></p>
-<p>7.图片一键上传到图床，已解决。<a href="https://github.com/kingname/MarkdownPicPicker" target="_blank" rel="external">参考文献MarkdownPicPicker-master</a></p>
-<p>8.sublime text<a href="http://jingyan.baidu.com/article/f006222838bac2fbd2f0c87d.html" target="_blank" rel="external">编辑md</a>。<a href="http://www.cnblogs.com/Richard-Core/p/Sublime-MarkDown.html" target="_blank" rel="external">WEB实时刷新</a>。<a href="https://packagecontrol.io/packages/auto-save" target="_blank" rel="external">sublime实时保存</a><br><del>~并<a href="https://packagecontrol.io/packages/MarkdownLivePreview" target="_blank" rel="external">实时预览-MarkdownLivePreview</a>。<a href="http://www.jianshu.com/p/62241c7ecec9" target="_blank" rel="external">参考文献</a></del>~</p>
+		<p>很多东西看了就忘。一定要好好做笔记。</p>
+<p>本节主要记录《机器学习基石》的常见符号。</p>
+<h1 id="基础符号"><a href="#基础符号" class="headerlink" title="基础符号"></a>基础符号</h1><p>输入： $ x \in X $<br>输出： $y \in Y $<br>目标函数： $f:X\rightarrow Y $ （理想中的，实际得不到）<br>假设函数：$g:X\rightarrow Y $ ，又称为<code>hypothesis</code>（学习到的g，希望跟f越像越好）<br>$g \in H $<br>假设函数集合：$H = \{h_k\} $ <code>hypothesis set</code><br>训练集：$D=\{(x_1,y_1),…,(x_N,y_N)\}$<br>机器学习演算法：$A$</p>
+<h1 id="机器学习流程"><a href="#机器学习流程" class="headerlink" title="机器学习流程"></a>机器学习流程</h1><ul>
+<li>从数据集D出发</li>
+<li>通过演算法A，来计算出一个g，使得g很接近f<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-09-29.png" alt=""> </li>
+</ul>
+<h1 id="误差E"><a href="#误差E" class="headerlink" title="误差E"></a>误差E</h1><p>输入误差：</p>
+<ul>
+<li>$E<em>{in}(h)=\frac{1}{N} \sum</em>{n=1}^N(h(x_n)-y_n)^2$</li>
+<li>样本（训练集）中出现的错误率</li>
+</ul>
+<p>输出误差：</p>
+<ul>
+<li>$E<em>{out}=\mathcal{E}</em>{(x,y)\text~P}(w^Tx-y)^2$</li>
+<li>总体（测试集+训练集）中出现的错误率</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -143,7 +135,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/测试/">测试</a>
+  <span></span> <a href="/tags/机器学习/">机器学习</a>
   </div>
 
 </div>
@@ -152,7 +144,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/child/2017/02/28/t/" data-title="布置完毕 | jiayi797的专栏" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/child/2017/03/04/机器学习简介/" data-title="机器学习简介 | jiayi797的专栏" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -165,19 +157,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/02/28/PLA/" title="PLA">
-  <strong>上一篇：</strong><br/>
-  <span>
-  PLA</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/02/28/hello-world/"  title="Hello World">
+<a href="/2017/03/04/Bootstrap Aggregation/"  title="自适应提升 Bootstrap Aggregation">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>自适应提升 Bootstrap Aggregation
 </span>
 </a>
 </div>
@@ -186,7 +170,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/02/28/t/" data-title="布置完毕" data-url="http://yoursite.com/child/2017/02/28/t/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/04/机器学习简介/" data-title="机器学习简介" data-url="http://yoursite.com/child/2017/03/04/机器学习简介/"></div>
 </section>
 
 
@@ -196,7 +180,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基础符号"><span class="toc-number">1.</span> <span class="toc-text">基础符号</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习流程"><span class="toc-number">2.</span> <span class="toc-text">机器学习流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#误差E"><span class="toc-number">3.</span> <span class="toc-text">误差E</span></a></li></ol>
  
   </div>
 
