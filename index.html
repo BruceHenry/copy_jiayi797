@@ -80,6 +80,64 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/03/04/BootStrapping/" title="BootStrapping" itemprop="url">BootStrapping</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-04T09:31:52.000Z" itemprop="datePublished"> 发表于 2017-03-04</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="Boot-strapping-简介"><a href="#Boot-strapping-简介" class="headerlink" title="Boot strapping 简介"></a>Boot strapping 简介</h1><p>Boot strapping，拔靴法：利用有限的样本资料经由<strong>多次重复抽样</strong>，重新建立起足以代表母体样本分布之新样本。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/机器学习/">机器学习</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/04/BootStrapping/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/04/BootStrapping/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/03/03/AUC笔记/" title="ROC和AUC" itemprop="url">ROC和AUC</a>
   </h1>
   <p class="article-author">By
@@ -198,30 +256,64 @@
     <div class="article-content">
         
         <h1 id="SVM简介"><a href="#SVM简介" class="headerlink" title="SVM简介"></a>SVM简介</h1><p>SVM - Support Vector Machines, 支持向量机。是二分类模型。</p>
-<h1 id="线性可分SVM与（硬）间隔最大化"><a href="#线性可分SVM与（硬）间隔最大化" class="headerlink" title="线性可分SVM与（硬）间隔最大化"></a>线性可分SVM与（硬）间隔最大化</h1><h4 id="1-线性可分SVM"><a href="#1-线性可分SVM" class="headerlink" title="1 线性可分SVM"></a>1 线性可分SVM</h4><h5 id="概念复习-参考文献"><a href="#概念复习-参考文献" class="headerlink" title="概念复习 参考文献"></a>概念复习 <a href="http://blog.csdn.net/kaka19880812/article/details/46419269" target="_blank" rel="external">参考文献</a></h5><p><em>输入空间</em>：输入所有可能的取值的集合</p>
+<p>#线性可分SVM</p>
+<h5 id="概念复习-参考文献"><a href="#概念复习-参考文献" class="headerlink" title="概念复习 参考文献"></a>概念复习 <a href="http://blog.csdn.net/kaka19880812/article/details/46419269" target="_blank" rel="external">参考文献</a></h5><p><em>输入空间</em>：输入所有可能的取值的集合</p>
 <p><em>特征向量</em>：每个具体的输入</p>
 <p><em>特征空间</em>：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。</p>
 <p><em>输出空间</em>：输出所有可能的取值的集合</p>
 <h5 id="线性可分SVM学习目标"><a href="#线性可分SVM学习目标" class="headerlink" title="线性可分SVM学习目标"></a>线性可分SVM学习目标</h5><p>在特征空间找到一个分离超平面 <code>wx+b=0</code> </p>
 <h5 id="SVM与PLA区别"><a href="#SVM与PLA区别" class="headerlink" title="SVM与PLA区别"></a>SVM与PLA区别</h5><p>PLA:误分类最小策略，求得分离超平面。解不唯一。<br>线性可分SVM:间隔最大化，求得分离超平面。解唯一。</p>
-<h4 id="2-函数间隔和几何间隔"><a href="#2-函数间隔和几何间隔" class="headerlink" title="2 函数间隔和几何间隔"></a>2 函数间隔和几何间隔</h4><h5 id="函数间隔的概念"><a href="#函数间隔的概念" class="headerlink" title="函数间隔的概念"></a>函数间隔的概念</h5><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png" alt=""> </p>
+<h5 id="函数间隔和几何间隔"><a href="#函数间隔和几何间隔" class="headerlink" title="函数间隔和几何间隔"></a>函数间隔和几何间隔</h5><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png" alt=""> </p>
 <ul>
-<li>一个点距离分离超平面的远近<code>|wx+b|</code> 是 分类预测的确信程度。例如将A分为0的确信度很高，而将C分为0的确信度较低</li>
+<li>一个点距离分离超平面的远近<code>|wx+b|</code> 是 分类预测的<strong>确信程度</strong>。例如将A分为0的确信度很高，而将C分为0的确信度较低</li>
 <li><code>wx+b</code>与<code>y</code>的符号一致，则分类正确</li>
 <li><strong>函数间隔</strong>：<code>y(wx+b)</code>，表示分类的正确性及确信度</li>
 <li><strong>超平面的函数间隔*</strong>：<code>min{y(wx+b)}</code></li>
 <li><strong>几何间隔</strong>：规范化<code>||w||=1</code>，即为$y(\frac{w}{||w||}\cdot x + \frac{b}{||w||})$，使得间隔固定。（因为w和b成比例增加时，超平面不会改变，但函数间隔会变大）</li>
 </ul>
-<h4 id="3-SVM学习基本想法-间隔最大化"><a href="#3-SVM学习基本想法-间隔最大化" class="headerlink" title="3 SVM学习基本想法  间隔最大化"></a>3 SVM学习基本想法  间隔最大化</h4><h5 id="基本想法"><a href="#基本想法" class="headerlink" title="基本想法"></a>基本想法</h5><p>求解能够正确划分训练数据集，并且几何间隔最大的分离超平面</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-14-56-13.png" alt=""> </p>
+<p>#SVM基本算法</p>
+<h2 id="标准问题"><a href="#标准问题" class="headerlink" title="标准问题"></a>标准问题</h2><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-14-56-13.png" alt=""> </p>
+<h2 id="算法的推导"><a href="#算法的推导" class="headerlink" title="算法的推导"></a>算法的推导</h2><ul>
+<li>一开始的目标是：<br>– 目标：求得一个x，使得margin最大<br>– 条件：<br>— 每个点都被正确分类（<code>b</code>被塞入了<code>w</code>矩阵里）<br>— magin是最近的点的距离<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-22-00.png" alt=""> </li>
+</ul>
+<ul>
+<li><p>从距离的理解入手，如图所示<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-07-16.png" alt=""> </p>
+</li>
+<li><p><code>w</code>的理解<br>– 灰色是分割平面<br>– $x’$和$x’’$是平面上的两个点，则它俩满足$w^T X’ = -b$，$w^T x’’ = -b$<br>– 两式相减，得到 $w^T(x’’ - x’)=0$<br>– 则<strong><code>w</code>垂直于平面</strong>，即w是平面的法向量<br>– 那么dist是向量$x’ x’’$在<code>w</code>上的投影</p>
+</li>
+</ul>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-15-32.png" alt=""> </p>
+<ul>
+<li><p>而<code>y(wx+b)&gt;0</code>，则距离可以表示为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-18-42.png" alt=""> </p>
+</li>
+<li><p>因此，新的算法目标为<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-19-57.png" alt=""> </p>
+</li>
+<li><p>归一化条件：<code>margin=y(wx+b)=1</code>,得到新目标<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-29-24.png" alt=""> </p>
+</li>
+<li><p>对目标进行放缩，方便解<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-31-16.png" alt=""> </p>
+</li>
+<li><p>再将最大化变为最小化，也拿走||w||的根号<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-33-31.png" alt=""> </p>
+</li>
+</ul>
 <h5 id="支持向量"><a href="#支持向量" class="headerlink" title="支持向量"></a>支持向量</h5><ul>
-<li>在线性可分的情况下，训练数据集的样本点中与分离超平面距离最近的样本点的实例，叫做支持向量（support vector）</li>
+<li>在线性可分的情况下，训练数据集的样本点中与分离超平面距离最近的样本点的实例，叫做<strong>支持向量</strong>（support vector）</li>
 <li>支持向量是使得约束条件等号成立的点</li>
 <li>决定分离超平面时，只有支持向量起作用，而其他点不起作用</li>
 <li>在H1，H2上的点就是支撑向量（很少，但很重要的点）</li>
 </ul>
-<h5 id="间隔"><a href="#间隔" class="headerlink" title="间隔"></a>间隔</h5><p>H1，H2之间，$d=\frac{2}{||w||}$</p>
+<h5 id="间隔-margin"><a href="#间隔-margin" class="headerlink" title="间隔 margin"></a>间隔 margin</h5><p>H1，H2之间，$margin=\frac{2}{||w||}$</p>
 <h5 id="间隔边界"><a href="#间隔边界" class="headerlink" title="间隔边界"></a>间隔边界</h5><p>H1，H2<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-15-06-02.png" alt=""> </p>
+<h2 id="标准问题的求解"><a href="#标准问题的求解" class="headerlink" title="标准问题的求解"></a>标准问题的求解</h2><ul>
+<li>目标是二次的，条件是线性的</li>
+<li><p>则这是一个二次规划问题，有固定的解</p>
+</li>
+<li><p>我们的标准问题：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-03.png" alt=""> </p>
+</li>
+<li><p>标准二次规划问题：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-26.png" alt=""> </p>
+</li>
+<li><p>系数代入：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-47.png" alt=""> </p>
+</li>
+</ul>
 
         
         
@@ -235,7 +327,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/算法/">算法</a>
+  <span></span> <a href="/tags/机器学习/">机器学习</a>
   </div>
 
 </div>
@@ -581,7 +673,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/算法/">算法</a>
+  <span></span> <a href="/tags/机器学习/">机器学习</a>
   </div>
 
 </div>
@@ -759,11 +851,15 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/算法/" title="算法">算法<sup>3</sup></a></li>
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>3</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
 			
 		
 			
@@ -775,7 +871,7 @@
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
 			
 		
 		</ul>

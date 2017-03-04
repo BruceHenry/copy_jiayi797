@@ -4,44 +4,23 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>逻辑回归（Logistic regression） | jiayi797的专栏</title>
+    <title>BootStrapping | jiayi797的专栏</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="jiayi797">
     
 
     
-    <meta name="description" content="逻辑回归模型逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
-$$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$
-$$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$
-其中
-$u$为位置参数
-$r&amp;gt;0$为形状参数
-其中，密度函数与分布函数的形状如图所示">
+    <meta name="description" content="Boot strapping 简介Boot strapping，拔靴法：利用有限的样本资料经由多次重复抽样，重新建立起足以代表母体样本分布之新样本。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="逻辑回归（Logistic regression）">
-<meta property="og:url" content="http://yoursite.com/child/2017/03/02/逻辑回归（Logistic-regression）/index.html">
+<meta property="og:title" content="BootStrapping">
+<meta property="og:url" content="http://yoursite.com/child/2017/03/04/BootStrapping/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="逻辑回归模型逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
-$$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$
-$$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$
-其中
-$u$为位置参数
-$r&amp;gt;0$为形状参数
-其中，密度函数与分布函数的形状如图所示">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png">
-<meta property="og:updated_time" content="2017-03-02T15:37:33.097Z">
+<meta property="og:description" content="Boot strapping 简介Boot strapping，拔靴法：利用有限的样本资料经由多次重复抽样，重新建立起足以代表母体样本分布之新样本。">
+<meta property="og:updated_time" content="2017-03-04T09:33:55.864Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="逻辑回归（Logistic regression）">
-<meta name="twitter:description" content="逻辑回归模型逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
-$$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$
-$$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$
-其中
-$u$为位置参数
-$r&amp;gt;0$为形状参数
-其中，密度函数与分布函数的形状如图所示">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png">
+<meta name="twitter:title" content="BootStrapping">
+<meta name="twitter:description" content="Boot strapping 简介Boot strapping，拔靴法：利用有限的样本资料经由多次重复抽样，重新建立起足以代表母体样本分布之新样本。">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -103,14 +82,14 @@ $r&amp;gt;0$为形状参数
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/02/逻辑回归（Logistic-regression）/" title="逻辑回归（Logistic regression）" itemprop="url">逻辑回归（Logistic regression）</a>
+      <a href="/2017/03/04/BootStrapping/" title="BootStrapping" itemprop="url">BootStrapping</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
 		
   <p class="article-time">
-    <time datetime="2017-03-02T14:45:32.000Z" itemprop="datePublished"> 发表于 2017-03-02</time>
+    <time datetime="2017-03-04T09:31:52.000Z" itemprop="datePublished"> 发表于 2017-03-04</time>
     
   </p>
 </header>
@@ -119,43 +98,11 @@ $r&amp;gt;0$为形状参数
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归模型"><span class="toc-number">1.</span> <span class="toc-text">逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑回归分布"><span class="toc-number">1.0.1.</span> <span class="toc-text">逻辑回归分布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分布密度函数与分布函数"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">分布密度函数与分布函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二项逻辑回归模型"><span class="toc-number">1.0.2.</span> <span class="toc-text">二项逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：估计某个值的为哪一类的概率"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">用途：估计某个值的为哪一类的概率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型的特点"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">逻辑斯蒂回归模型的特点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模型参数估计"><span class="toc-number">2.</span> <span class="toc-text">模型参数估计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Boot-strapping-简介"><span class="toc-number">1.</span> <span class="toc-text">Boot strapping 简介</span></a></li></ol>
 		
 		</div>
 		
-		<h1 id="逻辑回归模型"><a href="#逻辑回归模型" class="headerlink" title="逻辑回归模型"></a>逻辑回归模型</h1><h3 id="逻辑回归分布"><a href="#逻辑回归分布" class="headerlink" title="逻辑回归分布"></a>逻辑回归分布</h3><p>连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：</p>
-<p>$$<br>F(x)=P(X&lt;=x)=\frac{1}{1+e^{-(x-u)/r}}<br>$$</p>
-<p>$$<br>f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}<br>$$</p>
-<p>其中</p>
-<p>$u$为位置参数</p>
-<p>$r&gt;0$为形状参数</p>
-<p>其中，密度函数与分布函数的形状如图所示<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png" alt=""> </p>
-<h4 id="分布密度函数与分布函数"><a href="#分布密度函数与分布函数" class="headerlink" title="分布密度函数与分布函数"></a>分布密度函数与分布函数</h4><p>感觉自己宛如一个智障，这些居然忘记了。哎，重新来吧。</p>
-<p>概率密度函数$f(x)$：表示瞬时值落在某区间的概率，是幅值的概率。++用来描述连续型随机变量取值的密集程度的。++$f(x)$表示X=x的概率是$\int_0^1f(x)$。</p>
-<p>$P(X=x|x \in (0,1))=\int_0^1f(x)$</p>
-<p>分布函数$F(x)$：描述随机变量落在任一区间的概率。</p>
-<p>$F(x)=P(X&lt;=x)$</p>
-<p>关系：</p>
-<p>分布函数$F(x)$是概率密度函数$f(x)$从负无穷到正无穷上的积分；</p>
-<p>在坐标轴上，概率密度函数的函数值y表示落在x点上的概率为y；分布函数的函数值y则表示x落在区间(-∞上的概率。</p>
-<h3 id="二项逻辑回归模型"><a href="#二项逻辑回归模型" class="headerlink" title="二项逻辑回归模型"></a>二项逻辑回归模型</h3><h4 id="用途：估计某个值的为哪一类的概率"><a href="#用途：估计某个值的为哪一类的概率" class="headerlink" title="用途：估计某个值的为哪一类的概率"></a>用途：估计某个值的为哪一类的概率</h4><p>logistic回归是分类问题。前面我们讲的分类问题的输出都是 “yes”或者“no”。但是在现实生活中，我们并不是总是希望结果那么肯定，而是概率（发生的可能性）。比如，我们希望知道这个房子在第三个星期被卖出去的概率。那么以前的分类算法就无法使用了，这时logistic 回归就派上了用场。 </p>
-<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>二项逻辑斯蒂回归模型是如下的条件概率分布：</p>
-<p>$$<br>P(Y=1|x)=\frac{exp(wx+b)}{1+exp(wx+b)}<br>$$</p>
-<p>$$<br>P(Y=0|x)=\frac{1}{1+exp(wx+b)}<br>$$</p>
-<p>其中：<br>$x \in R^n$ ：输入</p>
-<p>$Y \in (0,1)$ ：输出</p>
-<p>给定$x$，可以求得$P(Y=1|x)$和$P(Y=0|x)$</p>
-<h4 id="逻辑斯蒂回归模型的特点"><a href="#逻辑斯蒂回归模型的特点" class="headerlink" title="逻辑斯蒂回归模型的特点"></a>逻辑斯蒂回归模型的特点</h4><p>几率（odds）= 该事件发生的概率/该事件不该发生的概率，则对数几率：</p>
-<p>$$<br>log(odds)=log(\frac{p}{1-p})=log(\frac{P(Y=1|x)}{1-P(Y=1|x)})=wx<br>$$</p>
-<p>则：输出Y=1的对数几率=输入x的线性函数</p>
-<h1 id="模型参数估计"><a href="#模型参数估计" class="headerlink" title="模型参数估计"></a>模型参数估计</h1><p>输入： 一堆（x,y）</p>
-<p>目标：估计参数w,b</p>
-<p>方法：极大似然法</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png" alt=""> </p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>逻辑回归是一种预测y的各类别的概率的模型，即计算P(Y=1|x)或者P(Y=0|x)</li>
-<li>与机器学习过程类似，即 通过已知的大量（x,y），预测参数w,b，来计算后来输入的x对应的类别y</li>
-</ol>
+		<h1 id="Boot-strapping-简介"><a href="#Boot-strapping-简介" class="headerlink" title="Boot strapping 简介"></a>Boot strapping 简介</h1><p>Boot strapping，拔靴法：利用有限的样本资料经由<strong>多次重复抽样</strong>，重新建立起足以代表母体样本分布之新样本。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -164,7 +111,7 @@ $r&amp;gt;0$为形状参数
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/算法/">算法</a>
+  <span></span> <a href="/tags/机器学习/">机器学习</a>
   </div>
 
 </div>
@@ -173,7 +120,7 @@ $r&amp;gt;0$为形状参数
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/child/2017/03/02/逻辑回归（Logistic-regression）/" data-title="逻辑回归（Logistic regression） | jiayi797的专栏" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/child/2017/03/04/BootStrapping/" data-title="BootStrapping | jiayi797的专栏" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -186,19 +133,11 @@ $r&amp;gt;0$为形状参数
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/03/03/SVM（一） 线性可分/" title="SVM（一） 线性可分">
-  <strong>上一篇：</strong><br/>
-  <span>
-  SVM（一） 线性可分</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/03/02/SQL游标/"  title="SQL游标">
+<a href="/2017/03/03/AUC笔记/"  title="ROC和AUC">
  <strong>下一篇：</strong><br/> 
- <span>SQL游标
+ <span>ROC和AUC
 </span>
 </a>
 </div>
@@ -207,7 +146,7 @@ $r&amp;gt;0$为形状参数
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/03/02/逻辑回归（Logistic-regression）/" data-title="逻辑回归（Logistic regression）" data-url="http://yoursite.com/child/2017/03/02/逻辑回归（Logistic-regression）/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/04/BootStrapping/" data-title="BootStrapping" data-url="http://yoursite.com/child/2017/03/04/BootStrapping/"></div>
 </section>
 
 
@@ -217,7 +156,7 @@ $r&amp;gt;0$为形状参数
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归模型"><span class="toc-number">1.</span> <span class="toc-text">逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑回归分布"><span class="toc-number">1.0.1.</span> <span class="toc-text">逻辑回归分布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分布密度函数与分布函数"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">分布密度函数与分布函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二项逻辑回归模型"><span class="toc-number">1.0.2.</span> <span class="toc-text">二项逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：估计某个值的为哪一类的概率"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">用途：估计某个值的为哪一类的概率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型的特点"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">逻辑斯蒂回归模型的特点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模型参数估计"><span class="toc-number">2.</span> <span class="toc-text">模型参数估计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Boot-strapping-简介"><span class="toc-number">1.</span> <span class="toc-text">Boot strapping 简介</span></a></li></ol>
  
   </div>
 
