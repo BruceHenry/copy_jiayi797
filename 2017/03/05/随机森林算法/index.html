@@ -32,12 +32,15 @@ Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同�
 
 随机森林算法概述：利用随机的方式将许多决策">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-17-09-01.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-44.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-07.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-18.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-17-17-10.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-18-43-19.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-19-18-06.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-17-46.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-16-21.png">
-<meta property="og:updated_time" content="2017-03-05T12:19:24.660Z">
+<meta property="og:updated_time" content="2017-03-05T12:34:50.227Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="随机森林算法">
 <meta name="twitter:description" content="引言
@@ -148,7 +151,20 @@ Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同�
 </ul>
 <h1 id="特征投影（Feature-Project"><a href="#特征投影（Feature-Project" class="headerlink" title="特征投影（Feature Project)"></a>特征投影（Feature Project)</h1><ul>
 <li>原来在Bagging中，我们对数据进行抽取，得到不同的数据集，从而产生不同的$g_t$</li>
-<li>在随机森林算法中，除了对数据抽取，也可以在<strong>特征</strong>这一角度抽取<br>– 例，如果事先我们有100个特征，现在我们可以抽取10个特征（$i_1,i<em>2,…,i</em>{d’}$）,得到数据集($x_{i<em>1},x</em>{i<em>2},x</em>{i_{d’}}$)。来训练一棵树，这样的方式我们也可以得到很不一样的树，其对于分类的标准显然也很不一样。这等效于一个特征转换，这个过程中，从100维度到10个维度的转换中，相当于作了低维度的投影(Projection)<br>– 一般来说，$d’\text{&lt;&lt;}d $<br>– 得到的特征实际上是原始特征的随机子集，这使得生成模型过程中的效率也大大提高了</li>
+<li>在随机森林算法中，除了对数据抽取，也可以在<strong>特征</strong>这一角度抽取</li>
+<li>例，如果事先我们有100个特征，现在我们可以抽取10个特征<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-44.png" alt=""> </li>
+</ul>
+<ul>
+<li>得到数据集<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-07.png" alt=""> </li>
+<li><p>来训练一棵树，这样的方式我们也可以得到很不一样的树，其对于分类的标准显然也很不一样</p>
+</li>
+<li><p>这等效于一个特征转换，这个过程中，从100维度到10个维度的转换中，相当于作了低维度的投影(Projection)</p>
+</li>
+<li><p>一般来说，<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-18.png" alt=""> </p>
+</li>
+</ul>
+<ul>
+<li>得到的特征实际上是原始特征的随机子集，这使得生成模型过程中的效率也大大提高了</li>
 </ul>
 <p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-17-17-10.png" alt=""> </p>
 <h1 id="特征扩展（feature-Expansion）"><a href="#特征扩展（feature-Expansion）" class="headerlink" title="特征扩展（feature Expansion）"></a>特征扩展（feature Expansion）</h1><p>每次随机抽取子空间 <code>等效于</code> 对原来的特征向量左乘一个<strong>投影矩阵</strong>$P$,使得$\Phi(X)=P\cdot x$</p>
@@ -172,7 +188,7 @@ Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同�
 <li>验证$g$的必要性不大</li>
 <li>验证$G$不方便</li>
 <li>可以用来验证<code>除了g1之外的G</code> = $G_N^-(x)=average(g_2,g_3,g_T)$</li>
-<li>总之，用来验证$G$表现是否好的方式：<br>$$E<em>{oob}(G)=\frac{1}{N}\sum</em>{n=1}^N error(y_n,G_n^-(x_n))$$</li>
+<li>总之，用来验证$G$表现是否好的方式：<br>$$E_{oob}(G)=\frac{1}{N}\sum_1^N error(y_n,G_n^-(x_n))$$</li>
 </ul>
 <h1 id="特征选择（feature-selection）"><a href="#特征选择（feature-selection）" class="headerlink" title="特征选择（feature selection）"></a>特征选择（feature selection）</h1><p>目的：自动选择需要的特征，去除冗余、不相关的特征<br>优点：降维，减少复杂度；减少噪声，提高模型泛化能力；物理意义；<br>缺点：计算量大；可能导致过拟合；</p>
 <p>下面介绍特征选择的方法。</p>
