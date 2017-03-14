@@ -2099,6 +2099,15 @@ footer {
 .cc-license img {
   display: inline-block;
 }
+#toc {
+  line-height: 1.2em;
+  font-size: 0.8em;
+  backgroud-color: #fff;
+  float: right;
+  position: fixed;
+  right: 30em;
+  top: 20em;
+}
 .article-content pre,
 .article-content .highlight,
 .article-content .highlight pre {
