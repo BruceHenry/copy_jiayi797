@@ -74,237 +74,1628 @@
     <div id="container">
       <div id="main">
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2017/03/06/梯度提升决策树/" title="梯度提升决策树" itemprop="url">
-  
-    <h1 itemprop="name">梯度提升决策树</h1>
+   
     
-     
-           <p itemprop="description" ></p>
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/14/java学习笔记-类与对象/" title="java学习笔记----类与对象" itemprop="url">java学习笔记----类与对象</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-14T01:56:21.000Z" itemprop="datePublished"> 发表于 2017-03-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
         
-    
-    <time datetime="2017-03-06T11:28:33.000Z" itemprop="datePublished">2017-03-06</time>
-  </a>
-</section>
+        <p>本文主要总结了一些自己不太熟悉的概念。</p>
+<h1 id="对象与对象变量">1. 对象与对象变量</h1><pre><code>Date birthday = new Date();
+</code></pre><p>对象变量：birthday<br>对象：右边的部分</p>
+<p>一个对象变量并没有实际包含一个对象，仅仅是引用一个对象。</p>
+<p>可以显示地将对象变量设置为<code>null</code>，表明这个对象变量目前没有引用任何对象：</p>
+<pre><code>birthday = null;
+</code></pre><h1 id="隐式参数与显式参数">2. 隐式参数与显式参数</h1><p>例，methodName()是类class1的方法，</p>
+<pre><code>calss class1{
+int a;
+    public void methodName(int b){
+    this.a = b ;
+}
+</code></pre><ul>
+<li>显式参数(explicit)：括号里面的，例如double pName</li>
+<li>隐式参数(implicit)：出现在方法名前的class1类对象<br>– 关键词<code>this</code>表示隐式参数。例如<code>this.a</code></li>
+</ul>
+<h1 id="封装">3. 封装</h1><p>不能编写返回<code>引用可变对象</code>的访问器方法！例如：</p>
+<pre><code>class class1{
+    private Date a;
+    public Date get(){
+        return Date a; //会破坏封装性！
+    }
+}
+</code></pre><p>以上操作破坏了<code>a</code>的私有性。</p>
+<p>改正方法：克隆（clone）</p>
+<pre><code>class class1{
+    private Date a;
+    public Date get(){
+        return Date a.clone(); //使用clone()
+    }
+}
+</code></pre><h1 id="Java类库中的GregorianCalendar类-应该删除这一节">4. Java类库中的GregorianCalendar类(应该删除这一节)</h1><h2 id="纪元">4.1. 纪元</h2><p>时间是用距离一个固定时间点的毫秒数表示的，这个点就是纪元(epoch)。</p>
+<h2 id="时间与日历">4.2. 时间与日历</h2><p>为了将<strong>时间</strong>与<strong>日历</strong>分开，标准Java类库分别包含两个类：</p>
+<ul>
+<li>Date类：用来表示时间点的类；</li>
+<li>GregorianCalendar类：用来表示公历法的类；（通过它还有一个扩展类——Calendar类，描述了日历的一般属性）</li>
+</ul>
+<h3 id="Date类">4.2.1. Date类</h3><p>用来表示时间的类；</p>
+<p>只有少量的方法，例如比较两个时间点before(),after()：</p>
+<pre><code>doday.before(birthday)
+</code></pre><h3 id="GregorianCalendar类">4.2.2. GregorianCalendar类</h3><p>常见方法：</p>
+<p><code>new GregorianCalendar()</code>，构造新的对象，用于表示对象构造时的日期和时间；</p>
+<p>例如:</p>
+<pre><code>GregorianCalendar g1 = new GregorianCalendar();
+</code></pre><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-14-10-47-16.png" alt=""> </p>
+<p><code>new GregorianCalendar(1999,11,31)</code>，提供年月日构造一个表示特定日期午夜的日历对象。（月份从0开始计数，11表示12月）</p>
+<p><code>new GregorianCalendar(1991,Calendar.DECEMBER,31)</code>,与上等价</p>
+<p><code>new GregorianCalendar(1991,Calendar.DECEMBER,31,23,59,59)</code>,设置时间</p>
 
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2017/03/05/自适应提升 AdaBoost/" title="提升方法 AdaBoost" itemprop="url">
-  
-    <h1 itemprop="name">提升方法 AdaBoost</h1>
-    
-     
-           <p itemprop="description" >提升（boosting）：从弱学习算法（正确率低）出发，反复学习，得到一系列弱分类器（基本分类器），然后组合这些弱分类器，构成一个强分类器。
-提升（boosting）方法需要解决的问题：
-
-如何改变训练数据的权值或概率分布————提高被前一轮错误分类样本的权值，降低被正确分类样本</p>
         
-    
-    <time datetime="2017-03-05T09:31:52.000Z" itemprop="datePublished">2017-03-05</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2017/03/05/随机森林算法/" title="随机森林算法" itemprop="url">
-  
-    <h1 itemprop="name">随机森林算法</h1>
-    
-     
-           <p itemprop="description" >引言
-回顾之前学习过的两个算法：
-
-Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同的g，对g取平均得到G– 特点：通过投票和平均的方式来降低对不同数据的敏感性（variance的效果）
-决策树– 简要：通过递归方式建立子树，最终得到完整的树– 特</p>
         
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/14/java学习笔记-类与对象/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/14/java学习笔记-类与对象/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
     
-    <time datetime="2017-03-05T08:49:09.000Z" itemprop="datePublished">2017-03-05</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2017/03/05/决策树/" title="决策树" itemprop="url">
-  
-    <h1 itemprop="name">决策树</h1>
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
     
-     
-           <p itemprop="description" >决策树简介模仿人类决策的过程
- 
-
-优点：好理解；简单
-缺点：缺少很强的理论支持；树结构不唯一；
-
-决策树的表达方式如上图所示的决策树，我们用$G(x)$来表达决策树：
-$$G(x)=\sum_{t=1}^T q_t(x)\cdot g_t(x) $$
-tips:
-
-$g(x)$</p>
+      <a href="/2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/" title="O2O优惠券预测——对第一名的思路源码分析（二）" itemprop="url">O2O优惠券预测——对第一名的思路源码分析（二）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-11T08:58:16.000Z" itemprop="datePublished"> 发表于 2017-03-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
         
-    
-    <time datetime="2017-03-05T04:22:25.000Z" itemprop="datePublished">2017-03-05</time>
-  </a>
-</section>
+        <p>本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[<a href="https://github.com/wepe/O2O-Coupon-Usage-Forecast]。" target="_blank" rel="external">https://github.com/wepe/O2O-Coupon-Usage-Forecast]。</a></p>
+<p>本文主要对模型训练<code>xgb.py</code> 做一些详细的分析。</p>
+<p>文件：O2O-Coupon-Usage-Forecast/code/wepon/season one </p>
+<p><code>xgb.py</code> 训练xgboost模型，生成特征重要性文件，生成预测结果。单模型第一赛季A榜AUC得分0.798.</p>
+<h1 id="import包">1. import包</h1><p>首先作者import xgboost,因此我们需要安装一下它。</p>
+<p>XGBoost是数据挖掘中用到一个新型的数据分析包，相对其它Boosting模型更加高效。</p>
+<p>安装教程<a href="http://www.jianshu.com/p/11f9229b0ecd" target="_blank" rel="external">xgboost install on windows</a></p>
+<h1 id="导入数据">2. 导入数据</h1><pre><code>#将数据集导入
+dataset1 = pd.read_csv(&apos;data/dataset1.csv&apos;)
+dataset2 = pd.read_csv(&apos;data/dataset2.csv&apos;)
+dataset3 = pd.read_csv(&apos;data/dataset3.csv&apos;)
+</code></pre><p><code>dataset1、dataset2</code>有56个特征，图是前十个。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-12-22-11-30.png" alt=""> </p>
+<p><code>dataset3</code>有57个特征</p>
+<pre><code>#将dataset1的label列的-1都换成0
+dataset1.label.replace(-1,0,inplace=True)
+dataset2.label.replace(-1,0,inplace=True)
+
+#删除重复项
+dataset1.drop_duplicates(inplace=True)
+dataset2.drop_duplicates(inplace=True)
+dataset3.drop_duplicates(inplace=True)
+</code></pre><p>将dataset1和dataset2连起来</p>
+<pre><code>dataset12 = pd.concat([dataset1,dataset2],axis=0)
+</code></pre><p>dataset1_y赋值为dataset1的label列</p>
+<pre><code>dataset1_y = dataset1.label
+</code></pre><p>删除dataset1的’user_id’,’label’,’day_gap_before’,’day_gap_after’字段，赋值给dataset1_x</p>
+<pre><code>dataset1_x = dataset1.drop([&apos;user_id&apos;,&apos;label&apos;,&apos;day_gap_before&apos;,&apos;day_gap_after&apos;],axis=1)  # &apos;day_gap_before&apos;,&apos;day_gap_after&apos; cause overfitting, 0.77
 
 
+dataset2_y = dataset2.label
+dataset2_x = dataset2.drop([&apos;user_id&apos;,&apos;label&apos;,&apos;day_gap_before&apos;,&apos;day_gap_after&apos;],axis=1)
+dataset12_y = dataset12.label
+dataset12_x = dataset12.drop([&apos;user_id&apos;,&apos;label&apos;,&apos;day_gap_before&apos;,&apos;day_gap_after&apos;],axis=1)
+dataset3_preds = dataset3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;]]
+dataset3_x = dataset3.drop([&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&apos;day_gap_before&apos;,&apos;day_gap_after&apos;],axis=1)
+</code></pre><p>用shape属性来显示数据的格式</p>
+<pre><code>print dataset1_x.shape,dataset2_x.shape,dataset3_x.shape
+</code></pre><p>若输出：(8618,36) 表示这个表格有8618行和36列的数据，其中dimensions[0]为8618，dimensions[1]为36</p>
+<h1 id="加载数据到xgboost">3. 加载数据到xgboost</h1><p>dataset1、dateset2、dateset3 为xgb的DMatrix</p>
+<pre><code>dataset1 = xgb.DMatrix(dataset1_x,label=dataset1_y)
+dataset2 = xgb.DMatrix(dataset2_x,label=dataset2_y)
+dataset12 = xgb.DMatrix(dataset12_x,label=dataset12_y)
+dataset3 = xgb.DMatrix(dataset3_x)
+</code></pre><p>参考文献<a href="http://blog.csdn.net/sb19931201/article/details/52557382" target="_blank" rel="external">xgboost入门与实战（原理篇）</a></p>
+<h1 id="设置参数">4. 设置参数</h1><pre><code>params={&apos;booster&apos;:&apos;gbtree&apos;,
+        &apos;objective&apos;: &apos;rank:pairwise&apos;,
+        &apos;eval_metric&apos;:&apos;auc&apos;,
+        &apos;gamma&apos;:0.1,
+        &apos;min_child_weight&apos;:1.1,
+        &apos;max_depth&apos;:5,
+        &apos;lambda&apos;:10,
+        &apos;subsample&apos;:0.7,
+        &apos;colsample_bytree&apos;:0.7,
+        &apos;colsample_bylevel&apos;:0.7,
+        &apos;eta&apos;: 0.01,
+        &apos;tree_method&apos;:&apos;exact&apos;,
+        &apos;seed&apos;:0,
+        &apos;nthread&apos;:12
+        }
+</code></pre><h1 id="训练模型">5. 训练模型</h1><pre><code>model = xgb.train(params,dataset12,num_boost_round=3500,evals=watchlist)    
+</code></pre><h1 id="预测测试集">6. 预测测试集</h1><pre><code>dataset3_preds[&apos;label&apos;] = model.predict(dataset3)
+dataset3_preds.label = MinMaxScaler().fit_transform(dataset3_preds.label)
+dataset3_preds.sort_values(by=[&apos;coupon_id&apos;,&apos;label&apos;],inplace=True)
+dataset3_preds.to_csv(&quot;xgb_preds.csv&quot;,index=None,header=None)
+print dataset3_preds.describe()
+</code></pre><h1 id="保存特征评分">7. 保存特征评分</h1><pre><code>feature_score = model.get_fscore()
+feature_score = sorted(feature_score.items(), key=lambda x:x[1],reverse=True)
+fs = []
+for (key,value) in feature_score:
+    fs.append(&quot;{0},{1}\n&quot;.format(key,value))
 
+with open(&apos;xgb_feature_score.csv&apos;,&apos;w&apos;) as f:
+    f.writelines(&quot;feature,score\n&quot;)
+    f.writelines(fs)
+</code></pre><h1 id="总结">8. 总结</h1><p>这次算是对自己之前的各种理论知识进行了一次梳理，感觉平时过于注重算法的研究，并没有注意到宏观上的操作。以后要多加注意</p>
 
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2017/03/03/AUC笔记/" title="ROC和AUC" itemprop="url">
-  
-    <h1 itemprop="name">ROC和AUC</h1>
-    
-     
-           <p itemprop="description" >AUC定义用途：用来度量分类模型好坏的一个标准背景：
-
-有些时候，仅仅依靠正确率是不妥当的。
-能客观反映对正样本、负样本综合预测的能力，还要考虑消除样本倾斜的影响。
-
-ROC
-ROC:Receiver Operating Characteristic
-ROC曲线：横坐标是fals</p>
         
-    
-    <time datetime="2017-03-03T14:53:48.895Z" itemprop="datePublished">2017-03-03</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2017/03/03/SVM（一） 线性可分/" title="SVM（一） 线性可分" itemprop="url">
-  
-    <h1 itemprop="name">SVM（一） 线性可分</h1>
-    
-     
-           <p itemprop="description" >SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
-#线性可分SVM
-概念复习 参考文献输入空间：输入所有可能的取值的集合
-特征向量：每个具体的输入
-特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到</p>
         
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/o2o优惠券使用预测/">o2o优惠券使用预测</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
     
-    <time datetime="2017-03-03T03:05:48.000Z" itemprop="datePublished">2017-03-03</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2017/03/02/逻辑回归（Logistic-regression）/" title="逻辑回归（Logistic regression）" itemprop="url">
-  
-    <h1 itemprop="name">逻辑回归（Logistic regression）</h1>
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
     
-     
-           <p itemprop="description" >逻辑回归模型逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
-$$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$
-$$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(</p>
+      <a href="/2017/03/08/O2O优惠券预测——对第一名的思路源码分析（一）/" title="O2O优惠券预测——对第一名的思路源码分析（一）" itemprop="url">O2O优惠券预测——对第一名的思路源码分析（一）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-08T07:20:57.000Z" itemprop="datePublished"> 发表于 2017-03-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
         
-    
-    <time datetime="2017-03-02T14:45:32.000Z" itemprop="datePublished">2017-03-02</time>
-  </a>
-</section>
+        <p>感觉自己还是太渣，看了些许算法，并不知道有什么卵用。决定好好分析分析别人的思路，也许能够对我带来些许启发。</p>
+<p>本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[<a href="https://github.com/wepe/O2O-Coupon-Usage-Forecast]。" target="_blank" rel="external">https://github.com/wepe/O2O-Coupon-Usage-Forecast]。</a></p>
+<p>本文主要对数据的抽取<code>extract_feature.py</code>做一些详细的分析。</p>
+<h1 id="解决方案概述">1. 解决方案概述</h1><p>本赛题提供了用户线下消费和优惠券领取核销行为的纪录表，用户线上点击/消费和优惠券领取核销行为的纪录表，记录的时间区间是2016.01.01至2016.06.30,需要预测的是2016年7月份用户领取优惠劵后是否核销。根据这两份数据表，我们首先对数据集进行划分，然后提取了用户相关的特征、商家相关的特征，优惠劵相关的特征，用户与商家之间的交互特征，以及利用本赛题的leakage得到的其它特征（这部分特征在实际业务中是不可能获取到的）。最后训练了XGBoost，GBDT，RandomForest进行模型融合。</p>
+<p><strong>源码分析</strong></p>
+<p>第二赛季暂时没有平台，所以本文只对第一赛季的源码进行分析。</p>
+<p>文件：O2O-Coupon-Usage-Forecast/code/wepon/season one </p>
+<p>这个文件夹存放第一赛季的代码</p>
+<ul>
+<li><code>extract_feature.py</code>划分数据集，提取特征，生成训练集（dataset1和dataset2）和预测集（dataset3）。</li>
+<li><code>xgb.py</code> 训练xgboost模型，生成特征重要性文件，生成预测结果。单模型第一赛季A榜AUC得分0.798.</li>
+</ul>
+<h1 id="import概述">2. import概述</h1><p>分析对象：extract_feature.py</p>
+<h2 id="import包概述">2.1. import包概述</h2><pre><code>import pandas as pd
+import numpy as np
+from datetime import date
+</code></pre><h2 id="pandas">2.2. pandas</h2><p>Pandas 是基于 NumPy (因此还要<code>import numpy</code>) 的一个非常好用的库，正如名字一样，人见人爱。之所以如此，就在于不论是读取、处理数据，用它都非常简单。Pandas提供了很多处理大数据的方法。我想是因为此，原作者才采用了它。</p>
+<p>Pandas 有两种自己独有的基本数据结构。<code>Series</code> 和 <code>DataFrame</code>，它们让数据操作更简单了。</p>
+<p>两种结构的属性和方法不再多阐述。见两份很好的参考文档：</p>
+<ol>
+<li><a href="http://wiki.jikexueyuan.com/project/start-learning-python/311.html" target="_blank" rel="external">Pandas 使用</a></li>
+<li><a href="http://www.cnblogs.com/chaosimple/p/4153083.html" target="_blank" rel="external">十分钟搞定pandas</a></li>
+<li><a href="http://dataunion.org/14261.html" target="_blank" rel="external">在Python中利用Pandas库处理大数据的简单介绍</a></li>
+<li><a href="http://pandas.pydata.org/pandas-docs/stable/cookbook.html" target="_blank" rel="external">pandas官方文档</a></li>
+<li><a href="http://www.cnblogs.com/pengsixiong/p/5050833.html" target="_blank" rel="external">pandas常见方法，中文</a></li>
+</ol>
+<p>大概知道了import包的内容后，我们正式开始看源码。</p>
+<h2 id="注意">2.3. 注意</h2><ol>
+<li>读取之前，请先把数据的表头项删除（也就是第一行的string）</li>
+</ol>
+<h1 id="读取数据集">3. 读取数据集</h1><p>总结：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:right">name</th>
+<th style="text-align:right">content</th>
+<th style="text-align:center">varName</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align:right">ccf_offline_stage1_train</td>
+<td style="text-align:right">用户线下消费和优惠券领取行为</td>
+<td style="text-align:center">off_train</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align:right">ccf_online_stage1_train</td>
+<td style="text-align:right">用户线上点击/消费和优惠券领取行为</td>
+<td style="text-align:center">on_train</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align:right">offline_stage1_test_revised</td>
+<td style="text-align:right">用户O2O线下优惠券使用预测样本</td>
+<td style="text-align:center">off_test</td>
+</tr>
+</tbody>
+</table>
+<h2 id="源码分析">3.1. 源码分析</h2><pre><code>#1754884 record,1053282 with coupon_id,9738 coupon. date_received:20160101~20160615,date:20160101~20160630, 539438 users, 8415 merchants
 
+off_train = pd.read_csv(&apos;data/ccf_offline_stage1_train.csv&apos;,header=None)
+off_train.columns = [&apos;user_id&apos;,&apos;merchant_id&apos;,&apos;coupon_id&apos;,&apos;discount_rate&apos;,&apos;distance&apos;,&apos;date_received&apos;,&apos;date&apos;]
 
+#2050 coupon_id. date_received:20160701~20160731, 76309 users(76307 in trainset, 35965 in online_trainset), 1559 merchants(1558 in trainset)
 
+off_test = pd.read_csv(&apos;data/ccf_offline_stage1_test_revised.csv&apos;,header=None,nrows=3000)
+off_test.columns = [&apos;user_id&apos;,&apos;merchant_id&apos;,&apos;coupon_id&apos;,&apos;discount_rate&apos;,&apos;distance&apos;,&apos;date_received&apos;]
 
+#11429826 record(872357 with coupon_id),762858 user(267448 in off_train)
 
+on_train = pd.read_csv(&apos;data/ccf_online_stage1_train.csv&apos;,header=None,nrows=47000)
+on_train.columns = [&apos;user_id&apos;,&apos;merchant_id&apos;,&apos;action&apos;,&apos;coupon_id&apos;,&apos;discount_rate&apos;,&apos;date_received&apos;,&apos;date&apos;]
+</code></pre><p>读数据主要用了pandas的read_cvs方法. 为了快捷分析，我们限定只读取数据集的前7w、3k、47w行</p>
+<h1 id="采集特征">4. 采集特征</h1><h2 id="主要特征">4.1. 主要特征</h2><p>总结：</p>
+<table>
+<thead>
+<tr>
+<th>term</th>
+<th style="text-align:right">来源</th>
+<th style="text-align:center">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dataset3</td>
+<td style="text-align:right">table3,off_test</td>
+<td style="text-align:center">off_test数据</td>
+</tr>
+<tr>
+<td>dataset2</td>
+<td style="text-align:right">table2,off_train</td>
+<td style="text-align:center">领券时期在20160515-20160615之间的</td>
+</tr>
+<tr>
+<td>dataset1</td>
+<td style="text-align:right">table2,off_train</td>
+<td style="text-align:center">领券日期在20160414-20160514的</td>
+</tr>
+<tr>
+<td>feature3</td>
+<td style="text-align:right">table2,off_train</td>
+<td style="text-align:center">消费data在20160315-20160630的，或领券日期在20160315-20160630但没有消费的</td>
+</tr>
+<tr>
+<td>feature2</td>
+<td style="text-align:right">table2,off_train</td>
+<td style="text-align:center">消费日期在20160201-20160514的，或领券日期在20160201-20160514但没有消费的</td>
+</tr>
+<tr>
+<td>feature1</td>
+<td style="text-align:right">table2,off_train</td>
+<td style="text-align:center">消费日期在20160101-20160413的，或领券日期在20160101-20160413但没有消费的</td>
+</tr>
+</tbody>
+</table>
+<p>这是滑窗的方法得到多份训练数据集，特征区间越小，得到的训练数据集越多。划分方式：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>预测区间（提取label）</th>
+<th style="text-align:center">特征区间（提取feature）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>领券了的</td>
+<td style="text-align:center">消费了的+领券了没消费的</td>
+</tr>
+<tr>
+<td>测试集</td>
+<td>dataset3</td>
+<td style="text-align:center">feature3</td>
+</tr>
+<tr>
+<td>训练集1</td>
+<td>dataset2</td>
+<td style="text-align:center">feature2</td>
+</tr>
+<tr>
+<td>训练集2</td>
+<td>dataset1</td>
+<td style="text-align:center">feature1</td>
+</tr>
+</tbody>
+</table>
+<p>上面这个表格很清晰地说明了原作者划分数据的方法.</p>
+<h3 id="源码分析-1">4.1.1. 源码分析</h3><pre><code>#dataset3存放table3 的数据
+dataset3 = off_test 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2017/03/02/SQL游标/" title="SQL游标" itemprop="url">
-  
-    <h1 itemprop="name">SQL游标</h1>
-    
-     
-           <p itemprop="description" >简介场景从某一结果集中地逐一读记录
-游标本质能从包括多条数据记录的结果集中每次提取一条记录的机制。
-我们知道关系数据库管理系统实质是面向集合的，在MS SQL SERVER 中并没有一种描述表中单一记录的表达形式，除非使用where 子句来限制只有一条记录被选中。因此我们必须借助</p>
+#feature3存放：筛出off_train中，以下四种情况：
+#消费日期data在20160315-20160630的，
+#或消费日期为空且领券日期在20160315-20160630的，
+feature3 = off_train[
+((off_train.date&gt;=&apos;20160315&apos;)&amp;(off_train.date&lt;=&apos;20160630&apos;))
+|((off_train.date==&apos;null&apos;)&amp;(off_train.date_received&gt;=&apos;20160315&apos;)&amp;(off_train.date_received&lt;=&apos;20160630&apos;))]
+
+#dataset2存放：从off_train筛出：领券时期在20160515-20160615之间的
+dataset2 = off_train[
+(off_train.date_received&gt;=&apos;20160515&apos;)&amp;off_train.date_received&lt;=&apos;20160615&apos;)]
+
+#feature2存放：从off_train筛出：
+#消费日期在20160201-20160514的，
+#或领券日期在20160201-20160514但没有消费的
+feature2 = off_train[(off_train.date&gt;=&apos;20160201&apos;)&amp;(off_train.date&lt;=&apos;20160514&apos;)|((off_train.date==&apos;null&apos;)&amp;(off_train.date_received&gt;=&apos;20160201&apos;)&amp;(off_train.date_received&lt;=&apos;20160514&apos;))]
+
+#dataset1存放：从off_train筛出： 领券日期在20160414-20160514的
+dataset1 = off_train[(off_train.date_received&gt;=&apos;20160414&apos;)&amp;(off_train.date_received&lt;=&apos;20160514&apos;)]
+
+#feature1存放：从off_train筛出：
+#消费日期在20160101-20160413的，或
+#领券日期在20160101-20160413但没有消费的
+feature1 = off_train[(off_train.date&gt;=&apos;20160101&apos;)&amp;(off_train.date&lt;=&apos;20160413&apos;)|((off_train.date==&apos;null&apos;)&amp;(off_train.date_received&gt;=&apos;20160101&apos;)&amp;(off_train.date_received&lt;=&apos;20160413&apos;))]
+</code></pre><h2 id="其他特征">4.2. 其他特征</h2><h3 id="other-feature3">4.2.1. other_feature3</h3><table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:right">内容（都是来自测试集dataset3的数据）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>t</td>
+<td style="text-align:right">每个用户使用优惠券的总次数</td>
+</tr>
+<tr>
+<td>t1</td>
+<td style="text-align:right">每个用户使用不同优惠券的次数</td>
+</tr>
+<tr>
+<td>t2</td>
+<td style="text-align:right">每个用户使用某张优惠券（使用次数大于1次）的首次和末次使用时间</td>
+</tr>
+<tr>
+<td>t3</td>
+<td style="text-align:right">每个用户用优惠券date；本优惠券首、末次间隔；本优惠券首/末次使用date</td>
+</tr>
+<tr>
+<td>t4</td>
+<td style="text-align:right">每个用户每天使用优惠券的次数</td>
+</tr>
+<tr>
+<td>t5</td>
+<td style="text-align:right">每个用户每天使用每张优惠券的次数</td>
+</tr>
+<tr>
+<td>t6</td>
+<td style="text-align:right">用户使用每张优惠券的date，不同date用冒号分隔</td>
+</tr>
+<tr>
+<td>t7</td>
+<td style="text-align:right">用户使用每张券的时间，以及和前、后一张券的时间间隔</td>
+</tr>
+</tbody>
+</table>
+<p>文件名：data/other_feature3.csv</p>
+<p>格式：user_id,coupon_id,this_month_user_receive_same_coupon_count,this_month_user_receive_all_coupon_count,date_received,this_month_user_receive_same_coupon_lastone,this_month_user_receive_same_coupon_firstone,this_day_user_receive_all_coupon_count,this_day_user_receive_same_coupon_count,day_gap_before,day_gap_after</p>
+<p>解释：用户id,优惠券id,本月用户使用本券次数，本月用户使用所有券次数，使用时间，本月用户使用本券末次时间、首次时间，本日用户用券总数，本日用户用本券总数，上次用本券间隔，下次用本券间隔</p>
+<h4 id="源码分析-2">4.2.1.1. 源码分析</h4><p>t:计算每个用户使用优惠券的总次数：</p>
+<pre><code>#将测试集dataset3的userid存在t中
+t = dataset3[[&apos;user_id&apos;]]
+#给t添加一个列，列名是this_month_user_receive_all_coupon_count，值都是1
+t[&apos;this_month_user_receive_all_coupon_count&apos;] = 1
+#按照user_id分组，将user_id重复的项目的this_month_user_receive_all_coupon_count相加，然后进行reset_index
+#其实就是算出每个用户使用优惠券的总次数
+t = t.groupby(&apos;user_id&apos;).agg(&apos;sum&apos;).reset_index()
+</code></pre><p>t1:统计每个用户，使用不同优惠券的次数：</p>
+<pre><code>t1 = dataset3[[&apos;user_id&apos;,&apos;coupon_id&apos;]]
+t1[&apos;this_month_user_receive_same_coupon_count&apos;] = 1
+#按照user_id和coupon_id进行分组
+#统计每个用户，使用不同优惠券的次数
+t1 = t1.groupby([&apos;user_id&apos;,&apos;coupon_id&apos;]).agg(&apos;sum&apos;).reset_index()
+</code></pre><p>t2:找出每个人，消费每个券的时间，并用冒号分隔例如：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-10-27.png" alt=""> </p>
+<pre><code>t2 = dataset3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;]]
+t2.date_received = t2.date_received.astype(&apos;str&apos;)
+# 按照user_id&apos;,&apos;coupon_id排序后，提出来date_received，进行agg运算
+# agg运算：用冒号连接起来
+t2 = t2.groupby([&apos;user_id&apos;,&apos;coupon_id&apos;])[&apos;date_received&apos;].agg(lambda x:&apos;:&apos;.join(x)).reset_index()
+</code></pre><p>t2:每个用户使用某张优惠券（使用次数大于1次）的首次和末次使用时间</p>
+<pre><code>#apply会返回每个优惠券的使用次数
+t2[&apos;receive_number&apos;] = t2.date_received.apply(lambda s:len(s.split(&apos;:&apos;)))
+#筛出使用次数大于1次的数据
+t2 = t2[t2.receive_number&gt;1]
+#对max_date_received赋值为最近一次的使用时间
+t2[&apos;max_date_received&apos;] = t2.date_received.apply(lambda s:max([int(d) for d in s.split(&apos;:&apos;)]))
+#对min_date_received赋值为最早一次的使用时间
+t2[&apos;min_date_received&apos;] = t2.date_received.apply(lambda s:min([int(d) for d in s.split(&apos;:&apos;)]))
+# 重新定义t2为以下项目
+t2 = t2[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;max_date_received&apos;,&apos;min_date_received&apos;]]
+</code></pre><p>t3:每个用户使用优惠券的时间、本次优惠券与首次使用的间隔、末次使用的间隔</p>
+<pre><code>t3 = dataset3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;]]
+#merge，将两个数据集合并
+#将t2和t3在[&apos;user_id&apos;,&apos;coupon_id&apos;]上进行左帧合并，即根据t3合并t2的user_id&apos;,&apos;coupon_id
+#t2[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;max_date_received&apos;,&apos;min_date_received&apos;]]
+#t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;]]
+#因此合并方式为：找到每个用户每张优惠券的消费时间和对应券的max_date_received与min_date_received
+t3 = pd.merge(t3,t2,on=[&apos;user_id&apos;,&apos;coupon_id&apos;],how=&apos;left&apos;)
+#t3的this_month_user_receive_same_coupon_lastone项目设置为:此用户消费本张优惠券与最近一次消费本张优惠券的间隔
+
+t3 = t3.apply(pd.to_numeric, args=(&apos;coerce&apos;,))
+t3[&apos;this_month_user_receive_same_coupon_lastone&apos;] = t3.max_date_received - t3.date_received
+#此用户消费本张优惠券与第一次消费本张优惠券的间隔
+t3[&apos;this_month_user_receive_same_coupon_firstone&apos;] = t3.date_received - t3.min_date_received
+</code></pre><p>上面跑到<code>t3[&#39;this_month_user_receive_same_coupon_lastone&#39;] = t3.max_date_received - t3.date_received</code>的时候会出现<code>TypeError: unsupported operand type(s) for -: &#39;float&#39; and &#39;str&#39;</code>.</p>
+<p>在执行这句话之前，我们看到<code>t3.date_received</code>的类型为<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-22-39-21.png" alt=""> </p>
+<p>因此我们需要将数据类型先转换为float。在网上查到本方法对本代码有效（暂不知原因）。<a href="http://stackoverflow.com/questions/14450020/unsupported-operand-in-pandas-dataframe-operation" target="_blank" rel="external">参考文献</a></p>
+<p><code>t3 = t3.apply(pd.anumeric, args=(&#39;coerce&#39;,))</code></p>
+<p>把这句话加上后，我们看到<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-22-43-02.png" alt=""> </p>
+<p>定义函数is_firstlastone判断优惠券是否是末次使用</p>
+<pre><code>def is_firstlastone(x):
+    if x==0:
+        return 1
+    elif x&gt;0:
+        return 0
+    else:
+        return -1 #those only receive once
+</code></pre><p>t3:加上两个数据，…</p>
+<pre><code>t3.this_month_user_receive_same_coupon_lastone = t3.this_month_user_receive_same_coupon_lastone.apply(is_firstlastone)
+t3.this_month_user_receive_same_coupon_firstone = t3.this_month_user_receive_same_coupon_firstone.apply(is_firstlastone)
+t3 = t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&apos;this_month_user_receive_same_coupon_lastone&apos;,&apos;this_month_user_receive_same_coupon_firstone&apos;]]
+</code></pre><p>后面套路差不多，此处不再继续分析。主要结论已经总结在上表中。</p>
+<h1 id="附录">5. 附录</h1><h2 id="查看dataFrame类型的内容">5.1. 查看dataFrame类型的内容</h2><p>见pandas 文档之 10 minutes to pandas — viewing data</p>
+<p>用t.values,t.columns</p>
+<h2 id="lambda-functions">5.2. lambda functions</h2><p>源代码中有一行<code>t2.groupby([&#39;user_id&#39;,&#39;coupon_id&#39;])[&#39;date_received&#39;].agg(lambda x:&#39;:&#39;.join(x)).reset_index()</code></p>
+<p><a href="http://www.diveintopython.net/power_of_introspection/lambda_functions.html" target="_blank" rel="external">官方文档</a></p>
+<p><code>lambda functions</code>是python的一个function.<br>用例：</p>
+<pre><code>#函数f(x)
+&gt;&gt;&gt; def f(x):
+...     return x*2
+...
+&gt;&gt;&gt; f(3) #输入x=3     
+6 #输出6
+
+#f(x)等价于：
+&gt;&gt;&gt; g = lambda x: x*2  1
+&gt;&gt;&gt; g(3)
+6
+#f(x)还等价于：
+&gt;&gt;&gt; (lambda x: x*2)(3) 2
+6
+</code></pre><p>作者代码中，有一行<br><code>lambda x:&#39;:&#39;.join(x)</code>即将前后叠加,用<code>:</code>连接<br><code>t2.groupby([&#39;user_id&#39;,&#39;coupon_id&#39;])[&#39;date_received&#39;].agg(lambda x:&#39;:&#39;.join(x)).reset_index()</code>意思是将数据集先按照user_id’,’coupon_id排序，然后对date_received进行用:连接一起来</p>
+<p>例如，输入：</p>
+<pre><code>df = pd.DataFrame({&apos;A&apos; : [&apos;foo&apos;, &apos;bar&apos;, &apos;foo&apos;, &apos;bar&apos;,
+                            &apos;foo&apos;, &apos;bar&apos;, &apos;foo&apos;, &apos;foo&apos;],
+                            &apos;B&apos; : [&apos;one&apos;, &apos;one&apos;, &apos;two&apos;, &apos;three&apos;,
+                             &apos;two&apos;, &apos;two&apos;, &apos;one&apos;, &apos;three&apos;],
+                            &apos;C&apos; : np.random.randn(8),
+                            &apos;D&apos; : np.random.randn(8)})
+</code></pre><table>
+<thead>
+<tr>
+<th>i</th>
+<th style="text-align:right">A</th>
+<th style="text-align:right">B</th>
+<th style="text-align:right">C</th>
+<th style="text-align:right">D</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td style="text-align:right">foo</td>
+<td style="text-align:right">one</td>
+<td style="text-align:right">0.754147</td>
+<td style="text-align:right">0.912176</td>
+</tr>
+<tr>
+<td>1</td>
+<td style="text-align:right">bar</td>
+<td style="text-align:right">one</td>
+<td style="text-align:right">1.414635</td>
+<td style="text-align:right">-0.760638</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align:right">foo</td>
+<td style="text-align:right">two</td>
+<td style="text-align:right">-0.142930</td>
+<td style="text-align:right">-1.290766</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align:right">bar</td>
+<td style="text-align:right">three</td>
+<td style="text-align:right">1.196999</td>
+<td style="text-align:right">1.647513</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align:right">foo</td>
+<td style="text-align:right">two</td>
+<td style="text-align:right">-0.261663</td>
+<td style="text-align:right">1.284779</td>
+</tr>
+<tr>
+<td>5</td>
+<td style="text-align:right">bar</td>
+<td style="text-align:right">two</td>
+<td style="text-align:right">1.622070</td>
+<td style="text-align:right">1.685648</td>
+</tr>
+<tr>
+<td>6</td>
+<td style="text-align:right">foo</td>
+<td style="text-align:right">one</td>
+<td style="text-align:right">1.478855</td>
+<td style="text-align:right">-0.229636</td>
+</tr>
+</tbody>
+</table>
+<pre><code>df3 = df.groupby([&apos;A&apos;])[&apos;B&apos;].agg(lambda x:&apos;:&apos;.join(x)).reset_index()
+</code></pre><p>输出：</p>
+<table>
+<thead>
+<tr>
+<th>i</th>
+<th style="text-align:right">A</th>
+<th style="text-align:right">B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td style="text-align:right">bar</td>
+<td style="text-align:right"><code>one:three:two</code></td>
+</tr>
+<tr>
+<td>1</td>
+<td style="text-align:right">foo</td>
+<td style="text-align:right"><code>one:two:two:one:three</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="pandas的merge的how参数">5.3. pandas的merge的how参数</h2><p>原代码出现了<code>t3 = pd.merge(t3,t2,on=[&#39;user_id&#39;,&#39;coupon_id&#39;],how=&#39;left&#39;)</code></p>
+<p>how参数主要决定了哪一个keys会被包含在结果表中。它的值有四种可能性：<code>left,right,outer,inner</code>。我们主要看<code>left和right</code></p>
+<p>how=’left’:遍历left表，找与right一样的，依次放入行。 如果没有，则设为NAN</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-34-44.png" alt=""> </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-33-13.png" alt=""> </p>
+<p>因此<code>t3 = pd.merge(t3,t2,on=[&#39;user_id&#39;,&#39;coupon_id&#39;],how=&#39;left&#39;)</code>的意思是：</p>
+<p>根据t3合并t2的user_id’,’coupon_id</p>
+
         
-    
-    <time datetime="2017-03-02T11:58:22.000Z" itemprop="datePublished">2017-03-02</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2017/03/02/从出租车行驶数据筛选出OD点数据/" title="从出租车行驶数据筛选出OD点数据" itemprop="url">
-  
-    <h1 itemprop="name">从出租车行驶数据筛选出OD点数据</h1>
-    
-     
-           <p itemprop="description" >动手前先动脑，这句话献给自己。
-目标从出租车行驶数据中，筛选出OD点。
-数据集123456789101112131415161718名称：2012年11月1日 北京市出租车GPS数据格式：txt文本文件数据项及顺序：车辆标识,触发事件,运营状态,GPS时间,GPS经度,GPS纬度</p>
         
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/o2o优惠券使用预测/">o2o优惠券使用预测</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/08/O2O优惠券预测——对第一名的思路源码分析（一）/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/08/O2O优惠券预测——对第一名的思路源码分析（一）/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
     
-    <time datetime="2017-03-02T06:12:00.000Z" itemprop="datePublished">2017-03-02</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2017/02/28/PLA/" title="PLA" itemprop="url">
-  
-    <h1 itemprop="name">PLA</h1>
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
     
-     
-           <p itemprop="description" >感觉自己记性越来越差。寒假前看的东西，回来忘得一干二净。从此认真做笔记，不能再重蹈覆辙。——题记（第一次使用markdown，不太习惯，后面的公式没有继续打。现在去学习一下好用一些的公式编辑方法）
-简介定义：感知机是二类分类的线性模型。
-输入：实例的特征向量
-输出：实例的类别（±</p>
+      <a href="/2017/03/07/混合模型和bagging/" title="混合模型和bagging" itemprop="url">混合模型和bagging</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-07T01:37:58.000Z" itemprop="datePublished"> 发表于 2017-03-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
         
+        <p>这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。<a href="http://blog.jasonding.top/2015/06/10/Machine%20Learning/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E3%80%91%E6%B7%B7%E5%90%88%E5%92%8C%E8%A3%85%E8%A2%8B/" target="_blank" rel="external">混合和装袋</a></p>
+<h1 id="bagging和boosting区别">1. bagging和boosting区别</h1><p>Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。</p>
+<p>Boosting 则是迭代算法，每一次迭代都根据上一次迭代的预测结果对样本进行加权，所以随着迭代不断进行，误差会越来越小，所以模型的 bias 会不断降低。这种算法无法并行，例子比如 Adaptive Boosting.</p>
+<p>作者：匿名用户<br>链接：<a href="https://www.zhihu.com/question/26760839/answer/33963551" target="_blank" rel="external">https://www.zhihu.com/question/26760839/answer/33963551</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/07/混合模型和bagging/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/07/混合模型和bagging/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
     
-    <time datetime="2017-02-28T14:05:26.000Z" itemprop="datePublished">2017-02-28</time>
-  </a>
-</section>
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/06/梯度提升决策树/" title="梯度提升决策树" itemprop="url">梯度提升决策树</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-06T11:28:33.000Z" itemprop="datePublished"> 发表于 2017-03-06</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>上一节中介绍了《随机森林算法》，该算法使用bagging的方式作出一些决策树来，同时在决策树的学习过程中加入了更多的随机因素。该模型可以自动做到验证过程同时还可以进行特征选择。 </p>
+<p>本节，我们结合<code>AdaBoost+决策树</code>算法。</p>
+<p>在AdaBoost中每一轮迭代，都会给数据更新一个权重，利用这个权重，我们学习得到一个g，在这里我们得到一个决策树，最终利用线性组合的方式得到多个决策树组成的G。</p>
+<p>=======================================<br><strong>AdaBoost-DTree(DD)</strong><br>对于t=1,2,…,T，循环执行：</p>
+<ul>
+<li>更新数据的权重$u(t)$；</li>
+<li>通过决策树算法$DTree(D,u(t))$得到$g_t$；</li>
+<li>计算$g_t$的投票权重$α_t$。</li>
+</ul>
+<p>返回$G=LinearHypo({(g_t,α_t)})$。</p>
+<p>========================================</p>
+<p><strong>问题</strong>：如何要在决策树中，加入权重<code>ut</code></p>
+<p><strong>解决方案</strong>有两种：</p>
+<ul>
+<li>一种是通过算法加权，在计算Ein的地方嵌入权重计算，比如AdaBoost采用的最小化加权误差；</li>
+<li>另一种方法是将算法当成黑盒不变更，通过数据集加权，根据权重在bootstrap时“复制”数据，也就是加权的重采样。</li>
+</ul>
+<p>AdaBoost决策树通常用后一种，即：$AdaBoost+sampling∝u^{(t)}+DTree(D_t) $</p>
+<h1 id="加权的决策树算法-Weighted-Decision-Tree-Algorithm">1. 加权的决策树算法(Weighted Decision Tree Algorithm)</h1><p> 之前含有权重的算法中，我们在误差估计中加入了权重<code>u</code>：</p>
+<p> <img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-46-47.png" alt=""> </p>
+<p>为了对决策树中加入权重，且不改变原算法的健壮性，我们设法对输入的<code>数据</code>进行<code>权重加成</code>。而权重等效于数据的重复次数。根据这种方式得到一组新的数据，那么这组新的数据中的比例大概就是和权重的比例呈正比的，也就是说它能够表达权重对于数据的意义。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-14.png" alt=""> </p>
+<p>在AdaBoost-DTree中，为了简单起见，我们不去改变AdaBoost的框架，也不去修改决策树的内部细节，而只是通过基于权重的训练数据的采样来实现。</p>
+<p>即如下图所示的：AdaBoost提升决策树=AdaBoost提升+关于权重u的数据抽样+决策树</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-50.png" alt=""> </p>
+<h2 id="弱决策树算法">1.1. 弱决策树算法</h2><p>在AdaBoost算法中，我们<strong>通过错误率<code>εt</code>来计算单个的g的权重αt</strong>，那么如果我们使用决策树作为g的时候，g是一个完全长成的树，该树对整个数据集进行细致的切分导致Ein=0，那么这使得εt=0，但计算得到的权重αt会变成无限大。</p>
+<p>其意义是，如果使用一个能力很强的树作为g的话，那么该算法会赋予该树无限大的权重或票数，最终得到了一棵“独裁”的树（因为AdaBoost的哲学意义是庶民政治，就是集中多方的意见，及时有的意见可能是错误的），违背了AdaBoost的宗旨。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-59-58.png" alt=""> </p>
+<p>上面的问题出在使用了所有的数据和让树完全长成这两方面。针对这两个问题，我们要通过<code>剪枝</code>和<code>部分训练数据</code>得到一个弱一点的树。<br>所以实际上，AdaBoost-DTree是通过sampling的方式得到部分训练数据，通过剪枝的方式限制树的高度，得到弱一点的决策树。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-19-02.png" alt=""> </p>
+<p>下面介绍最弱的决策树。</p>
+<h2 id="决策桩，AdaBoost-Stump">1.2. 决策桩，AdaBoost-Stump</h2><p>什么样是树才是弱决策树呢？<br>我们这里限制这棵树只有一层，即决策桩(Decision Stump)。这样我们需要让CART树的不纯度(impurity)尽可能低，学习一个决策桩。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-21-14.png" alt=""> </p>
+<p>所以，使用决策桩作为弱分类器的AdaBoost称为AdaBoost-Stump，它是一种特殊的AdaBoost-DTree。</p>
+<h2 id="AdaBoost深入解释和最佳化">1.3. AdaBoost深入解释和最佳化</h2><h3 id="AdaBoost的权重与投票分数的关系">1.3.1. AdaBoost的权重与投票分数的关系</h3><p>回顾AdaBoost算法：</p>
+<p>从权重<code>ut</code>，通过<code>◆t</code>对<code>u(t+1)</code>进行修正，而两个公式可以合成为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-35-34.png" alt=""> </p>
+<p>接着我们将<code>u(t+1)</code>展开，我们发现图中橘色部分<code>∑αt·gt(xn)</code>是G(x)的分数！它现在出现在Adaboost的权重表达式中，我们称<code>∑αt·gt(xn)</code>为<strong>投票分数(voting score)</strong>。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-38-40.png" alt=""> </p>
+<p>所以，AdaBoost里面每一个数据的权重，和<code>exp(-yn(voting score on xn))</code>呈正比。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-41-04.png" alt=""> </p>
+<h3 id="投票分数-Voting-Score-和间隔-Margin-的关系">1.3.2. 投票分数(Voting Score)和间隔(Margin)的关系</h3><p>线性混合(linear blending)等价于将假设看做是特征转换的线性模型：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-13-20.png" alt=""> </p>
+<p>其中<code>αt·gt(xn)</code>如果换作是<code>wT·φ(xn)</code>可能就更清楚了，这与下面给出的在SVM中的margin表达式对比，我们可以明白投票分数<code>∑αt·gt(xn)</code>的物理意义，即可以看做是没有正规化的边界(margin)。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-20-39.png" alt=""> </p>
+<p>所以，<code>yn(voting score)</code>是有符号的、没有正规化的边界距离，从这个角度来说，我们希望<code>yn(voting score)</code>越大越好，因为这样的泛化能力越强。于是，<code>exp(-yn(voting score))</code>越小越好，那么<code>un(T+1)</code>越小越好。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-21-01.png" alt=""> </p>
+<p><strong>结论</strong>：AdaBoost在迭代过程中，是让<code>∑un(t)</code>越来越小的过程，在这个过程中，逐渐达到SVM中最大分类间隔的效果。</p>
+<h3 id="AdaBoost误差函数">1.3.3. AdaBoost误差函数</h3><p>上面解释到了，AdaBoost在迭代学习的过程，就是希望让<code>∑un(t)</code>越来越小的过程，那么我们新的目标就是最佳化<code>∑un(T+1)</code>：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-58-44.png" alt=""> </p>
+<p>我们可以画出0/1错误和AdaBoost误差函数<code>err(s,y) = exp(-ys)</code>的函数曲线，我们发现AdaBoost的误差函数（称为exponential error measure）实际上也是0/1错误函数的上限函数，于是，我们可以通过最小化该函数来起到最佳化的效果。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-59-15.png" alt=""> </p>
+<h3 id="AdaBoost误差函数的梯度下降求解">1.3.4. AdaBoost误差函数的梯度下降求解</h3><p>为了最小化AdaBoost的误差函数<code>Ein</code>，我们可以将<code>Ein</code>函数在所在点的附近做泰勒展开，我们就可以发现在该点的附近可以被梯度所描述，我们希望求一个最好的方向（最大梯度相反的方向），然后在该方向上走一小步，这样我们就可以做到比现在的函数效果好一点点，依次进行梯度下降，最终达到最小化误差函数的效果。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-02-45.png" alt=""> </p>
+<p>现在我们把gt当做方向，希望去找到这个gt（这里函数方向gt和上面介绍的最大梯度的方向向量没有什么差别，只是表示方式有所不同而已）。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-03-24.png" alt=""> </p>
+<p>我们解释一下上面的公式：</p>
+<ul>
+<li>我们需要找到一个新的函数，这里表示为<code>h(xn)</code>和步长<code>η</code>，将这个函数加入到表达式中去；</li>
+<li>我们将第一个公式中紫色的部分合起来，简化表示为权重<code>un(t)</code>；</li>
+<li>将<code>exp(-y·η·h(xn))</code>在原点处做泰勒展开，得到<code>(1-yn·η·h(xn))</code>；</li>
+<li>然后拆成两部分<code>∑un(t)</code>和<code>η·∑un(t)·yn·h(xn)</code>，第一部分是Ein，第二部分就是要最小化的目标。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-07.png" alt=""> </li>
+</ul>
+<p>我们对<code>∑un(t)·yn·h(xn)</code>整理一下，对于二元分类情形，我们把<code>yn</code>和<code>h(xn)</code>是否同号进行分别讨论：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-29.png" alt=""> </p>
+<p>上面的公式中，我们特意将<code>∑un(t)·yn·h(xn)</code>拆成<code>-∑un(t)</code>和<code>Ein(h)</code>的形式，这里最小化<code>Ein</code>对应于AdaBoost中的A（弱学习算法），好的弱学习算法就是对应于梯度下降的函数方向。</p>
+<h3 id="最佳化步长-η">1.3.5. 最佳化步长$η$</h3><p>我们要最小化Eada，需要找到好的函数方向gt，但是得打这个gt的代价有些大，梯度下降的过程中，每走一小步，就需要计算得到一个gt。如果转换一下思路，我们现在已经确定了好的gt，我们希望快速找到梯度下降的最低点，那么我们需要找到一个合适的最大步长η。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-39.png" alt=""> </p>
+<p>我们这里使用贪心算法来得到最大步长η，称为steepest decent for optimization。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-54.png" alt=""> </p>
+<p>让Eada对η求偏微分，得到最陡时候的ηt，我们发现这时ηt等于AdaBoost的αt。所以在AdaBoost中αt是在偷偷地做最佳化的工作。</p>
+<h3 id="小结">1.3.6. 小结</h3><p>在第二小节中，我们从另外一个角度介绍了AdaBoost算法，它其实是steepest gradient decent。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-06-19.png" alt=""> </p>
+<p>上面的式子很清楚了，我们将AdaBoost的误差函数看做是指数误差函数，AdaBoost就是在这个函数上一步一步做最佳化，每一步求得一个h，并将该h当做是gt，决定这个gt上面要走多长的距离ηt，最终得到这个gt的票数αt。</p>
+<h1 id="参考文献">2. 参考文献</h1><ol>
+<li><a href="http://qianjiye.de/2015/01/gradient-boosted-decision-tree" target="_blank" rel="external">梯度提升决策树</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/06/梯度提升决策树/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/06/梯度提升决策树/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/05/自适应提升 AdaBoost/" title="提升方法 AdaBoost" itemprop="url">提升方法 AdaBoost</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-05T09:31:52.000Z" itemprop="datePublished"> 发表于 2017-03-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>提升（boosting）：从弱学习算法（正确率低）出发，反复学习，得到一系列弱分类器（基本分类器），然后组合这些弱分类器，构成一个强分类器。</p>
+<p>提升（boosting）方法需要解决的问题：</p>
+<ul>
+<li>如何改变训练数据的权值或概率分布————提高被前一轮错误分类样本的权值，降低被正确分类样本的权值。</li>
+<li>如何将弱分类器合成一个强分类器————加权多数表决：加大误差小的分类器的权值，减小误差大的分类器的权值。</li>
+</ul>
+<h1 id="AdaBoost算法">1. AdaBoost算法</h1><p>假设给定一个二分类训练数据集$T=\{(x_1,y_1),(x_2,y_2),…,(x_N,y_N)\}$</p>
+<p>其中，每个样本点由<code>实例+标记</code>组成</p>
+<p>实例：$x_i\in X \subseteq R^n $</p>
+<p>标记：$y_i \in Y={-1,+1}$</p>
+<p><code>AdaBoost</code>利用以下算法，从训练数据中学习一系列弱分类器或基本分类器，并将这些弱分类器线性组合成一个强分类器</p>
+<p><strong>输入</strong>:</p>
+<ul>
+<li>数据集$T=\{(x_1,y_1),(x_2,y_2),…,(x_N,y_N)\}$</li>
+<li>弱学习算法</li>
+</ul>
+<p><strong>输出</strong>：最终分类器$G(x)$</p>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li>初始化训练数据的权值(每个都设为1/N)：</li>
+</ol>
+<p>$$D<em>1=(w</em>{11},w<em>{1i},…,w</em>{1N}),w_{1i}=\frac{1}{N},i=1,2,…,N$$</p>
+<ol>
+<li>对m=1,2,…,M:</li>
+</ol>
+<ul>
+<li>使用带权值$D_m$的训练集学习，得到基本分类器$G_m(x):X\rightarrow \{-1,+1\}$</li>
+<li>计算$G_m(x)$在训练集上的分类误差率：$$e_m=P(G_m(x_i)\neq y<em>i)=\sum</em>{n=1}^N w_{mi}I(G_m(x_i)\neq y_i)$$</li>
+</ul>
+<ol>
+<li>计算$G_m(x)$的系数：$$\alpha_m=\frac{1}{2}log\frac{1-e_m}{e_m}$$</li>
+<li>更新训练集权值：</li>
+</ol>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-06-22-49-14.png" alt=""> </p>
+<ol>
+<li>构建基本分类器的线性组合：</li>
+</ol>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-06-22-49-54.png" alt=""> </p>
+<h1 id="AdaBoost算法推导">2. AdaBoost算法推导</h1><h2 id="Boot-strapping">2.1. Boot strapping</h2><p>Boot strapping，拔靴法：利用有限的样本资料经由<strong>多次重复抽样</strong>，重新建立起足以代表母体样本分布之新样本。</p>
+<p>多次之后，得到一个非线性的结果（黑色线）<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-17-37-57.png" alt=""> </p>
+<h2 id="基本算法引入权重">2.2. 基本算法引入权重</h2><p>已知：一笔数据$D=\{(x_1,y_1),(x_2,y_2),(x_3,y_3),(x_4,y_4)\}$<br>根据<code>D</code>算出来的输入误差Ein为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-29-41.png" alt=""> </p>
+<p>通过Boot strapping，得到新的一笔数据$D_t=\{(x_1,y_1),(x_1,y_1),(x_2,y_2),(x_4,y_4)\}$<br>对应地，根据<code>Dt</code>算出来的Ein为：<br>（增加一个权重u即可）<br><code>u1=2,u2=1,u3=0,u4=1</code><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-31-04.png" alt=""> </p>
+<p><strong>结论：每一个bootstrapping得到了一个权重<code>u</code></strong></p>
+<h2 id="优化权重u">2.3. 优化权重u</h2><h3 id="优化原理">2.3.1. 优化原理</h3><ul>
+<li>每一个bootstrapping得到了一个权重`u。</li>
+<li>为了综合得到更好的g,则需要抽取的数据集得到的g尽量地不同。</li>
+<li>改变<code>u</code>，使得<code>g</code>差异更大，才会更好地改进最终结果</li>
+</ul>
+<p>得到g差异很大的方法：</p>
+<ul>
+<li>第一轮$u_n^t$时，得到$g_t$<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-39-48.png" alt=""> </li>
+<li>第二轮，选择一个 在$g_t$ 表现不好的 $u<em>n^{t+1}$  ，得到 $g</em>{t+1}$ <img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-41-02.png" alt=""><br>– 表现不好的定义：<br>— 将$u_n^{t+1}$作用在$g_t$上，得到一个归一化的错误率<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-45-01.png" alt=""><br>— 为了简便，定义橙色方块为所有犯错误的$u_n^{t+1}$的累加，绿色圆形为所有正确的$u_n^{t+1}$累加<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-47-12.png" alt=""><br>– 表现不好的选择方法：<br>— 将本次正确的$u_n^t$，除以一个错误的比例（缩小正确），赋给$u_n^{t+1}$<br>— 将本次错误的$u_n^t$，乘以一个正确的比例（放大错误），赋给$u_n^{t+1}$<br>— 这样得到的$u_n^{t+1}$的比率就会为2/1<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-51-21.png" alt=""> </li>
+</ul>
+<h3 id="优化权重u的方法————放缩因子">2.3.2. 优化权重u的方法————放缩因子</h3><p>放缩因子-Adaptive Boosting Algorithm<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-02-12.png" alt=""> </p>
+<ul>
+<li>◆t有更清晰的物理意义，通常情况下εt &lt; 1/2（因为是学习之后的结果，错误率应该小于0.5），</li>
+<li>◆t将大于1；</li>
+<li>那么，犯错的数据将乘上大于1的数，正确数据将除以大于1的数</li>
+<li>使得提升了犯错数据的权重(scale up incorrect)，</li>
+<li>降低做对数据的权重(scale down correct)</li>
+<li>这样使得更加专注在犯了错的地方，来得到不一样的假设(diverse hypotheses)。</li>
+</ul>
+<h2 id="Linear-Aggregation（聚集）-合成最终的g">2.4. Linear Aggregation（聚集） - 合成最终的g</h2><p>目标：合成最终的的$G(x)=sign(\sum_{t=1}^T\alpha_t g_t(x)$</p>
+<ul>
+<li>其中 $\alpha_t$是系数</li>
+<li>要求好的$g_t$（错误率低），$\alpha_t$应该大一些</li>
+<li>坏的$g_t$（错误率高），$\alpha_t$应该小一些</li>
+<li>而◆t与错误率成反比</li>
+<li>则可令$\alpha_t=ln(\text{◆t})$</li>
+</ul>
+<p>算法流程：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-21-25.png" alt=""> </p>
+<p>这里之所以认为αt = ln(◆t)，处于下面的考虑：<br>如果εt = 1/2， 那么◆t = 1，则αt = 0，意思是随机乱猜的情况下（二元分类错误率为0.5），认为是坏的g，则一票不给个，不使用该g<br>如果εt = 0， 那么◆t = ∞，则αt = ∞，意思是正确率为0的情况，给它无限多票数</p>
+<h1 id="AdaBoost-自适应优化算法总结">3. AdaBoost 自适应优化算法总结</h1><p>自适应优化算法 = 简单的学习A + 放缩权重 + 合成得到g<br>即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-25-49.png" alt=""> </p>
+<p>AdaBoost算法完整流程<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-26-16.png" alt=""> </p>
+<h1 id="AdaBoost理论特性">4. AdaBoost理论特性</h1><p>通过之前的VC Bound，来约束测试误差，其中蓝色的部分是模型的复杂度，O(dvc(H))为g的模型复杂度，而O(dvc(H))·T·logT是模型G的复杂度。原作者证明说，可以用O(logN)次迭代可以将Ein(G)做到很小，并且当数据量N足够多的情况下，又可以使得模型复杂度变得很小，从而使得模型复杂度得到控制。最终预测效果Eout也会很好。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-27-24.png" alt=""><br>AdaBoost的保证是让一个很弱的算法不断变强，最终得到一个很强是算法（Ein=0，Eout is small）。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-27-48.png" alt=""> </p>
+<h1 id="Adaptive-Boosting的实际应用表现">5. Adaptive Boosting的实际应用表现</h1><p>上面的AdaBoost只需要一个很弱的算法就可以使用。<br>一般情况下，可以使用决策桩(Decision Stump)，该模型相当于在某一个维度上的Perceptron模型。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-28-27.png" alt=""> </p>
+<h1 id="聚合（aggregation）模型总结">6. 聚合（aggregation）模型总结</h1><p>aggregation 模型主要应用在将得到的多个预测函数$g_t$聚合在一起，得到更好的$g_t$（即更好的分类器）的方式</p>
+<p>聚合方式主要面向两种情况：</p>
+<ul>
+<li>blending:已经有了一堆$g_t$在手上（可能是已知的，可能是求得的）。</li>
+<li>learning：不已知$g_t$，需要通过一定方式求得很多$g_t$</li>
+</ul>
+<p>learning的分为三种情况</p>
+<ul>
+<li>把g看做是同等地位，通过投票或者平均的方式将它们合起来，称为Bagging</li>
+<li>g是不平等的，有好有坏，一个可行的做法是把g当成是特征的转换，然后丢进线性模型训练就可以了，这称为AdaBoost</li>
+<li>如果是不同的条件下，使用不同的g，那么我们仍然可以将g当做是特征转换，接下来使用一个非线性模型来得到最终的模型参数，这就是下文要介绍的决策树算法</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>$g_t$类型</th>
+<th style="text-align:right">blending</th>
+<th style="text-align:center">learning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>各$g_t$等权重型（uniform）</td>
+<td style="text-align:right">投票方式/平均方式</td>
+<td style="text-align:center">Bagging</td>
+</tr>
+<tr>
+<td>$g_t$权重不等型（non-uniform）</td>
+<td style="text-align:right">线性聚合</td>
+<td style="text-align:center">AdaBoost</td>
+</tr>
+<tr>
+<td>不同情形用不同$g_t$（conditional）</td>
+<td style="text-align:right">stacking</td>
+<td style="text-align:center">决策树</td>
+</tr>
+</tbody>
+</table>
+<h1 id="AdaBoost思路总结">7. AdaBoost思路总结</h1><ul>
+<li>一般，数据量过少时，我们无法得到更好的g.</li>
+<li>因此我们采取BootStrapping方法，生成多个数据集，得到多个g</li>
+<li>最后合成最好的g</li>
+</ul>
+<p>参考文献</p>
+<ol>
+<li>《机器学习技法》，林轩田</li>
+<li><a href="http://blog.csdn.net/JasonDing1354/article/details/46462711" target="_blank" rel="external">Jason Ding，【机器学习基础】自适应提升</a></li>
+<li><a href="http://blog.jasonding.top/2015/07/22/Machine%20Learning/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E3%80%91%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/" target="_blank" rel="external">Jason Ding，【机器学习基础】决策树算法</a></li>
+</ol>
+<p>备注：本节是《机器学习技法》第8章+《统计学习方法》第8章笔记</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/机器学习/">机器学习</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/05/自适应提升 AdaBoost/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/05/自适应提升 AdaBoost/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/05/随机森林算法/" title="随机森林算法" itemprop="url">随机森林算法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-05T08:49:09.000Z" itemprop="datePublished"> 发表于 2017-03-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>引言</strong></p>
+<p>回顾之前学习过的两个算法：</p>
+<ul>
+<li>Bagging<br>– 简要：通过bootstrapping得到不一样的数据，得到不同的g，对g取平均得到G<br>– 特点：通过投票和平均的方式来降低对不同数据的敏感性（variance的效果）</li>
+<li>决策树<br>– 简要：通过递归方式建立子树，最终得到完整的树<br>– 特点：对不同数据较敏感（算法的variance很大）</li>
+<li>随机森林<br>– 两者的结合</li>
+</ul>
+<h1 id="随机森林算法">1. 随机森林算法</h1><p>概述：利用随机的方式将许多决策树组合成一个森林,每个决策树$g_t(t)$在分类的时候投票决定测试样本的最终类别。在得到森林之后，当有一个新的输入样本进入的时候，就让森林中的每一棵决策树分别进行一下判断，看看这个样本应该属于哪一类（对于分类算法），然后看看哪一类被选择最多，就预测这个样本为那一类。</p>
+<p>详细算法：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-17-09-01.png" alt=""> </p>
+<ul>
+<li>左边的总算法是Bagging思想–体现随机性</li>
+<li><p>其中为每个$g_t(t)$建树时，是决策树的思想–体现森林</p>
+</li>
+<li><p>并行计算的可能性：随机森林算法从Bagging过程中可以分配到不同的计算机中进行计算，每台计算机可以独立学习一棵树，不同的树之间没有任何依赖关系。这使得Bagging过程很容易实现并行化。</p>
+</li>
+</ul>
+<h1 id="特征投影（Feature-Project">2. 特征投影（Feature Project)</h1><ul>
+<li>原来在Bagging中，我们对数据进行抽取，得到不同的数据集，从而产生不同的$g_t$</li>
+<li>在随机森林算法中，除了对数据抽取，也可以在<strong>特征</strong>这一角度抽取</li>
+<li>例，如果事先我们有100个特征，现在我们可以抽取10个特征<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-44.png" alt=""> </li>
+</ul>
+<ul>
+<li>得到数据集<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-07.png" alt=""> </li>
+<li><p>来训练一棵树，这样的方式我们也可以得到很不一样的树，其对于分类的标准显然也很不一样</p>
+</li>
+<li><p>这等效于一个特征转换，这个过程中，从100维度到10个维度的转换中，相当于作了低维度的投影(Projection)</p>
+</li>
+<li><p>一般来说，<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-18.png" alt=""> </p>
+</li>
+</ul>
+<ul>
+<li>得到的特征实际上是原始特征的随机子集，这使得生成模型过程中的效率也大大提高了</li>
+</ul>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-17-17-10.png" alt=""> </p>
+<h1 id="特征扩展（feature-Expansion）">3. 特征扩展（feature Expansion）</h1><p>每次随机抽取子空间 <code>等效于</code> 对原来的特征向量左乘一个<strong>投影矩阵</strong>$P$,使得$\Phi(X)=P\cdot x$</p>
+<p>更加有能力的特征投影就是不再单一选取单一维度的特征，而是将多个维度的特征进行组合(随机的方向)，得到新的一维的特征，这称为<strong>特征扩展</strong>。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-18-43-19.png" alt=""> </p>
+<ul>
+<li>将多个方向的特征随机合起来(combination)，即对于投影矩阵$P$的每一个方向$p_i$，不再固定方向（row）。即变为$\Phi_i(X)=P_i^T\cdot x$<br>– 一般情况下，会考虑<code>low-dimensional</code>，即投影过去时，一般每次选取少量维度进行投影。即只有$d’’$的<code>非零项</code>被投影过去</li>
+<li>这样的方式，包含了随机抽取（random subspace）的思想</li>
+<li>一般来说，每次投影都采用新的不一样的投影</li>
+</ul>
+<h1 id="随机森林的采样过程">4. 随机森林的采样过程</h1><p>在建立森林的每颗决策树$g_t$的过程中，首先需要随机采样数据点。</p>
+<p>不是所有数据点都能被采到。以下介绍OOB点</p>
+<h2 id="Out-of-bag（OOB）点">4.1. Out-of-bag（OOB）点</h2><p>OOB点：在bootstrapping过程中，有些数据可能没有被选择，这些数据被称为OOB点。例如下表，对于训练每一个决策树$g_t$，其中用*号标注的就是$g_t$的OOB<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-19-18-06.png" alt=""> </p>
+<h3 id="OOB点个数">4.1.1. OOB点个数</h3><p>假设bootstrapping抽了$N’$次数据，探讨会有多少数据不会被抽到：</p>
+<ul>
+<li>若$N’=N$，某个数据$(x_n,y_n)$从未被抽到的概率是$(1-\frac{1}{N})^N$<br>$$(1-\frac{1}{N})^N=\frac{1}{\frac{N}{N-1}^N}\approx \frac{1}{e}$$</li>
+<li>那么每个决策树$g_t$OOB集合的大小就约为$\frac{1}{e}N\approx 0.3N$</li>
+</ul>
+<h3 id="OOB用途-验证随机森林的G">4.1.2. OOB用途-验证随机森林的G</h3><p>可以用来做测试集-问题在于————验证<code>g</code>还是<code>G</code>？<br>以数据集$(x_N,y_N)为例$</p>
+<ul>
+<li>验证$g$的必要性不大</li>
+<li>验证$G$不方便</li>
+<li>可以用来验证<code>除了g1之外的G</code> = $G_N^-(x)=average(g_2,g_3,g_T)$</li>
+<li>总之，用来验证$G$表现是否好的方式：<br>$$E_{oob}(G)=\frac{1}{N}\sum_1^N error(y_n,G_n^-(x_n))$$</li>
+</ul>
+<h1 id="特征选择（feature-selection）">5. 特征选择（feature selection）</h1><p>目的：自动选择需要的特征，去除冗余、不相关的特征<br>优点：降维，减少复杂度；减少噪声，提高模型泛化能力；物理意义；<br>缺点：计算量大；可能导致过拟合；</p>
+<p>下面介绍特征选择的方法。</p>
+<h2 id="根据重要性选择（线性的）">5.1. 根据重要性选择（线性的）</h2><ul>
+<li>给每个特征算一个权重（分数）</li>
+<li>问题：特征选择是线性的，不符合随机森林的非线性特点</li>
+</ul>
+<h2 id="置换检验（非线性的，Permutation-Test）">5.2. 置换检验（非线性的，Permutation Test）</h2><p>问题：每个特征是有噪音的，由于噪音的存在，导致某些原本很优秀的特征的分数被降低</p>
+<p>解决方法：将第i个维度特征的所有数据重新的随机调整位置，然后比较一下原始数据和调整之后的数据表现的差距，来评价这个维度的特征是有多么重要。</p>
+<ul>
+<li>调整方法1：高斯什么的，但会改变数据原始分布</li>
+<li>调整方法2：随机重排，即置换检验。将某一维度的数据随机重排，可以看出来这个维度有多重要。</li>
+</ul>
+<h2 id="在Out-Of-Bag-Estimate过程中做Permutation-Test">5.3. 在Out-Of-Bag Estimate过程中做Permutation Test</h2><p>在随机森林中可以用OOB代替验证的过程，为了简化Permutation Test带来的重新进行训练的代价，我们在使用OOB Example（bootstrap过程中没有选取的数据）进行验证的过程中做一些修改，即在验证的时候去进行Permutation Test，而非训练时进行。<br>在求Eoob(G)时，我们通过G-(xn)来计算，我们在这里将x(n)修改成x(n,i)，就可以不用对G进行修改了。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-17-46.png" alt=""><br>在实际应用中，面对非线性的问题时，可以通过随机森林的方法来进行初步的特征选择。</p>
+<p> <img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-16-21.png" alt=""> </p>
+<p>参考资料：</p>
+<ol>
+<li><a href="http://database.51cto.com/art/201407/444788.htm" target="_blank" rel="external">机器学习的算法(1):决策树之随机森林</a></li>
+<li>机器学习技法</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/05/随机森林算法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/05/随机森林算法/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/05/决策树/" title="决策树" itemprop="url">决策树</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-05T04:22:25.000Z" itemprop="datePublished"> 发表于 2017-03-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="决策树简介">1. 决策树简介</h1><p>模仿人类决策的过程</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-12-43-33.png" alt=""> </p>
+<ul>
+<li>优点：好理解；简单</li>
+<li>缺点：缺少很强的理论支持；树结构不唯一；</li>
+</ul>
+<h2 id="决策树的表达方式">1.1. 决策树的表达方式</h2><p>如上图所示的决策树，我们用$G(x)$来表达决策树：</p>
+<p>$$G(x)=\sum_{t=1}^T q_t(x)\cdot g_t(x) $$</p>
+<p>tips:</p>
+<ul>
+<li>$g(x)$是最终的决策（<code>Y or N</code>），叶子节点</li>
+<li>$q_t(x)$是条件，<code>condition</code>。就是橘色箭头的判断过程</li>
+<li>内部的决策过程，例如<code>deadline?</code>，内部节点</li>
+</ul>
+<p>那么决策树的表达就有两种方式：</p>
+<ul>
+<li><p>路径角度。将每个从根到叶子的路径作为一个假设g，通过不同的条件组合得到最后的G(X)。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-12-53-15.png" alt=""> </p>
+</li>
+<li><p>递归角度。父树是由子树递归定义的<code>tree=(root,sub-trees)</code><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-12-53-25.png" alt=""> </p>
+</li>
+</ul>
+<h2 id="基本流程">1.2. 基本流程</h2><ol>
+<li>如何分支（branching criteria），即如何得到$b(x)$</li>
+<li>根据分支，数据如何分块</li>
+<li>根据数据，如何学习子树</li>
+<li>得到最终的决策树</li>
+</ol>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-15-33-51.png" alt=""> </p>
+<h1 id="CART算法">2. CART算法</h1><ul>
+<li>Classification And Regression Tree，分类回归树</li>
+<li>二叉树（只有是、否）</li>
+<li>输入：随机变量$X$</li>
+<li>输出：随机变量$Y$的条件概率分布</li>
+<li>$g_t(x)$返回一个常数（根据不同的条件，对数据进行切分，到达叶子节点时，根据剩下的数据进行预测，输出一个常数）</li>
+</ul>
+<h2 id="纯度">2.1. 纯度</h2><h3 id="纯度的定义">2.1.1. 纯度的定义</h3><ul>
+<li>CART算法中每个节点（看做是一个决策桩decision stump）对数据进行切分，如果分出来的数据的y都很接近（回归问题）或者都一样（分类问题），那么我们说这样的数据是“纯的”，这样用标量对数据进行预测可以得到比较小的误差。</li>
+</ul>
+<p>CART分支$b(x)$为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-16-03-33.png" alt=""> </p>
+<ul>
+<li>我们通过上面的公式，来计算对于每一个节点的决策桩来说，分出来的两份数据的纯度是怎样的。</li>
+<li>该公式通过计算数据集<code>Di（i=1 or 2）</code>的纯度并根据数据集的数量对其进行加权</li>
+<li>其加权的意义是如果数据集的数量比较大的话，那个纯度对其比较重要</li>
+<li>反之，就不那么重要。</li>
+<li>CART通过分出的两部分数据综合起来的纯度对决策桩进行选择，选择“最纯”的分割方式作为当前的分支。</li>
+</ul>
+<h3 id="纯度的计算函数">2.1.2. 纯度的计算函数</h3><p>我们可以将分割出来的数据和回传的常数的误差作为评价纯度的方法，利用数据的y和回传的y_ba的均方误差来评价回归问题的纯度；利用0/1误差函数来评价分类问题的纯度。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-16-11-16.png" alt=""> </p>
+<p>如果是分类问题，我们还可以使用一个别的方法。通过基尼不纯度来度量分类问题的纯度问题。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-16-11-41.png" alt=""> </p>
+<h2 id="终止条件">2.2. 终止条件</h2><p>CART中有两种被迫终止的情况，分别是：</p>
+<ul>
+<li><code>yn</code>都一样，这时不纯度为0，于是可以得到<code>gt(x)=yn</code>；</li>
+<li><code>xn</code>都一样，就没有继续分割的可能了。</li>
+<li>CART树长到被迫停下来的情况，称为完全长成的树（fully-grown tree）。</li>
+</ul>
+<p>下面是CART算法完整流程：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-16-19-09.png" alt=""> </p>
+<h2 id="CART剪枝">2.3. CART剪枝</h2><p>预防过拟合</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-16-20-48.png" alt=""> </p>
+<p>上图告诉我们使用叶子的数目作为正则项（regularizer），最终得到一个正则化的决策树。<br>关于剪枝的具体做法时：</p>
+<ul>
+<li>首先得到完全长成的树作为<code>G(0)</code>；</li>
+<li>然后试图摘掉一片叶子，将所有摘掉一片叶子后的树计算<code>Ein</code>，将最小的那棵摘掉一片叶子的数作为<code>G(1)</code>；</li>
+<li>如此这般，得到摘掉两片叶子的最优树<code>G(2)</code>，这样不断剪枝，直到根结点，形成一个子树序列；</li>
+<li>最终对这个子树序列使用<code>argmin Ein(G)+λΩ(G)</code>来得到最后的输出。</li>
+</ul>
+<h1 id="参考资料">3. 参考资料</h1><ol>
+<li><a href="http://blog.jasonding.top/2015/07/22/Machine%20Learning/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E3%80%91%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/" target="_blank" rel="external">Jason Ding，决策树算法</a></li>
+<li>机器学习技法课程，林轩田，台湾大学</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/机器学习/">机器学习</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/05/决策树/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/05/决策树/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/03/AUC笔记/" title="ROC和AUC" itemprop="url">ROC和AUC</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-03T14:53:48.895Z" itemprop="datePublished"> 发表于 2017-03-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="AUC定义">0.0.1. AUC定义</h3><p>用途：用来度量分类模型好坏的一个标准<br>背景：</p>
+<ul>
+<li>有些时候，仅仅依靠正确率是不妥当的。</li>
+<li>能客观反映对正样本、负样本综合预测的能力，还要考虑消除样本倾斜的影响。</li>
+</ul>
+<h3 id="ROC">0.0.2. ROC</h3><ul>
+<li>ROC:Receiver Operating Characteristic</li>
+<li>ROC曲线：横坐标是false positive rate(FPR)，纵坐标是true positive rate(TPR)。</li>
+<li>对某个分类器而言，我们可以根据其在测试样本上的表现得到一个TPR和FPR点对。这样，此分类器就可以映射成ROC平面上的一个点。</li>
+<li>调整这个分类器分类时候使用的阈值，我们就可以得到一个经过(0, 0)，(1, 1)的曲线，这就是此分类器的ROC曲线。</li>
+</ul>
+<p>tip：FPR和TPR<br>先来看一个普遍的二分类问题的结果，预测值和实际值有4种组合情况，看下面的表格：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-18-05.png" alt=""><br>我们定义<br>$$ TruePositiveRate(TPR) = \frac{TP}{TP+FN=P} = \frac{正确预测1}{正确预测1+错误预测1=1的数量}=实际正样本正确预测的比例$$<br>$$ FalsePositiveRate(FPR) = \frac{FP}{FP+TN=N} = \frac{错误预测0}{错误预测0+正确预测0=0的数量}=实际负样本错误预测的比例$$</p>
+<h4 id="如何一个分类器的画ROC曲线">0.0.2.1. 如何一个分类器的画ROC曲线</h4><p>概率输出：即表示分类器认为某个样本具有多大的概率属于正样本（或负样本），来动态调整一个样本是否属于正负样本<br>例：</p>
+<ul>
+<li>图中共有20个测试样本</li>
+<li>“Class”一栏表示每个测试样本真正的标签（p表示正样本，n表示负样本）</li>
+<li>“Score”表示每个测试样本属于正样本的概率。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-38-47.png" alt=""><br>步骤：</li>
+<li>从高到低，依次将“Score”值作为阈值，当测试样本属于正样本的概率大于或等于这个阈值时，我们认为它为正样本，否则为负样本。</li>
+<li>举例来说，对于图中的第4个样本，其“Score”值为0.6，那么样本1，2，3，4都被认为是正样本，因为它们的“Score”值都大于等于0.6，而其他样本则都认为是负样本。</li>
+<li>每次选取一个不同的阈值，我们就可以得到一组FPR和TPR，即ROC曲线上的一点。这样一来，我们一共得到了20组FPR和TPR的值，将它们画在ROC曲线的结果如下图：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-39-56.png" alt=""> </li>
+<li>当我们将阈值设置为1和0时，分别可以得到ROC曲线上的(0,0)和(1,1)两个点。将这些(FPR,TPR)对连接起来，就得到了ROC曲线。</li>
+<li>当阈值取值越多，ROC曲线越平滑。</li>
+</ul>
+<h3 id="AUC">0.0.3. AUC</h3><ul>
+<li>AUC的值就是处于ROC curve下方的那部分面积的大小</li>
+<li>通常，AUC的值介于0.5到1.0之间</li>
+<li>较大的AUC代表了较好的performance</li>
+</ul>
+<h4 id="计算AUC的方法">0.0.3.1. 计算AUC的方法</h4><ul>
+<li>直接计算AUC是很麻烦的，所以就使用了AUC的一个性质（它和Wilcoxon-Mann-Witney Test是等价的）来进行计算。</li>
+<li>Wilcoxon-Mann-Witney Test就是测试任意给一个正类样本和一个负类样本，正类样本的score有多大的概率大于负类样本的score。</li>
+<li>有了这个定义，我们就得到了另外一中计算AUC的办法：得到这个概率。</li>
+</ul>
+<h5 id="方法一">0.0.3.1.1. 方法一</h5><p>统计一下所有的 M×N(M为正类样本的数目，N为负类样本的数目)个正负样本对中，有多少个组中的正样本的score大于负样本的score。当二元组中正负样本的 score相等的时候，按照0.5计算。然后除以MN。实现这个方法的复杂度为O(n^2)。n为样本数（即n=M+N）。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-43-59.png" alt=""> </p>
+<h5 id="方法二">0.0.3.1.2. 方法二</h5><p>第二种方法实际上和上述方法是一样的，但是复杂度减小了。</p>
+<ul>
+<li>首先对score从大到小排序</li>
+<li>然后令最大score对应的sample 的rank为n，第二大score对应sample的rank为n-1，以此类推</li>
+<li>然后把所有的正类样本的rank相加，再减去正类样本的score为最小的那M个值的情况。</li>
+<li>得到的就是所有的样本中有多少对正类样本的score大于负类样本的score。</li>
+<li>然后再除以M×N。即<br><code>AUC=((所有的正例位置相加)-M*(M+1))/(M*N)</code></li>
+</ul>
+<p>另外，特别需要注意的是，再存在score相等的情况时，对相等score的样本，需要 赋予相同的rank(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。具体操作就是再把所有这些score相等的样本 的rank取平均。然后再使用上述公式。</p>
+<h3 id="参考文献">0.0.4. 参考文献</h3><ol>
+<li><a href="https://www.zybuluo.com/frank-shaw/note/152851" target="_blank" rel="external">评价分类器性能指标之AUC、ROC</a></li>
+<li><a href="http://www.cnblogs.com/lixiaolun/p/4053499.html" target="_blank" rel="external">AUC(Area Under roc Curve)学习笔记</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/o2o优惠券使用预测/">o2o优惠券使用预测</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/03/AUC笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/03/AUC笔记/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/03/O2O优惠券预测——思路总结/" title="O2O优惠券预测——思路总结" itemprop="url">O2O优惠券预测——思路总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-03T08:25:05.000Z" itemprop="datePublished"> 发表于 2017-03-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近看各种机器学习算法，感觉没有实战，总是空空的。刚好这个月没什么事情，趁此机会拿<a href="https://tianchi.shuju.aliyun.com/getStart/information.htm?spm=5176.100067.5678.2.SfEzJi&amp;raceId=231593" target="_blank" rel="external">赛题</a>练习一下。</p>
+<h1 id="资料整理">1. 资料整理</h1><ol>
+<li><a href="https://github.com/wepe/O2O-Coupon-Usage-Forecast" target="_blank" rel="external">阿里天池O2O优惠券消费行为预测竞赛优胜方案</a>。第一名。北大。解题思路。</li>
+<li><a href="http://blog.csdn.net/shine19930820/article/details/53995369" target="_blank" rel="external">O2O优惠券使用预测思路总结</a>。16名。解题思路。</li>
+<li><a href="http://blog.csdn.net/bryan__/article/details/53907292" target="_blank" rel="external">O2O优惠券使用预测复赛第三名思路</a>。3名。PPT.</li>
+<li><a href="https://www.zhihu.com/question/42154455/answer/124080774" target="_blank" rel="external">各竞赛QQ群</a></li>
+<li><a href="http://www.datafountain.cn/data/science/player/competition/detail/description/238" target="_blank" rel="external">竞赛官网</a></li>
+<li><a href="https://bbs.aliyun.com/thread/254.html?spm=5176.bbsl254.0.0.sBagXf&amp;type=1214&amp;type=1214#tabA" target="_blank" rel="external">论坛专区</a></li>
+<li><a href="https://tianchi.shuju.aliyun.com/getStart/introduction.htm?spm=5176.100066.333.1.osUTZq&amp;raceId=231593" target="_blank" rel="external">天池新人实战赛[o2o优惠券使用预测]</a></li>
+<li>也可以去天池官网上，点学习入口，下面的视频，这边也有对这次020比赛的一些视频解说 </li>
+<li><a href="https://bbs.aliyun.com/read/273638.html" target="_blank" rel="external">数加平台指南＋文档、视频、FAQ及精华帖干货集锦</a></li>
+<li><a href="http://www.jianshu.com/p/00dba98eb1d0" target="_blank" rel="external">数据科学完整学习路径</a></li>
+</ol>
+<h1 id="赛题背景">2. 赛题背景</h1><ul>
+<li>O2O（Online to Offline）消费</li>
+<li>O2O：是指将线下的商务机会与互联网结合，让互联网成为线下交易的平台</li>
+<li>以优惠券盘活老用户或吸引新客户进店消费是O2O的一种重要营销方式</li>
+</ul>
+<h1 id="赛题目标">3. 赛题目标</h1><ul>
+<li>个性化投放优惠券，提高核销率</li>
+<li>通过分析建模，精准预测用户是否会在规定时间内使用相应优惠券</li>
+<li>已知：用户在2016年1月1日至2016年6月30日之间真实线上线下消费行为</li>
+<li>预测：用户在2016年7月领取优惠券后15天以内的使用情况</li>
+<li>评价标准：优惠券核销预测的平均AUC（ROC曲线下面积）。即对每个优惠券coupon_id单独计算核销预测的AUC值，再对所有优惠券的AUC值求平均作为最终的评价标准。 关于AUC的含义与具体计算方法，可参考维基百科</li>
+</ul>
+<h1 id="数据描述及分析">4. 数据描述及分析</h1><h4 id="数据描述">4.0.0.1. 数据描述</h4><ul>
+<li>Table 1: 用户线下消费和优惠券领取行为，ccf_offline_stage1_train.csv</li>
+<li>Table 2: 用户线上点击/消费和优惠券领取行为，ccf_online_stage1_train</li>
+<li>Table 3：用户O2O线下优惠券使用预测样本，ccf_offline_stage1_test_revised.csv</li>
+<li>Table 4：选手提交文件字段，其中user_id,coupon_id和date_received均来自Table 3,而Probability为预测值</li>
+</ul>
+<p><strong> TABLE 1： 用户线下消费和优惠券领取行为 </strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-21-57-25.png" alt=""> </p>
+<p><strong> Table 2: 用户线上点击/消费和优惠券领取行为</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-21-58-04.png" alt=""> </p>
+<p><strong> Table 3：用户O2O线下优惠券使用预测样本</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-21-58-29.png" alt=""> </p>
+<p><strong> Table 4选手提交文件字段</strong><br>其中user_id,coupon_id和date_received均来自Table 3,而Probability为预测值<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-21-58-40.png" alt=""> </p>
+<h4 id="数据分析">4.0.0.2. 数据分析</h4><h3 id="初步分析">4.0.1. 初步分析</h3><p><strong> TABLE 1 分析 </strong></p>
+<ul>
+<li>特点：<br>– 标题：用户线下消费和优惠券领取行为<br>– 场景：线下<br>– 行为：消费、优惠券领取<br>– 数据：优惠券领取、使用情况，消费情况，用户常活动地点与最近门店距离</li>
+<li>分析1：用户行为有三种情况<br>– 领了优惠券 &amp;&amp; 未消费 = 负样本 （Date=null &amp; Coupon_id != null）<br>– 没领优惠券 &amp;&amp; 已消费（Date!=null &amp; Coupon_id = null）<br>– 领了优惠券 &amp;&amp; 已消费（Date!=null &amp; Coupon_id != null）<br>– 总结：本数据作为刻画用户特点的主要依据较为合理</li>
+<li>分析2：优惠率<br>– 总结：有可能用户会根据优惠率来决定是否进行消费</li>
+<li>分析3：距离<br>– 离用户近的门店可能会总领取优惠券，但不一定会使用。<br>– 离用户远的门店如果有优惠券，则可能会为了很大的优惠率专程去使用。</li>
+<li>总结<br>– 本数据集主要刻画线下用户特征。</li>
+</ul>
+<p><strong> TABLE 2 分析 </strong></p>
+<ul>
+<li>特点：<br>– 标题：用户线上点击/消费和优惠券领取行为<br>– 场景：线上<br>– 行为：点击、消费、优惠券领取<br>– 数据：用户是否点击。购买。领取优惠券。</li>
+<li>分析1：用户行为有三种情况<br>– 领了优惠券 &amp;&amp; 未消费 = 负样本（Date=null &amp; Coupon_id != null）<br>– 没领优惠券 &amp;&amp; 已消费 （Date!=null &amp; Coupon_id = null）<br>– 领了优惠券 &amp;&amp; 已消费 （Date!=null &amp; Coupon_id != null）</li>
+<li>分析2：用户点击、消费、优惠券情况<br>– 用户点击了 &amp;&amp; 没领优惠券 &amp;&amp; 未消费 = 负样本<br>– 用户点击了 &amp;&amp; 领了优惠券 &amp;&amp; 未消费<br>– 用户点击了 &amp;&amp; 领了优惠券 &amp;&amp; 已消费<br>– 用户点击了 &amp;&amp; 没领优惠券 &amp;&amp; 已消费<br>– 用户没点击 </li>
+<li>总结<br>– 本数据集主要刻画线上用户特征。</li>
+</ul>
+<p><strong> Table 3：用户O2O线下优惠券使用预测样本 </strong></p>
+<ul>
+<li>测试集</li>
+</ul>
+<h3 id="认识数据">4.0.2. 认识数据</h3><p>感谢wepon的<a href="https://tianchi.shuju.aliyun.com/video.htm?spm=5176.100258.100258.3.1O7LLR" target="_blank" rel="external">无私奉献</a></p>
+<p>对提供的数据做一些基本的统计，有助于对赛题的理解，可以熟悉业务逻辑，也方便后面的特征工程。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-12-21-38-50.png" alt=""> </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-12-21-39-13.png" alt=""> </p>
+<h1 id="特征提取">5. 特征提取</h1><ul>
+<li>特征提取：将原始特征转换为一组具有明显物理意义（Gabor、几何特征[角点、不变量]、纹理[LBP HOG]）或者统计意义或核的特征</li>
+<li>经验上来说，这些特征提取的越多越好，并不用担心特征过多，因为推荐系统的数据量都比较大，并且基于一些规则可以很好的筛选特征。</li>
+<li>第一次做特征提取，很多东西想得不够周到。参考了很多第一名的思想。</li>
+</ul>
+<h4 id="用户特征">5.0.0.1. 用户特征</h4><p>用途：描述用户消费偏好</p>
+<p>线下：</p>
+<ol>
+<li>领取优惠券率（领取次数/总次数）</li>
+<li>优惠券核销率（优惠券使用次数/优惠券领取次数）</li>
+<li>消费率（消费次数/总次数）</li>
+<li>核销时的优惠率</li>
+<li>领取、使用优惠券间隔</li>
+<li>user经常活动的地点离平均/最大/最小用户-商家的最近门店距离</li>
+<li>消费频数</li>
+<li>优惠券领取频数</li>
+<li>优惠券使用频数</li>
+<li>用户满减优惠券核销率（满减优惠券使用次数/优惠券领取次数）</li>
+<li>用户满减优惠券核销比重（满减优惠券使用次数/优惠券使用次数）</li>
+<li>核销优惠券的平均/最低/最高消费打率</li>
+<li>核销过的商户数量，以及不同商家的比重</li>
+<li>核销过的不同优惠券数量，以及其与优惠券种类数的比重</li>
+<li>平均每个商家核销多少张优惠券</li>
+</ol>
+<p>线上：</p>
+<ol>
+<li>优惠券领取率（领取/总）</li>
+<li>点击频数</li>
+<li>优惠券领取频数</li>
+<li>优惠券使用频数</li>
+<li>优惠券核销率（使用/领取）</li>
+<li>消费频数</li>
+<li>消费率（消费次数/总）</li>
+<li>核销时的优惠率</li>
+<li>领取、使用优惠券间隔</li>
+<li>用户线上不消费次数</li>
+<li>用户线下不消费次数占线上线下总的不消费次数的比重</li>
+<li>用户线下的优惠券核销次数占线上线下总的优惠券核销次数的比重</li>
+</ol>
+<h4 id="线下消费的优惠券特征">5.0.0.2. 线下消费的优惠券特征</h4><ol>
+<li>优惠率</li>
+<li>优惠券被领取次数</li>
+<li>优惠券核销率</li>
+<li>领取、使用优惠券间隔</li>
+</ol>
+<h4 id="线上商户特征">5.0.0.3. 线上商户特征</h4><ol>
+<li>点击频数</li>
+<li>购买频数</li>
+<li>优惠券被领取频数</li>
+<li>优惠券被使用频数</li>
+<li>消费率（购买/总）</li>
+<li>优惠券领取率（领取/总）</li>
+<li>优惠券核销率（使用/领取）</li>
+<li>优惠率</li>
+<li>领取、使用优惠券间隔</li>
+</ol>
+<p>现在遇到了一些瓶颈。参考了前人的教程<a href="http://www.jianshu.com/p/00dba98eb1d0" target="_blank" rel="external">数据科学完整学习路径</a>，发现自己基础还是不够扎实。决定先看看机器学习技法教程，再进行下一步。</p>
+<p>=======2017.3.1======</p>
+<p>看了一下GBDT，发现我的疑问还是不能解决。</p>
+<ul>
+<li>多类特征，怎么处理？</li>
+<li>处理的流程究竟是怎样的？</li>
+</ul>
+<p>为了解决上述问题，我决定开始深入分析第一名的队伍的<a href="https://github.com/wepe/O2O-Coupon-Usage-Forecast" target="_blank" rel="external">阿里天池O2O优惠券消费行为预测竞赛优胜方案</a>源码。</p>
+<p>=======2017.3.8======</p>
+<p>算是大致看完了前辈的代码。见本博客文章“O2O优惠券预测——对第一名的思路源码分析”</p>
+<p>这其中的奥妙深不可测。</p>
+<p>知识累积不是一蹴而就的。加油吧。</p>
+<p>=======2017.3.12======</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/o2o优惠券使用预测/">o2o优惠券使用预测</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/03/O2O优惠券预测——思路总结/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/03/O2O优惠券预测——思路总结/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
 
 
 
@@ -312,7 +1703,7 @@ $$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(</p>
 
 
 
-  <nav id="page-nav" class="clearfix unexpand">
+  <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
@@ -339,7 +1730,15 @@ $$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(</p>
 		<ul>
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>3</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
 		  
 		
 		</ul>
@@ -356,19 +1755,15 @@ $$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(</p>
 			
 		
 			
-				<li><a href="/tags/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
 			
 		
 			

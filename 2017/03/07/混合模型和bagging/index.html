@@ -4,26 +4,29 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>Hello World | jiayi797的专栏</title>
+    <title>混合模型和bagging | jiayi797的专栏</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="jiayi797">
     
 
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-0.1.">
+    <meta name="description" content="这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。混合和装袋
+1. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。
+Boost">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/child/2017/02/28/hello-world/index.html">
+<meta property="og:title" content="混合模型和bagging">
+<meta property="og:url" content="http://yoursite.com/child/2017/03/07/混合模型和bagging/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-0.1.">
-<meta property="og:updated_time" content="2017-02-28T05:55:34.743Z">
+<meta property="og:description" content="这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。混合和装袋
+1. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。
+Boost">
+<meta property="og:updated_time" content="2017-03-07T01:42:30.587Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-0.1.">
+<meta name="twitter:title" content="混合模型和bagging">
+<meta name="twitter:description" content="这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。混合和装袋
+1. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。
+Boost">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -85,14 +88,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/28/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2017/03/07/混合模型和bagging/" title="混合模型和bagging" itemprop="url">混合模型和bagging</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
 		
   <p class="article-time">
-    <time datetime="2017-02-28T03:22:10.475Z" itemprop="datePublished"> 发表于 2017-02-28</time>
+    <time datetime="2017-03-07T01:37:58.000Z" itemprop="datePublished"> 发表于 2017-03-07</time>
     
   </p>
 </header>
@@ -101,23 +104,23 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">0.1. Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">0.1.1. Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">0.1.2. Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">0.1.3. Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">0.1.4. Deploy to remote sites</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bagging和boosting区别"><span class="toc-number">1.</span> <span class="toc-text">1. bagging和boosting区别</span></a></li></ol>
 		
 		</div>
 		
-		<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start">0.1. Quick Start</h2><h3 id="Create-a-new-post">0.1.1. Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server">0.1.2. Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files">0.1.3. Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites">0.1.4. Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<p>这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。<a href="http://blog.jasonding.top/2015/06/10/Machine%20Learning/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E3%80%91%E6%B7%B7%E5%90%88%E5%92%8C%E8%A3%85%E8%A2%8B/" target="_blank" rel="external">混合和装袋</a></p>
+<h1 id="bagging和boosting区别">1. bagging和boosting区别</h1><p>Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。</p>
+<p>Boosting 则是迭代算法，每一次迭代都根据上一次迭代的预测结果对样本进行加权，所以随着迭代不断进行，误差会越来越小，所以模型的 bias 会不断降低。这种算法无法并行，例子比如 Adaptive Boosting.</p>
+<p>作者：匿名用户<br>链接：<a href="https://www.zhihu.com/question/26760839/answer/33963551" target="_blank" rel="external">https://www.zhihu.com/question/26760839/answer/33963551</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+</div>
 
 
 </div>
@@ -126,7 +129,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/child/2017/02/28/hello-world/" data-title="Hello World | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
+	  <div data-url="http://yoursite.com/child/2017/03/07/混合模型和bagging/" data-title="混合模型和bagging | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -140,18 +143,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/02/28/t/" title="布置完毕">
+ <a href="/2017/03/08/O2O优惠券预测——对第一名的思路源码分析（一）/" title="O2O优惠券预测——对第一名的思路源码分析（一）">
   <strong>上一篇：</strong><br/>
   <span>
-  布置完毕</span>
+  O2O优惠券预测——对第一名的思路源码分析（一）</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/02/27/机器学习简介/"  title="机器学习简介">
+<a href="/2017/03/06/梯度提升决策树/"  title="梯度提升决策树">
  <strong>下一篇：</strong><br/> 
- <span>机器学习简介
+ <span>梯度提升决策树
 </span>
 </a>
 </div>
@@ -160,7 +163,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/02/28/hello-world/" data-title="Hello World" data-url="http://yoursite.com/child/2017/02/28/hello-world/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/07/混合模型和bagging/" data-title="混合模型和bagging" data-url="http://yoursite.com/child/2017/03/07/混合模型和bagging/"></div>
 </section>
 
 
@@ -170,7 +173,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">0.1. Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">0.1.1. Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">0.1.2. Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">0.1.3. Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">0.1.4. Deploy to remote sites</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bagging和boosting区别"><span class="toc-number">1.</span> <span class="toc-text">1. bagging和boosting区别</span></a></li></ol>
  
   </div>
 

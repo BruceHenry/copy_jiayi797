@@ -11,36 +11,36 @@
     
 
     
-    <meta name="description" content="逻辑回归模型逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
+    <meta name="description" content="1. 逻辑回归模型1.0.1. 逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
 $$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$
 $$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$
 其中
 $u$为位置参数
 $r&amp;gt;0$为形状参数
-其中，密度函数与分布函数的形状如图所示">
+其中，密度函数与分布">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逻辑回归（Logistic regression）">
 <meta property="og:url" content="http://yoursite.com/child/2017/03/02/逻辑回归（Logistic-regression）/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="逻辑回归模型逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
+<meta property="og:description" content="1. 逻辑回归模型1.0.1. 逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
 $$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$
 $$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$
 其中
 $u$为位置参数
 $r&amp;gt;0$为形状参数
-其中，密度函数与分布函数的形状如图所示">
+其中，密度函数与分布">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png">
 <meta property="og:updated_time" content="2017-03-02T15:37:33.097Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逻辑回归（Logistic regression）">
-<meta name="twitter:description" content="逻辑回归模型逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
+<meta name="twitter:description" content="1. 逻辑回归模型1.0.1. 逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：
 $$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$
 $$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$
 其中
 $u$为位置参数
 $r&amp;gt;0$为形状参数
-其中，密度函数与分布函数的形状如图所示">
+其中，密度函数与分布">
 <meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png">
 
     
@@ -119,18 +119,18 @@ $r&amp;gt;0$为形状参数
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归模型"><span class="toc-number">1.</span> <span class="toc-text">逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑回归分布"><span class="toc-number">1.0.1.</span> <span class="toc-text">逻辑回归分布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分布密度函数与分布函数"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">分布密度函数与分布函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二项逻辑回归模型"><span class="toc-number">1.0.2.</span> <span class="toc-text">二项逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：估计某个值的为哪一类的概率"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">用途：估计某个值的为哪一类的概率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型的特点"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">逻辑斯蒂回归模型的特点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模型参数估计"><span class="toc-number">2.</span> <span class="toc-text">模型参数估计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归模型"><span class="toc-number">1.</span> <span class="toc-text">1. 逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑回归分布"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.0.1. 逻辑回归分布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分布密度函数与分布函数"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">1.0.1.1. 分布密度函数与分布函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二项逻辑回归模型"><span class="toc-number">1.0.2.</span> <span class="toc-text">1.0.2. 二项逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：估计某个值的为哪一类的概率"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">1.0.2.1. 用途：估计某个值的为哪一类的概率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">1.0.2.2. 定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型的特点"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">1.0.2.3. 逻辑斯蒂回归模型的特点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模型参数估计"><span class="toc-number">2.</span> <span class="toc-text">2. 模型参数估计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">3. 总结</span></a></li></ol>
 		
 		</div>
 		
-		<h1 id="逻辑回归模型"><a href="#逻辑回归模型" class="headerlink" title="逻辑回归模型"></a>逻辑回归模型</h1><h3 id="逻辑回归分布"><a href="#逻辑回归分布" class="headerlink" title="逻辑回归分布"></a>逻辑回归分布</h3><p>连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：</p>
+		<h1 id="逻辑回归模型">1. 逻辑回归模型</h1><h3 id="逻辑回归分布">1.0.1. 逻辑回归分布</h3><p>连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：</p>
 <p>$$<br>F(x)=P(X&lt;=x)=\frac{1}{1+e^{-(x-u)/r}}<br>$$</p>
 <p>$$<br>f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}<br>$$</p>
 <p>其中</p>
 <p>$u$为位置参数</p>
 <p>$r&gt;0$为形状参数</p>
 <p>其中，密度函数与分布函数的形状如图所示<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png" alt=""> </p>
-<h4 id="分布密度函数与分布函数"><a href="#分布密度函数与分布函数" class="headerlink" title="分布密度函数与分布函数"></a>分布密度函数与分布函数</h4><p>感觉自己宛如一个智障，这些居然忘记了。哎，重新来吧。</p>
+<h4 id="分布密度函数与分布函数">1.0.1.1. 分布密度函数与分布函数</h4><p>感觉自己宛如一个智障，这些居然忘记了。哎，重新来吧。</p>
 <p>概率密度函数$f(x)$：表示瞬时值落在某区间的概率，是幅值的概率。++用来描述连续型随机变量取值的密集程度的。++$f(x)$表示X=x的概率是$\int_0^1f(x)$。</p>
 <p>$P(X=x|x \in (0,1))=\int_0^1f(x)$</p>
 <p>分布函数$F(x)$：描述随机变量落在任一区间的概率。</p>
@@ -138,21 +138,21 @@ $r&amp;gt;0$为形状参数
 <p>关系：</p>
 <p>分布函数$F(x)$是概率密度函数$f(x)$从负无穷到正无穷上的积分；</p>
 <p>在坐标轴上，概率密度函数的函数值y表示落在x点上的概率为y；分布函数的函数值y则表示x落在区间(-∞上的概率。</p>
-<h3 id="二项逻辑回归模型"><a href="#二项逻辑回归模型" class="headerlink" title="二项逻辑回归模型"></a>二项逻辑回归模型</h3><h4 id="用途：估计某个值的为哪一类的概率"><a href="#用途：估计某个值的为哪一类的概率" class="headerlink" title="用途：估计某个值的为哪一类的概率"></a>用途：估计某个值的为哪一类的概率</h4><p>logistic回归是分类问题。前面我们讲的分类问题的输出都是 “yes”或者“no”。但是在现实生活中，我们并不是总是希望结果那么肯定，而是概率（发生的可能性）。比如，我们希望知道这个房子在第三个星期被卖出去的概率。那么以前的分类算法就无法使用了，这时logistic 回归就派上了用场。 </p>
-<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>二项逻辑斯蒂回归模型是如下的条件概率分布：</p>
+<h3 id="二项逻辑回归模型">1.0.2. 二项逻辑回归模型</h3><h4 id="用途：估计某个值的为哪一类的概率">1.0.2.1. 用途：估计某个值的为哪一类的概率</h4><p>logistic回归是分类问题。前面我们讲的分类问题的输出都是 “yes”或者“no”。但是在现实生活中，我们并不是总是希望结果那么肯定，而是概率（发生的可能性）。比如，我们希望知道这个房子在第三个星期被卖出去的概率。那么以前的分类算法就无法使用了，这时logistic 回归就派上了用场。 </p>
+<h4 id="定义">1.0.2.2. 定义</h4><p>二项逻辑斯蒂回归模型是如下的条件概率分布：</p>
 <p>$$<br>P(Y=1|x)=\frac{exp(wx+b)}{1+exp(wx+b)}<br>$$</p>
 <p>$$<br>P(Y=0|x)=\frac{1}{1+exp(wx+b)}<br>$$</p>
 <p>其中：<br>$x \in R^n$ ：输入</p>
 <p>$Y \in (0,1)$ ：输出</p>
 <p>给定$x$，可以求得$P(Y=1|x)$和$P(Y=0|x)$</p>
-<h4 id="逻辑斯蒂回归模型的特点"><a href="#逻辑斯蒂回归模型的特点" class="headerlink" title="逻辑斯蒂回归模型的特点"></a>逻辑斯蒂回归模型的特点</h4><p>几率（odds）= 该事件发生的概率/该事件不该发生的概率，则对数几率：</p>
+<h4 id="逻辑斯蒂回归模型的特点">1.0.2.3. 逻辑斯蒂回归模型的特点</h4><p>几率（odds）= 该事件发生的概率/该事件不该发生的概率，则对数几率：</p>
 <p>$$<br>log(odds)=log(\frac{p}{1-p})=log(\frac{P(Y=1|x)}{1-P(Y=1|x)})=wx<br>$$</p>
 <p>则：输出Y=1的对数几率=输入x的线性函数</p>
-<h1 id="模型参数估计"><a href="#模型参数估计" class="headerlink" title="模型参数估计"></a>模型参数估计</h1><p>输入： 一堆（x,y）</p>
+<h1 id="模型参数估计">2. 模型参数估计</h1><p>输入： 一堆（x,y）</p>
 <p>目标：估计参数w,b</p>
 <p>方法：极大似然法</p>
 <p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png" alt=""> </p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<h1 id="总结">3. 总结</h1><ol>
 <li>逻辑回归是一种预测y的各类别的概率的模型，即计算P(Y=1|x)或者P(Y=0|x)</li>
 <li>与机器学习过程类似，即 通过已知的大量（x,y），预测参数w,b，来计算后来输入的x对应的类别y</li>
 </ol>
@@ -217,7 +217,7 @@ $r&amp;gt;0$为形状参数
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归模型"><span class="toc-number">1.</span> <span class="toc-text">逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑回归分布"><span class="toc-number">1.0.1.</span> <span class="toc-text">逻辑回归分布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分布密度函数与分布函数"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">分布密度函数与分布函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二项逻辑回归模型"><span class="toc-number">1.0.2.</span> <span class="toc-text">二项逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：估计某个值的为哪一类的概率"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">用途：估计某个值的为哪一类的概率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型的特点"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">逻辑斯蒂回归模型的特点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模型参数估计"><span class="toc-number">2.</span> <span class="toc-text">模型参数估计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归模型"><span class="toc-number">1.</span> <span class="toc-text">1. 逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑回归分布"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.0.1. 逻辑回归分布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分布密度函数与分布函数"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">1.0.1.1. 分布密度函数与分布函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二项逻辑回归模型"><span class="toc-number">1.0.2.</span> <span class="toc-text">1.0.2. 二项逻辑回归模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用途：估计某个值的为哪一类的概率"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">1.0.2.1. 用途：估计某个值的为哪一类的概率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">1.0.2.2. 定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型的特点"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">1.0.2.3. 逻辑斯蒂回归模型的特点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模型参数估计"><span class="toc-number">2.</span> <span class="toc-text">2. 模型参数估计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">3. 总结</span></a></li></ol>
  
   </div>
 
@@ -241,7 +241,15 @@ $r&amp;gt;0$为形状参数
 		<ul>
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>3</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
 		  
 		
 		</ul>
@@ -258,19 +266,15 @@ $r&amp;gt;0$为形状参数
 			
 		
 			
-				<li><a href="/tags/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
 			
 		
 			

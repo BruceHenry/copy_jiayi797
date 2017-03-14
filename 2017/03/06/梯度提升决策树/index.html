@@ -11,13 +11,47 @@
     
 
     
-    <meta property="og:type" content="article">
+    <meta name="description" content="上一节中介绍了《随机森林算法》，该算法使用bagging的方式作出一些决策树来，同时在决策树的学习过程中加入了更多的随机因素。该模型可以自动做到验证过程同时还可以进行特征选择。 
+本节，我们结合AdaBoost+决策树算法。
+在AdaBoost中每一轮迭代，都会给数据更新一个权重，利用这个权重，我们学习得到一个g，在这里我们得到一个决策树，最终利用线性组合的方式得到多个决策树组成的G。
+=====">
+<meta property="og:type" content="article">
 <meta property="og:title" content="梯度提升决策树">
 <meta property="og:url" content="http://yoursite.com/child/2017/03/06/梯度提升决策树/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:updated_time" content="2017-03-06T11:29:35.170Z">
+<meta property="og:description" content="上一节中介绍了《随机森林算法》，该算法使用bagging的方式作出一些决策树来，同时在决策树的学习过程中加入了更多的随机因素。该模型可以自动做到验证过程同时还可以进行特征选择。 
+本节，我们结合AdaBoost+决策树算法。
+在AdaBoost中每一轮迭代，都会给数据更新一个权重，利用这个权重，我们学习得到一个g，在这里我们得到一个决策树，最终利用线性组合的方式得到多个决策树组成的G。
+=====">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-46-47.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-14.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-50.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-59-58.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-19-02.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-21-14.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-35-34.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-38-40.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-41-04.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-13-20.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-20-39.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-21-01.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-58-44.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-59-15.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-02-45.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-03-24.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-07.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-29.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-39.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-54.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-06-19.png">
+<meta property="og:updated_time" content="2017-03-07T12:06:21.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="梯度提升决策树">
+<meta name="twitter:description" content="上一节中介绍了《随机森林算法》，该算法使用bagging的方式作出一些决策树来，同时在决策树的学习过程中加入了更多的随机因素。该模型可以自动做到验证过程同时还可以进行特征选择。 
+本节，我们结合AdaBoost+决策树算法。
+在AdaBoost中每一轮迭代，都会给数据更新一个权重，利用这个权重，我们学习得到一个g，在这里我们得到一个决策树，最终利用线性组合的方式得到多个决策树组成的G。
+=====">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-46-47.png">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -95,11 +129,85 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#加权的决策树算法-Weighted-Decision-Tree-Algorithm"><span class="toc-number">1.</span> <span class="toc-text">1. 加权的决策树算法(Weighted Decision Tree Algorithm)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#弱决策树算法"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 弱决策树算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#决策桩，AdaBoost-Stump"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. 决策桩，AdaBoost-Stump</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AdaBoost深入解释和最佳化"><span class="toc-number">1.3.</span> <span class="toc-text">1.3. AdaBoost深入解释和最佳化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AdaBoost的权重与投票分数的关系"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.3.1. AdaBoost的权重与投票分数的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#投票分数-Voting-Score-和间隔-Margin-的关系"><span class="toc-number">1.3.2.</span> <span class="toc-text">1.3.2. 投票分数(Voting Score)和间隔(Margin)的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AdaBoost误差函数"><span class="toc-number">1.3.3.</span> <span class="toc-text">1.3.3. AdaBoost误差函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AdaBoost误差函数的梯度下降求解"><span class="toc-number">1.3.4.</span> <span class="toc-text">1.3.4. AdaBoost误差函数的梯度下降求解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最佳化步长-η"><span class="toc-number">1.3.5.</span> <span class="toc-text">1.3.5. 最佳化步长$η$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">1.3.6.</span> <span class="toc-text">1.3.6. 小结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-number">2.</span> <span class="toc-text">2. 参考文献</span></a></li></ol>
 		
 		</div>
 		
-		  
+		<p>上一节中介绍了《随机森林算法》，该算法使用bagging的方式作出一些决策树来，同时在决策树的学习过程中加入了更多的随机因素。该模型可以自动做到验证过程同时还可以进行特征选择。 </p>
+<p>本节，我们结合<code>AdaBoost+决策树</code>算法。</p>
+<p>在AdaBoost中每一轮迭代，都会给数据更新一个权重，利用这个权重，我们学习得到一个g，在这里我们得到一个决策树，最终利用线性组合的方式得到多个决策树组成的G。</p>
+<p>=======================================<br><strong>AdaBoost-DTree(DD)</strong><br>对于t=1,2,…,T，循环执行：</p>
+<ul>
+<li>更新数据的权重$u(t)$；</li>
+<li>通过决策树算法$DTree(D,u(t))$得到$g_t$；</li>
+<li>计算$g_t$的投票权重$α_t$。</li>
+</ul>
+<p>返回$G=LinearHypo({(g_t,α_t)})$。</p>
+<p>========================================</p>
+<p><strong>问题</strong>：如何要在决策树中，加入权重<code>ut</code></p>
+<p><strong>解决方案</strong>有两种：</p>
+<ul>
+<li>一种是通过算法加权，在计算Ein的地方嵌入权重计算，比如AdaBoost采用的最小化加权误差；</li>
+<li>另一种方法是将算法当成黑盒不变更，通过数据集加权，根据权重在bootstrap时“复制”数据，也就是加权的重采样。</li>
+</ul>
+<p>AdaBoost决策树通常用后一种，即：$AdaBoost+sampling∝u^{(t)}+DTree(D_t) $</p>
+<h1 id="加权的决策树算法-Weighted-Decision-Tree-Algorithm">1. 加权的决策树算法(Weighted Decision Tree Algorithm)</h1><p> 之前含有权重的算法中，我们在误差估计中加入了权重<code>u</code>：</p>
+<p> <img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-46-47.png" alt=""> </p>
+<p>为了对决策树中加入权重，且不改变原算法的健壮性，我们设法对输入的<code>数据</code>进行<code>权重加成</code>。而权重等效于数据的重复次数。根据这种方式得到一组新的数据，那么这组新的数据中的比例大概就是和权重的比例呈正比的，也就是说它能够表达权重对于数据的意义。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-14.png" alt=""> </p>
+<p>在AdaBoost-DTree中，为了简单起见，我们不去改变AdaBoost的框架，也不去修改决策树的内部细节，而只是通过基于权重的训练数据的采样来实现。</p>
+<p>即如下图所示的：AdaBoost提升决策树=AdaBoost提升+关于权重u的数据抽样+决策树</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-50.png" alt=""> </p>
+<h2 id="弱决策树算法">1.1. 弱决策树算法</h2><p>在AdaBoost算法中，我们<strong>通过错误率<code>εt</code>来计算单个的g的权重αt</strong>，那么如果我们使用决策树作为g的时候，g是一个完全长成的树，该树对整个数据集进行细致的切分导致Ein=0，那么这使得εt=0，但计算得到的权重αt会变成无限大。</p>
+<p>其意义是，如果使用一个能力很强的树作为g的话，那么该算法会赋予该树无限大的权重或票数，最终得到了一棵“独裁”的树（因为AdaBoost的哲学意义是庶民政治，就是集中多方的意见，及时有的意见可能是错误的），违背了AdaBoost的宗旨。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-59-58.png" alt=""> </p>
+<p>上面的问题出在使用了所有的数据和让树完全长成这两方面。针对这两个问题，我们要通过<code>剪枝</code>和<code>部分训练数据</code>得到一个弱一点的树。<br>所以实际上，AdaBoost-DTree是通过sampling的方式得到部分训练数据，通过剪枝的方式限制树的高度，得到弱一点的决策树。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-19-02.png" alt=""> </p>
+<p>下面介绍最弱的决策树。</p>
+<h2 id="决策桩，AdaBoost-Stump">1.2. 决策桩，AdaBoost-Stump</h2><p>什么样是树才是弱决策树呢？<br>我们这里限制这棵树只有一层，即决策桩(Decision Stump)。这样我们需要让CART树的不纯度(impurity)尽可能低，学习一个决策桩。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-21-14.png" alt=""> </p>
+<p>所以，使用决策桩作为弱分类器的AdaBoost称为AdaBoost-Stump，它是一种特殊的AdaBoost-DTree。</p>
+<h2 id="AdaBoost深入解释和最佳化">1.3. AdaBoost深入解释和最佳化</h2><h3 id="AdaBoost的权重与投票分数的关系">1.3.1. AdaBoost的权重与投票分数的关系</h3><p>回顾AdaBoost算法：</p>
+<p>从权重<code>ut</code>，通过<code>◆t</code>对<code>u(t+1)</code>进行修正，而两个公式可以合成为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-35-34.png" alt=""> </p>
+<p>接着我们将<code>u(t+1)</code>展开，我们发现图中橘色部分<code>∑αt·gt(xn)</code>是G(x)的分数！它现在出现在Adaboost的权重表达式中，我们称<code>∑αt·gt(xn)</code>为<strong>投票分数(voting score)</strong>。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-38-40.png" alt=""> </p>
+<p>所以，AdaBoost里面每一个数据的权重，和<code>exp(-yn(voting score on xn))</code>呈正比。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-41-04.png" alt=""> </p>
+<h3 id="投票分数-Voting-Score-和间隔-Margin-的关系">1.3.2. 投票分数(Voting Score)和间隔(Margin)的关系</h3><p>线性混合(linear blending)等价于将假设看做是特征转换的线性模型：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-13-20.png" alt=""> </p>
+<p>其中<code>αt·gt(xn)</code>如果换作是<code>wT·φ(xn)</code>可能就更清楚了，这与下面给出的在SVM中的margin表达式对比，我们可以明白投票分数<code>∑αt·gt(xn)</code>的物理意义，即可以看做是没有正规化的边界(margin)。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-20-39.png" alt=""> </p>
+<p>所以，<code>yn(voting score)</code>是有符号的、没有正规化的边界距离，从这个角度来说，我们希望<code>yn(voting score)</code>越大越好，因为这样的泛化能力越强。于是，<code>exp(-yn(voting score))</code>越小越好，那么<code>un(T+1)</code>越小越好。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-21-01.png" alt=""> </p>
+<p><strong>结论</strong>：AdaBoost在迭代过程中，是让<code>∑un(t)</code>越来越小的过程，在这个过程中，逐渐达到SVM中最大分类间隔的效果。</p>
+<h3 id="AdaBoost误差函数">1.3.3. AdaBoost误差函数</h3><p>上面解释到了，AdaBoost在迭代学习的过程，就是希望让<code>∑un(t)</code>越来越小的过程，那么我们新的目标就是最佳化<code>∑un(T+1)</code>：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-58-44.png" alt=""> </p>
+<p>我们可以画出0/1错误和AdaBoost误差函数<code>err(s,y) = exp(-ys)</code>的函数曲线，我们发现AdaBoost的误差函数（称为exponential error measure）实际上也是0/1错误函数的上限函数，于是，我们可以通过最小化该函数来起到最佳化的效果。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-59-15.png" alt=""> </p>
+<h3 id="AdaBoost误差函数的梯度下降求解">1.3.4. AdaBoost误差函数的梯度下降求解</h3><p>为了最小化AdaBoost的误差函数<code>Ein</code>，我们可以将<code>Ein</code>函数在所在点的附近做泰勒展开，我们就可以发现在该点的附近可以被梯度所描述，我们希望求一个最好的方向（最大梯度相反的方向），然后在该方向上走一小步，这样我们就可以做到比现在的函数效果好一点点，依次进行梯度下降，最终达到最小化误差函数的效果。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-02-45.png" alt=""> </p>
+<p>现在我们把gt当做方向，希望去找到这个gt（这里函数方向gt和上面介绍的最大梯度的方向向量没有什么差别，只是表示方式有所不同而已）。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-03-24.png" alt=""> </p>
+<p>我们解释一下上面的公式：</p>
+<ul>
+<li>我们需要找到一个新的函数，这里表示为<code>h(xn)</code>和步长<code>η</code>，将这个函数加入到表达式中去；</li>
+<li>我们将第一个公式中紫色的部分合起来，简化表示为权重<code>un(t)</code>；</li>
+<li>将<code>exp(-y·η·h(xn))</code>在原点处做泰勒展开，得到<code>(1-yn·η·h(xn))</code>；</li>
+<li>然后拆成两部分<code>∑un(t)</code>和<code>η·∑un(t)·yn·h(xn)</code>，第一部分是Ein，第二部分就是要最小化的目标。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-07.png" alt=""> </li>
+</ul>
+<p>我们对<code>∑un(t)·yn·h(xn)</code>整理一下，对于二元分类情形，我们把<code>yn</code>和<code>h(xn)</code>是否同号进行分别讨论：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-29.png" alt=""> </p>
+<p>上面的公式中，我们特意将<code>∑un(t)·yn·h(xn)</code>拆成<code>-∑un(t)</code>和<code>Ein(h)</code>的形式，这里最小化<code>Ein</code>对应于AdaBoost中的A（弱学习算法），好的弱学习算法就是对应于梯度下降的函数方向。</p>
+<h3 id="最佳化步长-η">1.3.5. 最佳化步长$η$</h3><p>我们要最小化Eada，需要找到好的函数方向gt，但是得打这个gt的代价有些大，梯度下降的过程中，每走一小步，就需要计算得到一个gt。如果转换一下思路，我们现在已经确定了好的gt，我们希望快速找到梯度下降的最低点，那么我们需要找到一个合适的最大步长η。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-39.png" alt=""> </p>
+<p>我们这里使用贪心算法来得到最大步长η，称为steepest decent for optimization。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-54.png" alt=""> </p>
+<p>让Eada对η求偏微分，得到最陡时候的ηt，我们发现这时ηt等于AdaBoost的αt。所以在AdaBoost中αt是在偷偷地做最佳化的工作。</p>
+<h3 id="小结">1.3.6. 小结</h3><p>在第二小节中，我们从另外一个角度介绍了AdaBoost算法，它其实是steepest gradient decent。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-06-19.png" alt=""> </p>
+<p>上面的式子很清楚了，我们将AdaBoost的误差函数看做是指数误差函数，AdaBoost就是在这个函数上一步一步做最佳化，每一步求得一个h，并将该h当做是gt，决定这个gt上面要走多长的距离ηt，最终得到这个gt的票数αt。</p>
+<h1 id="参考文献">2. 参考文献</h1><ol>
+<li><a href="http://qianjiye.de/2015/01/gradient-boosted-decision-tree" target="_blank" rel="external">梯度提升决策树</a></li>
+</ol>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -129,6 +237,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2017/03/07/混合模型和bagging/" title="混合模型和bagging">
+  <strong>上一篇：</strong><br/>
+  <span>
+  混合模型和bagging</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2017/03/05/自适应提升 AdaBoost/"  title="提升方法 AdaBoost">
@@ -152,7 +268,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#加权的决策树算法-Weighted-Decision-Tree-Algorithm"><span class="toc-number">1.</span> <span class="toc-text">1. 加权的决策树算法(Weighted Decision Tree Algorithm)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#弱决策树算法"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 弱决策树算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#决策桩，AdaBoost-Stump"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. 决策桩，AdaBoost-Stump</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AdaBoost深入解释和最佳化"><span class="toc-number">1.3.</span> <span class="toc-text">1.3. AdaBoost深入解释和最佳化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AdaBoost的权重与投票分数的关系"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.3.1. AdaBoost的权重与投票分数的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#投票分数-Voting-Score-和间隔-Margin-的关系"><span class="toc-number">1.3.2.</span> <span class="toc-text">1.3.2. 投票分数(Voting Score)和间隔(Margin)的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AdaBoost误差函数"><span class="toc-number">1.3.3.</span> <span class="toc-text">1.3.3. AdaBoost误差函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AdaBoost误差函数的梯度下降求解"><span class="toc-number">1.3.4.</span> <span class="toc-text">1.3.4. AdaBoost误差函数的梯度下降求解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最佳化步长-η"><span class="toc-number">1.3.5.</span> <span class="toc-text">1.3.5. 最佳化步长$η$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">1.3.6.</span> <span class="toc-text">1.3.6. 小结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-number">2.</span> <span class="toc-text">2. 参考文献</span></a></li></ol>
  
   </div>
 
@@ -176,7 +292,15 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>3</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
 		  
 		
 		</ul>
@@ -193,19 +317,15 @@
 			
 		
 			
-				<li><a href="/tags/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
 			
 		
 			

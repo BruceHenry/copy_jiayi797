@@ -11,40 +11,28 @@
     
 
     
-    <meta name="description" content="简介场景从某一结果集中地逐一读记录
-游标本质能从包括多条数据记录的结果集中每次提取一条记录的机制。
+    <meta name="description" content="1. 简介1.0.1. 场景从某一结果集中地逐一读记录
+1.0.2. 游标本质能从包括多条数据记录的结果集中每次提取一条记录的机制。
 我们知道关系数据库管理系统实质是面向集合的，在MS SQL SERVER 中并没有一种描述表中单一记录的表达形式，除非使用where 子句来限制只有一条记录被选中。因此我们必须借助于游标来进行面向单条记录的数据处理。
-游标种类
-Transact_SQL 游标
-API 游标
-客户游标
-
-游标操作使用游">
+1.0.3. 游标种类
+Transact_SQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL游标">
 <meta property="og:url" content="http://yoursite.com/child/2017/03/02/SQL游标/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="简介场景从某一结果集中地逐一读记录
-游标本质能从包括多条数据记录的结果集中每次提取一条记录的机制。
+<meta property="og:description" content="1. 简介1.0.1. 场景从某一结果集中地逐一读记录
+1.0.2. 游标本质能从包括多条数据记录的结果集中每次提取一条记录的机制。
 我们知道关系数据库管理系统实质是面向集合的，在MS SQL SERVER 中并没有一种描述表中单一记录的表达形式，除非使用where 子句来限制只有一条记录被选中。因此我们必须借助于游标来进行面向单条记录的数据处理。
-游标种类
-Transact_SQL 游标
-API 游标
-客户游标
-
-游标操作使用游">
+1.0.3. 游标种类
+Transact_SQL">
 <meta property="og:updated_time" content="2017-03-03T03:16:27.865Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL游标">
-<meta name="twitter:description" content="简介场景从某一结果集中地逐一读记录
-游标本质能从包括多条数据记录的结果集中每次提取一条记录的机制。
+<meta name="twitter:description" content="1. 简介1.0.1. 场景从某一结果集中地逐一读记录
+1.0.2. 游标本质能从包括多条数据记录的结果集中每次提取一条记录的机制。
 我们知道关系数据库管理系统实质是面向集合的，在MS SQL SERVER 中并没有一种描述表中单一记录的表达形式，除非使用where 子句来限制只有一条记录被选中。因此我们必须借助于游标来进行面向单条记录的数据处理。
-游标种类
-Transact_SQL 游标
-API 游标
-客户游标
-
-游标操作使用游">
+1.0.3. 游标种类
+Transact_SQL">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -122,20 +110,20 @@ API 游标
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#场景"><span class="toc-number">1.0.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#游标本质"><span class="toc-number">1.0.2.</span> <span class="toc-text">游标本质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#游标种类"><span class="toc-number">1.0.3.</span> <span class="toc-text">游标种类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#游标操作"><span class="toc-number">2.</span> <span class="toc-text">游标操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#声明游标"><span class="toc-number">2.0.1.</span> <span class="toc-text">声明游标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打开游标"><span class="toc-number">2.0.2.</span> <span class="toc-text">打开游标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提取数据"><span class="toc-number">2.0.3.</span> <span class="toc-text">提取数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用游标提取一条数据"><span class="toc-number">2.0.3.1.</span> <span class="toc-text">用游标提取一条数据:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#用游标遍历很多条数据："><span class="toc-number">2.0.3.2.</span> <span class="toc-text">用游标遍历很多条数据：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭游标"><span class="toc-number">2.0.4.</span> <span class="toc-text">关闭游标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Where子句子"><span class="toc-number">2.0.5.</span> <span class="toc-text">使用Where子句子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#游标的类型"><span class="toc-number">2.0.6.</span> <span class="toc-text">游标的类型</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">1. 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#场景"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.0.1. 场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#游标本质"><span class="toc-number">1.0.2.</span> <span class="toc-text">1.0.2. 游标本质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#游标种类"><span class="toc-number">1.0.3.</span> <span class="toc-text">1.0.3. 游标种类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#游标操作"><span class="toc-number">2.</span> <span class="toc-text">2. 游标操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#声明游标"><span class="toc-number">2.0.1.</span> <span class="toc-text">2.0.1. 声明游标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打开游标"><span class="toc-number">2.0.2.</span> <span class="toc-text">2.0.2. 打开游标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提取数据"><span class="toc-number">2.0.3.</span> <span class="toc-text">2.0.3. 提取数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用游标提取一条数据"><span class="toc-number">2.0.3.1.</span> <span class="toc-text">2.0.3.1. 用游标提取一条数据:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#用游标遍历很多条数据："><span class="toc-number">2.0.3.2.</span> <span class="toc-text">2.0.3.2. 用游标遍历很多条数据：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭游标"><span class="toc-number">2.0.4.</span> <span class="toc-text">2.0.4. 关闭游标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Where子句子"><span class="toc-number">2.0.5.</span> <span class="toc-text">2.0.5. 使用Where子句子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#游标的类型"><span class="toc-number">2.0.6.</span> <span class="toc-text">2.0.6. 游标的类型</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>从某一结果集中地逐一读记录</p>
-<h3 id="游标本质"><a href="#游标本质" class="headerlink" title="游标本质"></a>游标本质</h3><p>能从包括多条数据记录的结果集中每次提取一条记录的机制。</p>
+		<h1 id="简介">1. 简介</h1><h3 id="场景">1.0.1. 场景</h3><p>从某一结果集中地逐一读记录</p>
+<h3 id="游标本质">1.0.2. 游标本质</h3><p>能从包括多条数据记录的结果集中每次提取一条记录的机制。</p>
 <p>我们知道关系数据库管理系统实质是面向集合的，在MS SQL SERVER 中并没有一种描述表中单一记录的表达形式，除非使用where 子句来限制只有一条记录被选中。因此我们必须借助于游标来进行面向单条记录的数据处理。</p>
-<h3 id="游标种类"><a href="#游标种类" class="headerlink" title="游标种类"></a>游标种类</h3><ul>
+<h3 id="游标种类">1.0.3. 游标种类</h3><ul>
 <li>Transact_SQL 游标</li>
 <li>API 游标</li>
 <li>客户游标</li>
 </ul>
-<h1 id="游标操作"><a href="#游标操作" class="headerlink" title="游标操作"></a>游标操作</h1><p>使用游标有四种基本的步骤:声明游标、打开游标、提取数据、关闭游标。</p>
-<h3 id="声明游标"><a href="#声明游标" class="headerlink" title="声明游标"></a>声明游标</h3><p>游标的声明包括两个部分:游标的名称 + 这个游标所用到的SQL语句。</p>
+<h1 id="游标操作">2. 游标操作</h1><p>使用游标有四种基本的步骤:声明游标、打开游标、提取数据、关闭游标。</p>
+<h3 id="声明游标">2.0.1. 声明游标</h3><p>游标的声明包括两个部分:游标的名称 + 这个游标所用到的SQL语句。</p>
 <p>例：要声明一个叫作Cus-tomerCursor的游标用以查询地址在北京的客户的姓名、帐号及其余额: </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">DECLARE CustomerCursor CURSOR FOR </div><div class="line">SELECT acct_no,name,balance </div><div class="line">FROM customer </div><div class="line">WHERE province=&quot;北京&quot;;</div></pre></td></tr></table></figure>
 <p>TIPS:</p>
@@ -143,20 +131,20 @@ API 游标
 <li>声明游标的这一段代码行是不执行的,不能将debug时的断点设在这一代码行上,也不能用IF语句来声明两个同名的游标,如下列的代码就是错误的。 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">IF Is_prov=&quot;北京&quot;THEN </div><div class="line">DECLARE CustomerCursor CURSOR FOR </div><div class="line">SELECT acct_no,name,balance </div><div class="line">FROM customer </div><div class="line">WHERE province=&quot;北京&quot;; </div><div class="line">ELSE </div><div class="line">DECLARE CustomerCursor CURSOR FOR </div><div class="line">SELECT acct_no,name,balance </div><div class="line">FROM customer </div><div class="line">WHERE province〈〉&quot;北京&quot;; </div><div class="line">END IF</div></pre></td></tr></table></figure>
-<h3 id="打开游标"><a href="#打开游标" class="headerlink" title="打开游标"></a>打开游标</h3><p>打开游标是执行与其相关的一段SQL语句</p>
+<h3 id="打开游标">2.0.2. 打开游标</h3><p>打开游标是执行与其相关的一段SQL语句</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">OPEN CustomerCursor;</div></pre></td></tr></table></figure>
-<h3 id="提取数据"><a href="#提取数据" class="headerlink" title="提取数据"></a>提取数据</h3><p>必须用FETCH语句来取得数据。</p>
+<h3 id="提取数据">2.0.3. 提取数据</h3><p>必须用FETCH语句来取得数据。</p>
 <p>一条FETCH语句一次可以将一条记录放入程序员指定的变量中。</p>
 <p>事实上,++FETCH语句是游标使用的核心++。</p>
-<h4 id="用游标提取一条数据"><a href="#用游标提取一条数据" class="headerlink" title="用游标提取一条数据:"></a>用游标提取一条数据:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">FETCH CustmerCur-sor </div><div class="line">INTO:ls_acct_no, </div><div class="line">    :ls_name, </div><div class="line">    :ll_balance;</div></pre></td></tr></table></figure>
-<h4 id="用游标遍历很多条数据："><a href="#用游标遍历很多条数据：" class="headerlink" title="用游标遍历很多条数据："></a>用游标遍历很多条数据：</h4><p>而在多数情况下,我们所想要作的是在数据库中从第一条记录开始提取,一直到结束。所以我们一般要将游标提取数据的语句放在一个循环体内,直至将结果集中的全部数据提取后,跳出循环圈。</p>
+<h4 id="用游标提取一条数据">2.0.3.1. 用游标提取一条数据:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">FETCH CustmerCur-sor </div><div class="line">INTO:ls_acct_no, </div><div class="line">    :ls_name, </div><div class="line">    :ll_balance;</div></pre></td></tr></table></figure>
+<h4 id="用游标遍历很多条数据：">2.0.3.2. 用游标遍历很多条数据：</h4><p>而在多数情况下,我们所想要作的是在数据库中从第一条记录开始提取,一直到结束。所以我们一般要将游标提取数据的语句放在一个循环体内,直至将结果集中的全部数据提取后,跳出循环圈。</p>
 <p><strong>通过检测SQLCA.SQL-CODE的值,可以得知最后一条FETCH语句是否成功。</strong></p>
 <p>一般,当SQLCODE值为0时表明一切正常,100表示已经取到了结果集的末尾,而其它值均表明操作出了问题,这样我们可以编写以下的代码: </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">lb_continue=True </div><div class="line">ll_total=0 </div><div class="line">DO WHILE lb_continue </div><div class="line">    FETCH CustomerCur-sor </div><div class="line">    INTO:ls_acct_no, </div><div class="line">        :ls_name, </div><div class="line">        :ll_balance; </div><div class="line">    If sqlca.sqlcode=0 Then  #如果SQLCA.SQL-CODE==0，则一切正常</div><div class="line">        ll_total+=ll_balance </div><div class="line">    Else #跳出循环</div><div class="line">        lb_continue=False </div><div class="line">    End If </div><div class="line">LOOP</div></pre></td></tr></table></figure>
-<h3 id="关闭游标"><a href="#关闭游标" class="headerlink" title="关闭游标"></a>关闭游标</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CLOSE CustomerCursor;</div></pre></td></tr></table></figure>
-<h3 id="使用Where子句子"><a href="#使用Where子句子" class="headerlink" title="使用Where子句子"></a>使用Where子句子</h3><p>我们可以动态地定义游标中的Where子句的参数,例如在本例中我们是直接定义了查询省份是北京的记录,但也许在应用中我们要使用一个下拉式列表框,由用户来选择要查询的省份,我们该怎样做呢?<br>我们在前面曾经提到过,DECLARE语句的作用只是定义一个游标,在OPEN语句中这个游标才会真正地被执行。了解了这些,我们就可以很方便地实现这样的功能,在DECLARE的Where子句中加入变量作参数,如下所示: </p>
+<h3 id="关闭游标">2.0.4. 关闭游标</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CLOSE CustomerCursor;</div></pre></td></tr></table></figure>
+<h3 id="使用Where子句子">2.0.5. 使用Where子句子</h3><p>我们可以动态地定义游标中的Where子句的参数,例如在本例中我们是直接定义了查询省份是北京的记录,但也许在应用中我们要使用一个下拉式列表框,由用户来选择要查询的省份,我们该怎样做呢?<br>我们在前面曾经提到过,DECLARE语句的作用只是定义一个游标,在OPEN语句中这个游标才会真正地被执行。了解了这些,我们就可以很方便地实现这样的功能,在DECLARE的Where子句中加入变量作参数,如下所示: </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">DECLARE CustomerCursor CURSOR FOR </div><div class="line">SELCECT acct_no,name,balance </div><div class="line">FROM customer </div><div class="line">WHERE province=:ls_province; </div><div class="line">∥定义ls_province的值 </div><div class="line">OPEN CustomerCursor;</div></pre></td></tr></table></figure>
-<h3 id="游标的类型"><a href="#游标的类型" class="headerlink" title="游标的类型"></a>游标的类型</h3><p>同其它变量一样,我们也可以定义游标的访问类型:全局、共享、实例或局部,游标变量的命名规范建议也同其它变量一样。 </p>
+<h3 id="游标的类型">2.0.6. 游标的类型</h3><p>同其它变量一样,我们也可以定义游标的访问类型:全局、共享、实例或局部,游标变量的命名规范建议也同其它变量一样。 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">--声明游标</div><div class="line">declare my_cursor cursor keyset for select * from info</div><div class="line">--删除游标资源</div><div class="line">deallocate my_cursor</div><div class="line">--打开游标,在游标关闭或删除前都有效</div><div class="line">open my_cursor</div><div class="line">--关闭游标</div><div class="line">close my_cursor</div><div class="line">--声明局部变量</div><div class="line">declare @id int,@name varchar(20),@address varchar(20)</div><div class="line">--定位到指定位置的记录</div><div class="line">fetch absolute 56488 from my_cursor into @id,@name,@address</div><div class="line">select @id as id,@name as name,@address as address</div><div class="line">--定位到当前记录相对位置记录</div><div class="line">fetch relative -88 from my_cursor into @id,@name,@address</div><div class="line">select @id as id,@name as name,@address as address</div><div class="line">--定位到当前记录前一条</div><div class="line">fetch prior from my_cursor into @id,@name,@address</div><div class="line">select @id as id,@name as name,@address as address</div><div class="line">--定位到当前记录后一条</div><div class="line">fetch next from my_cursor into @id,@name,@address</div><div class="line">select @id as id,@name as name,@address as address</div><div class="line">--定位到首记录</div><div class="line">fetch first from my_cursor into @id,@name,@address</div><div class="line">select @id as id,@name as name,@address as address</div><div class="line">--定位到尾记录</div><div class="line">fetch last from my_cursor into @id,@name,@address</div><div class="line">select @id as id,@name as name,@address as address</div></pre></td></tr></table></figure>
 <p>实例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">use database1</div><div class="line">declare my_cursor cursor scroll dynamic</div><div class="line"> /**//*scroll表示可随意移动游标指针（否则只能向前），dynamic表示可以读写游标（否则游标只读）*/</div><div class="line">for</div><div class="line">select productname from  product</div><div class="line">open my_cursor</div><div class="line">declare @pname sysname</div><div class="line">fetch next from my_cursor into @pname</div><div class="line">while(@@fetch_status=0)</div><div class="line">  begin</div><div class="line">    print &apos;Product Name: &apos; + @pname</div><div class="line">    fetch next from my_cursor into @pname</div><div class="line">  end</div><div class="line">fetch first from my_cursor into @pname</div><div class="line">print @pname</div><div class="line">/**//*update product set productname=&apos;zzg&apos; where current of my_cursor */</div><div class="line">/**//*delete from product where current of my_cursor */</div><div class="line">close my_cursor</div><div class="line">deallocate my_cursor</div></pre></td></tr></table></figure>
@@ -221,7 +209,7 @@ API 游标
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#场景"><span class="toc-number">1.0.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#游标本质"><span class="toc-number">1.0.2.</span> <span class="toc-text">游标本质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#游标种类"><span class="toc-number">1.0.3.</span> <span class="toc-text">游标种类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#游标操作"><span class="toc-number">2.</span> <span class="toc-text">游标操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#声明游标"><span class="toc-number">2.0.1.</span> <span class="toc-text">声明游标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打开游标"><span class="toc-number">2.0.2.</span> <span class="toc-text">打开游标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提取数据"><span class="toc-number">2.0.3.</span> <span class="toc-text">提取数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用游标提取一条数据"><span class="toc-number">2.0.3.1.</span> <span class="toc-text">用游标提取一条数据:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#用游标遍历很多条数据："><span class="toc-number">2.0.3.2.</span> <span class="toc-text">用游标遍历很多条数据：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭游标"><span class="toc-number">2.0.4.</span> <span class="toc-text">关闭游标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Where子句子"><span class="toc-number">2.0.5.</span> <span class="toc-text">使用Where子句子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#游标的类型"><span class="toc-number">2.0.6.</span> <span class="toc-text">游标的类型</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">1. 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#场景"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.0.1. 场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#游标本质"><span class="toc-number">1.0.2.</span> <span class="toc-text">1.0.2. 游标本质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#游标种类"><span class="toc-number">1.0.3.</span> <span class="toc-text">1.0.3. 游标种类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#游标操作"><span class="toc-number">2.</span> <span class="toc-text">2. 游标操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#声明游标"><span class="toc-number">2.0.1.</span> <span class="toc-text">2.0.1. 声明游标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打开游标"><span class="toc-number">2.0.2.</span> <span class="toc-text">2.0.2. 打开游标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提取数据"><span class="toc-number">2.0.3.</span> <span class="toc-text">2.0.3. 提取数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用游标提取一条数据"><span class="toc-number">2.0.3.1.</span> <span class="toc-text">2.0.3.1. 用游标提取一条数据:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#用游标遍历很多条数据："><span class="toc-number">2.0.3.2.</span> <span class="toc-text">2.0.3.2. 用游标遍历很多条数据：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭游标"><span class="toc-number">2.0.4.</span> <span class="toc-text">2.0.4. 关闭游标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Where子句子"><span class="toc-number">2.0.5.</span> <span class="toc-text">2.0.5. 使用Where子句子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#游标的类型"><span class="toc-number">2.0.6.</span> <span class="toc-text">2.0.6. 游标的类型</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
@@ -245,7 +233,15 @@ API 游标
 		<ul>
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>3</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
 		  
 		
 		</ul>
@@ -262,19 +258,15 @@ API 游标
 			
 		
 			
-				<li><a href="/tags/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
 			
 		
 			

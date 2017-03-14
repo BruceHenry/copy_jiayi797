@@ -4,26 +4,34 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>Hello World | jiayi797的专栏</title>
+    <title>O2O优惠券预测——对第一名的思路源码分析（二） | jiayi797的专栏</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="jiayi797">
     
 
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-0.1.">
+    <meta name="description" content="本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[https://github.com/wepe/O2O-Coupon-Usage-Forecast]。
+本文主要对模型训练xgb.py 做一些详细的分析。
+文件：O2O-Coupon-Usage-Forecast/code/wepon/season one 
+xgb.py 训练xg">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/child/2017/02/28/hello-world/index.html">
+<meta property="og:title" content="O2O优惠券预测——对第一名的思路源码分析（二）">
+<meta property="og:url" content="http://yoursite.com/child/2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-0.1.">
-<meta property="og:updated_time" content="2017-02-28T05:55:34.743Z">
+<meta property="og:description" content="本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[https://github.com/wepe/O2O-Coupon-Usage-Forecast]。
+本文主要对模型训练xgb.py 做一些详细的分析。
+文件：O2O-Coupon-Usage-Forecast/code/wepon/season one 
+xgb.py 训练xg">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-12-22-11-30.png">
+<meta property="og:updated_time" content="2017-03-13T06:26:37.613Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-0.1.">
+<meta name="twitter:title" content="O2O优惠券预测——对第一名的思路源码分析（二）">
+<meta name="twitter:description" content="本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[https://github.com/wepe/O2O-Coupon-Usage-Forecast]。
+本文主要对模型训练xgb.py 做一些详细的分析。
+文件：O2O-Coupon-Usage-Forecast/code/wepon/season one 
+xgb.py 训练xg">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-12-22-11-30.png">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -85,14 +93,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/28/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/" title="O2O优惠券预测——对第一名的思路源码分析（二）" itemprop="url">O2O优惠券预测——对第一名的思路源码分析（二）</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
 		
   <p class="article-time">
-    <time datetime="2017-02-28T03:22:10.475Z" itemprop="datePublished"> 发表于 2017-02-28</time>
+    <time datetime="2017-03-11T08:58:16.000Z" itemprop="datePublished"> 发表于 2017-03-11</time>
     
   </p>
 </header>
@@ -101,23 +109,95 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">0.1. Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">0.1.1. Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">0.1.2. Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">0.1.3. Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">0.1.4. Deploy to remote sites</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#import包"><span class="toc-text">1. import包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#导入数据"><span class="toc-text">2. 导入数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#加载数据到xgboost"><span class="toc-text">3. 加载数据到xgboost</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#设置参数"><span class="toc-text">4. 设置参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#训练模型"><span class="toc-text">5. 训练模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#预测测试集"><span class="toc-text">6. 预测测试集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#保存特征评分"><span class="toc-text">7. 保存特征评分</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">8. 总结</span></a></li></ol>
 		
 		</div>
 		
-		<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start">0.1. Quick Start</h2><h3 id="Create-a-new-post">0.1.1. Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server">0.1.2. Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files">0.1.3. Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites">0.1.4. Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<p>本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[<a href="https://github.com/wepe/O2O-Coupon-Usage-Forecast]。" target="_blank" rel="external">https://github.com/wepe/O2O-Coupon-Usage-Forecast]。</a></p>
+<p>本文主要对模型训练<code>xgb.py</code> 做一些详细的分析。</p>
+<p>文件：O2O-Coupon-Usage-Forecast/code/wepon/season one </p>
+<p><code>xgb.py</code> 训练xgboost模型，生成特征重要性文件，生成预测结果。单模型第一赛季A榜AUC得分0.798.</p>
+<h1 id="import包">1. import包</h1><p>首先作者import xgboost,因此我们需要安装一下它。</p>
+<p>XGBoost是数据挖掘中用到一个新型的数据分析包，相对其它Boosting模型更加高效。</p>
+<p>安装教程<a href="http://www.jianshu.com/p/11f9229b0ecd" target="_blank" rel="external">xgboost install on windows</a></p>
+<h1 id="导入数据">2. 导入数据</h1><pre><code>#将数据集导入
+dataset1 = pd.read_csv(&apos;data/dataset1.csv&apos;)
+dataset2 = pd.read_csv(&apos;data/dataset2.csv&apos;)
+dataset3 = pd.read_csv(&apos;data/dataset3.csv&apos;)
+</code></pre><p><code>dataset1、dataset2</code>有56个特征，图是前十个。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-12-22-11-30.png" alt=""> </p>
+<p><code>dataset3</code>有57个特征</p>
+<pre><code>#将dataset1的label列的-1都换成0
+dataset1.label.replace(-1,0,inplace=True)
+dataset2.label.replace(-1,0,inplace=True)
+
+#删除重复项
+dataset1.drop_duplicates(inplace=True)
+dataset2.drop_duplicates(inplace=True)
+dataset3.drop_duplicates(inplace=True)
+</code></pre><p>将dataset1和dataset2连起来</p>
+<pre><code>dataset12 = pd.concat([dataset1,dataset2],axis=0)
+</code></pre><p>dataset1_y赋值为dataset1的label列</p>
+<pre><code>dataset1_y = dataset1.label
+</code></pre><p>删除dataset1的’user_id’,’label’,’day_gap_before’,’day_gap_after’字段，赋值给dataset1_x</p>
+<pre><code>dataset1_x = dataset1.drop([&apos;user_id&apos;,&apos;label&apos;,&apos;day_gap_before&apos;,&apos;day_gap_after&apos;],axis=1)  # &apos;day_gap_before&apos;,&apos;day_gap_after&apos; cause overfitting, 0.77
+
+
+dataset2_y = dataset2.label
+dataset2_x = dataset2.drop([&apos;user_id&apos;,&apos;label&apos;,&apos;day_gap_before&apos;,&apos;day_gap_after&apos;],axis=1)
+dataset12_y = dataset12.label
+dataset12_x = dataset12.drop([&apos;user_id&apos;,&apos;label&apos;,&apos;day_gap_before&apos;,&apos;day_gap_after&apos;],axis=1)
+dataset3_preds = dataset3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;]]
+dataset3_x = dataset3.drop([&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&apos;day_gap_before&apos;,&apos;day_gap_after&apos;],axis=1)
+</code></pre><p>用shape属性来显示数据的格式</p>
+<pre><code>print dataset1_x.shape,dataset2_x.shape,dataset3_x.shape
+</code></pre><p>若输出：(8618,36) 表示这个表格有8618行和36列的数据，其中dimensions[0]为8618，dimensions[1]为36</p>
+<h1 id="加载数据到xgboost">3. 加载数据到xgboost</h1><p>dataset1、dateset2、dateset3 为xgb的DMatrix</p>
+<pre><code>dataset1 = xgb.DMatrix(dataset1_x,label=dataset1_y)
+dataset2 = xgb.DMatrix(dataset2_x,label=dataset2_y)
+dataset12 = xgb.DMatrix(dataset12_x,label=dataset12_y)
+dataset3 = xgb.DMatrix(dataset3_x)
+</code></pre><p>参考文献<a href="http://blog.csdn.net/sb19931201/article/details/52557382" target="_blank" rel="external">xgboost入门与实战（原理篇）</a></p>
+<h1 id="设置参数">4. 设置参数</h1><pre><code>params={&apos;booster&apos;:&apos;gbtree&apos;,
+        &apos;objective&apos;: &apos;rank:pairwise&apos;,
+        &apos;eval_metric&apos;:&apos;auc&apos;,
+        &apos;gamma&apos;:0.1,
+        &apos;min_child_weight&apos;:1.1,
+        &apos;max_depth&apos;:5,
+        &apos;lambda&apos;:10,
+        &apos;subsample&apos;:0.7,
+        &apos;colsample_bytree&apos;:0.7,
+        &apos;colsample_bylevel&apos;:0.7,
+        &apos;eta&apos;: 0.01,
+        &apos;tree_method&apos;:&apos;exact&apos;,
+        &apos;seed&apos;:0,
+        &apos;nthread&apos;:12
+        }
+</code></pre><h1 id="训练模型">5. 训练模型</h1><pre><code>model = xgb.train(params,dataset12,num_boost_round=3500,evals=watchlist)    
+</code></pre><h1 id="预测测试集">6. 预测测试集</h1><pre><code>dataset3_preds[&apos;label&apos;] = model.predict(dataset3)
+dataset3_preds.label = MinMaxScaler().fit_transform(dataset3_preds.label)
+dataset3_preds.sort_values(by=[&apos;coupon_id&apos;,&apos;label&apos;],inplace=True)
+dataset3_preds.to_csv(&quot;xgb_preds.csv&quot;,index=None,header=None)
+print dataset3_preds.describe()
+</code></pre><h1 id="保存特征评分">7. 保存特征评分</h1><pre><code>feature_score = model.get_fscore()
+feature_score = sorted(feature_score.items(), key=lambda x:x[1],reverse=True)
+fs = []
+for (key,value) in feature_score:
+    fs.append(&quot;{0},{1}\n&quot;.format(key,value))
+
+with open(&apos;xgb_feature_score.csv&apos;,&apos;w&apos;) as f:
+    f.writelines(&quot;feature,score\n&quot;)
+    f.writelines(fs)
+</code></pre><h1 id="总结">8. 总结</h1><p>这次算是对自己之前的各种理论知识进行了一次梳理，感觉平时过于注重算法的研究，并没有注意到宏观上的操作。以后要多加注意</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/o2o优惠券使用预测/">o2o优惠券使用预测</a>
+</div>
 
 
 </div>
@@ -126,7 +206,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/child/2017/02/28/hello-world/" data-title="Hello World | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
+	  <div data-url="http://yoursite.com/child/2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/" data-title="O2O优惠券预测——对第一名的思路源码分析（二） | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -140,18 +220,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/02/28/t/" title="布置完毕">
+ <a href="/2017/03/14/java学习笔记-类与对象/" title="java学习笔记----类与对象">
   <strong>上一篇：</strong><br/>
   <span>
-  布置完毕</span>
+  java学习笔记----类与对象</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/02/27/机器学习简介/"  title="机器学习简介">
+<a href="/2017/03/08/O2O优惠券预测——对第一名的思路源码分析（一）/"  title="O2O优惠券预测——对第一名的思路源码分析（一）">
  <strong>下一篇：</strong><br/> 
- <span>机器学习简介
+ <span>O2O优惠券预测——对第一名的思路源码分析（一）
 </span>
 </a>
 </div>
@@ -160,7 +240,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/02/28/hello-world/" data-title="Hello World" data-url="http://yoursite.com/child/2017/02/28/hello-world/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/" data-title="O2O优惠券预测——对第一名的思路源码分析（二）" data-url="http://yoursite.com/child/2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/"></div>
 </section>
 
 
@@ -170,7 +250,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">0.1. Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">0.1.1. Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">0.1.2. Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">0.1.3. Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">0.1.4. Deploy to remote sites</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#import包"><span class="toc-text">1. import包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#导入数据"><span class="toc-text">2. 导入数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#加载数据到xgboost"><span class="toc-text">3. 加载数据到xgboost</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#设置参数"><span class="toc-text">4. 设置参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#训练模型"><span class="toc-text">5. 训练模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#预测测试集"><span class="toc-text">6. 预测测试集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#保存特征评分"><span class="toc-text">7. 保存特征评分</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">8. 总结</span></a></li></ol>
  
   </div>
 
