@@ -2105,8 +2105,9 @@ footer {
   backgroud-color: #fff;
   float: right;
   position: fixed;
-  right: 30em;
-  top: 20em;
+  left: 70%;
+  top: 15em;
+  z-index: 999;
 }
 .article-content pre,
 .article-content .highlight,

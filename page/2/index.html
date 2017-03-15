@@ -80,6 +80,110 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/03/03/AUC笔记/" title="ROC和AUC" itemprop="url">ROC和AUC</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-03T14:53:48.895Z" itemprop="datePublished"> 发表于 2017-03-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="AUC定义">0.0.1. AUC定义</h3><p>用途：用来度量分类模型好坏的一个标准<br>背景：</p>
+<ul>
+<li>有些时候，仅仅依靠正确率是不妥当的。</li>
+<li>能客观反映对正样本、负样本综合预测的能力，还要考虑消除样本倾斜的影响。</li>
+</ul>
+<h3 id="ROC">0.0.2. ROC</h3><ul>
+<li>ROC:Receiver Operating Characteristic</li>
+<li>ROC曲线：横坐标是false positive rate(FPR)，纵坐标是true positive rate(TPR)。</li>
+<li>对某个分类器而言，我们可以根据其在测试样本上的表现得到一个TPR和FPR点对。这样，此分类器就可以映射成ROC平面上的一个点。</li>
+<li>调整这个分类器分类时候使用的阈值，我们就可以得到一个经过(0, 0)，(1, 1)的曲线，这就是此分类器的ROC曲线。</li>
+</ul>
+<p>tip：FPR和TPR<br>先来看一个普遍的二分类问题的结果，预测值和实际值有4种组合情况，看下面的表格：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-18-05.png" alt=""><br>我们定义<br>$$ TruePositiveRate(TPR) = \frac{TP}{TP+FN=P} = \frac{正确预测1}{正确预测1+错误预测1=1的数量}=实际正样本正确预测的比例$$<br>$$ FalsePositiveRate(FPR) = \frac{FP}{FP+TN=N} = \frac{错误预测0}{错误预测0+正确预测0=0的数量}=实际负样本错误预测的比例$$</p>
+<h4 id="如何一个分类器的画ROC曲线">0.0.2.1. 如何一个分类器的画ROC曲线</h4><p>概率输出：即表示分类器认为某个样本具有多大的概率属于正样本（或负样本），来动态调整一个样本是否属于正负样本<br>例：</p>
+<ul>
+<li>图中共有20个测试样本</li>
+<li>“Class”一栏表示每个测试样本真正的标签（p表示正样本，n表示负样本）</li>
+<li>“Score”表示每个测试样本属于正样本的概率。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-38-47.png" alt=""><br>步骤：</li>
+<li>从高到低，依次将“Score”值作为阈值，当测试样本属于正样本的概率大于或等于这个阈值时，我们认为它为正样本，否则为负样本。</li>
+<li>举例来说，对于图中的第4个样本，其“Score”值为0.6，那么样本1，2，3，4都被认为是正样本，因为它们的“Score”值都大于等于0.6，而其他样本则都认为是负样本。</li>
+<li>每次选取一个不同的阈值，我们就可以得到一组FPR和TPR，即ROC曲线上的一点。这样一来，我们一共得到了20组FPR和TPR的值，将它们画在ROC曲线的结果如下图：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-39-56.png" alt=""> </li>
+<li>当我们将阈值设置为1和0时，分别可以得到ROC曲线上的(0,0)和(1,1)两个点。将这些(FPR,TPR)对连接起来，就得到了ROC曲线。</li>
+<li>当阈值取值越多，ROC曲线越平滑。</li>
+</ul>
+<h3 id="AUC">0.0.3. AUC</h3><ul>
+<li>AUC的值就是处于ROC curve下方的那部分面积的大小</li>
+<li>通常，AUC的值介于0.5到1.0之间</li>
+<li>较大的AUC代表了较好的performance</li>
+</ul>
+<h4 id="计算AUC的方法">0.0.3.1. 计算AUC的方法</h4><ul>
+<li>直接计算AUC是很麻烦的，所以就使用了AUC的一个性质（它和Wilcoxon-Mann-Witney Test是等价的）来进行计算。</li>
+<li>Wilcoxon-Mann-Witney Test就是测试任意给一个正类样本和一个负类样本，正类样本的score有多大的概率大于负类样本的score。</li>
+<li>有了这个定义，我们就得到了另外一中计算AUC的办法：得到这个概率。</li>
+</ul>
+<h5 id="方法一">0.0.3.1.1. 方法一</h5><p>统计一下所有的 M×N(M为正类样本的数目，N为负类样本的数目)个正负样本对中，有多少个组中的正样本的score大于负样本的score。当二元组中正负样本的 score相等的时候，按照0.5计算。然后除以MN。实现这个方法的复杂度为O(n^2)。n为样本数（即n=M+N）。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-43-59.png" alt=""> </p>
+<h5 id="方法二">0.0.3.1.2. 方法二</h5><p>第二种方法实际上和上述方法是一样的，但是复杂度减小了。</p>
+<ul>
+<li>首先对score从大到小排序</li>
+<li>然后令最大score对应的sample 的rank为n，第二大score对应sample的rank为n-1，以此类推</li>
+<li>然后把所有的正类样本的rank相加，再减去正类样本的score为最小的那M个值的情况。</li>
+<li>得到的就是所有的样本中有多少对正类样本的score大于负类样本的score。</li>
+<li>然后再除以M×N。即<br><code>AUC=((所有的正例位置相加)-M*(M+1))/(M*N)</code></li>
+</ul>
+<p>另外，特别需要注意的是，再存在score相等的情况时，对相等score的样本，需要 赋予相同的rank(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。具体操作就是再把所有这些score相等的样本 的rank取平均。然后再使用上述公式。</p>
+<h3 id="参考文献">0.0.4. 参考文献</h3><ol>
+<li><a href="https://www.zybuluo.com/frank-shaw/note/152851" target="_blank" rel="external">评价分类器性能指标之AUC、ROC</a></li>
+<li><a href="http://www.cnblogs.com/lixiaolun/p/4053499.html" target="_blank" rel="external">AUC(Area Under roc Curve)学习笔记</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/o2o优惠券使用预测/">o2o优惠券使用预测</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/03/AUC笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/03/AUC笔记/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/03/03/O2O优惠券预测——思路总结/" title="O2O优惠券预测——思路总结" itemprop="url">O2O优惠券预测——思路总结</a>
   </h1>
   <p class="article-author">By
@@ -959,7 +1063,11 @@
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>1</sup></a></li>
 		  
 		
 		</ul>
