@@ -4,43 +4,26 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>java学习笔记----类与对象 | jiayi797的专栏</title>
+    <title>ACM--Radar Installation | jiayi797的专栏</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="jiayi797">
     
 
     
-    <meta name="description" content="本文主要总结了一些自己不太熟悉的概念。
-1. 对象与对象变量Date birthday = new Date();
-对象变量：birthday对象：右边的部分
-一个对象变量并没有实际包含一个对象，仅仅是引用一个对象。
-可以显示地将对象变量设置为null，表明这个对象变量目前没有引用任何对象：
-birthday = null;
-2. 隐式参数与显式参数例，methodName()是类class1的方">
+    <meta name="description" content="1. 题目描述Assume the coasting is an infinite straight line. Land is in one side of coasting, sea in the other. Each small island is a point locating in the sea side. And any radar installation, locating">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java学习笔记----类与对象">
-<meta property="og:url" content="http://yoursite.com/child/2017/03/14/java学习笔记-类与对象/index.html">
+<meta property="og:title" content="ACM--Radar Installation">
+<meta property="og:url" content="http://yoursite.com/child/2017/03/22/ACM-Radar-Installation/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="本文主要总结了一些自己不太熟悉的概念。
-1. 对象与对象变量Date birthday = new Date();
-对象变量：birthday对象：右边的部分
-一个对象变量并没有实际包含一个对象，仅仅是引用一个对象。
-可以显示地将对象变量设置为null，表明这个对象变量目前没有引用任何对象：
-birthday = null;
-2. 隐式参数与显式参数例，methodName()是类class1的方">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-14-10-47-16.png">
-<meta property="og:updated_time" content="2017-03-15T11:27:40.004Z">
+<meta property="og:description" content="1. 题目描述Assume the coasting is an infinite straight line. Land is in one side of coasting, sea in the other. Each small island is a point locating in the sea side. And any radar installation, locating">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-22-19-32-14.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-22-21-06-38.png">
+<meta property="og:updated_time" content="2017-03-23T06:49:26.503Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java学习笔记----类与对象">
-<meta name="twitter:description" content="本文主要总结了一些自己不太熟悉的概念。
-1. 对象与对象变量Date birthday = new Date();
-对象变量：birthday对象：右边的部分
-一个对象变量并没有实际包含一个对象，仅仅是引用一个对象。
-可以显示地将对象变量设置为null，表明这个对象变量目前没有引用任何对象：
-birthday = null;
-2. 隐式参数与显式参数例，methodName()是类class1的方">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-14-10-47-16.png">
+<meta name="twitter:title" content="ACM--Radar Installation">
+<meta name="twitter:description" content="1. 题目描述Assume the coasting is an infinite straight line. Land is in one side of coasting, sea in the other. Each small island is a point locating in the sea side. And any radar installation, locating">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-22-19-32-14.png">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -102,14 +85,14 @@ birthday = null;
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/14/java学习笔记-类与对象/" title="java学习笔记----类与对象" itemprop="url">java学习笔记----类与对象</a>
+      <a href="/2017/03/22/ACM-Radar-Installation/" title="ACM--Radar Installation" itemprop="url">ACM--Radar Installation</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
 		
   <p class="article-time">
-    <time datetime="2017-03-14T01:56:21.000Z" itemprop="datePublished"> 发表于 2017-03-14</time>
+    <time datetime="2017-03-22T11:30:08.000Z" itemprop="datePublished"> 发表于 2017-03-22</time>
     
   </p>
 </header>
@@ -118,121 +101,113 @@ birthday = null;
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#对象与对象变量"><span class="toc-text">1. 对象与对象变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#隐式参数与显式参数"><span class="toc-text">2. 隐式参数与显式参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#封装"><span class="toc-text">3. 封装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#final实例域"><span class="toc-text">4. final实例域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#static静态"><span class="toc-text">5. static静态</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#static域"><span class="toc-text">5.1. static域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#static常量"><span class="toc-text">5.2. static常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#static方法"><span class="toc-text">5.3. static方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工厂方法"><span class="toc-text">5.4. 工厂方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#main方法"><span class="toc-text">5.5. main方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他重点"><span class="toc-text">6. 其他重点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Java类库中的GregorianCalendar类-（删除本节）"><span class="toc-text">7. Java类库中的GregorianCalendar类 （删除本节）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#纪元"><span class="toc-text">7.1. 纪元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间与日历"><span class="toc-text">7.2. 时间与日历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Date类"><span class="toc-text">7.2.1. Date类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GregorianCalendar类"><span class="toc-text">7.2.2. GregorianCalendar类</span></a></li></ol></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目描述"><span class="toc-text">1. 题目描述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Input"><span class="toc-text">2. Input</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Output"><span class="toc-text">3. Output</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路"><span class="toc-text">4. 思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码"><span class="toc-text">5. 代码</span></a></li></ol>
 		
 		</div>
 		
-		<p>本文主要总结了一些自己不太熟悉的概念。</p>
-<h1 id="对象与对象变量">1. 对象与对象变量</h1><pre><code>Date birthday = new Date();
-</code></pre><p>对象变量：birthday<br>对象：右边的部分</p>
-<p>一个对象变量并没有实际包含一个对象，仅仅是引用一个对象。</p>
-<p>可以显示地将对象变量设置为<code>null</code>，表明这个对象变量目前没有引用任何对象：</p>
-<pre><code>birthday = null;
-</code></pre><h1 id="隐式参数与显式参数">2. 隐式参数与显式参数</h1><p>例，methodName()是类class1的方法，</p>
-<pre><code>calss class1{
-int a;
-    public void methodName(int b){
-    this.a = b ;
-}
-</code></pre><ul>
-<li>显式参数(explicit)：括号里面的，例如double pName</li>
-<li>隐式参数(implicit)：出现在方法名前的class1类对象<br>– 关键词<code>this</code>表示隐式参数。例如<code>this.a</code></li>
-</ul>
-<h1 id="封装">3. 封装</h1><p>不能编写返回<code>引用可变对象</code>的访问器方法！例如：</p>
-<pre><code>class class1{
-    private Date a;
-    public Date get(){
-        return Date a; //会破坏封装性！
+		<h1 id="题目描述">1. 题目描述</h1><p>Assume the coasting is an infinite straight line. Land is in one side of coasting, sea in the other. Each small island is a point locating in the sea side. And any radar installation, locating on the coasting, can only cover d distance, so an island in the sea can be covered by a radius installation, if the distance between them is at most d. </p>
+<p>We use Cartesian coordinate system, defining the coasting is the x-axis. The sea side is above x-axis, and the land side below. Given the position of each island in the sea, and given the distance of the coverage of the radar installation, your task is to write a program to find the minimal number of radar installations to cover all the islands. Note that the position of an island is represented by its x-y coordinates. </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-22-19-32-14.png" alt=""> </p>
+<p>coasting：滑行<br>infinite：无穷的<br>Cartesian coordinate system：笛卡尔坐标系</p>
+<p>已知：海岸线是x轴，以上是海，以下是陆地。雷达安装在海岸线上，覆盖半径是d。<br>目标：求能够覆盖所有岛屿的雷达安装数目。<br>需需要注意的是，海岛坐标在x-y坐标系中。</p>
+<h1 id="Input">2. Input</h1><p>The input consists of several test cases. The first line of each case contains two integers n (1&lt;=n&lt;=1000) and d, where n is the number of islands in the sea and d is the distance of coverage of the radar installation. This is followed by n lines each containing two integers representing the coordinate of the position of each island. Then a blank line follows to separate the cases. </p>
+<p>The input is terminated by a line containing pair of zeros </p>
+<p>输入一般包含好几组case测试数据。</p>
+<p>每个case的第一行是(n,d)<br>然后是n行岛屿坐标</p>
+<p>最后以（0,0）结尾</p>
+<h1 id="Output">3. Output</h1><p>For each test case output one line consisting of the test case number followed by the minimal number of radar installations needed. “-1” installation means no solution for that case.</p>
+<h1 id="思路">4. 思路</h1><p>这道题问的是怎样放雷达使其放的雷达数目最少而能够探测到所有的岛屿，这里需要转换为求每个岛屿的能放雷达的区间的问题:</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-22-21-06-38.png" alt=""> </p>
+<p>抽象问题:每个小岛都对应一个区域,这个区域内的雷达都能探测到这个小岛,把这N个区域求出来,问题现在就变成了,最少放置几个点,能使得每个区域内都至少有一个点.</p>
+<p>这道题目的关键之处就是把面的问题转换成线的问题，每一个座海岛在x轴上有一个区间，在这个区间里面的雷达都可以侦测到海岛，区间的范围即是[x-sqrt(dd – yy), x+sqrt(dd+yy)]，然后先以右端点为基进行从小到大排序，然后把第一个雷达默认放在最左端的xmax，接下来的点只要是xmin小于当前xmax就可以不用增加雷达，如果xmax == xmin的话也不用增加雷达。然后如果xmax &lt; xmin的话就加一个雷达，然后以xmin所属区间的xmax为基进行比较。</p>
+<h1 id="代码">5. 代码</h1><pre><code>import java.io.PrintWriter;
+
+import java.util.Arrays;
+import java.util.Scanner;
+public class Main {
+    static class Range implements Comparable&lt;Range&gt;{
+        double left,right;
+        public Range(double left,double right){
+            this.left = left;
+
+            this.right = right;
+        }
+        @Override
+
+        public int compareTo(Range range) {
+            if(range.left == left){
+                return ((Double)right).compareTo((Double)(range.right));
+            }else{
+                return ((Double)left).compareTo((Double)(range.left));
+            }
+        }
+
+        @Override
+        public String toString() {
+            return &quot;(&quot; + left + &quot;,&quot; + right + &quot;)&quot;;
+        }
+
+    }
+
+
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+
+        PrintWriter out = new PrintWriter(System.out);
+        int n ,d,x,y,num;
+        double dx;
+        Range[] ranges;
+        int index = 0;
+        while(true){
+            num = 0;
+            n = scn.nextInt();
+            d = scn.nextInt();
+            if(n == 0){
+                break;
+            }
+            ranges = new Range[n];
+            for(int i = 0; i &lt; n; i++){
+                x = scn.nextInt();
+                y = scn.nextInt();
+                if(y &gt; d){
+                    num = -1;
+                }
+                dx = Math.sqrt(d*d - y*y);
+                ranges[i] = new Range(x - dx, x + dx);
+            }
+            Arrays.sort(ranges);//���
+            if(num != -1){
+                num = calute(ranges);
+            }
+            out.format(&quot;Case %d: %d\n&quot;,++index,num);
+        }
+        out.flush();
+
+    }
+
+    private static int calute(Range[] ranges) {
+        int num = 1;
+        int n = ranges.length;
+        Range preRange = ranges[0],range;
+        for(int i = 1; i &lt; n; i++){
+            range = ranges[i];
+            if(range.left &gt;= preRange.left &amp;&amp; range.left &lt;= preRange.right){
+                preRange.left = range.left;
+                if(range.right &lt; preRange.right){
+                    preRange.right = range.right;
+                }
+            }else{
+                num++;
+                preRange = range;
+            }
+        }
+        return num;
     }
 }
-</code></pre><p>以上操作破坏了<code>a</code>的私有性。</p>
-<p>改正方法：克隆（clone）</p>
-<pre><code>class class1{
-    private Date a;
-    public Date get(){
-        return Date a.clone(); //使用clone()
-    }
-}
-</code></pre><h1 id="final实例域">4. final实例域</h1><pre><code>class class1{
-    private final String name;
-}
-</code></pre><p>final域的特征：</p>
-<ol>
-<li>构造对象时，必须初始化final</li>
-<li>后面操作中，不能再改动</li>
-<li>但并不等于常量！</li>
-<li>属于对象，并不是类！</li>
-</ol>
-<h1 id="static静态">5. static静态</h1><h2 id="static域">5.1. static域</h2><ol>
-<li>每个类只能有一个static域</li>
-<li>同一类的所有对象共享一个static域</li>
-<li>即使没有对象，static域也存在。它属于类，不属于任何一个对象</li>
-</ol>
-<pre><code>class Employee{
-    private static int nextId = 1;
-    private int id;
-}
-</code></pre><h2 id="static常量">5.2. static常量</h2><ol>
-<li>如下例，在程序中，可以使用<code>Math.PI</code>来获取这个常量。</li>
-</ol>
-<pre><code>public class Math{
-    public static final double PI = 3.14;
-}
-</code></pre><h2 id="static方法">5.3. static方法</h2><pre><code>Math.pow(x,a)
-</code></pre><ol>
-<li>不使用任何对象；</li>
-<li>不能操作实例域（即类内的非static方法和变量），因为它不能操作对象；</li>
-<li>可以访问自身类的static域；</li>
-<li>对象也可以调用static方法。</li>
-</ol>
-<p>在下面两种情况使用静态方法：</p>
-<ol>
-<li>一个方法不需要访问对象；</li>
-<li>一个方法只需要访问类的static域。</li>
-</ol>
-<h2 id="工厂方法">5.4. 工厂方法</h2><p>工厂方法是静态方法的一种常见用途。<br>例如，<code>NumberFormat</code>使用工厂方法(而不是构造器)产生<strong>不同风格</strong>的格式对象。</p>
-<pre><code>NumberFormat a = NumberFormat.getSytleA();
-NumberFormat b = NumberFormat.getStyleB();
-</code></pre><h2 id="main方法">5.5. main方法</h2><pre><code>public class Application{
-    public static void main(String[] args){
-        // construct objects here
-    }
-}
-</code></pre><ol>
-<li>每一个类可以有一个main方法，用来单元测试；</li>
-<li>多个类被调用时，只会执行一个main方法；</li>
-</ol>
-<h1 id="其他重点">6. 其他重点</h1><ol>
-<li>基于类的访问权限：一个方法可以访问所属类的所有私有数据。</li>
-<li>java的值引用（基本数据类型、对象引用）</li>
-<li>如果类中提供了至少一个有参构造器，而没有无参构造器，则在构造无参对象时会出错。</li>
-</ol>
-<h1 id="Java类库中的GregorianCalendar类-（删除本节）">7. Java类库中的GregorianCalendar类 （删除本节）</h1><h2 id="纪元">7.1. 纪元</h2><p>时间是用距离一个固定时间点的毫秒数表示的，这个点就是纪元(epoch)。</p>
-<h2 id="时间与日历">7.2. 时间与日历</h2><p>为了将<strong>时间</strong>与<strong>日历</strong>分开，标准Java类库分别包含两个类：</p>
-<ul>
-<li>Date类：用来表示时间点的类；</li>
-<li>GregorianCalendar类：用来表示公历法的类；（通过它还有一个扩展类——Calendar类，描述了日历的一般属性）</li>
-</ul>
-<h3 id="Date类">7.2.1. Date类</h3><p>用来表示时间的类；</p>
-<p>只有少量的方法，例如比较两个时间点before(),after()：</p>
-<pre><code>doday.before(birthday)
-</code></pre><h3 id="GregorianCalendar类">7.2.2. GregorianCalendar类</h3><p>常见方法：</p>
-<p><code>new GregorianCalendar()</code>，构造新的对象，用于表示对象构造时的日期和时间；</p>
-<p>例如:</p>
-<pre><code>GregorianCalendar g1 = new GregorianCalendar();
-</code></pre><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-14-10-47-16.png" alt=""> </p>
-<p><code>new GregorianCalendar(1999,11,31)</code>，提供年月日构造一个表示特定日期午夜的日历对象。（月份从0开始计数，11表示12月）</p>
-<p><code>new GregorianCalendar(1991,Calendar.DECEMBER,31)</code>,与上等价</p>
-<p><code>new GregorianCalendar(1991,Calendar.DECEMBER,31,23,59,59)</code>,设置时间</p>
-  
+</code></pre>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Java/">Java</a>
-</div>
 
 
 </div>
@@ -241,7 +216,7 @@ NumberFormat b = NumberFormat.getStyleB();
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/child/2017/03/14/java学习笔记-类与对象/" data-title="java学习笔记----类与对象 | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
+	  <div data-url="http://yoursite.com/child/2017/03/22/ACM-Radar-Installation/" data-title="ACM--Radar Installation | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -255,18 +230,18 @@ NumberFormat b = NumberFormat.getStyleB();
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/03/14/jacman-hexo目录改成浮动/" title="jacman/hexo目录改成浮动">
+ <a href="/2017/03/23/单源最短路径问题/" title="单源最短路径问题">
   <strong>上一篇：</strong><br/>
   <span>
-  jacman/hexo目录改成浮动</span>
+  单源最短路径问题</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/"  title="O2O优惠券预测——对第一名的思路源码分析（二）">
+<a href="/2017/03/21/numpy笔记/"  title="numpy笔记">
  <strong>下一篇：</strong><br/> 
- <span>O2O优惠券预测——对第一名的思路源码分析（二）
+ <span>numpy笔记
 </span>
 </a>
 </div>
@@ -275,7 +250,7 @@ NumberFormat b = NumberFormat.getStyleB();
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/03/14/java学习笔记-类与对象/" data-title="java学习笔记----类与对象" data-url="http://yoursite.com/child/2017/03/14/java学习笔记-类与对象/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/22/ACM-Radar-Installation/" data-title="ACM--Radar Installation" data-url="http://yoursite.com/child/2017/03/22/ACM-Radar-Installation/"></div>
 </section>
 
 
@@ -285,7 +260,7 @@ NumberFormat b = NumberFormat.getStyleB();
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#对象与对象变量"><span class="toc-text">1. 对象与对象变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#隐式参数与显式参数"><span class="toc-text">2. 隐式参数与显式参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#封装"><span class="toc-text">3. 封装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#final实例域"><span class="toc-text">4. final实例域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#static静态"><span class="toc-text">5. static静态</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#static域"><span class="toc-text">5.1. static域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#static常量"><span class="toc-text">5.2. static常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#static方法"><span class="toc-text">5.3. static方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工厂方法"><span class="toc-text">5.4. 工厂方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#main方法"><span class="toc-text">5.5. main方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他重点"><span class="toc-text">6. 其他重点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Java类库中的GregorianCalendar类-（删除本节）"><span class="toc-text">7. Java类库中的GregorianCalendar类 （删除本节）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#纪元"><span class="toc-text">7.1. 纪元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间与日历"><span class="toc-text">7.2. 时间与日历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Date类"><span class="toc-text">7.2.1. Date类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GregorianCalendar类"><span class="toc-text">7.2.2. GregorianCalendar类</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目描述"><span class="toc-text">1. 题目描述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Input"><span class="toc-text">2. Input</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Output"><span class="toc-text">3. Output</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路"><span class="toc-text">4. 思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码"><span class="toc-text">5. 代码</span></a></li></ol>
  
   </div>
 

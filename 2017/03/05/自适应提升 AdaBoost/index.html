@@ -46,7 +46,7 @@
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-27-24.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-27-48.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-28-27.png">
-<meta property="og:updated_time" content="2017-03-06T14:53:49.447Z">
+<meta property="og:updated_time" content="2017-03-16T12:20:12.956Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="提升方法 AdaBoost">
 <meta name="twitter:description" content="提升（boosting）：从弱学习算法（正确率低）出发，反复学习，得到一系列弱分类器（基本分类器），然后组合这些弱分类器，构成一个强分类器。
@@ -134,7 +134,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost算法"><span class="toc-number">1.</span> <span class="toc-text">1. AdaBoost算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost算法推导"><span class="toc-number">2.</span> <span class="toc-text">2. AdaBoost算法推导</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Boot-strapping"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. Boot strapping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本算法引入权重"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 基本算法引入权重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化权重u"><span class="toc-number">2.3.</span> <span class="toc-text">2.3. 优化权重u</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优化原理"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1. 优化原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化权重u的方法————放缩因子"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2. 优化权重u的方法————放缩因子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linear-Aggregation（聚集）-合成最终的g"><span class="toc-number">2.4.</span> <span class="toc-text">2.4. Linear Aggregation（聚集） - 合成最终的g</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost-自适应优化算法总结"><span class="toc-number">3.</span> <span class="toc-text">3. AdaBoost 自适应优化算法总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost理论特性"><span class="toc-number">4.</span> <span class="toc-text">4. AdaBoost理论特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Adaptive-Boosting的实际应用表现"><span class="toc-number">5.</span> <span class="toc-text">5. Adaptive Boosting的实际应用表现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#聚合（aggregation）模型总结"><span class="toc-number">6.</span> <span class="toc-text">6. 聚合（aggregation）模型总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost思路总结"><span class="toc-number">7.</span> <span class="toc-text">7. AdaBoost思路总结</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost算法"><span class="toc-number">1.</span> <span class="toc-text">1. AdaBoost算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost算法推导"><span class="toc-number">2.</span> <span class="toc-text">2. AdaBoost算法推导</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Boot-strapping"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. Boot strapping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本算法引入权重"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 基本算法引入权重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化权重u"><span class="toc-number">2.3.</span> <span class="toc-text">2.3. 优化权重u</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优化原理"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1. 优化原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化权重u的方法————放缩因子"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2. 优化权重u的方法————放缩因子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linear-Aggregation（聚集）-合成最终的g"><span class="toc-number">2.4.</span> <span class="toc-text">2.4. Linear Aggregation（聚集） - 合成最终的g</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost-自适应优化算法总结"><span class="toc-number">3.</span> <span class="toc-text">3. AdaBoost 自适应优化算法总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost理论特性"><span class="toc-number">4.</span> <span class="toc-text">4. AdaBoost理论特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Adaptive-Boosting的实际应用表现"><span class="toc-number">5.</span> <span class="toc-text">5. Adaptive Boosting的实际应用表现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#聚合（aggregation）模型总结"><span class="toc-number">6.</span> <span class="toc-text">6. 聚合（aggregation）模型总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost思路总结"><span class="toc-number">7.</span> <span class="toc-text">7. AdaBoost思路总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost伪代码"><span class="toc-number">8.</span> <span class="toc-text">8. AdaBoost伪代码</span></a></li></ol>
 		
 		</div>
 		
@@ -257,7 +257,14 @@
 <li>因此我们采取BootStrapping方法，生成多个数据集，得到多个g</li>
 <li>最后合成最好的g</li>
 </ul>
-<p>参考文献</p>
+<h1 id="AdaBoost伪代码">8. AdaBoost伪代码</h1><pre><code>对每次迭代：
+    用buildStump()函数找到最佳单层决策树
+    将最佳单层决策树加入到单层决策树数组
+    计算alpha
+    计算新的权重向量D
+    更新累积类别估计值
+    如果错误率等于0，则退出循环
+</code></pre><p>参考文献</p>
 <ol>
 <li>《机器学习技法》，林轩田</li>
 <li><a href="http://blog.csdn.net/JasonDing1354/article/details/46462711" target="_blank" rel="external">Jason Ding，【机器学习基础】自适应提升</a></li>
@@ -325,7 +332,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost算法"><span class="toc-number">1.</span> <span class="toc-text">1. AdaBoost算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost算法推导"><span class="toc-number">2.</span> <span class="toc-text">2. AdaBoost算法推导</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Boot-strapping"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. Boot strapping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本算法引入权重"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 基本算法引入权重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化权重u"><span class="toc-number">2.3.</span> <span class="toc-text">2.3. 优化权重u</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优化原理"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1. 优化原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化权重u的方法————放缩因子"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2. 优化权重u的方法————放缩因子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linear-Aggregation（聚集）-合成最终的g"><span class="toc-number">2.4.</span> <span class="toc-text">2.4. Linear Aggregation（聚集） - 合成最终的g</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost-自适应优化算法总结"><span class="toc-number">3.</span> <span class="toc-text">3. AdaBoost 自适应优化算法总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost理论特性"><span class="toc-number">4.</span> <span class="toc-text">4. AdaBoost理论特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Adaptive-Boosting的实际应用表现"><span class="toc-number">5.</span> <span class="toc-text">5. Adaptive Boosting的实际应用表现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#聚合（aggregation）模型总结"><span class="toc-number">6.</span> <span class="toc-text">6. 聚合（aggregation）模型总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost思路总结"><span class="toc-number">7.</span> <span class="toc-text">7. AdaBoost思路总结</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost算法"><span class="toc-number">1.</span> <span class="toc-text">1. AdaBoost算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost算法推导"><span class="toc-number">2.</span> <span class="toc-text">2. AdaBoost算法推导</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Boot-strapping"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. Boot strapping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本算法引入权重"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 基本算法引入权重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化权重u"><span class="toc-number">2.3.</span> <span class="toc-text">2.3. 优化权重u</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优化原理"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1. 优化原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化权重u的方法————放缩因子"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2. 优化权重u的方法————放缩因子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linear-Aggregation（聚集）-合成最终的g"><span class="toc-number">2.4.</span> <span class="toc-text">2.4. Linear Aggregation（聚集） - 合成最终的g</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost-自适应优化算法总结"><span class="toc-number">3.</span> <span class="toc-text">3. AdaBoost 自适应优化算法总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost理论特性"><span class="toc-number">4.</span> <span class="toc-text">4. AdaBoost理论特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Adaptive-Boosting的实际应用表现"><span class="toc-number">5.</span> <span class="toc-text">5. Adaptive Boosting的实际应用表现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#聚合（aggregation）模型总结"><span class="toc-number">6.</span> <span class="toc-text">6. 聚合（aggregation）模型总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost思路总结"><span class="toc-number">7.</span> <span class="toc-text">7. AdaBoost思路总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaBoost伪代码"><span class="toc-number">8.</span> <span class="toc-text">8. AdaBoost伪代码</span></a></li></ol>
  
   </div>
 
@@ -349,7 +356,11 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/Java/" title="Java">Java<sup>1</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Numpy/" title="Numpy">Numpy<sup>1</sup></a></li>
 		  
 		
 		  

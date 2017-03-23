@@ -11,7 +11,7 @@
     
 
     
-    <meta name="description" content="之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。
+    <meta name="description" content="之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。
 1. GBDT的误差函数 
 2. 目标
 求函数h(x)的形式
@@ -19,16 +19,12 @@
 
 3. 回归问题求解目标对于回归（regression）问题，误差函数一般采用平方误差。即：
  
-为了进一步求解，我们对上式进行taylor展开，即：
- 
-其中：
-
-左边一项$err(S_n,y_n)$是常量（因为$S_n$、$y">
+为了进一步求解，我们对上式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GBDT">
 <meta property="og:url" content="http://yoursite.com/child/2017/03/15/GBDT/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。
+<meta property="og:description" content="之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。
 1. GBDT的误差函数 
 2. 目标
 求函数h(x)的形式
@@ -36,11 +32,7 @@
 
 3. 回归问题求解目标对于回归（regression）问题，误差函数一般采用平方误差。即：
  
-为了进一步求解，我们对上式进行taylor展开，即：
- 
-其中：
-
-左边一项$err(S_n,y_n)$是常量（因为$S_n$、$y">
+为了进一步求解，我们对上式">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-49-01.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-55-15.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-58-42.png">
@@ -51,10 +43,10 @@
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-21-27.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-22-55.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-32-42.png">
-<meta property="og:updated_time" content="2017-03-15T07:35:04.327Z">
+<meta property="og:updated_time" content="2017-03-16T12:46:08.319Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GBDT">
-<meta name="twitter:description" content="之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。
+<meta name="twitter:description" content="之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。
 1. GBDT的误差函数 
 2. 目标
 求函数h(x)的形式
@@ -62,11 +54,7 @@
 
 3. 回归问题求解目标对于回归（regression）问题，误差函数一般采用平方误差。即：
  
-为了进一步求解，我们对上式进行taylor展开，即：
- 
-其中：
-
-左边一项$err(S_n,y_n)$是常量（因为$S_n$、$y">
+为了进一步求解，我们对上式">
 <meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-49-01.png">
 
     
@@ -149,7 +137,7 @@
 		
 		</div>
 		
-		<p>之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。</p>
+		<p>之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。<br>GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。</p>
 <h1 id="GBDT的误差函数">1. GBDT的误差函数</h1><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-49-01.png" alt=""> </p>
 <h1 id="目标">2. 目标</h1><ol>
 <li>求函数h(x)的形式</li>
@@ -173,12 +161,12 @@
 <p>其中的$(s_n-y_n)^2$是常数，记为constant</p>
 <p>那么新的目标就变为：用$x_n$和$y_n-s_n$做一个regression即可。即：</p>
 <p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-14-27-31.png" alt=""> </p>
-<p>经过penalize一番折腾之后，h终于有个像模像样的形式了：即regression with residuals（余数）。</p>
+<p>经过penalize一番折腾之后，h终于有个像模像样的形式了：即regression with residuals（残差）。</p>
 <h2 id="求步长η">3.2. 求步长η</h2><p>需要求得一个η，使得下式最小化：</p>
 <p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-21-27.png" alt=""> </p>
 <p>为了方便计算，我们将平方内的项取负：</p>
 <p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-22-55.png" alt=""> </p>
-<p>上式的$y_n-s_n$即residuals（余数）.这是一个单变量的线性回归问题，其中输入是用gt转换后的数据，输出是余数(residual)。</p>
+<p>上式的$y_n-s_n$即residuals（残差）.这是一个单变量的线性回归问题，其中输入是用gt转换后的数据，输出是残差(residual)。</p>
 <h1 id="GBDT算法">4. GBDT算法</h1><p>输出：$\sum_t^T\alpha_t g_t(x)$，即一堆权重$\alpha_t$和一堆决策树$g_t(x)$<br>步骤：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-32-42.png" alt=""> </p>
 <p>1）利用C&amp;RT去学{x, yn-sn}，保留这一轮学出来的树gt(x)</p>
 <p>2）再求{gt(x), residual}线性回归，最小化目标函数求出来ita</p>
@@ -214,6 +202,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2017/03/16/java学习笔记-继承/" title="java学习笔记——继承">
+  <strong>上一篇：</strong><br/>
+  <span>
+  java学习笔记——继承</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2017/03/14/jacman-hexo目录改成浮动/"  title="jacman/hexo目录改成浮动">
@@ -261,7 +257,11 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/Java/" title="Java">Java<sup>1</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Numpy/" title="Numpy">Numpy<sup>1</sup></a></li>
 		  
 		
 		  
