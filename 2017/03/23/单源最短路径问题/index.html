@@ -28,7 +28,7 @@ Bellman-Ford算法：采用动态规划进行设计。待总结。简单，还�
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-23-38.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-22-41.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-31-33.png">
-<meta property="og:updated_time" content="2017-03-23T14:37:30.380Z">
+<meta property="og:updated_time" content="2017-03-26T11:52:54.236Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="单源最短路径问题">
 <meta name="twitter:description" content="单源最短路径问题：给定一个图 $G=(V,E)$ ，我们希望找到从给定源节点$s\in V$到每个节点$v \in V$的最短路径。
@@ -134,7 +134,13 @@ Bellman-Ford算法：采用动态规划进行设计。待总结。简单，还�
         v.π=u
 </code></pre><h1 id="Bellman-Ford算法">3. Bellman-Ford算法</h1><p><strong>目标</strong>：解决单源最短路径问题<br><strong>条件</strong>：边权重可负<br><strong>输入</strong>：带权有向图$G=(V,E)$和权重函数$w:E→R$<br><strong>输出</strong>：布尔值，是否存在一个从源节点可以到达的负权重回路。若存在，则算法无解。</p>
 <p><strong>思路</strong>：Bellman-Ford通过对边进行松弛操作来渐进地降低从源节点s到每个节点v的最短路径估计值v.d，直到该估计值与实际的最短路径权重$δ(s,v)$相同为止。</p>
-<p><strong>算法</strong>：</p>
+<p>初始函数：</p>
+<pre><code>INITIALIZE-SINGLE-SOURCE(G,s)
+    for eahc vertex v∈G.V
+        v.d=∞
+        v.π=null
+    s.d=0
+</code></pre><p><strong>算法</strong>：</p>
 <pre><code>BELLMAN-FORD(G,w,s)
     INITIALIZE-SINGLE-SOURCE(G,s)//对每个点v.d和v.π初始化
     for i=1 to |G.V|-1 //对每个边处理V-1次
@@ -175,6 +181,11 @@ Bellman-Ford算法：采用动态规划进行设计。待总结。简单，还�
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/算法/">算法</a>
+</div>
 
 
 </div>
@@ -251,6 +262,10 @@ Bellman-Ford算法：采用动态规划进行设计。待总结。简单，还�
 		<ul>
 		
 		  
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>3</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
 		  
 		
@@ -268,6 +283,10 @@ Bellman-Ford算法：采用动态规划进行设计。待总结。简单，还�
 		
 		  
 			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
 		  
 		
 		</ul>

@@ -4,29 +4,37 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>混合模型和bagging | jiayi797的专栏</title>
+    <title>最小生成树算法 | jiayi797的专栏</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="jiayi797">
     
 
     
-    <meta name="description" content="这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。混合和装袋
-1. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。
-Boost">
+    <meta name="description" content="带权图分为有向和无向，无向图的最短路径又叫做最小生成树，有prime算法和kruskal算法；有向图的最短路径算法有dijkstra算法和floyd算法。
+最小生成树问题：给定一个连通无向图，寻找一颗无环树，使得树上所有边权值之和最小。
+ 
+1. 最小生成树的贪心策略的通用方法1.1. 问题描述已知：连通无向图$G=(V,E)$，权重函数$w:E \rightarrow R$循环不变式：在每边循环">
 <meta property="og:type" content="article">
-<meta property="og:title" content="混合模型和bagging">
-<meta property="og:url" content="http://yoursite.com/child/2017/03/07/混合模型和bagging/index.html">
+<meta property="og:title" content="最小生成树算法">
+<meta property="og:url" content="http://yoursite.com/child/2017/03/26/最小生成树算法/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。混合和装袋
-1. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。
-Boost">
-<meta property="og:updated_time" content="2017-03-07T01:42:30.587Z">
+<meta property="og:description" content="带权图分为有向和无向，无向图的最短路径又叫做最小生成树，有prime算法和kruskal算法；有向图的最短路径算法有dijkstra算法和floyd算法。
+最小生成树问题：给定一个连通无向图，寻找一颗无环树，使得树上所有边权值之和最小。
+ 
+1. 最小生成树的贪心策略的通用方法1.1. 问题描述已知：连通无向图$G=(V,E)$，权重函数$w:E \rightarrow R$循环不变式：在每边循环">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-26-20-15-02.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-26-21-11-54.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-27-15-47-24.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-27-15-51-25.png">
+<meta property="og:updated_time" content="2017-03-27T11:54:36.595Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="混合模型和bagging">
-<meta name="twitter:description" content="这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。混合和装袋
-1. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。
-Boost">
+<meta name="twitter:title" content="最小生成树算法">
+<meta name="twitter:description" content="带权图分为有向和无向，无向图的最短路径又叫做最小生成树，有prime算法和kruskal算法；有向图的最短路径算法有dijkstra算法和floyd算法。
+最小生成树问题：给定一个连通无向图，寻找一颗无环树，使得树上所有边权值之和最小。
+ 
+1. 最小生成树的贪心策略的通用方法1.1. 问题描述已知：连通无向图$G=(V,E)$，权重函数$w:E \rightarrow R$循环不变式：在每边循环">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-26-20-15-02.png">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -88,14 +96,14 @@ Boost">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/07/混合模型和bagging/" title="混合模型和bagging" itemprop="url">混合模型和bagging</a>
+      <a href="/2017/03/26/最小生成树算法/" title="最小生成树算法" itemprop="url">最小生成树算法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
 		
   <p class="article-time">
-    <time datetime="2017-03-07T01:37:58.000Z" itemprop="datePublished"> 发表于 2017-03-07</time>
+    <time datetime="2017-03-26T12:01:21.000Z" itemprop="datePublished"> 发表于 2017-03-26</time>
     
   </p>
 </header>
@@ -104,14 +112,92 @@ Boost">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bagging和boosting区别"><span class="toc-number">1.</span> <span class="toc-text">1. bagging和boosting区别</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#最小生成树的贪心策略的通用方法"><span class="toc-text">1. 最小生成树的贪心策略的通用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">1.1. 问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#求安全边"><span class="toc-text">1.2. 求安全边</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kruskal和Prim关系"><span class="toc-text">2. Kruskal和Prim关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kruskal算法"><span class="toc-text">3. Kruskal算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#伪代码"><span class="toc-text">3.1. 伪代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间复杂度"><span class="toc-text">3.2. 时间复杂度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特点"><span class="toc-text">3.3. 特点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Prim算法"><span class="toc-text">4. Prim算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#描述"><span class="toc-text">4.1. 描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#伪代码-1"><span class="toc-text">4.2. 伪代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间复杂度-1"><span class="toc-text">4.3. 时间复杂度</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">5. 参考文献</span></a></li></ol>
 		
 		</div>
 		
-		<p>这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。<a href="http://blog.jasonding.top/2015/06/10/Machine%20Learning/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E3%80%91%E6%B7%B7%E5%90%88%E5%92%8C%E8%A3%85%E8%A2%8B/" target="_blank" rel="external">混合和装袋</a></p>
-<h1 id="bagging和boosting区别">1. bagging和boosting区别</h1><p>Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。</p>
-<p>Boosting 则是迭代算法，每一次迭代都根据上一次迭代的预测结果对样本进行加权，所以随着迭代不断进行，误差会越来越小，所以模型的 bias 会不断降低。这种算法无法并行，例子比如 Adaptive Boosting.</p>
-<p>作者：匿名用户<br>链接：<a href="https://www.zhihu.com/question/26760839/answer/33963551" target="_blank" rel="external">https://www.zhihu.com/question/26760839/answer/33963551</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
+		<p>带权图分为有向和无向，无向图的最短路径又叫做最小生成树，有prime算法和kruskal算法；有向图的最短路径算法有dijkstra算法和floyd算法。</p>
+<p>最小生成树问题：给定一个连通无向图，寻找一颗无环树，使得树上所有边权值之和最小。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-26-20-15-02.png" alt=""> </p>
+<h1 id="最小生成树的贪心策略的通用方法">1. 最小生成树的贪心策略的通用方法</h1><h2 id="问题描述">1.1. 问题描述</h2><p><strong>已知</strong>：连通无向图$G=(V,E)$，权重函数$w:E \rightarrow R$<br><strong>循环不变式</strong>：在每边循环之前，A是某颗最小生成树的一个子集。<br><strong>伪代码</strong></p>
+<pre><code>GENERIC-MST(G,w)
+A={}
+while A does not form a spanning tree // 当A不是一个生成树时
+    find an edge(u,v) that is safe for A // 找到一条A的安全边
+    A = A ∪ {(u,v)}
+return A
+</code></pre><p>注：安全边是指加入A后，不会使得A违反循环不变式。即 A ∪ {(u,v)}也是某颗最小生成树的一个子集</p>
+<p><strong>问题</strong>：如何寻找安全边</p>
+<h2 id="求安全边">1.2. 求安全边</h2><p><strong>定理</strong>：设A是图G的某最小生成树的一个子集。设（S,V-S）是图G中尊重集合A的任意一个切割，又设(u,v)是横跨切割(S,V-S)的一条轻量级边，则边(u,v)对于集合A是安全的。</p>
+<p><strong>切割</strong>：图中的线<br><strong>切割尊重集合A</strong>：集合A中不存在横跨切割的边（如图a中的灰粗线构成的集合）<br><strong>轻量级边</strong>：横跨一个切割的所有边中权重最小的边（不唯一）。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-26-21-11-54.png" alt=""> </p>
+<h1 id="Kruskal和Prim关系">2. Kruskal和Prim关系</h1><table>
+<thead>
+<tr>
+<th>term</th>
+<th style="text-align:right">集合A</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">共性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kruskal</td>
+<td style="text-align:right">森林</td>
+<td style="text-align:center">结点是原图结点，安全边是权重最小的连接两个不同分量的边</td>
+<td style="text-align:center">都是用具体的规则来确定安全边的方法</td>
+</tr>
+<tr>
+<td>Prim</td>
+<td style="text-align:right">树</td>
+<td style="text-align:center">安全边是连接A和A之外某个节点的边中权重最小的边</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Kruskal算法">3. Kruskal算法</h1><p><strong>寻找安全边</strong>:在所有连接两个不同树的边里，找到权重最小的边(u,v)</p>
+<h2 id="伪代码">3.1. 伪代码</h2><pre><code>MST-KRUSKAL(G,w)
+A={}//A是森林
+for each vertex v∈G.V
+    MAKE-SET(v)//将集合A初始化为空集，并创建M颗子树，每棵树各含一个结点
+sort the edges of G.E into nondecreasing order by weight w //对边按照权重排序
+for each edge(u,v)∈G.E,taken in nondecreasing order by weight//按权重顺序遍历边
+    if FIND-SET(v)!=FIND-SET(u)//(u,v)不在一棵树
+        A= A ∪ {(u,v)}
+        UNION(u,v)
+return A
+</code></pre><h2 id="时间复杂度">3.2. 时间复杂度</h2><p>$O(ElgV)$</p>
+<h2 id="特点">3.3. 特点</h2><p>图的存贮结构采用边集数组,且权值相等的边在数组中排列次序可以是任意的.该方法对于边相对比较多的不是很实用,浪费时间.</p>
+<p>c++实现（写的很好，一定要看）:<a href="http://blog.csdn.net/niushuai666/article/details/6689285" target="_blank" rel="external">Kruskal算法</a></p>
+<h1 id="Prim算法">4. Prim算法</h1><p><strong>寻找安全边</strong>:A总是一颗树。从单一顶点开始，逐步扩大树中所含顶点的数目，直到遍及连通图的所有顶点。</p>
+<p>为了快速选择新边， 在算法执行的过程中，所有不在树A中的结点都存放在一个基于key属性的<code>最小优先队列Q</code>中。</p>
+<p><code>u.key</code> : 连接结点u和<strong>树</strong>中结点的所有边中最小边的权重。<br><code>u.π</code>：u在<strong>树</strong>中的父节点</p>
+<h2 id="描述">4.1. 描述</h2><p><strong>输入</strong>:连通图G,边权w,最小生成树的根节点r</p>
+<p><strong>初始化</strong>：Vnew = {x}，其中x为集合V中的任一节点（起始点），Enew = {}</p>
+<p><strong>循环</strong>：重复以下操作，直到$V_{new}=V$：</p>
+<ol>
+<li>在集合E中选取权值最小的边（u,v），其中u是集合Vnew中的元素，而v则是V中没有加入Vnew的顶点；</li>
+<li>将v加入Vnew中，将(u,v)加入Enew中；</li>
+</ol>
+<p><strong>输出</strong>：使用集合Vnew和Enew来描述所得到的最小生成树。</p>
+<p>图例：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-27-15-47-24.png" alt=""> </p>
+<h2 id="伪代码-1">4.2. 伪代码</h2><pre><code>MST-PRIM(G,w,r)//r是最小生成树的根节点
+for each u∈G.V
+    u.key=∞ 
+    u.π=NIL //u在树中的父节点
+r.key=0
+Q=G.V
+while Q!={}
+    u=EXTRACT-MIN(Q)//某条横跨切割(V-Q,Q)的一个轻量级边的端点
+    for each v∈G.Adj[u]//遍历u的邻接表
+    if v∈Q and w(u,v)&lt;v.key
+        v.π=u
+        v.key=w(u,v)
+</code></pre><h2 id="时间复杂度-1">4.3. 时间复杂度</h2><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-27-15-51-25.png" alt=""> </p>
+<p>通过邻接矩阵图表示的简易实现中，找到所有最小权边共需O（V2）的运行时间。使用简单的二叉堆与邻接表来表示的话，普里姆算法的运行时间则可缩减为O(E log V)，其中E为连通图的边数，V为顶点数。如果使用较为复杂的斐波那契堆，则可将运行时间进一步缩短为O(E + V log V)，这在连通图足够密集时（当E满足Ω（V log V）条件时），可较显著地提高运行速度</p>
+<h1 id="参考文献">5. 参考文献</h1><ol>
+<li><a href="https://zh.wikipedia.org/wiki/%E6%99%AE%E6%9E%97%E5%A7%86%E7%AE%97%E6%B3%95" target="_blank" rel="external">维基百科</a></li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -119,7 +205,7 @@ Boost">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+  <a class="article-category-link" href="/categories/算法/">算法</a>
 </div>
 
 
@@ -129,7 +215,7 @@ Boost">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/child/2017/03/07/混合模型和bagging/" data-title="混合模型和bagging | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
+	  <div data-url="http://yoursite.com/child/2017/03/26/最小生成树算法/" data-title="最小生成树算法 | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -143,18 +229,18 @@ Boost">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/03/08/O2O优惠券预测——对第一名的思路源码分析（一）/" title="O2O优惠券预测——对第一名的思路源码分析（一）">
+ <a href="/2017/03/26/最小生成树算法/" title="">
   <strong>上一篇：</strong><br/>
   <span>
-  O2O优惠券预测——对第一名的思路源码分析（一）</span>
+  (no title)</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/03/06/梯度提升决策树 AdaBoost DecisonTree/"  title="梯度提升决策树 AdaBoost DecisonTree">
+<a href="/2017/03/23/ACM-poj1860-CurrencyExchange/"  title="ACM-poj1860-CurrencyExchange">
  <strong>下一篇：</strong><br/> 
- <span>梯度提升决策树 AdaBoost DecisonTree
+ <span>ACM-poj1860-CurrencyExchange
 </span>
 </a>
 </div>
@@ -163,7 +249,7 @@ Boost">
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/03/07/混合模型和bagging/" data-title="混合模型和bagging" data-url="http://yoursite.com/child/2017/03/07/混合模型和bagging/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/26/最小生成树算法/" data-title="最小生成树算法" data-url="http://yoursite.com/child/2017/03/26/最小生成树算法/"></div>
 </section>
 
 
@@ -173,7 +259,7 @@ Boost">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bagging和boosting区别"><span class="toc-number">1.</span> <span class="toc-text">1. bagging和boosting区别</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#最小生成树的贪心策略的通用方法"><span class="toc-text">1. 最小生成树的贪心策略的通用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">1.1. 问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#求安全边"><span class="toc-text">1.2. 求安全边</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kruskal和Prim关系"><span class="toc-text">2. Kruskal和Prim关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kruskal算法"><span class="toc-text">3. Kruskal算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#伪代码"><span class="toc-text">3.1. 伪代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间复杂度"><span class="toc-text">3.2. 时间复杂度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特点"><span class="toc-text">3.3. 特点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Prim算法"><span class="toc-text">4. Prim算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#描述"><span class="toc-text">4.1. 描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#伪代码-1"><span class="toc-text">4.2. 伪代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间复杂度-1"><span class="toc-text">4.3. 时间复杂度</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">5. 参考文献</span></a></li></ol>
  
   </div>
 
@@ -197,7 +283,15 @@ Boost">
 		<ul>
 		
 		  
-			<li><a href="/categories/Java/" title="Java">Java<sup>1</sup></a></li>
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Numpy/" title="Numpy">Numpy<sup>1</sup></a></li>
 		  
 		
 		  
@@ -210,6 +304,10 @@ Boost">
 		
 		  
 			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
 		  
 		
 		</ul>

@@ -80,6 +80,303 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/03/03/SVM（一） 线性可分/" title="SVM（一） 线性可分" itemprop="url">SVM（一） 线性可分</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-03T03:05:48.000Z" itemprop="datePublished"> 发表于 2017-03-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="SVM简介">1. SVM简介</h1><p>SVM - Support Vector Machines, 支持向量机。是二分类模型。</p>
+<p>#线性可分SVM</p>
+<h5 id="概念复习-参考文献">1.0.0.0.1. 概念复习 参考文献</h5><p><em>输入空间</em>：输入所有可能的取值的集合</p>
+<p><em>特征向量</em>：每个具体的输入</p>
+<p><em>特征空间</em>：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。</p>
+<p><em>输出空间</em>：输出所有可能的取值的集合</p>
+<h5 id="线性可分SVM学习目标">1.0.0.0.2. 线性可分SVM学习目标</h5><p>在特征空间找到一个分离超平面 <code>wx+b=0</code> </p>
+<h5 id="SVM与PLA区别">1.0.0.0.3. SVM与PLA区别</h5><p>PLA:误分类最小策略，求得分离超平面。解不唯一。<br>线性可分SVM:间隔最大化，求得分离超平面。解唯一。</p>
+<h5 id="函数间隔和几何间隔">1.0.0.0.4. 函数间隔和几何间隔</h5><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png" alt=""> </p>
+<ul>
+<li>一个点距离分离超平面的远近<code>|wx+b|</code> 是 分类预测的<strong>确信程度</strong>。例如将A分为0的确信度很高，而将C分为0的确信度较低</li>
+<li><code>wx+b</code>与<code>y</code>的符号一致，则分类正确</li>
+<li><strong>函数间隔</strong>：<code>y(wx+b)</code>，表示分类的正确性及确信度</li>
+<li><strong>超平面的函数间隔*</strong>：<code>min{y(wx+b)}</code></li>
+<li><strong>几何间隔</strong>：规范化<code>||w||=1</code>，即为$y(\frac{w}{||w||}\cdot x + \frac{b}{||w||})$，使得间隔固定。（因为w和b成比例增加时，超平面不会改变，但函数间隔会变大）</li>
+</ul>
+<p>#SVM基本算法</p>
+<h2 id="标准问题">1.1. 标准问题</h2><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-14-56-13.png" alt=""> </p>
+<h2 id="算法的推导">1.2. 算法的推导</h2><ul>
+<li>一开始的目标是：<br>– 目标：求得一个x，使得margin最大<br>– 条件：<br>— 每个点都被正确分类（<code>b</code>被塞入了<code>w</code>矩阵里）<br>— magin是最近的点的距离<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-22-00.png" alt=""> </li>
+</ul>
+<ul>
+<li><p>从距离的理解入手，如图所示<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-07-16.png" alt=""> </p>
+</li>
+<li><p><code>w</code>的理解<br>– 灰色是分割平面<br>– $x’$和$x’’$是平面上的两个点，则它俩满足$w^T X’ = -b$，$w^T x’’ = -b$<br>– 两式相减，得到 $w^T(x’’ - x’)=0$<br>– 则<strong><code>w</code>垂直于平面</strong>，即w是平面的法向量<br>– 那么dist是向量$x’ x’’$在<code>w</code>上的投影</p>
+</li>
+</ul>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-15-32.png" alt=""> </p>
+<ul>
+<li><p>而<code>y(wx+b)&gt;0</code>，则距离可以表示为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-18-42.png" alt=""> </p>
+</li>
+<li><p>因此，新的算法目标为<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-19-57.png" alt=""> </p>
+</li>
+<li><p>归一化条件：<code>margin=y(wx+b)=1</code>,得到新目标<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-29-24.png" alt=""> </p>
+</li>
+<li><p>对目标进行放缩，方便解<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-31-16.png" alt=""> </p>
+</li>
+<li><p>再将最大化变为最小化，也拿走||w||的根号<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-33-31.png" alt=""> </p>
+</li>
+</ul>
+<h5 id="支持向量">1.2.0.0.1. 支持向量</h5><ul>
+<li>在线性可分的情况下，训练数据集的样本点中与分离超平面距离最近的样本点的实例，叫做<strong>支持向量</strong>（support vector）</li>
+<li>支持向量是使得约束条件等号成立的点</li>
+<li>决定分离超平面时，只有支持向量起作用，而其他点不起作用</li>
+<li>在H1，H2上的点就是支撑向量（很少，但很重要的点）</li>
+</ul>
+<h5 id="间隔-margin">1.2.0.0.2. 间隔 margin</h5><p>H1，H2之间，$margin=\frac{2}{||w||}$</p>
+<h5 id="间隔边界">1.2.0.0.3. 间隔边界</h5><p>H1，H2<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-15-06-02.png" alt=""> </p>
+<h2 id="标准问题的求解">1.3. 标准问题的求解</h2><ul>
+<li>目标是二次的，条件是线性的</li>
+<li><p>则这是一个二次规划问题，有固定的解</p>
+</li>
+<li><p>我们的标准问题：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-03.png" alt=""> </p>
+</li>
+<li><p>标准二次规划问题：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-26.png" alt=""> </p>
+</li>
+<li><p>系数代入：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-47.png" alt=""> </p>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/机器学习/">机器学习</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/03/SVM（一） 线性可分/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/03/SVM（一） 线性可分/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/02/逻辑回归（Logistic-regression）/" title="逻辑回归（Logistic regression）" itemprop="url">逻辑回归（Logistic regression）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-02T14:45:32.000Z" itemprop="datePublished"> 发表于 2017-03-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="逻辑回归模型">1. 逻辑回归模型</h1><h3 id="逻辑回归分布">1.0.1. 逻辑回归分布</h3><p>连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++：</p>
+<p>$$<br>F(x)=P(X&lt;=x)=\frac{1}{1+e^{-(x-u)/r}}<br>$$</p>
+<p>$$<br>f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}<br>$$</p>
+<p>其中</p>
+<p>$u$为位置参数</p>
+<p>$r&gt;0$为形状参数</p>
+<p>其中，密度函数与分布函数的形状如图所示<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png" alt=""> </p>
+<h4 id="分布密度函数与分布函数">1.0.1.1. 分布密度函数与分布函数</h4><p>感觉自己宛如一个智障，这些居然忘记了。哎，重新来吧。</p>
+<p>概率密度函数$f(x)$：表示瞬时值落在某区间的概率，是幅值的概率。++用来描述连续型随机变量取值的密集程度的。++$f(x)$表示X=x的概率是$\int_0^1f(x)$。</p>
+<p>$P(X=x|x \in (0,1))=\int_0^1f(x)$</p>
+<p>分布函数$F(x)$：描述随机变量落在任一区间的概率。</p>
+<p>$F(x)=P(X&lt;=x)$</p>
+<p>关系：</p>
+<p>分布函数$F(x)$是概率密度函数$f(x)$从负无穷到正无穷上的积分；</p>
+<p>在坐标轴上，概率密度函数的函数值y表示落在x点上的概率为y；分布函数的函数值y则表示x落在区间(-∞上的概率。</p>
+<h3 id="二项逻辑回归模型">1.0.2. 二项逻辑回归模型</h3><h4 id="用途：估计某个值的为哪一类的概率">1.0.2.1. 用途：估计某个值的为哪一类的概率</h4><p>logistic回归是分类问题。前面我们讲的分类问题的输出都是 “yes”或者“no”。但是在现实生活中，我们并不是总是希望结果那么肯定，而是概率（发生的可能性）。比如，我们希望知道这个房子在第三个星期被卖出去的概率。那么以前的分类算法就无法使用了，这时logistic 回归就派上了用场。 </p>
+<h4 id="定义">1.0.2.2. 定义</h4><p>二项逻辑斯蒂回归模型是如下的条件概率分布：</p>
+<p>$$<br>P(Y=1|x)=\frac{exp(wx+b)}{1+exp(wx+b)}<br>$$</p>
+<p>$$<br>P(Y=0|x)=\frac{1}{1+exp(wx+b)}<br>$$</p>
+<p>其中：<br>$x \in R^n$ ：输入</p>
+<p>$Y \in (0,1)$ ：输出</p>
+<p>给定$x$，可以求得$P(Y=1|x)$和$P(Y=0|x)$</p>
+<h4 id="逻辑斯蒂回归模型的特点">1.0.2.3. 逻辑斯蒂回归模型的特点</h4><p>几率（odds）= 该事件发生的概率/该事件不该发生的概率，则对数几率：</p>
+<p>$$<br>log(odds)=log(\frac{p}{1-p})=log(\frac{P(Y=1|x)}{1-P(Y=1|x)})=wx<br>$$</p>
+<p>则：输出Y=1的对数几率=输入x的线性函数</p>
+<h1 id="模型参数估计">2. 模型参数估计</h1><p>输入： 一堆（x,y）</p>
+<p>目标：估计参数w,b</p>
+<p>方法：极大似然法</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png" alt=""> </p>
+<h1 id="总结">3. 总结</h1><ol>
+<li>逻辑回归是一种预测y的各类别的概率的模型，即计算P(Y=1|x)或者P(Y=0|x)</li>
+<li>与机器学习过程类似，即 通过已知的大量（x,y），预测参数w,b，来计算后来输入的x对应的类别y</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/算法/">算法</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/02/逻辑回归（Logistic-regression）/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/02/逻辑回归（Logistic-regression）/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/02/SQL游标/" title="SQL游标" itemprop="url">SQL游标</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-02T11:58:22.000Z" itemprop="datePublished"> 发表于 2017-03-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="简介">1. 简介</h1><h3 id="场景">1.0.1. 场景</h3><p>从某一结果集中地逐一读记录</p>
+<h3 id="游标本质">1.0.2. 游标本质</h3><p>能从包括多条数据记录的结果集中每次提取一条记录的机制。</p>
+<p>我们知道关系数据库管理系统实质是面向集合的，在MS SQL SERVER 中并没有一种描述表中单一记录的表达形式，除非使用where 子句来限制只有一条记录被选中。因此我们必须借助于游标来进行面向单条记录的数据处理。</p>
+<h3 id="游标种类">1.0.3. 游标种类</h3><ul>
+<li>Transact_SQL 游标</li>
+<li>API 游标</li>
+<li>客户游标</li>
+</ul>
+<h1 id="游标操作">2. 游标操作</h1><p>使用游标有四种基本的步骤:声明游标、打开游标、提取数据、关闭游标。</p>
+<h3 id="声明游标">2.0.1. 声明游标</h3><p>游标的声明包括两个部分:游标的名称 + 这个游标所用到的SQL语句。</p>
+<p>例：要声明一个叫作Cus-tomerCursor的游标用以查询地址在北京的客户的姓名、帐号及其余额: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">DECLARE CustomerCursor CURSOR FOR </div><div class="line">SELECT acct_no,name,balance </div><div class="line">FROM customer </div><div class="line">WHERE province=&quot;北京&quot;;</div></pre></td></tr></table></figure>
+<p>TIPS:</p>
+<ul>
+<li>声明游标的这一段代码行是不执行的,不能将debug时的断点设在这一代码行上,也不能用IF语句来声明两个同名的游标,如下列的代码就是错误的。 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">IF Is_prov=&quot;北京&quot;THEN </div><div class="line">DECLARE CustomerCursor CURSOR FOR </div><div class="line">SELECT acct_no,name,balance </div><div class="line">FROM customer </div><div class="line">WHERE province=&quot;北京&quot;; </div><div class="line">ELSE </div><div class="line">DECLARE CustomerCursor CURSOR FOR </div><div class="line">SELECT acct_no,name,balance </div><div class="line">FROM customer </div><div class="line">WHERE province〈〉&quot;北京&quot;; </div><div class="line">END IF</div></pre></td></tr></table></figure>
+<h3 id="打开游标">2.0.2. 打开游标</h3><p>打开游标是执行与其相关的一段SQL语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">OPEN CustomerCursor;</div></pre></td></tr></table></figure>
+<h3 id="提取数据">2.0.3. 提取数据</h3><p>必须用FETCH语句来取得数据。</p>
+<p>一条FETCH语句一次可以将一条记录放入程序员指定的变量中。</p>
+<p>事实上,++FETCH语句是游标使用的核心++。</p>
+<h4 id="用游标提取一条数据">2.0.3.1. 用游标提取一条数据:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">FETCH CustmerCur-sor </div><div class="line">INTO:ls_acct_no, </div><div class="line">    :ls_name, </div><div class="line">    :ll_balance;</div></pre></td></tr></table></figure>
+<h4 id="用游标遍历很多条数据：">2.0.3.2. 用游标遍历很多条数据：</h4><p>而在多数情况下,我们所想要作的是在数据库中从第一条记录开始提取,一直到结束。所以我们一般要将游标提取数据的语句放在一个循环体内,直至将结果集中的全部数据提取后,跳出循环圈。</p>
+<p><strong>通过检测SQLCA.SQL-CODE的值,可以得知最后一条FETCH语句是否成功。</strong></p>
+<p>一般,当SQLCODE值为0时表明一切正常,100表示已经取到了结果集的末尾,而其它值均表明操作出了问题,这样我们可以编写以下的代码: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">lb_continue=True </div><div class="line">ll_total=0 </div><div class="line">DO WHILE lb_continue </div><div class="line">    FETCH CustomerCur-sor </div><div class="line">    INTO:ls_acct_no, </div><div class="line">        :ls_name, </div><div class="line">        :ll_balance; </div><div class="line">    If sqlca.sqlcode=0 Then  #如果SQLCA.SQL-CODE==0，则一切正常</div><div class="line">        ll_total+=ll_balance </div><div class="line">    Else #跳出循环</div><div class="line">        lb_continue=False </div><div class="line">    End If </div><div class="line">LOOP</div></pre></td></tr></table></figure>
+<h3 id="关闭游标">2.0.4. 关闭游标</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CLOSE CustomerCursor;</div></pre></td></tr></table></figure>
+<h3 id="使用Where子句子">2.0.5. 使用Where子句子</h3><p>我们可以动态地定义游标中的Where子句的参数,例如在本例中我们是直接定义了查询省份是北京的记录,但也许在应用中我们要使用一个下拉式列表框,由用户来选择要查询的省份,我们该怎样做呢?<br>我们在前面曾经提到过,DECLARE语句的作用只是定义一个游标,在OPEN语句中这个游标才会真正地被执行。了解了这些,我们就可以很方便地实现这样的功能,在DECLARE的Where子句中加入变量作参数,如下所示: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">DECLARE CustomerCursor CURSOR FOR </div><div class="line">SELCECT acct_no,name,balance </div><div class="line">FROM customer </div><div class="line">WHERE province=:ls_province; </div><div class="line">∥定义ls_province的值 </div><div class="line">OPEN CustomerCursor;</div></pre></td></tr></table></figure>
+<h3 id="游标的类型">2.0.6. 游标的类型</h3><p>同其它变量一样,我们也可以定义游标的访问类型:全局、共享、实例或局部,游标变量的命名规范建议也同其它变量一样。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">--声明游标</div><div class="line">declare my_cursor cursor keyset for select * from info</div><div class="line">--删除游标资源</div><div class="line">deallocate my_cursor</div><div class="line">--打开游标,在游标关闭或删除前都有效</div><div class="line">open my_cursor</div><div class="line">--关闭游标</div><div class="line">close my_cursor</div><div class="line">--声明局部变量</div><div class="line">declare @id int,@name varchar(20),@address varchar(20)</div><div class="line">--定位到指定位置的记录</div><div class="line">fetch absolute 56488 from my_cursor into @id,@name,@address</div><div class="line">select @id as id,@name as name,@address as address</div><div class="line">--定位到当前记录相对位置记录</div><div class="line">fetch relative -88 from my_cursor into @id,@name,@address</div><div class="line">select @id as id,@name as name,@address as address</div><div class="line">--定位到当前记录前一条</div><div class="line">fetch prior from my_cursor into @id,@name,@address</div><div class="line">select @id as id,@name as name,@address as address</div><div class="line">--定位到当前记录后一条</div><div class="line">fetch next from my_cursor into @id,@name,@address</div><div class="line">select @id as id,@name as name,@address as address</div><div class="line">--定位到首记录</div><div class="line">fetch first from my_cursor into @id,@name,@address</div><div class="line">select @id as id,@name as name,@address as address</div><div class="line">--定位到尾记录</div><div class="line">fetch last from my_cursor into @id,@name,@address</div><div class="line">select @id as id,@name as name,@address as address</div></pre></td></tr></table></figure>
+<p>实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">use database1</div><div class="line">declare my_cursor cursor scroll dynamic</div><div class="line"> /**//*scroll表示可随意移动游标指针（否则只能向前），dynamic表示可以读写游标（否则游标只读）*/</div><div class="line">for</div><div class="line">select productname from  product</div><div class="line">open my_cursor</div><div class="line">declare @pname sysname</div><div class="line">fetch next from my_cursor into @pname</div><div class="line">while(@@fetch_status=0)</div><div class="line">  begin</div><div class="line">    print &apos;Product Name: &apos; + @pname</div><div class="line">    fetch next from my_cursor into @pname</div><div class="line">  end</div><div class="line">fetch first from my_cursor into @pname</div><div class="line">print @pname</div><div class="line">/**//*update product set productname=&apos;zzg&apos; where current of my_cursor */</div><div class="line">/**//*delete from product where current of my_cursor */</div><div class="line">close my_cursor</div><div class="line">deallocate my_cursor</div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/SQL/">SQL</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/02/SQL游标/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/02/SQL游标/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/03/02/从出租车行驶数据筛选出OD点数据/" title="从出租车行驶数据筛选出OD点数据" itemprop="url">从出租车行驶数据筛选出OD点数据</a>
   </h1>
   <p class="article-author">By
@@ -470,6 +767,10 @@
 		<ul>
 		
 		  
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>3</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
 		  
 		
@@ -487,6 +788,10 @@
 		
 		  
 			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
 		  
 		
 		</ul>

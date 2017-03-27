@@ -11,13 +11,16 @@
     
 
     
-    <meta property="og:type" content="article">
+    <meta name="description" content="1. DescriptionSeveral currency exchange points are working in our city. Let us suppose that each point specializes in two particular currencies and performs exchange operations only with these currenc">
+<meta property="og:type" content="article">
 <meta property="og:title" content="ACM-poj1860-CurrencyExchange">
 <meta property="og:url" content="http://yoursite.com/child/2017/03/23/ACM-poj1860-CurrencyExchange/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:updated_time" content="2017-03-23T14:40:15.139Z">
+<meta property="og:description" content="1. DescriptionSeveral currency exchange points are working in our city. Let us suppose that each point specializes in two particular currencies and performs exchange operations only with these currenc">
+<meta property="og:updated_time" content="2017-03-24T13:31:25.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ACM-poj1860-CurrencyExchange">
+<meta name="twitter:description" content="1. DescriptionSeveral currency exchange points are working in our city. Let us suppose that each point specializes in two particular currencies and performs exchange operations only with these currenc">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -95,14 +98,41 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Description"><span class="toc-text">1. Description</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Input"><span class="toc-text">2. Input</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#输出数据"><span class="toc-text">3. 输出数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#样例输入"><span class="toc-text">4. 样例输入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路"><span class="toc-text">5. 思路</span></a></li></ol>
 		
 		</div>
 		
-		  
+		<h1 id="Description">1. Description</h1><p>Several currency exchange points are working in our city. Let us suppose that each point specializes in two particular currencies and performs exchange operations only with these currencies. There can be several points specializing in the same pair of currencies. Each point has its own exchange rates, exchange rate of A to B is the quantity of B you get for 1A. Also each exchange point has some commission, the sum you have to pay for your exchange operation. Commission is always collected in source currency.<br>For example, if you want to exchange 100 US Dollars into Russian Rubles at the exchange point, where the exchange rate is 29.75, and the commission is 0.39 you will get (100 - 0.39) * 29.75 = 2963.3975RUR.<br>You surely know that there are N different currencies you can deal with in our city. Let us assign unique integer number from 1 to N to each currency. Then each exchange point can be described with 6 numbers: integer A and B - numbers of currencies it exchanges, and real RAB, CAB, RBA and CBA - exchange rates and commissions when exchanging A to B and B to A respectively.<br>Nick has some money in currency S and wonders if he can somehow, after some exchange operations, increase his capital. Of course, he wants to have his money in currency S in the end. Help him to answer this difficult question. Nick must always have non-negative sum of money while making his operations. </p>
+<p> currency exchange points：货币兑换点<br> commission：佣金<br> assign ：分配</p>
+<p>每个货币兑换点只能互换两种货币。兑换点可重复。每个点都有自己的兑换率，A to B 的兑换率是指1个A能兑换的B的数量。</p>
+<p>兑换时收取一定的佣金，佣金是以来源货币来collect的。例如，如果你想将100dolars兑换成Russian Bules,  兑换点的兑换率是29.75，费用是0.39，，那么你会得到的钱是 (100 - 0.39) * 29.75 = 2963.3975RUR. </p>
+<p>假设每种兑换的点数量是1-N，那么每个兑换点可以由6个num来描述：</p>
+<p>interger A and B  兑换货币的序号<br>RAB A to B兑换率<br>CAB A to B 的佣金<br>RBA B to A 兑换率<br>CBA B to A 的佣金</p>
+<p>Nick有些S货币，他很好奇他能否通过货币兑换的方式对他的资金进行增值。最终他希望他拿到还是S货币。帮他解决这个问题。Nick在这个过程中不能借钱。</p>
+<h1 id="Input">2. Input</h1><p>The first line of the input contains four numbers: N - the number of currencies, M - the number of exchange points, S - the number of currency Nick has and V - the quantity of currency units he has. </p>
+<p>The following M lines contain 6 numbers each - the description of the corresponding exchange point - in specified above order. Numbers are separated by one or more spaces. </p>
+<p>1&lt;=S&lt;=N&lt;=100, 1&lt;=M&lt;=100, V is real number, 0&lt;=V&lt;=103. </p>
+<p>For each point exchange rates and commissions are real, given with at most two digits after the decimal point, 10-2&lt;=rate&lt;=102, 0&lt;=commission&lt;=102. </p>
+<p>Let us call some sequence of the exchange operations simple if no exchange point is used more than once in this sequence. You may assume that ratio of the numeric values of the sums at the end and at the beginning of any simple sequence of the exchange operations will be less than 104. </p>
+<p>corresponding：相应的</p>
+<p>第一行包含四个数字：<br>N 货币的种类<br>M 兑换点的数量<br>S Nick的货币的序号<br>V Nick拥有的钱</p>
+<p>接下来的M行，每行包含六个数字，描述相应的兑换点的属性。<br>数字由一个或多个空格隔开</p>
+<p>1&lt;=S&lt;=N&lt;=100, 1&lt;=M&lt;=100, V is real number, 0&lt;=V&lt;=103. </p>
+<p>每个兑换点的兑换率和手续费都是实数，至多精确到两位小数。</p>
+<p> 10-2&lt;=rate&lt;=102, 0&lt;=commission&lt;=102</p>
+<p>如果在操作序列中不适用多个兑换点，我们可以发起一些简单的兑换操作。你可以假设：（最后的总和/）</p>
+<h1 id="输出数据">3. 输出数据</h1><p>如果nick能够实现他的愿望，则输出YES，否则输出NO。</p>
+<h1 id="样例输入">4. 样例输入</h1><p>3 2 1 20.0<br>1 2 1.00 1.00 1.00 1.00<br>2 3 1.10 1.00 1.10 1.00</p>
+<h1 id="思路">5. 思路</h1><p>将货币看做点，每种兑换规则为边，两点的路径长度为兑换后的钱数。建图之后可以看出题意为求图中是否存在正环，用Bellman-Ford求最长路径，如果存在正环输出YES，不存在输出NO。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/ACM/">ACM</a>
+</div>
 
 
 </div>
@@ -124,6 +154,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2017/03/26/最小生成树算法/" title="最小生成树算法">
+  <strong>上一篇：</strong><br/>
+  <span>
+  最小生成树算法</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2017/03/23/单源最短路径问题/"  title="单源最短路径问题">
@@ -147,7 +185,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Description"><span class="toc-text">1. Description</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Input"><span class="toc-text">2. Input</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#输出数据"><span class="toc-text">3. 输出数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#样例输入"><span class="toc-text">4. 样例输入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路"><span class="toc-text">5. 思路</span></a></li></ol>
  
   </div>
 
@@ -171,6 +209,10 @@
 		<ul>
 		
 		  
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>3</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
 		  
 		
@@ -188,6 +230,10 @@
 		
 		  
 			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
 		  
 		
 		</ul>
