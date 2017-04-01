@@ -93,26 +93,34 @@
 </header>
     <div class="article-content">
         
-        <h1 id="householder方法">1. householder方法</h1><p>利用Householder变换逐步将A化为上三角矩阵。</p>
+        <h1 id="QR分解">1. QR分解</h1><p><strong>引理</strong>：</p>
+<ol>
+<li>对于任意的$A\in C^{n\times n}$,若存在$n$阶正交矩阵$Q$和$n$阶上三角矩阵$R$，使得$A=QR$，则称$QR$为$A$的$QR$分解。</li>
+<li>若$A\in C^{n\times n}$可逆，则存在正交矩阵$Q$和正对角元的上三角矩阵$R$，使得$A=QR$，且表示式唯一。</li>
+</ol>
+<p>备注：正交矩阵：$A^{-1}=A^T$<br><strong>QR分解定理</strong>：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-04.png" alt=""><br>，则A有QR分解：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-23.png" alt=""><br>Q是m<em>m的正交矩阵<br>R是n</em>n的有非负对角元的上三角阵</p>
+<p>当m=n，且A非奇异时，上述分解唯一。</p>
+<p><strong>计算QR分解的方法</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-28-42.png" alt=""> </p>
+<p>备注：<br>计算A(j:m,j:n)=(I(m-j+1)-bvvT)A(j:m,j:n)时，<br>I(m-j+1)-bvvT可以表示为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-01-21-24-25.png" alt=""> </p>
+<p><strong>QR分解的存储方法</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-01-21-54-20.png" alt=""> </p>
+<p><strong>用QR分解解线性方程组</strong><br>$Ax=b$<br>$QRx=b$<br>$Rx=Q^{-1}b$<br>$x=R^{-1}Q^{-1}b$<br>$x=R^{-1}Q^Tb$</p>
+<h1 id="householder方法">2. householder方法</h1><p>利用Householder变换逐步将A化为上三角矩阵。</p>
 <p>使用Gauss变换将矩阵化为上三角的理论依据————对于一个给定的向量x，可构造一个初等下三角阵L，使得$Lx=ae_1$，其中$e_1$是I的第一列，a是实数。（I是单位矩阵）</p>
 <p>householder变换目的：<br>求一个初等正交矩阵，使其具有矩阵L的功能。</p>
 <p>使得：<br>可以通过一系列初等正交变换来完成矩阵的上三角化任务。</p>
 <p><strong>Householder变换</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-03-16.png" alt=""> </p>
-<p>其中：<br>I是单位矩阵<br>w是单位正交矩阵，$ww^T=I$</p>
+<p>其中：<br>I是单位矩阵<br>w是实的单位列向量（单位正交矩阵），$ww^T=I$</p>
 <p>HouseHolder变换可以将一个向量映射到一个超平面上。 </p>
 <p><strong>Householder变换的性质</strong></p>
 <ol>
 <li>对称性。$H^T=H$</li>
 <li>正交性。$H^TH=I$</li>
 <li>对合性。$H^2=I$</li>
-<li>反射性。<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-09-23.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-10-12.png" alt=""> </li>
+<li>反射性(householder变换的物理意义)：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-09-23.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-10-12.png" alt=""> </li>
 </ol>
 <p><strong>Householder变换的用途</strong></p>
 <p>它能如Gauss变换一样，可以通过适当选取单位向量w，把一个给定向量的若干指定的分量变为零。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-12-23.png" alt=""><br>由以上定理可知，对于任意的x，都可以构造出Householder矩阵H，使得Hx的后n-1个分量为零。</p>
-<p><strong>Householder变换方法</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-15.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-37.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-58.png" alt=""> </p>
-<h1 id="QR分解">2. QR分解</h1><p>QR分解定理：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-04.png" alt=""><br>，则A有QR分解：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-23.png" alt=""><br>Q是m<em>m的正交矩阵<br>R是n</em>n的有非负对角元的上三角阵</p>
-<p>当m=n，且A非奇异时，上述分解唯一。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-28-42.png" alt=""> </p>
+<p><strong>Householder变换方法</strong><br>计算某一行向量的houser变换：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-15.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-37.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-58.png" alt=""> </p>
 
         
         
@@ -1436,11 +1444,11 @@ public class Main {
 			
 		
 			
-				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
 			
 		
 			
