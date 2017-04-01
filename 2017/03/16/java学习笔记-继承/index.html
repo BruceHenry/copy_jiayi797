@@ -29,7 +29,7 @@ class Employee{
     private double salary;//薪水
     private Date hireDay;
     public double getSalary(){">
-<meta property="og:updated_time" content="2017-03-21T03:39:06.061Z">
+<meta property="og:updated_time" content="2017-03-29T11:28:40.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java学习笔记——继承">
 <meta name="twitter:description" content="1. super关键字1.1. 子类override(覆盖)父类的函数override时，使用super调用父类的方法。
@@ -116,7 +116,7 @@ class Employee{
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#super关键字"><span class="toc-text">1. super关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#子类override-覆盖-父类的函数"><span class="toc-text">1.1. 子类override(覆盖)父类的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super在构造器中的应用"><span class="toc-text">1.2. super在构造器中的应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多态"><span class="toc-text">2. 多态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调用对象方法的执行过程"><span class="toc-text">3. 调用对象方法的执行过程</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#super关键字"><span class="toc-text">1. super关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#子类override-覆盖-父类的函数"><span class="toc-text">1.1. 子类override(覆盖)父类的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super在构造器中的应用"><span class="toc-text">1.2. super在构造器中的应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多态"><span class="toc-text">2. 多态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调用对象方法的执行过程"><span class="toc-text">3. 调用对象方法的执行过程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#阻止继承：final类和方法"><span class="toc-text">4. 阻止继承：final类和方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#抽象类，abstruct"><span class="toc-text">5. 抽象类，abstruct</span></a></li></ol>
 		
 		</div>
 		
@@ -151,8 +151,23 @@ Employee[] staff = new Employee();
 </code></pre><h1 id="调用对象方法的执行过程">3. 调用对象方法的执行过程</h1><ol>
 <li>编译器查看对象的声明类型和方法名。假设调用<code>x.f(param)</code>，且隐式参数x声明为C类的对象。编译器一一列举所有C类中名为f的方法和其超类中访问属性为public且名为f的方法。</li>
 <li>编译器查看调用方法时提供的参数类型。这个过程叫做重载解析（overloading resolution）</li>
-<li>如果是private方法、static方法、final方法或者构造器，那么编译器会准确地知道应该调用哪个方法，这种调用方式叫<strong>静态绑定</strong>(static binding)。与此对应的是，</li>
+<li>如果是private方法、static方法、final方法或者构造器，那么编译器会准确地知道应该调用哪个方法（编译器可以在编译阶段就完成绑定），这种调用方式叫<strong>静态绑定</strong>(static binding)。与此对应的是，调用的方法依赖于隐式参数的实际类型（动态绑定是指编译器在编译阶段不知道要调用哪个方法，直到运行时才能确定），并在运行时实现<strong>动态绑定</strong>。</li>
+<li>程序运行时，若是动态绑定调用方法，那就先从本类中寻找，否则从超类中寻找。（每个类都有一个方法表method table）</li>
 </ol>
+<h1 id="阻止继承：final类和方法">4. 阻止继承：final类和方法</h1><p>不允许扩展（被继承）的类被称为final类。</p>
+<p>例如下例子中的Executive类就不能有子类。</p>
+<pre><code>final class Executive extends Manager{
+    ...
+}
+</code></pre><p>类中的方法也可以final,那么子类就不能覆盖这个方法。</p>
+<pre><code>class Employee{
+    ...
+    public final String getName(){
+        return name;
+    }
+    ...
+}
+</code></pre><h1 id="抽象类，abstruct">5. 抽象类，abstruct</h1><p>用于表示某种很抽象的、上层的、更通用的类。例如图中的</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -214,7 +229,7 @@ Employee[] staff = new Employee();
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#super关键字"><span class="toc-text">1. super关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#子类override-覆盖-父类的函数"><span class="toc-text">1.1. 子类override(覆盖)父类的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super在构造器中的应用"><span class="toc-text">1.2. super在构造器中的应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多态"><span class="toc-text">2. 多态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调用对象方法的执行过程"><span class="toc-text">3. 调用对象方法的执行过程</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#super关键字"><span class="toc-text">1. super关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#子类override-覆盖-父类的函数"><span class="toc-text">1.1. 子类override(覆盖)父类的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super在构造器中的应用"><span class="toc-text">1.2. super在构造器中的应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多态"><span class="toc-text">2. 多态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调用对象方法的执行过程"><span class="toc-text">3. 调用对象方法的执行过程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#阻止继承：final类和方法"><span class="toc-text">4. 阻止继承：final类和方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#抽象类，abstruct"><span class="toc-text">5. 抽象类，abstruct</span></a></li></ol>
  
   </div>
 
@@ -254,6 +269,10 @@ Employee[] staff = new Employee();
 		  
 		
 		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>3</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
 		  
 		
@@ -262,7 +281,7 @@ Employee[] staff = new Employee();
 		  
 		
 		  
-			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+			<li><a href="/categories/算法/" title="算法">算法<sup>3</sup></a></li>
 		  
 		
 		</ul>

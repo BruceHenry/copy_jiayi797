@@ -80,6 +80,357 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/03/04/boosting（混合模型）和bagging/" title="boosting（混合模型）和bagging（装袋）" itemprop="url">boosting（混合模型）和bagging（装袋）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-04T09:00:58.000Z" itemprop="datePublished"> 发表于 2017-03-04</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。<a href="http://blog.jasonding.top/2015/06/10/Machine%20Learning/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E3%80%91%E6%B7%B7%E5%90%88%E5%92%8C%E8%A3%85%E8%A2%8B/" target="_blank" rel="external">混合和装袋</a></p>
+<h1 id="bagging">1. bagging</h1><p>bagging——基于数据随机重抽样的分类器构建方法。</p>
+<h1 id="boosting">2. boosting</h1><p>新的分类器根据已训练出的分类器的性能来进行训练；<br>分类结果基于所有分类器的加权求和得到。</p>
+<h1 id="bagging和boosting区别">3. bagging和boosting区别</h1><p>Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。</p>
+<p>Boosting 则是迭代算法，每一次迭代都根据上一次迭代的预测结果对样本进行加权，所以随着迭代不断进行，误差会越来越小，所以模型的 bias 会不断降低。这种算法无法并行，例子比如 Adaptive Boosting.</p>
+<p>作者：匿名用户<br>链接：<a href="https://www.zhihu.com/question/26760839/answer/33963551" target="_blank" rel="external">https://www.zhihu.com/question/26760839/answer/33963551</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/04/boosting（混合模型）和bagging/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/04/boosting（混合模型）和bagging/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/03/AUC笔记/" title="ROC和AUC" itemprop="url">ROC和AUC</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-03T14:53:48.895Z" itemprop="datePublished"> 发表于 2017-03-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="AUC定义">0.0.1. AUC定义</h3><p>用途：用来度量分类模型好坏的一个标准<br>背景：</p>
+<ul>
+<li>有些时候，仅仅依靠正确率是不妥当的。</li>
+<li>能客观反映对正样本、负样本综合预测的能力，还要考虑消除样本倾斜的影响。</li>
+</ul>
+<h3 id="ROC">0.0.2. ROC</h3><ul>
+<li>ROC:Receiver Operating Characteristic</li>
+<li>ROC曲线：横坐标是false positive rate(FPR)，纵坐标是true positive rate(TPR)。</li>
+<li>对某个分类器而言，我们可以根据其在测试样本上的表现得到一个TPR和FPR点对。这样，此分类器就可以映射成ROC平面上的一个点。</li>
+<li>调整这个分类器分类时候使用的阈值，我们就可以得到一个经过(0, 0)，(1, 1)的曲线，这就是此分类器的ROC曲线。</li>
+</ul>
+<p>tip：FPR和TPR<br>先来看一个普遍的二分类问题的结果，预测值和实际值有4种组合情况，看下面的表格：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-18-05.png" alt=""><br>我们定义<br>$$ TruePositiveRate(TPR) = \frac{TP}{TP+FN=P} = \frac{正确预测1}{正确预测1+错误预测1=1的数量}=实际正样本正确预测的比例$$<br>$$ FalsePositiveRate(FPR) = \frac{FP}{FP+TN=N} = \frac{错误预测0}{错误预测0+正确预测0=0的数量}=实际负样本错误预测的比例$$</p>
+<h4 id="如何一个分类器的画ROC曲线">0.0.2.1. 如何一个分类器的画ROC曲线</h4><p>概率输出：即表示分类器认为某个样本具有多大的概率属于正样本（或负样本），来动态调整一个样本是否属于正负样本<br>例：</p>
+<ul>
+<li>图中共有20个测试样本</li>
+<li>“Class”一栏表示每个测试样本真正的标签（p表示正样本，n表示负样本）</li>
+<li>“Score”表示每个测试样本属于正样本的概率。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-38-47.png" alt=""><br>步骤：</li>
+<li>从高到低，依次将“Score”值作为阈值，当测试样本属于正样本的概率大于或等于这个阈值时，我们认为它为正样本，否则为负样本。</li>
+<li>举例来说，对于图中的第4个样本，其“Score”值为0.6，那么样本1，2，3，4都被认为是正样本，因为它们的“Score”值都大于等于0.6，而其他样本则都认为是负样本。</li>
+<li>每次选取一个不同的阈值，我们就可以得到一组FPR和TPR，即ROC曲线上的一点。这样一来，我们一共得到了20组FPR和TPR的值，将它们画在ROC曲线的结果如下图：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-39-56.png" alt=""> </li>
+<li>当我们将阈值设置为1和0时，分别可以得到ROC曲线上的(0,0)和(1,1)两个点。将这些(FPR,TPR)对连接起来，就得到了ROC曲线。</li>
+<li>当阈值取值越多，ROC曲线越平滑。</li>
+</ul>
+<h3 id="AUC">0.0.3. AUC</h3><ul>
+<li>AUC的值就是处于ROC curve下方的那部分面积的大小</li>
+<li>通常，AUC的值介于0.5到1.0之间</li>
+<li>较大的AUC代表了较好的performance</li>
+</ul>
+<h4 id="计算AUC的方法">0.0.3.1. 计算AUC的方法</h4><ul>
+<li>直接计算AUC是很麻烦的，所以就使用了AUC的一个性质（它和Wilcoxon-Mann-Witney Test是等价的）来进行计算。</li>
+<li>Wilcoxon-Mann-Witney Test就是测试任意给一个正类样本和一个负类样本，正类样本的score有多大的概率大于负类样本的score。</li>
+<li>有了这个定义，我们就得到了另外一中计算AUC的办法：得到这个概率。</li>
+</ul>
+<h5 id="方法一">0.0.3.1.1. 方法一</h5><p>统计一下所有的 M×N(M为正类样本的数目，N为负类样本的数目)个正负样本对中，有多少个组中的正样本的score大于负样本的score。当二元组中正负样本的 score相等的时候，按照0.5计算。然后除以MN。实现这个方法的复杂度为O(n^2)。n为样本数（即n=M+N）。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-43-59.png" alt=""> </p>
+<h5 id="方法二">0.0.3.1.2. 方法二</h5><p>第二种方法实际上和上述方法是一样的，但是复杂度减小了。</p>
+<ul>
+<li>首先对score从大到小排序</li>
+<li>然后令最大score对应的sample 的rank为n，第二大score对应sample的rank为n-1，以此类推</li>
+<li>然后把所有的正类样本的rank相加，再减去正类样本的score为最小的那M个值的情况。</li>
+<li>得到的就是所有的样本中有多少对正类样本的score大于负类样本的score。</li>
+<li>然后再除以M×N。即<br><code>AUC=((所有的正例位置相加)-M*(M+1))/(M*N)</code></li>
+</ul>
+<p>另外，特别需要注意的是，再存在score相等的情况时，对相等score的样本，需要 赋予相同的rank(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。具体操作就是再把所有这些score相等的样本 的rank取平均。然后再使用上述公式。</p>
+<h3 id="参考文献">0.0.4. 参考文献</h3><ol>
+<li><a href="https://www.zybuluo.com/frank-shaw/note/152851" target="_blank" rel="external">评价分类器性能指标之AUC、ROC</a></li>
+<li><a href="http://www.cnblogs.com/lixiaolun/p/4053499.html" target="_blank" rel="external">AUC(Area Under roc Curve)学习笔记</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/o2o优惠券使用预测/">o2o优惠券使用预测</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/03/AUC笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/03/AUC笔记/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/03/O2O优惠券预测——思路总结/" title="O2O优惠券预测——思路总结" itemprop="url">O2O优惠券预测——思路总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-03T08:25:05.000Z" itemprop="datePublished"> 发表于 2017-03-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近看各种机器学习算法，感觉没有实战，总是空空的。刚好这个月没什么事情，趁此机会拿<a href="https://tianchi.shuju.aliyun.com/getStart/information.htm?spm=5176.100067.5678.2.SfEzJi&amp;raceId=231593" target="_blank" rel="external">赛题</a>练习一下。</p>
+<h1 id="资料整理">1. 资料整理</h1><ol>
+<li><a href="https://github.com/wepe/O2O-Coupon-Usage-Forecast" target="_blank" rel="external">阿里天池O2O优惠券消费行为预测竞赛优胜方案</a>。第一名。北大。解题思路。</li>
+<li><a href="http://blog.csdn.net/shine19930820/article/details/53995369" target="_blank" rel="external">O2O优惠券使用预测思路总结</a>。16名。解题思路。</li>
+<li><a href="http://blog.csdn.net/bryan__/article/details/53907292" target="_blank" rel="external">O2O优惠券使用预测复赛第三名思路</a>。3名。PPT.</li>
+<li><a href="https://www.zhihu.com/question/42154455/answer/124080774" target="_blank" rel="external">各竞赛QQ群</a></li>
+<li><a href="http://www.datafountain.cn/data/science/player/competition/detail/description/238" target="_blank" rel="external">竞赛官网</a></li>
+<li><a href="https://bbs.aliyun.com/thread/254.html?spm=5176.bbsl254.0.0.sBagXf&amp;type=1214&amp;type=1214#tabA" target="_blank" rel="external">论坛专区</a></li>
+<li><a href="https://tianchi.shuju.aliyun.com/getStart/introduction.htm?spm=5176.100066.333.1.osUTZq&amp;raceId=231593" target="_blank" rel="external">天池新人实战赛[o2o优惠券使用预测]</a></li>
+<li>也可以去天池官网上，点学习入口，下面的视频，这边也有对这次020比赛的一些视频解说 </li>
+<li><a href="https://bbs.aliyun.com/read/273638.html" target="_blank" rel="external">数加平台指南＋文档、视频、FAQ及精华帖干货集锦</a></li>
+<li><a href="http://www.jianshu.com/p/00dba98eb1d0" target="_blank" rel="external">数据科学完整学习路径</a></li>
+</ol>
+<h1 id="赛题背景">2. 赛题背景</h1><ul>
+<li>O2O（Online to Offline）消费</li>
+<li>O2O：是指将线下的商务机会与互联网结合，让互联网成为线下交易的平台</li>
+<li>以优惠券盘活老用户或吸引新客户进店消费是O2O的一种重要营销方式</li>
+</ul>
+<h1 id="赛题目标">3. 赛题目标</h1><ul>
+<li>个性化投放优惠券，提高核销率</li>
+<li>通过分析建模，精准预测用户是否会在规定时间内使用相应优惠券</li>
+<li>已知：用户在2016年1月1日至2016年6月30日之间真实线上线下消费行为</li>
+<li>预测：用户在2016年7月领取优惠券后15天以内的使用情况</li>
+<li>评价标准：优惠券核销预测的平均AUC（ROC曲线下面积）。即对每个优惠券coupon_id单独计算核销预测的AUC值，再对所有优惠券的AUC值求平均作为最终的评价标准。 关于AUC的含义与具体计算方法，可参考维基百科</li>
+</ul>
+<h1 id="数据描述及分析">4. 数据描述及分析</h1><h4 id="数据描述">4.0.0.1. 数据描述</h4><ul>
+<li>Table 1: 用户线下消费和优惠券领取行为，ccf_offline_stage1_train.csv</li>
+<li>Table 2: 用户线上点击/消费和优惠券领取行为，ccf_online_stage1_train</li>
+<li>Table 3：用户O2O线下优惠券使用预测样本，ccf_offline_stage1_test_revised.csv</li>
+<li>Table 4：选手提交文件字段，其中user_id,coupon_id和date_received均来自Table 3,而Probability为预测值</li>
+</ul>
+<p><strong> TABLE 1： 用户线下消费和优惠券领取行为 </strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-21-57-25.png" alt=""> </p>
+<p><strong> Table 2: 用户线上点击/消费和优惠券领取行为</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-21-58-04.png" alt=""> </p>
+<p><strong> Table 3：用户O2O线下优惠券使用预测样本</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-21-58-29.png" alt=""> </p>
+<p><strong> Table 4选手提交文件字段</strong><br>其中user_id,coupon_id和date_received均来自Table 3,而Probability为预测值<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-21-58-40.png" alt=""> </p>
+<h4 id="数据分析">4.0.0.2. 数据分析</h4><h3 id="初步分析">4.0.1. 初步分析</h3><p><strong> TABLE 1 分析 </strong></p>
+<ul>
+<li>特点：<br>– 标题：用户线下消费和优惠券领取行为<br>– 场景：线下<br>– 行为：消费、优惠券领取<br>– 数据：优惠券领取、使用情况，消费情况，用户常活动地点与最近门店距离</li>
+<li>分析1：用户行为有三种情况<br>– 领了优惠券 &amp;&amp; 未消费 = 负样本 （Date=null &amp; Coupon_id != null）<br>– 没领优惠券 &amp;&amp; 已消费（Date!=null &amp; Coupon_id = null）<br>– 领了优惠券 &amp;&amp; 已消费（Date!=null &amp; Coupon_id != null）<br>– 总结：本数据作为刻画用户特点的主要依据较为合理</li>
+<li>分析2：优惠率<br>– 总结：有可能用户会根据优惠率来决定是否进行消费</li>
+<li>分析3：距离<br>– 离用户近的门店可能会总领取优惠券，但不一定会使用。<br>– 离用户远的门店如果有优惠券，则可能会为了很大的优惠率专程去使用。</li>
+<li>总结<br>– 本数据集主要刻画线下用户特征。</li>
+</ul>
+<p><strong> TABLE 2 分析 </strong></p>
+<ul>
+<li>特点：<br>– 标题：用户线上点击/消费和优惠券领取行为<br>– 场景：线上<br>– 行为：点击、消费、优惠券领取<br>– 数据：用户是否点击。购买。领取优惠券。</li>
+<li>分析1：用户行为有三种情况<br>– 领了优惠券 &amp;&amp; 未消费 = 负样本（Date=null &amp; Coupon_id != null）<br>– 没领优惠券 &amp;&amp; 已消费 （Date!=null &amp; Coupon_id = null）<br>– 领了优惠券 &amp;&amp; 已消费 （Date!=null &amp; Coupon_id != null）</li>
+<li>分析2：用户点击、消费、优惠券情况<br>– 用户点击了 &amp;&amp; 没领优惠券 &amp;&amp; 未消费 = 负样本<br>– 用户点击了 &amp;&amp; 领了优惠券 &amp;&amp; 未消费<br>– 用户点击了 &amp;&amp; 领了优惠券 &amp;&amp; 已消费<br>– 用户点击了 &amp;&amp; 没领优惠券 &amp;&amp; 已消费<br>– 用户没点击 </li>
+<li>总结<br>– 本数据集主要刻画线上用户特征。</li>
+</ul>
+<p><strong> Table 3：用户O2O线下优惠券使用预测样本 </strong></p>
+<ul>
+<li>测试集</li>
+</ul>
+<h3 id="认识数据">4.0.2. 认识数据</h3><p>感谢wepon的<a href="https://tianchi.shuju.aliyun.com/video.htm?spm=5176.100258.100258.3.1O7LLR" target="_blank" rel="external">无私奉献</a></p>
+<p>对提供的数据做一些基本的统计，有助于对赛题的理解，可以熟悉业务逻辑，也方便后面的特征工程。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-12-21-38-50.png" alt=""> </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-12-21-39-13.png" alt=""> </p>
+<h1 id="特征提取">5. 特征提取</h1><ul>
+<li>特征提取：将原始特征转换为一组具有明显物理意义（Gabor、几何特征[角点、不变量]、纹理[LBP HOG]）或者统计意义或核的特征</li>
+<li>经验上来说，这些特征提取的越多越好，并不用担心特征过多，因为推荐系统的数据量都比较大，并且基于一些规则可以很好的筛选特征。</li>
+<li>第一次做特征提取，很多东西想得不够周到。参考了很多第一名的思想。</li>
+</ul>
+<h4 id="用户特征">5.0.0.1. 用户特征</h4><p>用途：描述用户消费偏好</p>
+<p>线下：</p>
+<ol>
+<li>领取优惠券率（领取次数/总次数）</li>
+<li>优惠券核销率（优惠券使用次数/优惠券领取次数）</li>
+<li>消费率（消费次数/总次数）</li>
+<li>核销时的优惠率</li>
+<li>领取、使用优惠券间隔</li>
+<li>user经常活动的地点离平均/最大/最小用户-商家的最近门店距离</li>
+<li>消费频数</li>
+<li>优惠券领取频数</li>
+<li>优惠券使用频数</li>
+<li>用户满减优惠券核销率（满减优惠券使用次数/优惠券领取次数）</li>
+<li>用户满减优惠券核销比重（满减优惠券使用次数/优惠券使用次数）</li>
+<li>核销优惠券的平均/最低/最高消费打率</li>
+<li>核销过的商户数量，以及不同商家的比重</li>
+<li>核销过的不同优惠券数量，以及其与优惠券种类数的比重</li>
+<li>平均每个商家核销多少张优惠券</li>
+</ol>
+<p>线上：</p>
+<ol>
+<li>优惠券领取率（领取/总）</li>
+<li>点击频数</li>
+<li>优惠券领取频数</li>
+<li>优惠券使用频数</li>
+<li>优惠券核销率（使用/领取）</li>
+<li>消费频数</li>
+<li>消费率（消费次数/总）</li>
+<li>核销时的优惠率</li>
+<li>领取、使用优惠券间隔</li>
+<li>用户线上不消费次数</li>
+<li>用户线下不消费次数占线上线下总的不消费次数的比重</li>
+<li>用户线下的优惠券核销次数占线上线下总的优惠券核销次数的比重</li>
+</ol>
+<h4 id="线下消费的优惠券特征">5.0.0.2. 线下消费的优惠券特征</h4><ol>
+<li>优惠率</li>
+<li>优惠券被领取次数</li>
+<li>优惠券核销率</li>
+<li>领取、使用优惠券间隔</li>
+</ol>
+<h4 id="线上商户特征">5.0.0.3. 线上商户特征</h4><ol>
+<li>点击频数</li>
+<li>购买频数</li>
+<li>优惠券被领取频数</li>
+<li>优惠券被使用频数</li>
+<li>消费率（购买/总）</li>
+<li>优惠券领取率（领取/总）</li>
+<li>优惠券核销率（使用/领取）</li>
+<li>优惠率</li>
+<li>领取、使用优惠券间隔</li>
+</ol>
+<p>现在遇到了一些瓶颈。参考了前人的教程<a href="http://www.jianshu.com/p/00dba98eb1d0" target="_blank" rel="external">数据科学完整学习路径</a>，发现自己基础还是不够扎实。决定先看看机器学习技法教程，再进行下一步。</p>
+<p>=======2017.3.1======</p>
+<p>看了一下GBDT，发现我的疑问还是不能解决。</p>
+<ul>
+<li>多类特征，怎么处理？</li>
+<li>处理的流程究竟是怎样的？</li>
+</ul>
+<p>为了解决上述问题，我决定开始深入分析第一名的队伍的<a href="https://github.com/wepe/O2O-Coupon-Usage-Forecast" target="_blank" rel="external">阿里天池O2O优惠券消费行为预测竞赛优胜方案</a>源码。</p>
+<p>=======2017.3.8======</p>
+<p>算是大致看完了前辈的代码。见本博客文章“O2O优惠券预测——对第一名的思路源码分析”</p>
+<p>这其中的奥妙深不可测。</p>
+<p>知识累积不是一蹴而就的。加油吧。</p>
+<p>=======2017.3.12======</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/o2o优惠券使用预测/">o2o优惠券使用预测</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/03/O2O优惠券预测——思路总结/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/03/O2O优惠券预测——思路总结/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/03/03/SVM（一） 线性可分/" title="SVM（一） 线性可分" itemprop="url">SVM（一） 线性可分</a>
   </h1>
   <p class="article-author">By
@@ -665,83 +1016,9 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/02/27/机器学习简介/" title="机器学习简介" itemprop="url">机器学习简介</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-02-27T10:30:37.000Z" itemprop="datePublished"> 发表于 2017-02-27</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>很多东西看了就忘。一定要好好做笔记。</p>
-<p>本节主要记录《机器学习基石》的常见符号。</p>
-<h1 id="基础符号">1. 基础符号</h1><p>输入： $ x \in X $<br>输出： $y \in Y $<br>目标函数： $f:X\rightarrow Y $ （理想中的，实际得不到）<br>假设函数：$g:X\rightarrow Y $ ，又称为<code>hypothesis</code>（学习到的g，希望跟f越像越好）<br>$g \in H $<br>假设函数集合：$H = \{h_k\} $ <code>hypothesis set</code><br>训练集：$D=\{(x_1,y_1),…,(x_N,y_N)\}$<br>机器学习演算法：$A$</p>
-<h1 id="机器学习流程">2. 机器学习流程</h1><ul>
-<li>从数据集D出发</li>
-<li>通过演算法A，来计算出一个g，使得g很接近f<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-09-29.png" alt=""> </li>
-</ul>
-<h1 id="误差E">3. 误差E</h1><p>不知道为什么公式显示不出来，只好手动展图了<br>输入误差：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-44-49.png" alt=""> </p>
-<p>$$E<em>{in}(h)=\frac{1}{N} \sum</em>{n=1}^N(h(x_n)-y_n)^2$$</p>
-<ul>
-<li>样本（训练集）中出现的错误率</li>
-</ul>
-<p>输出误差：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-45-03.png" alt=""> </p>
-<p>$$E<em>{out}(h)=\mathcal{E}</em>{(x,y)\text~P}(w^Tx-y)^2$$</p>
-<ul>
-<li>总体（测试集+训练集）中出现的错误率</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/机器学习/">机器学习</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/02/27/机器学习简介/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/02/27/机器学习简介/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
   </nav>
 
 </div>
@@ -783,6 +1060,10 @@
 		  
 		
 		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>3</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
 		  
 		
@@ -791,7 +1072,7 @@
 		  
 		
 		  
-			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+			<li><a href="/categories/算法/" title="算法">算法<sup>3</sup></a></li>
 		  
 		
 		</ul>

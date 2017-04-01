@@ -80,6 +80,276 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/03/16/java学习笔记-继承/" title="java学习笔记——继承" itemprop="url">java学习笔记——继承</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-16T02:58:32.000Z" itemprop="datePublished"> 发表于 2017-03-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="super关键字">1. super关键字</h1><h2 id="子类override-覆盖-父类的函数">1.1. 子类override(覆盖)父类的函数</h2><p>override时，使用<code>super</code>调用父类的方法。</p>
+<pre><code>//超类，员工
+class Employee{
+    private String name;
+    private double salary;//薪水
+    private Date hireDay;
+    public double getSalary(){
+        return salary;
+    }
+}
+//经理
+class Manage extends Employee{
+    private double bonus;//奖金
+    public double getSalary(){//对原来的getSalary进行override
+        return this.bonus + super.getSalary();//super调用父类的getSalary()方法
+    }
+}
+</code></pre><h2 id="super在构造器中的应用">1.2. super在构造器中的应用</h2><pre><code>public Manager(String n, double s, int year, int mouth, int day){
+    super(n,s,year,mouth,day);//调用超类Employee中对应参数的构造器
+    bonus = 0;
+}
+</code></pre><h1 id="多态">2. 多态</h1><p>一个对象变量可以指示多种实际类型的现象————多态（polymorphism）<br>在运行时自动选择调用那个方法的现象————动态绑定（dynamic binding）</p>
+<p>例如：</p>
+<pre><code>Employee e = new Employee();
+e = new Manage(); // is ok
+</code></pre><p>此时，对象变量<code>e</code>也可以引用<code>Manager</code>的对象。</p>
+<pre><code>Manage boss = new Manage(...);
+Employee[] staff = new Employee();
+</code></pre><h1 id="调用对象方法的执行过程">3. 调用对象方法的执行过程</h1><ol>
+<li>编译器查看对象的声明类型和方法名。假设调用<code>x.f(param)</code>，且隐式参数x声明为C类的对象。编译器一一列举所有C类中名为f的方法和其超类中访问属性为public且名为f的方法。</li>
+<li>编译器查看调用方法时提供的参数类型。这个过程叫做重载解析（overloading resolution）</li>
+<li>如果是private方法、static方法、final方法或者构造器，那么编译器会准确地知道应该调用哪个方法（编译器可以在编译阶段就完成绑定），这种调用方式叫<strong>静态绑定</strong>(static binding)。与此对应的是，调用的方法依赖于隐式参数的实际类型（动态绑定是指编译器在编译阶段不知道要调用哪个方法，直到运行时才能确定），并在运行时实现<strong>动态绑定</strong>。</li>
+<li>程序运行时，若是动态绑定调用方法，那就先从本类中寻找，否则从超类中寻找。（每个类都有一个方法表method table）</li>
+</ol>
+<h1 id="阻止继承：final类和方法">4. 阻止继承：final类和方法</h1><p>不允许扩展（被继承）的类被称为final类。</p>
+<p>例如下例子中的Executive类就不能有子类。</p>
+<pre><code>final class Executive extends Manager{
+    ...
+}
+</code></pre><p>类中的方法也可以final,那么子类就不能覆盖这个方法。</p>
+<pre><code>class Employee{
+    ...
+    public final String getName(){
+        return name;
+    }
+    ...
+}
+</code></pre><h1 id="抽象类，abstruct">5. 抽象类，abstruct</h1><p>用于表示某种很抽象的、上层的、更通用的类。例如图中的</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/16/java学习笔记-继承/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/16/java学习笔记-继承/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/15/GBDT/" title="GBDT" itemprop="url">GBDT</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-15T05:31:46.000Z" itemprop="datePublished"> 发表于 2017-03-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。<br>GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。</p>
+<h1 id="GBDT的误差函数">1. GBDT的误差函数</h1><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-49-01.png" alt=""> </p>
+<h1 id="目标">2. 目标</h1><ol>
+<li>求函数h(x)的形式</li>
+<li>求h(x)的步长η</li>
+</ol>
+<h1 id="回归问题求解目标">3. 回归问题求解目标</h1><p>对于回归（regression）问题，误差函数一般采用平方误差。即：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-55-15.png" alt=""> </p>
+<p>为了进一步求解，我们对上式进行taylor展开，即：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-58-42.png" alt=""> </p>
+<p>其中：</p>
+<ul>
+<li>左边一项$err(S_n,y_n)$是常量（因为$S_n$、$y_n$都已知）</li>
+<li>右边一项应该对s求导，并在sn这点取导数值（$error=(s-y)^2$求导之后得到$2(s-y)$）</li>
+</ul>
+<p>那么，上式等于：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-14-04-27.png" alt=""> </p>
+<h2 id="求h-x">3.1. 求h(x)</h2><p>为了让上式最小化，那么貌似$|h(x)|$无穷大即可实现，这不科学！于是我们要对$h(x)$的大小进行限制（类似归一化）————加入惩罚项$(h(x_n))^2$，即将上式变为：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-14-19-46.png" alt=""> </p>
+<p>而上式可变为：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-14-20-27.png" alt=""> </p>
+<p>其中的$(s_n-y_n)^2$是常数，记为constant</p>
+<p>那么新的目标就变为：用$x_n$和$y_n-s_n$做一个regression即可。即：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-14-27-31.png" alt=""> </p>
+<p>经过penalize一番折腾之后，h终于有个像模像样的形式了：即regression with residuals（残差）。</p>
+<h2 id="求步长η">3.2. 求步长η</h2><p>需要求得一个η，使得下式最小化：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-21-27.png" alt=""> </p>
+<p>为了方便计算，我们将平方内的项取负：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-22-55.png" alt=""> </p>
+<p>上式的$y_n-s_n$即residuals（残差）.这是一个单变量的线性回归问题，其中输入是用gt转换后的数据，输出是残差(residual)。</p>
+<h1 id="GBDT算法">4. GBDT算法</h1><p>输出：$\sum_t^T\alpha_t g_t(x)$，即一堆权重$\alpha_t$和一堆决策树$g_t(x)$<br>步骤：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-32-42.png" alt=""> </p>
+<p>1）利用C&amp;RT去学{x, yn-sn}，保留这一轮学出来的树gt(x)</p>
+<p>2）再求{gt(x), residual}线性回归，最小化目标函数求出来ita</p>
+<p>3）更新sn</p>
+<p>学习足够多次数后，返回组合的GBDT。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/15/GBDT/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/15/GBDT/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/14/jacman-hexo目录改成浮动/" title="jacman/hexo目录改成浮动" itemprop="url">jacman/hexo目录改成浮动</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-14T14:29:18.000Z" itemprop="datePublished"> 发表于 2017-03-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="添加样式支持">1. 添加样式支持</h1><p>为了不吧原先的像是文件搞得太乱，这里，添加子集的样式文件。<br>首先，在样式文件的<code>source</code>文件夹下找到<code>css</code>文件夹，打开<code>style.styl</code>文件，在最后添加：</p>
+<p><code>@import &quot;_my/mycss&quot;;</code> </p>
+<h1 id="新建自定义样式">2. 新建自定义样式</h1><p>找到样式文件夹<code>css</code> 新建<code>_my</code>文件夹，在其中新建<code>mycss.sty</code>l文件，之后就可以按照<code>stylus</code>的格式自定义样式了。</p>
+<h1 id="设置toc浮动">3. 设置toc浮动</h1><p>给mycss.sty添加：</p>
+<pre><code>#toc
+ line-height 1.2em
+ font-size 0.8em
+ backgroud-color #fff
+ float right
+ position fixed
+ right 30em
+ top 20em
+</code></pre><h1 id="存在的问题">4. 存在的问题</h1><p>暂不支持自相应。</p>
+<h1 id="参考文献">5. 参考文献</h1><ol>
+<li><a href="https://segmentfault.com/a/1190000003846777" target="_blank" rel="external">Hexo博客主题NexT使用自定义的CSS样式</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/瞎折腾/">瞎折腾</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/14/jacman-hexo目录改成浮动/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/14/jacman-hexo目录改成浮动/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/03/14/java学习笔记-类与对象/" title="java学习笔记----类与对象" itemprop="url">java学习笔记----类与对象</a>
   </h1>
   <p class="article-author">By
@@ -173,21 +443,135 @@ NumberFormat b = NumberFormat.getStyleB();
 <li>每一个类可以有一个main方法，用来单元测试；</li>
 <li>多个类被调用时，只会执行一个main方法；</li>
 </ol>
-<h1 id="其他重点">6. 其他重点</h1><ol>
+<h1 id="初始化块">6. 初始化块</h1><p>构造对象时，先运行初始化块，才运行构造器主体部分。</p>
+<pre><code>class Employee{
+    private static int nextId;
+    private int id;
+    //初始化块
+    {
+        id=nextId;
+    }
+}
+</code></pre><p>如果对类的静态域进行初始化的代码比较复杂，就可以使用静态的初始化块：</p>
+<pre><code>static{
+    Random generator = new Random();
+    nextId = generator.nextId(10000);
+}
+</code></pre><p>类（！！！不是对象）第一次加载时，将会进行static域的初始化。</p>
+<h1 id="初始化数据域的三种方法">7. 初始化数据域的三种方法</h1><ol>
+<li>在构造器中设置值</li>
+<li>在声明中赋值</li>
+<li>在初始化块中赋值</li>
+</ol>
+<h1 id="类的初始化顺序">8. 类的初始化顺序</h1><p>对于静态变量、静态初始化块、变量、初始化块、构造器，它们的初始化顺序依次是（静态变量、静态初始化块）&gt;（变量、初始化块）&gt;构造器。</p>
+<p>例如，</p>
+<pre><code>public class InitialOrderTest {   
+    // 静态变量   
+    public static String staticField = &quot;静态变量&quot;;   
+    // 变量   
+    public String field = &quot;变量&quot;;   
+    // 静态初始化块   
+    static {   
+        System.out.println(staticField);   
+        System.out.println(&quot;静态初始化块&quot;);   
+    }   
+    // 初始化块   
+    {   
+        System.out.println(field);   
+        System.out.println(&quot;初始化块&quot;);   
+    }   
+    // 构造器   
+    public InitialOrderTest() {   
+        System.out.println(&quot;构造器&quot;);   
+    }   
+    public static void main(String[] args) {   
+        new InitialOrderTest();   
+    }   
+}  
+</code></pre><p>运行以上代码，我们会得到如下的输出结果： </p>
+<pre><code>静态变量
+静态初始化块
+变量
+初始化块
+构造器
+</code></pre><p>对于继承的情况：</p>
+<pre><code>class Parent {   
+    // 静态变量   
+    public static String p_StaticField = &quot;父类--静态变量&quot;;   
+    // 变量   
+    public String p_Field = &quot;父类--变量&quot;;   
+
+    // 静态初始化块   
+    static {   
+        System.out.println(p_StaticField);   
+        System.out.println(&quot;父类--静态初始化块&quot;);   
+    }   
+
+    // 初始化块   
+    {   
+        System.out.println(p_Field);   
+        System.out.println(&quot;父类--初始化块&quot;);   
+    }   
+
+    // 构造器   
+    public Parent() {   
+        System.out.println(&quot;父类--构造器&quot;);   
+    }   
+}   
+
+public class SubClass extends Parent {   
+    // 静态变量   
+    public static String s_StaticField = &quot;子类--静态变量&quot;;   
+    // 变量   
+    public String s_Field = &quot;子类--变量&quot;;   
+    // 静态初始化块   
+    static {   
+        System.out.println(s_StaticField);   
+        System.out.println(&quot;子类--静态初始化块&quot;);   
+    }   
+    // 初始化块   
+    {   
+        System.out.println(s_Field);   
+        System.out.println(&quot;子类--初始化块&quot;);   
+    }   
+
+    // 构造器   
+    public SubClass() {   
+        System.out.println(&quot;子类--构造器&quot;);   
+    }   
+
+    // 程序入口   
+    public static void main(String[] args) {   
+        new SubClass();   
+    }   
+}  
+</code></pre><p>运行一下上面的代码，结果马上呈现在我们的眼前： </p>
+<pre><code>父类--静态变量
+父类--静态初始化块
+子类--静态变量
+子类--静态初始化块
+父类--变量
+父类--初始化块
+父类--构造器
+子类--变量
+子类--初始化块
+子类--构造器
+</code></pre><p>总得来说，是先静态后变量，先父类后子类</p>
+<h1 id="其他重点">9. 其他重点</h1><ol>
 <li>基于类的访问权限：一个方法可以访问所属类的所有私有数据。</li>
 <li>java的值引用（基本数据类型、对象引用）</li>
 <li>如果类中提供了至少一个有参构造器，而没有无参构造器，则在构造无参对象时会出错。</li>
 </ol>
-<h1 id="Java类库中的GregorianCalendar类-（删除本节）">7. Java类库中的GregorianCalendar类 （删除本节）</h1><h2 id="纪元">7.1. 纪元</h2><p>时间是用距离一个固定时间点的毫秒数表示的，这个点就是纪元(epoch)。</p>
-<h2 id="时间与日历">7.2. 时间与日历</h2><p>为了将<strong>时间</strong>与<strong>日历</strong>分开，标准Java类库分别包含两个类：</p>
+<h1 id="Java类库中的GregorianCalendar类-（删除本节）">10. Java类库中的GregorianCalendar类 （删除本节）</h1><h2 id="纪元">10.1. 纪元</h2><p>时间是用距离一个固定时间点的毫秒数表示的，这个点就是纪元(epoch)。</p>
+<h2 id="时间与日历">10.2. 时间与日历</h2><p>为了将<strong>时间</strong>与<strong>日历</strong>分开，标准Java类库分别包含两个类：</p>
 <ul>
 <li>Date类：用来表示时间点的类；</li>
 <li>GregorianCalendar类：用来表示公历法的类；（通过它还有一个扩展类——Calendar类，描述了日历的一般属性）</li>
 </ul>
-<h3 id="Date类">7.2.1. Date类</h3><p>用来表示时间的类；</p>
+<h3 id="Date类">10.2.1. Date类</h3><p>用来表示时间的类；</p>
 <p>只有少量的方法，例如比较两个时间点before(),after()：</p>
 <pre><code>doday.before(birthday)
-</code></pre><h3 id="GregorianCalendar类">7.2.2. GregorianCalendar类</h3><p>常见方法：</p>
+</code></pre><h3 id="GregorianCalendar类">10.2.2. GregorianCalendar类</h3><p>常见方法：</p>
 <p><code>new GregorianCalendar()</code>，构造新的对象，用于表示对象构造时的日期和时间；</p>
 <p>例如:</p>
 <pre><code>GregorianCalendar g1 = new GregorianCalendar();
@@ -1481,360 +1865,9 @@ minError = inf
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/04/boosting（混合模型）和bagging/" title="boosting（混合模型）和bagging（装袋）" itemprop="url">boosting（混合模型）和bagging（装袋）</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-04T09:00:58.000Z" itemprop="datePublished"> 发表于 2017-03-04</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。<a href="http://blog.jasonding.top/2015/06/10/Machine%20Learning/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E3%80%91%E6%B7%B7%E5%90%88%E5%92%8C%E8%A3%85%E8%A2%8B/" target="_blank" rel="external">混合和装袋</a></p>
-<h1 id="bagging">1. bagging</h1><p>bagging——基于数据随机重抽样的分类器构建方法。</p>
-<h1 id="boosting">2. boosting</h1><p>新的分类器根据已训练出的分类器的性能来进行训练；<br>分类结果基于所有分类器的加权求和得到。</p>
-<h1 id="bagging和boosting区别">3. bagging和boosting区别</h1><p>Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。</p>
-<p>Boosting 则是迭代算法，每一次迭代都根据上一次迭代的预测结果对样本进行加权，所以随着迭代不断进行，误差会越来越小，所以模型的 bias 会不断降低。这种算法无法并行，例子比如 Adaptive Boosting.</p>
-<p>作者：匿名用户<br>链接：<a href="https://www.zhihu.com/question/26760839/answer/33963551" target="_blank" rel="external">https://www.zhihu.com/question/26760839/answer/33963551</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/04/boosting（混合模型）和bagging/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/04/boosting（混合模型）和bagging/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/03/AUC笔记/" title="ROC和AUC" itemprop="url">ROC和AUC</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-03T14:53:48.895Z" itemprop="datePublished"> 发表于 2017-03-03</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="AUC定义">0.0.1. AUC定义</h3><p>用途：用来度量分类模型好坏的一个标准<br>背景：</p>
-<ul>
-<li>有些时候，仅仅依靠正确率是不妥当的。</li>
-<li>能客观反映对正样本、负样本综合预测的能力，还要考虑消除样本倾斜的影响。</li>
-</ul>
-<h3 id="ROC">0.0.2. ROC</h3><ul>
-<li>ROC:Receiver Operating Characteristic</li>
-<li>ROC曲线：横坐标是false positive rate(FPR)，纵坐标是true positive rate(TPR)。</li>
-<li>对某个分类器而言，我们可以根据其在测试样本上的表现得到一个TPR和FPR点对。这样，此分类器就可以映射成ROC平面上的一个点。</li>
-<li>调整这个分类器分类时候使用的阈值，我们就可以得到一个经过(0, 0)，(1, 1)的曲线，这就是此分类器的ROC曲线。</li>
-</ul>
-<p>tip：FPR和TPR<br>先来看一个普遍的二分类问题的结果，预测值和实际值有4种组合情况，看下面的表格：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-18-05.png" alt=""><br>我们定义<br>$$ TruePositiveRate(TPR) = \frac{TP}{TP+FN=P} = \frac{正确预测1}{正确预测1+错误预测1=1的数量}=实际正样本正确预测的比例$$<br>$$ FalsePositiveRate(FPR) = \frac{FP}{FP+TN=N} = \frac{错误预测0}{错误预测0+正确预测0=0的数量}=实际负样本错误预测的比例$$</p>
-<h4 id="如何一个分类器的画ROC曲线">0.0.2.1. 如何一个分类器的画ROC曲线</h4><p>概率输出：即表示分类器认为某个样本具有多大的概率属于正样本（或负样本），来动态调整一个样本是否属于正负样本<br>例：</p>
-<ul>
-<li>图中共有20个测试样本</li>
-<li>“Class”一栏表示每个测试样本真正的标签（p表示正样本，n表示负样本）</li>
-<li>“Score”表示每个测试样本属于正样本的概率。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-38-47.png" alt=""><br>步骤：</li>
-<li>从高到低，依次将“Score”值作为阈值，当测试样本属于正样本的概率大于或等于这个阈值时，我们认为它为正样本，否则为负样本。</li>
-<li>举例来说，对于图中的第4个样本，其“Score”值为0.6，那么样本1，2，3，4都被认为是正样本，因为它们的“Score”值都大于等于0.6，而其他样本则都认为是负样本。</li>
-<li>每次选取一个不同的阈值，我们就可以得到一组FPR和TPR，即ROC曲线上的一点。这样一来，我们一共得到了20组FPR和TPR的值，将它们画在ROC曲线的结果如下图：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-39-56.png" alt=""> </li>
-<li>当我们将阈值设置为1和0时，分别可以得到ROC曲线上的(0,0)和(1,1)两个点。将这些(FPR,TPR)对连接起来，就得到了ROC曲线。</li>
-<li>当阈值取值越多，ROC曲线越平滑。</li>
-</ul>
-<h3 id="AUC">0.0.3. AUC</h3><ul>
-<li>AUC的值就是处于ROC curve下方的那部分面积的大小</li>
-<li>通常，AUC的值介于0.5到1.0之间</li>
-<li>较大的AUC代表了较好的performance</li>
-</ul>
-<h4 id="计算AUC的方法">0.0.3.1. 计算AUC的方法</h4><ul>
-<li>直接计算AUC是很麻烦的，所以就使用了AUC的一个性质（它和Wilcoxon-Mann-Witney Test是等价的）来进行计算。</li>
-<li>Wilcoxon-Mann-Witney Test就是测试任意给一个正类样本和一个负类样本，正类样本的score有多大的概率大于负类样本的score。</li>
-<li>有了这个定义，我们就得到了另外一中计算AUC的办法：得到这个概率。</li>
-</ul>
-<h5 id="方法一">0.0.3.1.1. 方法一</h5><p>统计一下所有的 M×N(M为正类样本的数目，N为负类样本的数目)个正负样本对中，有多少个组中的正样本的score大于负样本的score。当二元组中正负样本的 score相等的时候，按照0.5计算。然后除以MN。实现这个方法的复杂度为O(n^2)。n为样本数（即n=M+N）。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-22-43-59.png" alt=""> </p>
-<h5 id="方法二">0.0.3.1.2. 方法二</h5><p>第二种方法实际上和上述方法是一样的，但是复杂度减小了。</p>
-<ul>
-<li>首先对score从大到小排序</li>
-<li>然后令最大score对应的sample 的rank为n，第二大score对应sample的rank为n-1，以此类推</li>
-<li>然后把所有的正类样本的rank相加，再减去正类样本的score为最小的那M个值的情况。</li>
-<li>得到的就是所有的样本中有多少对正类样本的score大于负类样本的score。</li>
-<li>然后再除以M×N。即<br><code>AUC=((所有的正例位置相加)-M*(M+1))/(M*N)</code></li>
-</ul>
-<p>另外，特别需要注意的是，再存在score相等的情况时，对相等score的样本，需要 赋予相同的rank(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。具体操作就是再把所有这些score相等的样本 的rank取平均。然后再使用上述公式。</p>
-<h3 id="参考文献">0.0.4. 参考文献</h3><ol>
-<li><a href="https://www.zybuluo.com/frank-shaw/note/152851" target="_blank" rel="external">评价分类器性能指标之AUC、ROC</a></li>
-<li><a href="http://www.cnblogs.com/lixiaolun/p/4053499.html" target="_blank" rel="external">AUC(Area Under roc Curve)学习笔记</a></li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/o2o优惠券使用预测/">o2o优惠券使用预测</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/03/AUC笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/03/AUC笔记/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/03/O2O优惠券预测——思路总结/" title="O2O优惠券预测——思路总结" itemprop="url">O2O优惠券预测——思路总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-03T08:25:05.000Z" itemprop="datePublished"> 发表于 2017-03-03</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>最近看各种机器学习算法，感觉没有实战，总是空空的。刚好这个月没什么事情，趁此机会拿<a href="https://tianchi.shuju.aliyun.com/getStart/information.htm?spm=5176.100067.5678.2.SfEzJi&amp;raceId=231593" target="_blank" rel="external">赛题</a>练习一下。</p>
-<h1 id="资料整理">1. 资料整理</h1><ol>
-<li><a href="https://github.com/wepe/O2O-Coupon-Usage-Forecast" target="_blank" rel="external">阿里天池O2O优惠券消费行为预测竞赛优胜方案</a>。第一名。北大。解题思路。</li>
-<li><a href="http://blog.csdn.net/shine19930820/article/details/53995369" target="_blank" rel="external">O2O优惠券使用预测思路总结</a>。16名。解题思路。</li>
-<li><a href="http://blog.csdn.net/bryan__/article/details/53907292" target="_blank" rel="external">O2O优惠券使用预测复赛第三名思路</a>。3名。PPT.</li>
-<li><a href="https://www.zhihu.com/question/42154455/answer/124080774" target="_blank" rel="external">各竞赛QQ群</a></li>
-<li><a href="http://www.datafountain.cn/data/science/player/competition/detail/description/238" target="_blank" rel="external">竞赛官网</a></li>
-<li><a href="https://bbs.aliyun.com/thread/254.html?spm=5176.bbsl254.0.0.sBagXf&amp;type=1214&amp;type=1214#tabA" target="_blank" rel="external">论坛专区</a></li>
-<li><a href="https://tianchi.shuju.aliyun.com/getStart/introduction.htm?spm=5176.100066.333.1.osUTZq&amp;raceId=231593" target="_blank" rel="external">天池新人实战赛[o2o优惠券使用预测]</a></li>
-<li>也可以去天池官网上，点学习入口，下面的视频，这边也有对这次020比赛的一些视频解说 </li>
-<li><a href="https://bbs.aliyun.com/read/273638.html" target="_blank" rel="external">数加平台指南＋文档、视频、FAQ及精华帖干货集锦</a></li>
-<li><a href="http://www.jianshu.com/p/00dba98eb1d0" target="_blank" rel="external">数据科学完整学习路径</a></li>
-</ol>
-<h1 id="赛题背景">2. 赛题背景</h1><ul>
-<li>O2O（Online to Offline）消费</li>
-<li>O2O：是指将线下的商务机会与互联网结合，让互联网成为线下交易的平台</li>
-<li>以优惠券盘活老用户或吸引新客户进店消费是O2O的一种重要营销方式</li>
-</ul>
-<h1 id="赛题目标">3. 赛题目标</h1><ul>
-<li>个性化投放优惠券，提高核销率</li>
-<li>通过分析建模，精准预测用户是否会在规定时间内使用相应优惠券</li>
-<li>已知：用户在2016年1月1日至2016年6月30日之间真实线上线下消费行为</li>
-<li>预测：用户在2016年7月领取优惠券后15天以内的使用情况</li>
-<li>评价标准：优惠券核销预测的平均AUC（ROC曲线下面积）。即对每个优惠券coupon_id单独计算核销预测的AUC值，再对所有优惠券的AUC值求平均作为最终的评价标准。 关于AUC的含义与具体计算方法，可参考维基百科</li>
-</ul>
-<h1 id="数据描述及分析">4. 数据描述及分析</h1><h4 id="数据描述">4.0.0.1. 数据描述</h4><ul>
-<li>Table 1: 用户线下消费和优惠券领取行为，ccf_offline_stage1_train.csv</li>
-<li>Table 2: 用户线上点击/消费和优惠券领取行为，ccf_online_stage1_train</li>
-<li>Table 3：用户O2O线下优惠券使用预测样本，ccf_offline_stage1_test_revised.csv</li>
-<li>Table 4：选手提交文件字段，其中user_id,coupon_id和date_received均来自Table 3,而Probability为预测值</li>
-</ul>
-<p><strong> TABLE 1： 用户线下消费和优惠券领取行为 </strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-21-57-25.png" alt=""> </p>
-<p><strong> Table 2: 用户线上点击/消费和优惠券领取行为</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-21-58-04.png" alt=""> </p>
-<p><strong> Table 3：用户O2O线下优惠券使用预测样本</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-21-58-29.png" alt=""> </p>
-<p><strong> Table 4选手提交文件字段</strong><br>其中user_id,coupon_id和date_received均来自Table 3,而Probability为预测值<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-21-58-40.png" alt=""> </p>
-<h4 id="数据分析">4.0.0.2. 数据分析</h4><h3 id="初步分析">4.0.1. 初步分析</h3><p><strong> TABLE 1 分析 </strong></p>
-<ul>
-<li>特点：<br>– 标题：用户线下消费和优惠券领取行为<br>– 场景：线下<br>– 行为：消费、优惠券领取<br>– 数据：优惠券领取、使用情况，消费情况，用户常活动地点与最近门店距离</li>
-<li>分析1：用户行为有三种情况<br>– 领了优惠券 &amp;&amp; 未消费 = 负样本 （Date=null &amp; Coupon_id != null）<br>– 没领优惠券 &amp;&amp; 已消费（Date!=null &amp; Coupon_id = null）<br>– 领了优惠券 &amp;&amp; 已消费（Date!=null &amp; Coupon_id != null）<br>– 总结：本数据作为刻画用户特点的主要依据较为合理</li>
-<li>分析2：优惠率<br>– 总结：有可能用户会根据优惠率来决定是否进行消费</li>
-<li>分析3：距离<br>– 离用户近的门店可能会总领取优惠券，但不一定会使用。<br>– 离用户远的门店如果有优惠券，则可能会为了很大的优惠率专程去使用。</li>
-<li>总结<br>– 本数据集主要刻画线下用户特征。</li>
-</ul>
-<p><strong> TABLE 2 分析 </strong></p>
-<ul>
-<li>特点：<br>– 标题：用户线上点击/消费和优惠券领取行为<br>– 场景：线上<br>– 行为：点击、消费、优惠券领取<br>– 数据：用户是否点击。购买。领取优惠券。</li>
-<li>分析1：用户行为有三种情况<br>– 领了优惠券 &amp;&amp; 未消费 = 负样本（Date=null &amp; Coupon_id != null）<br>– 没领优惠券 &amp;&amp; 已消费 （Date!=null &amp; Coupon_id = null）<br>– 领了优惠券 &amp;&amp; 已消费 （Date!=null &amp; Coupon_id != null）</li>
-<li>分析2：用户点击、消费、优惠券情况<br>– 用户点击了 &amp;&amp; 没领优惠券 &amp;&amp; 未消费 = 负样本<br>– 用户点击了 &amp;&amp; 领了优惠券 &amp;&amp; 未消费<br>– 用户点击了 &amp;&amp; 领了优惠券 &amp;&amp; 已消费<br>– 用户点击了 &amp;&amp; 没领优惠券 &amp;&amp; 已消费<br>– 用户没点击 </li>
-<li>总结<br>– 本数据集主要刻画线上用户特征。</li>
-</ul>
-<p><strong> Table 3：用户O2O线下优惠券使用预测样本 </strong></p>
-<ul>
-<li>测试集</li>
-</ul>
-<h3 id="认识数据">4.0.2. 认识数据</h3><p>感谢wepon的<a href="https://tianchi.shuju.aliyun.com/video.htm?spm=5176.100258.100258.3.1O7LLR" target="_blank" rel="external">无私奉献</a></p>
-<p>对提供的数据做一些基本的统计，有助于对赛题的理解，可以熟悉业务逻辑，也方便后面的特征工程。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-12-21-38-50.png" alt=""> </p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-12-21-39-13.png" alt=""> </p>
-<h1 id="特征提取">5. 特征提取</h1><ul>
-<li>特征提取：将原始特征转换为一组具有明显物理意义（Gabor、几何特征[角点、不变量]、纹理[LBP HOG]）或者统计意义或核的特征</li>
-<li>经验上来说，这些特征提取的越多越好，并不用担心特征过多，因为推荐系统的数据量都比较大，并且基于一些规则可以很好的筛选特征。</li>
-<li>第一次做特征提取，很多东西想得不够周到。参考了很多第一名的思想。</li>
-</ul>
-<h4 id="用户特征">5.0.0.1. 用户特征</h4><p>用途：描述用户消费偏好</p>
-<p>线下：</p>
-<ol>
-<li>领取优惠券率（领取次数/总次数）</li>
-<li>优惠券核销率（优惠券使用次数/优惠券领取次数）</li>
-<li>消费率（消费次数/总次数）</li>
-<li>核销时的优惠率</li>
-<li>领取、使用优惠券间隔</li>
-<li>user经常活动的地点离平均/最大/最小用户-商家的最近门店距离</li>
-<li>消费频数</li>
-<li>优惠券领取频数</li>
-<li>优惠券使用频数</li>
-<li>用户满减优惠券核销率（满减优惠券使用次数/优惠券领取次数）</li>
-<li>用户满减优惠券核销比重（满减优惠券使用次数/优惠券使用次数）</li>
-<li>核销优惠券的平均/最低/最高消费打率</li>
-<li>核销过的商户数量，以及不同商家的比重</li>
-<li>核销过的不同优惠券数量，以及其与优惠券种类数的比重</li>
-<li>平均每个商家核销多少张优惠券</li>
-</ol>
-<p>线上：</p>
-<ol>
-<li>优惠券领取率（领取/总）</li>
-<li>点击频数</li>
-<li>优惠券领取频数</li>
-<li>优惠券使用频数</li>
-<li>优惠券核销率（使用/领取）</li>
-<li>消费频数</li>
-<li>消费率（消费次数/总）</li>
-<li>核销时的优惠率</li>
-<li>领取、使用优惠券间隔</li>
-<li>用户线上不消费次数</li>
-<li>用户线下不消费次数占线上线下总的不消费次数的比重</li>
-<li>用户线下的优惠券核销次数占线上线下总的优惠券核销次数的比重</li>
-</ol>
-<h4 id="线下消费的优惠券特征">5.0.0.2. 线下消费的优惠券特征</h4><ol>
-<li>优惠率</li>
-<li>优惠券被领取次数</li>
-<li>优惠券核销率</li>
-<li>领取、使用优惠券间隔</li>
-</ol>
-<h4 id="线上商户特征">5.0.0.3. 线上商户特征</h4><ol>
-<li>点击频数</li>
-<li>购买频数</li>
-<li>优惠券被领取频数</li>
-<li>优惠券被使用频数</li>
-<li>消费率（购买/总）</li>
-<li>优惠券领取率（领取/总）</li>
-<li>优惠券核销率（使用/领取）</li>
-<li>优惠率</li>
-<li>领取、使用优惠券间隔</li>
-</ol>
-<p>现在遇到了一些瓶颈。参考了前人的教程<a href="http://www.jianshu.com/p/00dba98eb1d0" target="_blank" rel="external">数据科学完整学习路径</a>，发现自己基础还是不够扎实。决定先看看机器学习技法教程，再进行下一步。</p>
-<p>=======2017.3.1======</p>
-<p>看了一下GBDT，发现我的疑问还是不能解决。</p>
-<ul>
-<li>多类特征，怎么处理？</li>
-<li>处理的流程究竟是怎样的？</li>
-</ul>
-<p>为了解决上述问题，我决定开始深入分析第一名的队伍的<a href="https://github.com/wepe/O2O-Coupon-Usage-Forecast" target="_blank" rel="external">阿里天池O2O优惠券消费行为预测竞赛优胜方案</a>源码。</p>
-<p>=======2017.3.8======</p>
-<p>算是大致看完了前辈的代码。见本博客文章“O2O优惠券预测——对第一名的思路源码分析”</p>
-<p>这其中的奥妙深不可测。</p>
-<p>知识累积不是一蹴而就的。加油吧。</p>
-<p>=======2017.3.12======</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/o2o优惠券使用预测/">o2o优惠券使用预测</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/03/O2O优惠券预测——思路总结/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/03/O2O优惠券预测——思路总结/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>
@@ -1876,6 +1909,10 @@ minError = inf
 		  
 		
 		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>3</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
 		  
 		
@@ -1884,7 +1921,7 @@ minError = inf
 		  
 		
 		  
-			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+			<li><a href="/categories/算法/" title="算法">算法<sup>3</sup></a></li>
 		  
 		
 		</ul>

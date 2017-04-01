@@ -4,47 +4,43 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>布置完毕 | jiayi797的专栏</title>
+    <title>QR分解 | jiayi797的专栏</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="jiayi797">
     
 
     
-    <meta name="description" content="可算是把博客布置得差不多了。还有很多功能待完善，先记下来，日后再说。
-1.RSS订阅功能
-2.新浪微博圈
-3.搜索功能
-4.评论功能
-5.访问量统计
-6.数学公式支持。已解决。参考文献，程数的博客
-7.图片一键上传到图床，已解决。参考文献MarkdownPicPicker-master
-8.sublime text编辑md。WEB实时刷新。sublime实时保存~并实时预览-MarkdownLiv">
+    <meta name="description" content="1. householder方法利用Householder变换逐步将A化为上三角矩阵。
+使用Gauss变换将矩阵化为上三角的理论依据————对于一个给定的向量x，可构造一个初等下三角阵L，使得$Lx=ae_1$，其中$e_1$是I的第一列，a是实数。（I是单位矩阵）
+householder变换目的：求一个初等正交矩阵，使其具有矩阵L的功能。
+使得：可以通过一系列初等正交变换来完成矩阵的上三角化任务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="布置完毕">
-<meta property="og:url" content="http://yoursite.com/child/2017/02/28/布置完毕/index.html">
+<meta property="og:title" content="QR分解">
+<meta property="og:url" content="http://yoursite.com/child/2017/03/31/QR分解/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="可算是把博客布置得差不多了。还有很多功能待完善，先记下来，日后再说。
-1.RSS订阅功能
-2.新浪微博圈
-3.搜索功能
-4.评论功能
-5.访问量统计
-6.数学公式支持。已解决。参考文献，程数的博客
-7.图片一键上传到图床，已解决。参考文献MarkdownPicPicker-master
-8.sublime text编辑md。WEB实时刷新。sublime实时保存~并实时预览-MarkdownLiv">
-<meta property="og:updated_time" content="2017-03-09T12:53:52.786Z">
+<meta property="og:description" content="1. householder方法利用Householder变换逐步将A化为上三角矩阵。
+使用Gauss变换将矩阵化为上三角的理论依据————对于一个给定的向量x，可构造一个初等下三角阵L，使得$Lx=ae_1$，其中$e_1$是I的第一列，a是实数。（I是单位矩阵）
+householder变换目的：求一个初等正交矩阵，使其具有矩阵L的功能。
+使得：可以通过一系列初等正交变换来完成矩阵的上三角化任务">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-03-16.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-09-23.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-10-12.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-12-23.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-15.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-37.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-58.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-04.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-23.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-28-42.png">
+<meta property="og:updated_time" content="2017-03-31T14:28:46.409Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="布置完毕">
-<meta name="twitter:description" content="可算是把博客布置得差不多了。还有很多功能待完善，先记下来，日后再说。
-1.RSS订阅功能
-2.新浪微博圈
-3.搜索功能
-4.评论功能
-5.访问量统计
-6.数学公式支持。已解决。参考文献，程数的博客
-7.图片一键上传到图床，已解决。参考文献MarkdownPicPicker-master
-8.sublime text编辑md。WEB实时刷新。sublime实时保存~并实时预览-MarkdownLiv">
+<meta name="twitter:title" content="QR分解">
+<meta name="twitter:description" content="1. householder方法利用Householder变换逐步将A化为上三角矩阵。
+使用Gauss变换将矩阵化为上三角的理论依据————对于一个给定的向量x，可构造一个初等下三角阵L，使得$Lx=ae_1$，其中$e_1$是I的第一列，a是实数。（I是单位矩阵）
+householder变换目的：求一个初等正交矩阵，使其具有矩阵L的功能。
+使得：可以通过一系列初等正交变换来完成矩阵的上三角化任务">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-03-16.png">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -106,14 +102,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/28/布置完毕/" title="布置完毕" itemprop="url">布置完毕</a>
+      <a href="/2017/03/31/QR分解/" title="QR分解" itemprop="url">QR分解</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
 		
   <p class="article-time">
-    <time datetime="2017-02-28T12:19:10.000Z" itemprop="datePublished"> 发表于 2017-02-28</time>
+    <time datetime="2017-03-31T04:02:39.000Z" itemprop="datePublished"> 发表于 2017-03-31</time>
     
   </p>
 </header>
@@ -122,31 +118,40 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#householder方法"><span class="toc-text">1. householder方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#QR分解"><span class="toc-text">2. QR分解</span></a></li></ol>
 		
 		</div>
 		
-		<p>可算是把博客布置得差不多了。还有很多功能待完善，先记下来，日后再说。</p>
-<p>1.RSS订阅功能</p>
-<p>2.新浪微博圈</p>
-<p>3.搜索功能</p>
-<p>4.评论功能</p>
-<p>5.访问量统计</p>
-<p>6.数学公式支持。已解决。<a href="https://weylmann.github.io/2017/02/21/%E7%94%A8github-hexo-mathjax-%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" target="_blank" rel="external">参考文献，程数的博客</a></p>
-<p>7.图片一键上传到图床，已解决。<a href="https://github.com/kingname/MarkdownPicPicker" target="_blank" rel="external">参考文献MarkdownPicPicker-master</a></p>
-<p>8.sublime text<a href="http://jingyan.baidu.com/article/f006222838bac2fbd2f0c87d.html" target="_blank" rel="external">编辑md</a>。<a href="http://www.cnblogs.com/Richard-Core/p/Sublime-MarkDown.html" target="_blank" rel="external">WEB实时刷新</a>。<a href="https://packagecontrol.io/packages/auto-save" target="_blank" rel="external">sublime实时保存</a><br><del>~并<a href="https://packagecontrol.io/packages/MarkdownLivePreview" target="_blank" rel="external">实时预览-MarkdownLivePreview</a>。<a href="http://www.jianshu.com/p/62241c7ecec9" target="_blank" rel="external">参考文献</a></del>~</p>
-<p>9.一键发布功能<a href="http://blog.csdn.net/anonymalias/article/details/50528946" target="_blank" rel="external">已解决</a></p>
-<p>10.<a href="http://www.qingpingshan.com/jianzhan/cms/212734.html" target="_blank" rel="external">为Hexo博客标题自动添加序号：hexo-heading-index</a></p>
+		<h1 id="householder方法">1. householder方法</h1><p>利用Householder变换逐步将A化为上三角矩阵。</p>
+<p>使用Gauss变换将矩阵化为上三角的理论依据————对于一个给定的向量x，可构造一个初等下三角阵L，使得$Lx=ae_1$，其中$e_1$是I的第一列，a是实数。（I是单位矩阵）</p>
+<p>householder变换目的：<br>求一个初等正交矩阵，使其具有矩阵L的功能。</p>
+<p>使得：<br>可以通过一系列初等正交变换来完成矩阵的上三角化任务。</p>
+<p><strong>Householder变换</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-03-16.png" alt=""> </p>
+<p>其中：<br>I是单位矩阵<br>w是单位正交矩阵，$ww^T=I$</p>
+<p>HouseHolder变换可以将一个向量映射到一个超平面上。 </p>
+<p><strong>Householder变换的性质</strong></p>
+<ol>
+<li>对称性。$H^T=H$</li>
+<li>正交性。$H^TH=I$</li>
+<li>对合性。$H^2=I$</li>
+<li>反射性。<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-09-23.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-10-12.png" alt=""> </li>
+</ol>
+<p><strong>Householder变换的用途</strong></p>
+<p>它能如Gauss变换一样，可以通过适当选取单位向量w，把一个给定向量的若干指定的分量变为零。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-12-23.png" alt=""><br>由以上定理可知，对于任意的x，都可以构造出Householder矩阵H，使得Hx的后n-1个分量为零。</p>
+<p><strong>Householder变换方法</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-15.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-37.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-58.png" alt=""> </p>
+<h1 id="QR分解">2. QR分解</h1><p>QR分解定理：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-04.png" alt=""><br>，则A有QR分解：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-23.png" alt=""><br>Q是m<em>m的正交矩阵<br>R是n</em>n的有非负对角元的上三角阵</p>
+<p>当m=n，且A非奇异时，上述分解唯一。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-28-42.png" alt=""> </p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数学/">数学</a>
+</div>
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/测试/">测试</a>
-  </div>
 
 </div>
 
@@ -154,7 +159,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/child/2017/02/28/布置完毕/" data-title="布置完毕 | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
+	  <div data-url="http://yoursite.com/child/2017/03/31/QR分解/" data-title="QR分解 | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -167,19 +172,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/02/28/PLA/" title="PLA">
-  <strong>上一篇：</strong><br/>
-  <span>
-  PLA</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/02/28/hello-world/"  title="Hello World">
+<a href="/2017/03/30/求线代方程的解/"  title="求线代方程的解">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>求线代方程的解
 </span>
 </a>
 </div>
@@ -188,7 +185,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/02/28/布置完毕/" data-title="布置完毕" data-url="http://yoursite.com/child/2017/02/28/布置完毕/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/31/QR分解/" data-title="QR分解" data-url="http://yoursite.com/child/2017/03/31/QR分解/"></div>
 </section>
 
 
@@ -198,7 +195,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#householder方法"><span class="toc-text">1. householder方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#QR分解"><span class="toc-text">2. QR分解</span></a></li></ol>
  
   </div>
 
