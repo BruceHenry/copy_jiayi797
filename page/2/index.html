@@ -80,6 +80,74 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/03/21/numpy笔记/" title="numpy笔记" itemprop="url">numpy笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-21T14:05:07.000Z" itemprop="datePublished"> 发表于 2017-03-21</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="numpy结构数组">1. numpy结构数组</h1><p>在c语言中，我们可以使用关键字struct定义结构类型。和c语言一样，numpy也可以创建结构定义，这样可以很方便的读取二进制的C语言结构数组，将其转换为numpy数组对象，假设我们定义的结构数组如下(C语言描述)：</p>
+<pre><code>struct Person{
+     char name[30];
+     int    age;
+     float weight; 
+};
+</code></pre><p>我们在python中可以自定义类型如下：</p>
+<pre><code>persontype = np.dtype({
+&apos;names&apos;:[&apos;name&apos;,&apos;age&apos;,&apos;weight&apos;],
+&apos;formats&apos;:[&apos;S30&apos;,&apos;i&apos;,&apos;f&apos;]},align = True)
+</code></pre><p>参考文献<a href="http://www.cnblogs.com/td15980891505/p/6083083.html" target="_blank" rel="external">numpy中结构数组</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Numpy/">Numpy</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/21/numpy笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/21/numpy笔记/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/03/16/java学习笔记-继承/" title="java学习笔记——继承" itemprop="url">java学习笔记——继承</a>
   </h1>
   <p class="article-author">By
@@ -1732,139 +1800,6 @@ minError = inf
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/05/决策树和CART/" title="决策树和CART" itemprop="url">决策树和CART</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-05T04:22:25.000Z" itemprop="datePublished"> 发表于 2017-03-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="决策树简介">1. 决策树简介</h1><p>模仿人类决策的过程</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-12-43-33.png" alt=""> </p>
-<ul>
-<li>优点：好理解；简单</li>
-<li>缺点：缺少很强的理论支持；树结构不唯一；</li>
-</ul>
-<h2 id="决策树的表达方式">1.1. 决策树的表达方式</h2><p>如上图所示的决策树，我们用$G(x)$来表达决策树：</p>
-<p>$$G(x)=\sum_{t=1}^T q_t(x)\cdot g_t(x) $$</p>
-<p>tips:</p>
-<ul>
-<li>$g(x)$是最终的决策（<code>Y or N</code>），叶子节点</li>
-<li>$q_t(x)$是条件，<code>condition</code>。就是橘色箭头的判断过程</li>
-<li>内部的决策过程，例如<code>deadline?</code>，内部节点</li>
-</ul>
-<p>那么决策树的表达就有两种方式：</p>
-<ul>
-<li><p>路径角度。将每个从根到叶子的路径作为一个假设g，通过不同的条件组合得到最后的G(X)。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-12-53-15.png" alt=""> </p>
-</li>
-<li><p>递归角度。父树是由子树递归定义的<code>tree=(root,sub-trees)</code><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-12-53-25.png" alt=""> </p>
-</li>
-</ul>
-<h2 id="基本流程">1.2. 基本流程</h2><ol>
-<li>如何分支（branching criteria），即如何得到$b(x)$</li>
-<li>根据分支，数据如何分块</li>
-<li>根据数据，如何学习子树</li>
-<li>得到最终的决策树</li>
-</ol>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-15-33-51.png" alt=""> </p>
-<h1 id="CART算法">2. CART算法</h1><ul>
-<li>Classification And Regression Tree，分类回归树</li>
-<li>二叉树（只有是、否）</li>
-<li>输入：随机变量$X$</li>
-<li>输出：随机变量$Y$的条件概率分布</li>
-<li>$g_t(x)$返回一个常数（根据不同的条件，对数据进行切分，到达叶子节点时，根据剩下的数据进行预测，输出一个常数）</li>
-</ul>
-<h2 id="纯度">2.1. 纯度</h2><h3 id="纯度的定义">2.1.1. 纯度的定义</h3><ul>
-<li>CART算法中每个节点（看做是一个决策桩decision stump）对数据进行切分，如果分出来的数据的y都很接近（回归问题）或者都一样（分类问题），那么我们说这样的数据是“纯的”，这样用标量对数据进行预测可以得到比较小的误差。</li>
-</ul>
-<p>CART分支$b(x)$为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-16-03-33.png" alt=""> </p>
-<ul>
-<li>我们通过上面的公式，来计算对于每一个节点的决策桩来说，分出来的两份数据的纯度是怎样的。</li>
-<li>该公式通过计算数据集<code>Di（i=1 or 2）</code>的纯度并根据数据集的数量对其进行加权</li>
-<li>其加权的意义是如果数据集的数量比较大的话，那个纯度对其比较重要</li>
-<li>反之，就不那么重要。</li>
-<li>CART通过分出的两部分数据综合起来的纯度对决策桩进行选择，选择“最纯”的分割方式作为当前的分支。</li>
-</ul>
-<h3 id="纯度的计算函数">2.1.2. 纯度的计算函数</h3><p>我们可以将分割出来的数据和回传的常数的误差作为评价纯度的方法，利用数据的y和回传的y_ba的均方误差来评价回归问题的纯度；利用0/1误差函数来评价分类问题的纯度。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-16-11-16.png" alt=""> </p>
-<p>如果是分类问题，我们还可以使用一个别的方法。通过基尼不纯度来度量分类问题的纯度问题。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-16-11-41.png" alt=""> </p>
-<h2 id="终止条件">2.2. 终止条件</h2><p>CART中有两种被迫终止的情况，分别是：</p>
-<ul>
-<li><code>yn</code>都一样，这时不纯度为0，于是可以得到<code>gt(x)=yn</code>；</li>
-<li><code>xn</code>都一样，就没有继续分割的可能了。</li>
-<li>CART树长到被迫停下来的情况，称为完全长成的树（fully-grown tree）。</li>
-</ul>
-<p>下面是CART算法完整流程：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-16-19-09.png" alt=""> </p>
-<h2 id="CART剪枝">2.3. CART剪枝</h2><p>预防过拟合</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-16-20-48.png" alt=""> </p>
-<p>上图告诉我们使用叶子的数目作为正则项（regularizer），最终得到一个正则化的决策树。<br>关于剪枝的具体做法时：</p>
-<ul>
-<li>首先得到完全长成的树作为<code>G(0)</code>；</li>
-<li>然后试图摘掉一片叶子，将所有摘掉一片叶子后的树计算<code>Ein</code>，将最小的那棵摘掉一片叶子的数作为<code>G(1)</code>；</li>
-<li>如此这般，得到摘掉两片叶子的最优树<code>G(2)</code>，这样不断剪枝，直到根结点，形成一个子树序列；</li>
-<li>最终对这个子树序列使用<code>argmin Ein(G)+λΩ(G)</code>来得到最后的输出。</li>
-</ul>
-<h1 id="参考资料">3. 参考资料</h1><ol>
-<li><a href="http://blog.jasonding.top/2015/07/22/Machine%20Learning/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E3%80%91%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/" target="_blank" rel="external">Jason Ding，决策树算法</a></li>
-<li>机器学习技法课程，林轩田，台湾大学</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/机器学习/">机器学习</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/05/决策树和CART/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/05/决策树和CART/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
@@ -1893,7 +1828,7 @@ minError = inf
 		<ul>
 		
 		  
-			<li><a href="/categories/ACM/" title="ACM">ACM<sup>3</sup></a></li>
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>4</sup></a></li>
 		  
 		
 		  
@@ -1942,15 +1877,27 @@ minError = inf
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
 			
 		
 			
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/长整型/" title="长整型">长整型<sup>1</sup></a></li>
 			
 		
 		</ul>

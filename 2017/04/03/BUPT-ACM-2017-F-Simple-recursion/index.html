@@ -4,32 +4,31 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>boosting（混合模型）和bagging（装袋） | jiayi797的专栏</title>
+    <title>BUPT_ACM_2017_F_Simple_recursion | jiayi797的专栏</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="jiayi797">
     
 
     
-    <meta name="description" content="这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。混合和装袋
-1. baggingbagging——基于数据随机重抽样的分类器构建方法。
-2. boosting新的分类器根据已训练出的分类器的性能来进行训练；分类结果基于所有分类器的加权求和得到。
-3. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Boo">
+    <meta name="description" content="本文是2017年北京邮电大学第十一届程序设计竞赛网络热身赛的F. Simple recursion题解。
+1. 题目题目描述r_clover shows you a BIIIIIIIIIIG water problem:if $f(0)=1,f(1)=1$,$f(n)=2f(n-1)+3f(n-2)$, what is $f(n)mod1000000007$?
+输入格式A single integ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="boosting（混合模型）和bagging（装袋）">
-<meta property="og:url" content="http://yoursite.com/child/2017/03/04/boosting（混合模型）和bagging/index.html">
+<meta property="og:title" content="BUPT_ACM_2017_F_Simple_recursion">
+<meta property="og:url" content="http://yoursite.com/child/2017/04/03/BUPT-ACM-2017-F-Simple-recursion/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。混合和装袋
-1. baggingbagging——基于数据随机重抽样的分类器构建方法。
-2. boosting新的分类器根据已训练出的分类器的性能来进行训练；分类结果基于所有分类器的加权求和得到。
-3. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Boo">
-<meta property="og:updated_time" content="2017-03-16T12:36:01.900Z">
+<meta property="og:description" content="本文是2017年北京邮电大学第十一届程序设计竞赛网络热身赛的F. Simple recursion题解。
+1. 题目题目描述r_clover shows you a BIIIIIIIIIIG water problem:if $f(0)=1,f(1)=1$,$f(n)=2f(n-1)+3f(n-2)$, what is $f(n)mod1000000007$?
+输入格式A single integ">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-04-03-13-55-57.png">
+<meta property="og:updated_time" content="2017-04-03T06:54:55.873Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="boosting（混合模型）和bagging（装袋）">
-<meta name="twitter:description" content="这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。混合和装袋
-1. baggingbagging——基于数据随机重抽样的分类器构建方法。
-2. boosting新的分类器根据已训练出的分类器的性能来进行训练；分类结果基于所有分类器的加权求和得到。
-3. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Boo">
+<meta name="twitter:title" content="BUPT_ACM_2017_F_Simple_recursion">
+<meta name="twitter:description" content="本文是2017年北京邮电大学第十一届程序设计竞赛网络热身赛的F. Simple recursion题解。
+1. 题目题目描述r_clover shows you a BIIIIIIIIIIG water problem:if $f(0)=1,f(1)=1$,$f(n)=2f(n-1)+3f(n-2)$, what is $f(n)mod1000000007$?
+输入格式A single integ">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-04-03-13-55-57.png">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -91,14 +90,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/04/boosting（混合模型）和bagging/" title="boosting（混合模型）和bagging（装袋）" itemprop="url">boosting（混合模型）和bagging（装袋）</a>
+      <a href="/2017/04/03/BUPT-ACM-2017-F-Simple-recursion/" title="BUPT_ACM_2017_F_Simple_recursion" itemprop="url">BUPT_ACM_2017_F_Simple_recursion</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
 		
   <p class="article-time">
-    <time datetime="2017-03-04T09:00:58.000Z" itemprop="datePublished"> 发表于 2017-03-04</time>
+    <time datetime="2017-04-03T05:53:01.000Z" itemprop="datePublished"> 发表于 2017-04-03</time>
     
   </p>
 </header>
@@ -107,16 +106,43 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bagging"><span class="toc-number">1.</span> <span class="toc-text">1. bagging</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#boosting"><span class="toc-number">2.</span> <span class="toc-text">2. boosting</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bagging和boosting区别"><span class="toc-number">3.</span> <span class="toc-text">3. bagging和boosting区别</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-text">1. 题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路"><span class="toc-text">2. 思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#递推关系求解"><span class="toc-text">3. 递推关系求解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常系数线性齐次递归关系的求解"><span class="toc-text">4. 常系数线性齐次递归关系的求解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#快速大数幂运算"><span class="toc-text">5. 快速大数幂运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">6. 参考文献</span></a></li></ol>
 		
 		</div>
 		
-		<p>这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。<a href="http://blog.jasonding.top/2015/06/10/Machine%20Learning/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E3%80%91%E6%B7%B7%E5%90%88%E5%92%8C%E8%A3%85%E8%A2%8B/" target="_blank" rel="external">混合和装袋</a></p>
-<h1 id="bagging">1. bagging</h1><p>bagging——基于数据随机重抽样的分类器构建方法。</p>
-<h1 id="boosting">2. boosting</h1><p>新的分类器根据已训练出的分类器的性能来进行训练；<br>分类结果基于所有分类器的加权求和得到。</p>
-<h1 id="bagging和boosting区别">3. bagging和boosting区别</h1><p>Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。</p>
-<p>Boosting 则是迭代算法，每一次迭代都根据上一次迭代的预测结果对样本进行加权，所以随着迭代不断进行，误差会越来越小，所以模型的 bias 会不断降低。这种算法无法并行，例子比如 Adaptive Boosting.</p>
-<p>作者：匿名用户<br>链接：<a href="https://www.zhihu.com/question/26760839/answer/33963551" target="_blank" rel="external">https://www.zhihu.com/question/26760839/answer/33963551</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
+		<p>本文是2017年北京邮电大学第十一届程序设计竞赛网络热身赛的F. Simple recursion题解。</p>
+<h1 id="题目">1. 题目</h1><p>题目描述<br>r_clover shows you a BIIIIIIIIIIG water problem:<br>if $f(0)=1,f(1)=1$,$f(n)=2f(n-1)+3f(n-2)$, what is $f(n)mod1000000007$?</p>
+<p>输入格式<br>A single integer n(0≤n≤10000000000).</p>
+<p>输出格式<br>A single integer, which is the answer for f(n)mod1000000007.</p>
+<p>输入样例<br>10<br>输出样例<br>29525</p>
+<h1 id="思路">2. 思路</h1><p>一开始想的是用递归。但经测试发现递归的时间、空间复杂度都太高，导致超时。</p>
+<p>正确打开方式：求出递推关系，并用快速幂取模方法计算结果。</p>
+<h1 id="递推关系求解">3. 递推关系求解</h1><p>《组合数学》内容————常系数线性齐次递推关系的求解。公式见后面的附1。<br>求解题目中所给的递推关系：<br>$$f(n)=2f(n-1)+3f(n-2)$$<br>$$f(0)=1,f(1)=1$$<br>它的特征方程为：<br>$$x^2-2x-3=0$$<br>解方程得：<br>$$x_1=3,x_2=-1$$<br>所以递推关系的通解为：<br>$$f(n)=c_13^n+c_2(-1)^n$$<br>代入初值$f(0)=1,f(1)=1$，得到：<br>$$f(0)=c_1+c_2=1$$<br>$$f(1)=3c_1-c_2=1$$<br>解得:$c_1=c_2=0.5$<br>因此该递推关系的解为$$f(n)=0.5(3)^n+0.5(-1)^n$$</p>
+<p>代码实现：</p>
+<pre><code><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">long</span> <span class="title">f</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> n,<span class="keyword">int</span> modNum)</span></span>&#123;</div><div class="line">    <span class="keyword">long</span> <span class="keyword">long</span> a=<span class="number">3</span>;</div><div class="line">    <span class="keyword">long</span> <span class="keyword">long</span> b=<span class="number">1</span>;</div><div class="line">    a= quick_algorithm(a,n,modNum);<span class="comment">//(a的n次方)mod(modNum),是快速求幂取模的方法，详细见后面的推导</span></div><div class="line">    <span class="keyword">if</span>(n%<span class="number">2</span>==<span class="number">1</span>)&#123;</div><div class="line">        b=<span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line">    a=<span class="number">0.5</span>*a+<span class="number">0.5</span>*b;</div><div class="line">    <span class="keyword">return</span> a;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><h1 id="常系数线性齐次递归关系的求解">4. 常系数线性齐次递归关系的求解</h1><p><strong>递推关系：</strong></p>
+<p>$$f(n)=c_1f(n-1)+c_2f(n-2)+…+c_kf(n-k)$$</p>
+<p><strong>递推关系的特征方程</strong>：</p>
+<p>$$x^k-c_1x^{k-1}-c_2x^{k-2}-…-c_k=0$$</p>
+<p><strong>递归关系的特征根：</strong></p>
+<p>特征方程的k个根（可能重根）：$$q_1,q_2,…,q_k$$</p>
+<p><strong>递归关系的特解：</strong></p>
+<p>设q是非零复数，则$f(n)=q^n$是递推关系的解，当且仅当q是它的特征根。</p>
+<p><strong>递归关系的通解：</strong></p>
+<p>设$q_1,q_2,…,q_k$是递推关系的k个互不相等的特征根，则<br>$$f(n)=b_1q_1^n+b_2q_2^n+b_3q_3^n+…+b_kq_k^n$$是递推关系的通解。</p>
+<h1 id="快速大数幂运算">5. 快速大数幂运算</h1><p>这是一种很神奇的方法。</p>
+<p>首先引入一些基础知识。</p>
+<p><strong>幂取模运算的一个性质</strong></p>
+<p>$$(a\times b)mod(c)=(((a)mod(c))\times ((b) mod(c)))mod(c)$$</p>
+<p><strong>大数幂运算</strong><br>核心思想：将大数的幂运算拆解成了相对应的乘法运算，利用上面的式子，始终将我们的运算的数据量控制在c的范围以下。</p>
+<p>对于目标：<br>$$a^bmodc$$<br>我们将b表示为二进制：<br>$$b=b_0+b_12+b_22^2+…+b_n2^n$$<br>那么，<br>$$a^b=a^b_1\times a^{b_22^2} \times a^{b_32^3} \times … \times a^{b_n2^n}$$<br>其中$b_k$要么为0，要么为1<br>去掉所有的0后，我们得到<br>$$a^b=a^{b_k2^k} \times … \times a^{b_n2^n}$$<br>上式的模可以表示为：<br>$$a^b mod c =a^{b_k2^k} mod c\times … \times a^{b_n2^n}mod c$$<br>易发现：<br>$$A_k=a^{b_k2^k} mod c$$<br>$$…$$<br>$$A_n=a^{b_n2^n} mod c$$</p>
+<p>即：$A(n)$是$A(n-1)$的平方倍！</p>
+<p>实现：</p>
+<pre><code><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">quick</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> ans=<span class="number">1</span>;   <span class="comment">//记录结果</span></div><div class="line">    a=a%c;   <span class="comment">//预处理，使得a处于c的数据范围之下</span></div><div class="line">    <span class="keyword">while</span>(b!=<span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>) ans=(ans*a)%c;   <span class="comment">//如果b的二进制位不是0，那么我们的结果是要参与运算的</span></div><div class="line">        b&gt;&gt;=<span class="number">1</span>;    <span class="comment">//二进制的移位操作，相当于每次除以2，用二进制看，就是我们不断的遍历b的二进制位</span></div><div class="line">        a=(a*a)%c;   <span class="comment">//不断的加倍</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> ans;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><h1 id="参考文献">6. 参考文献</h1><ol>
+<li>《组合数学引论》</li>
+</ol>
+<p>附上本题的艰辛史。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-03-13-55-57.png" alt=""> </p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -124,9 +150,14 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+  <a class="article-category-link" href="/categories/ACM/">ACM</a>
 </div>
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/递推关系/">递推关系</a><a href="/tags/快速幂取模/">快速幂取模</a><a href="/tags/长整型/">长整型</a>
+  </div>
 
 </div>
 
@@ -134,7 +165,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/child/2017/03/04/boosting（混合模型）和bagging/" data-title="boosting（混合模型）和bagging（装袋） | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
+	  <div data-url="http://yoursite.com/child/2017/04/03/BUPT-ACM-2017-F-Simple-recursion/" data-title="BUPT_ACM_2017_F_Simple_recursion | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -147,19 +178,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/03/05/决策树和CART/" title="决策树和CART">
-  <strong>上一篇：</strong><br/>
-  <span>
-  决策树和CART</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/03/03/AUC笔记/"  title="ROC和AUC">
+<a href="/2017/03/31/QR分解/"  title="QR分解">
  <strong>下一篇：</strong><br/> 
- <span>ROC和AUC
+ <span>QR分解
 </span>
 </a>
 </div>
@@ -168,7 +191,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/03/04/boosting（混合模型）和bagging/" data-title="boosting（混合模型）和bagging（装袋）" data-url="http://yoursite.com/child/2017/03/04/boosting（混合模型）和bagging/"></div>
+	<div class="ds-thread" data-thread-key="2017/04/03/BUPT-ACM-2017-F-Simple-recursion/" data-title="BUPT_ACM_2017_F_Simple_recursion" data-url="http://yoursite.com/child/2017/04/03/BUPT-ACM-2017-F-Simple-recursion/"></div>
 </section>
 
 
@@ -178,7 +201,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bagging"><span class="toc-number">1.</span> <span class="toc-text">1. bagging</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#boosting"><span class="toc-number">2.</span> <span class="toc-text">2. boosting</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bagging和boosting区别"><span class="toc-number">3.</span> <span class="toc-text">3. bagging和boosting区别</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-text">1. 题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路"><span class="toc-text">2. 思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#递推关系求解"><span class="toc-text">3. 递推关系求解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常系数线性齐次递归关系的求解"><span class="toc-text">4. 常系数线性齐次递归关系的求解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#快速大数幂运算"><span class="toc-text">5. 快速大数幂运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">6. 参考文献</span></a></li></ol>
  
   </div>
 
