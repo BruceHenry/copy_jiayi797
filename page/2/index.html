@@ -80,6 +80,279 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/03/23/单源最短路径问题/" title="单源最短路径问题" itemprop="url">单源最短路径问题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-23T08:02:59.000Z" itemprop="datePublished"> 发表于 2017-03-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>单源最短路径问题：给定一个图 $G=(V,E)$ ，我们希望找到从给定源节点$s\in V$到每个节点$v \in V$的最短路径。</p>
+<p>先总结：</p>
+<p>Bellman-Ford算法：采用动态规划进行设计。<strong>待总结</strong>。简单，还能侦探含源节点的负权重回路。<br>Dijkstra算法：采用贪心算法范式进行设计。复杂度低，但要求权重非负。</p>
+<h1 id="最短路径树">1. 最短路径树</h1><p>一颗根节点为s的最短路径树是一个有向子图$G’=(V’,E’)$，这里$V’\in V$,$E’\in E$,满足：</p>
+<ol>
+<li>$V’$是图G中从源节点s可以到达的所有结点的集合；</li>
+<li>$G’$形成一颗根节点为s的树；</li>
+<li>对于所有结点$v\in V’$,图$G’$中从结点s到结点v的唯一简单路径是图G中从结点s到结点v的一条最短路径。</li>
+</ol>
+<h1 id="松弛操作">2. 松弛操作</h1><p>对每个节点v，我们维持一个属性v.d，记录s→v的最短路径估计</p>
+<p>松弛操作：比较s→u→v与s→v的d,然后进行更新。</p>
+<pre><code>RELEAX(u,v,w)
+    if v.d&gt;u.d+w(u,v)
+        v.d=u.d+w(u,v)
+        v.π=u
+</code></pre><h1 id="Bellman-Ford算法">3. Bellman-Ford算法</h1><p><strong>目标</strong>：解决单源最短路径问题<br><strong>条件</strong>：边权重可负<br><strong>输入</strong>：带权有向图$G=(V,E)$和权重函数$w:E→R$<br><strong>输出</strong>：布尔值，是否存在一个从源节点可以到达的负权重回路。若存在，则算法无解。</p>
+<p><strong>思路</strong>：Bellman-Ford通过对边进行松弛操作来渐进地降低从源节点s到每个节点v的最短路径估计值v.d，直到该估计值与实际的最短路径权重$δ(s,v)$相同为止。</p>
+<p>初始函数：</p>
+<pre><code>INITIALIZE-SINGLE-SOURCE(G,s)
+    for eahc vertex v∈G.V
+        v.d=∞
+        v.π=null
+    s.d=0
+</code></pre><p><strong>算法</strong>：</p>
+<pre><code>BELLMAN-FORD(G,w,s)
+    INITIALIZE-SINGLE-SOURCE(G,s)//对每个点v.d和v.π初始化
+    for i=1 to |G.V|-1 //对每个边处理V-1次
+        for each edge(u,v)∈G.E //遍历所有的边
+            RELAX(u,v,w)
+    for each edge(u,v)∈G.E
+        if v.d&gt;u.d+w(u,v)
+            return False
+        else
+            return True
+</code></pre><p><strong>复杂度</strong>：$O(VE)$</p>
+<p><strong>对每个边处理V-1的原因</strong>：设p是从s到v的最短路径，则p最多包含V-1条边。</p>
+<p>如下图所示的极限条件，v0-v5路径应该为<code>&lt;v0,v1,v2,v3,v4,v5&gt;</code></p>
+<p>原本v0-v5的路径是灰色的。<br>第一轮松弛后，v0-v5路径变为<code>&lt;v0,v1,v5&gt;</code>，即黑色的<br>同理，第二轮松弛后，v0-v5路径变为<code>&lt;v0,v1,v2,v5&gt;</code><br>因此要松弛V-1次才可以<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-17-07-49.png" alt=""> </p>
+<h1 id="Dijkstra算法">4. Dijkstra算法</h1><p><strong>条件</strong>：所有边的权重非负<br><strong>思想</strong>：由上述性质可知，如果存在一条从i到j的最短路径(Vi…..Vk,Vj)，Vk是Vj前面的一顶点。那么(Vi…Vk)也必定是从i到k的最短路径。为了求出最短路径，Dijkstra就提出了以最短路径长度递增，逐次生成最短路径的算法。即：每次找到离源点最近的一个顶点，然后以该顶点为中心进行扩展，最终得到源点到其余所有点的最短路径。</p>
+<p><strong>Dijkstra算法的关键</strong>：维持一组节点集合S，从s到该集合中的每个节点的最短路径已经被找到。算法重复从V-S中选择最短路径估计最小的节点u，将u加入结合S，然后对所有从u出发的边进行松弛。</p>
+<pre><code>DIJKSTRA(G,w,s)
+    INITIALIZE-SINGLE-SOURCE(G,s)//对v.d和v.π初始化
+    S={}
+    Q=G.V
+    while Q.length != 0
+        u = UXTRACT-MIN(Q)//从V-S中选出最短路径估计最小的节点u
+        S=S∪{u}
+        for each vertex v∈G.Adj[u]
+            RELAX(u,v,w)
+</code></pre><p><strong>算法解释</strong><br>二维数组 e 来存储顶点之间边的关系，初始值如下：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-23-08.png" alt=""> </p>
+<p>我们还需要用一个一维数组 dis 来存储 1 号顶点到其余各个顶点的初始路程，如下。<br>我们将此时 dis 数组中的值称为最短路的“估计值”<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-23-38.png" alt=""> </p>
+<p>图的关系如图所示，1是源点<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-22-41.png" alt=""> </p>
+<p>既然是求 1 号顶点到其余各个顶点的最短路程，那就先找一个离 1 号顶点最近的顶点。通过数组 dis 可知当前离 1 号顶点最近是 2 号顶点。当选择了 2 号顶点后，dis[2]的值就已经从“估计值”变为了“确定值”，即 1 号顶点到 2 号顶点的最短路程就是当前 dis[2]值。<br>原因：目前离 1 号顶点最近的是 2 号顶点，并且这个图所有的边都是正数，那么肯定不可能通过第三个顶点中转，使得 1 号顶点到 2 号顶点的路程进一步缩短了。因为 1 号顶点到其它顶点的路程肯定没有 1 号到 2 号顶点短，</p>
+<p>既然选了 2 号顶点，接下来再来看 2 号顶点有哪些出边呢。有 2-&gt;3 和 2-&gt;4 这两条边。先讨论通过 2-&gt;3 这条边能否让 1 号顶点到 3 号顶点的路程变短。也就是说现在来比较 dis[3]和 dis[2]+e[2][3]的大小。其中 dis[3]表示 1 号顶点到 3 号顶点的路程。dis[2]+e[2][3]中 dis[2]表示 1 号顶点到 2 号顶点的路程，e[2][3]表示 2-&gt;3 这条边。所以 dis[2]+e[2][3]就表示从 1 号顶点先到 2 号顶点，再通过 2-&gt;3 这条边，到达 3 号顶点的路程。</p>
+<p>我们发现 dis[3]=12，dis[2]+e[2][3]=1+9=10，dis[3]&gt;dis[2]+e[2][3]，因此 dis[3]要更新为 10。这个过程有个专业术语叫做“松弛”。即 1 号顶点到 3 号顶点的路程即 dis[3]，通过 2-&gt;3 这条边松弛成功。这便是 Dijkstra 算法的主要思想：通过“边”来松弛 1 号顶点到其余各个顶点的路程。</p>
+<p>同理通过 2-&gt;4（e[2][4]），可以将 dis[4]的值从 ∞ 松弛为 4（dis[4]初始为 ∞，dis[2]+e[2][4]=1+3=4，dis[4]&gt;dis[2]+e[2][4]，因此 dis[4]要更新为 4）。</p>
+<p>刚才我们对 2 号顶点所有的出边进行了松弛。松弛完毕之后 dis 数组为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-31-33.png" alt=""> </p>
+<p>以此类推，此处不再多加阐述。</p>
+<p>参考文献<a href="http://wiki.jikexueyuan.com/project/easy-learn-algorithm/dijkstra.html" target="_blank" rel="external">算法 7：Dijkstra 最短路算法</a></p>
+<h1 id="有向无环图的单源最短路径问题">5. 有向无环图的单源最短路径问题</h1><p>来日再填坑。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/算法/">算法</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/23/单源最短路径问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/23/单源最短路径问题/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/22/ACM-Radar-Installation/" title="ACM--Radar Installation" itemprop="url">ACM--Radar Installation</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-22T11:30:08.000Z" itemprop="datePublished"> 发表于 2017-03-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="题目描述">1. 题目描述</h1><p>Assume the coasting is an infinite straight line. Land is in one side of coasting, sea in the other. Each small island is a point locating in the sea side. And any radar installation, locating on the coasting, can only cover d distance, so an island in the sea can be covered by a radius installation, if the distance between them is at most d. </p>
+<p>We use Cartesian coordinate system, defining the coasting is the x-axis. The sea side is above x-axis, and the land side below. Given the position of each island in the sea, and given the distance of the coverage of the radar installation, your task is to write a program to find the minimal number of radar installations to cover all the islands. Note that the position of an island is represented by its x-y coordinates. </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-22-19-32-14.png" alt=""> </p>
+<p>coasting：滑行<br>infinite：无穷的<br>Cartesian coordinate system：笛卡尔坐标系</p>
+<p>已知：海岸线是x轴，以上是海，以下是陆地。雷达安装在海岸线上，覆盖半径是d。<br>目标：求能够覆盖所有岛屿的雷达安装数目。<br>需需要注意的是，海岛坐标在x-y坐标系中。</p>
+<h1 id="Input">2. Input</h1><p>The input consists of several test cases. The first line of each case contains two integers n (1&lt;=n&lt;=1000) and d, where n is the number of islands in the sea and d is the distance of coverage of the radar installation. This is followed by n lines each containing two integers representing the coordinate of the position of each island. Then a blank line follows to separate the cases. </p>
+<p>The input is terminated by a line containing pair of zeros </p>
+<p>输入一般包含好几组case测试数据。</p>
+<p>每个case的第一行是(n,d)<br>然后是n行岛屿坐标</p>
+<p>最后以（0,0）结尾</p>
+<h1 id="Output">3. Output</h1><p>For each test case output one line consisting of the test case number followed by the minimal number of radar installations needed. “-1” installation means no solution for that case.</p>
+<h1 id="思路">4. 思路</h1><p>这道题问的是怎样放雷达使其放的雷达数目最少而能够探测到所有的岛屿，这里需要转换为求每个岛屿的能放雷达的区间的问题:</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-22-21-06-38.png" alt=""> </p>
+<p>抽象问题:每个小岛都对应一个区域,这个区域内的雷达都能探测到这个小岛,把这N个区域求出来,问题现在就变成了,最少放置几个点,能使得每个区域内都至少有一个点.</p>
+<p>这道题目的关键之处就是把面的问题转换成线的问题，每一个座海岛在x轴上有一个区间，在这个区间里面的雷达都可以侦测到海岛，区间的范围即是[x-sqrt(dd – yy), x+sqrt(dd+yy)]，然后先以右端点为基进行从小到大排序，然后把第一个雷达默认放在最左端的xmax，接下来的点只要是xmin小于当前xmax就可以不用增加雷达，如果xmax == xmin的话也不用增加雷达。然后如果xmax &lt; xmin的话就加一个雷达，然后以xmin所属区间的xmax为基进行比较。</p>
+<h1 id="代码">5. 代码</h1><pre><code>import java.io.PrintWriter;
+
+import java.util.Arrays;
+import java.util.Scanner;
+public class Main {
+    static class Range implements Comparable&lt;Range&gt;{
+        double left,right;
+        public Range(double left,double right){
+            this.left = left;
+
+            this.right = right;
+        }
+        @Override
+
+        public int compareTo(Range range) {
+            if(range.left == left){
+                return ((Double)right).compareTo((Double)(range.right));
+            }else{
+                return ((Double)left).compareTo((Double)(range.left));
+            }
+        }
+
+        @Override
+        public String toString() {
+            return &quot;(&quot; + left + &quot;,&quot; + right + &quot;)&quot;;
+        }
+
+    }
+
+
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+
+        PrintWriter out = new PrintWriter(System.out);
+        int n ,d,x,y,num;
+        double dx;
+        Range[] ranges;
+        int index = 0;
+        while(true){
+            num = 0;
+            n = scn.nextInt();
+            d = scn.nextInt();
+            if(n == 0){
+                break;
+            }
+            ranges = new Range[n];
+            for(int i = 0; i &lt; n; i++){
+                x = scn.nextInt();
+                y = scn.nextInt();
+                if(y &gt; d){
+                    num = -1;
+                }
+                dx = Math.sqrt(d*d - y*y);
+                ranges[i] = new Range(x - dx, x + dx);
+            }
+            Arrays.sort(ranges);//���
+            if(num != -1){
+                num = calute(ranges);
+            }
+            out.format(&quot;Case %d: %d\n&quot;,++index,num);
+        }
+        out.flush();
+
+    }
+
+    private static int calute(Range[] ranges) {
+        int num = 1;
+        int n = ranges.length;
+        Range preRange = ranges[0],range;
+        for(int i = 1; i &lt; n; i++){
+            range = ranges[i];
+            if(range.left &gt;= preRange.left &amp;&amp; range.left &lt;= preRange.right){
+                preRange.left = range.left;
+                if(range.right &lt; preRange.right){
+                    preRange.right = range.right;
+                }
+            }else{
+                num++;
+                preRange = range;
+            }
+        }
+        return num;
+    }
+}
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/ACM/">ACM</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/22/ACM-Radar-Installation/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/22/ACM-Radar-Installation/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/03/21/numpy笔记/" title="numpy笔记" itemprop="url">numpy笔记</a>
   </h1>
   <p class="article-author">By
@@ -1477,329 +1750,6 @@ minError = inf
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/05/自适应提升 AdaBoost/" title="提升方法 AdaBoost" itemprop="url">提升方法 AdaBoost</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-05T09:31:52.000Z" itemprop="datePublished"> 发表于 2017-03-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>提升（boosting）：从弱学习算法（正确率低）出发，反复学习，得到一系列弱分类器（基本分类器），然后组合这些弱分类器，构成一个强分类器。</p>
-<p>提升（boosting）方法需要解决的问题：</p>
-<ul>
-<li>如何改变训练数据的权值或概率分布————提高被前一轮错误分类样本的权值，降低被正确分类样本的权值。</li>
-<li>如何将弱分类器合成一个强分类器————加权多数表决：加大误差小的分类器的权值，减小误差大的分类器的权值。</li>
-</ul>
-<h1 id="AdaBoost算法">1. AdaBoost算法</h1><p>假设给定一个二分类训练数据集$T=\{(x_1,y_1),(x_2,y_2),…,(x_N,y_N)\}$</p>
-<p>其中，每个样本点由<code>实例+标记</code>组成</p>
-<p>实例：$x_i\in X \subseteq R^n $</p>
-<p>标记：$y_i \in Y={-1,+1}$</p>
-<p><code>AdaBoost</code>利用以下算法，从训练数据中学习一系列弱分类器或基本分类器，并将这些弱分类器线性组合成一个强分类器</p>
-<p><strong>输入</strong>:</p>
-<ul>
-<li>数据集$T=\{(x_1,y_1),(x_2,y_2),…,(x_N,y_N)\}$</li>
-<li>弱学习算法</li>
-</ul>
-<p><strong>输出</strong>：最终分类器$G(x)$</p>
-<p><strong>步骤</strong>：</p>
-<ol>
-<li>初始化训练数据的权值(每个都设为1/N)：</li>
-</ol>
-<p>$$D<em>1=(w</em>{11},w<em>{1i},…,w</em>{1N}),w_{1i}=\frac{1}{N},i=1,2,…,N$$</p>
-<ol>
-<li>对m=1,2,…,M:</li>
-</ol>
-<ul>
-<li>使用带权值$D_m$的训练集学习，得到基本分类器$G_m(x):X\rightarrow \{-1,+1\}$</li>
-<li>计算$G_m(x)$在训练集上的分类误差率：$$e_m=P(G_m(x_i)\neq y<em>i)=\sum</em>{n=1}^N w_{mi}I(G_m(x_i)\neq y_i)$$</li>
-</ul>
-<ol>
-<li>计算$G_m(x)$的系数：$$\alpha_m=\frac{1}{2}log\frac{1-e_m}{e_m}$$</li>
-<li>更新训练集权值：</li>
-</ol>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-06-22-49-14.png" alt=""> </p>
-<ol>
-<li>构建基本分类器的线性组合：</li>
-</ol>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-06-22-49-54.png" alt=""> </p>
-<h1 id="AdaBoost算法推导">2. AdaBoost算法推导</h1><h2 id="Boot-strapping">2.1. Boot strapping</h2><p>Boot strapping，拔靴法：利用有限的样本资料经由<strong>多次重复抽样</strong>，重新建立起足以代表母体样本分布之新样本。</p>
-<p>多次之后，得到一个非线性的结果（黑色线）<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-17-37-57.png" alt=""> </p>
-<h2 id="基本算法引入权重">2.2. 基本算法引入权重</h2><p>已知：一笔数据$D=\{(x_1,y_1),(x_2,y_2),(x_3,y_3),(x_4,y_4)\}$<br>根据<code>D</code>算出来的输入误差Ein为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-29-41.png" alt=""> </p>
-<p>通过Boot strapping，得到新的一笔数据$D_t=\{(x_1,y_1),(x_1,y_1),(x_2,y_2),(x_4,y_4)\}$<br>对应地，根据<code>Dt</code>算出来的Ein为：<br>（增加一个权重u即可）<br><code>u1=2,u2=1,u3=0,u4=1</code><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-31-04.png" alt=""> </p>
-<p><strong>结论：每一个bootstrapping得到了一个权重<code>u</code></strong></p>
-<h2 id="优化权重u">2.3. 优化权重u</h2><h3 id="优化原理">2.3.1. 优化原理</h3><ul>
-<li>每一个bootstrapping得到了一个权重`u。</li>
-<li>为了综合得到更好的g,则需要抽取的数据集得到的g尽量地不同。</li>
-<li>改变<code>u</code>，使得<code>g</code>差异更大，才会更好地改进最终结果</li>
-</ul>
-<p>得到g差异很大的方法：</p>
-<ul>
-<li>第一轮$u_n^t$时，得到$g_t$<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-39-48.png" alt=""> </li>
-<li>第二轮，选择一个 在$g_t$ 表现不好的 $u<em>n^{t+1}$  ，得到 $g</em>{t+1}$ <img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-41-02.png" alt=""><br>– 表现不好的定义：<br>— 将$u_n^{t+1}$作用在$g_t$上，得到一个归一化的错误率<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-45-01.png" alt=""><br>— 为了简便，定义橙色方块为所有犯错误的$u_n^{t+1}$的累加，绿色圆形为所有正确的$u_n^{t+1}$累加<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-47-12.png" alt=""><br>– 表现不好的选择方法：<br>— 将本次正确的$u_n^t$，除以一个错误的比例（缩小正确），赋给$u_n^{t+1}$<br>— 将本次错误的$u_n^t$，乘以一个正确的比例（放大错误），赋给$u_n^{t+1}$<br>— 这样得到的$u_n^{t+1}$的比率就会为2/1<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-51-21.png" alt=""> </li>
-</ul>
-<h3 id="优化权重u的方法————放缩因子">2.3.2. 优化权重u的方法————放缩因子</h3><p>放缩因子-Adaptive Boosting Algorithm<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-02-12.png" alt=""> </p>
-<ul>
-<li>◆t有更清晰的物理意义，通常情况下εt &lt; 1/2（因为是学习之后的结果，错误率应该小于0.5），</li>
-<li>◆t将大于1；</li>
-<li>那么，犯错的数据将乘上大于1的数，正确数据将除以大于1的数</li>
-<li>使得提升了犯错数据的权重(scale up incorrect)，</li>
-<li>降低做对数据的权重(scale down correct)</li>
-<li>这样使得更加专注在犯了错的地方，来得到不一样的假设(diverse hypotheses)。</li>
-</ul>
-<h2 id="Linear-Aggregation（聚集）-合成最终的g">2.4. Linear Aggregation（聚集） - 合成最终的g</h2><p>目标：合成最终的的$G(x)=sign(\sum_{t=1}^T\alpha_t g_t(x)$</p>
-<ul>
-<li>其中 $\alpha_t$是系数</li>
-<li>要求好的$g_t$（错误率低），$\alpha_t$应该大一些</li>
-<li>坏的$g_t$（错误率高），$\alpha_t$应该小一些</li>
-<li>而◆t与错误率成反比</li>
-<li>则可令$\alpha_t=ln(\text{◆t})$</li>
-</ul>
-<p>算法流程：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-21-25.png" alt=""> </p>
-<p>这里之所以认为αt = ln(◆t)，处于下面的考虑：<br>如果εt = 1/2， 那么◆t = 1，则αt = 0，意思是随机乱猜的情况下（二元分类错误率为0.5），认为是坏的g，则一票不给个，不使用该g<br>如果εt = 0， 那么◆t = ∞，则αt = ∞，意思是正确率为0的情况，给它无限多票数</p>
-<h1 id="AdaBoost-自适应优化算法总结">3. AdaBoost 自适应优化算法总结</h1><p>自适应优化算法 = 简单的学习A + 放缩权重 + 合成得到g<br>即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-25-49.png" alt=""> </p>
-<p>AdaBoost算法完整流程<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-26-16.png" alt=""> </p>
-<h1 id="AdaBoost理论特性">4. AdaBoost理论特性</h1><p>通过之前的VC Bound，来约束测试误差，其中蓝色的部分是模型的复杂度，O(dvc(H))为g的模型复杂度，而O(dvc(H))·T·logT是模型G的复杂度。原作者证明说，可以用O(logN)次迭代可以将Ein(G)做到很小，并且当数据量N足够多的情况下，又可以使得模型复杂度变得很小，从而使得模型复杂度得到控制。最终预测效果Eout也会很好。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-27-24.png" alt=""><br>AdaBoost的保证是让一个很弱的算法不断变强，最终得到一个很强是算法（Ein=0，Eout is small）。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-27-48.png" alt=""> </p>
-<h1 id="Adaptive-Boosting的实际应用表现">5. Adaptive Boosting的实际应用表现</h1><p>上面的AdaBoost只需要一个很弱的算法就可以使用。<br>一般情况下，可以使用决策桩(Decision Stump)，该模型相当于在某一个维度上的Perceptron模型。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-28-27.png" alt=""> </p>
-<h1 id="聚合（aggregation）模型总结">6. 聚合（aggregation）模型总结</h1><p>aggregation 模型主要应用在将得到的多个预测函数$g_t$聚合在一起，得到更好的$g_t$（即更好的分类器）的方式</p>
-<p>聚合方式主要面向两种情况：</p>
-<ul>
-<li>blending:已经有了一堆$g_t$在手上（可能是已知的，可能是求得的）。</li>
-<li>learning：不已知$g_t$，需要通过一定方式求得很多$g_t$</li>
-</ul>
-<p>learning的分为三种情况</p>
-<ul>
-<li>把g看做是同等地位，通过投票或者平均的方式将它们合起来，称为Bagging</li>
-<li>g是不平等的，有好有坏，一个可行的做法是把g当成是特征的转换，然后丢进线性模型训练就可以了，这称为AdaBoost</li>
-<li>如果是不同的条件下，使用不同的g，那么我们仍然可以将g当做是特征转换，接下来使用一个非线性模型来得到最终的模型参数，这就是下文要介绍的决策树算法</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>$g_t$类型</th>
-<th style="text-align:right">blending</th>
-<th style="text-align:center">learning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>各$g_t$等权重型（uniform）</td>
-<td style="text-align:right">投票方式/平均方式</td>
-<td style="text-align:center">Bagging</td>
-</tr>
-<tr>
-<td>$g_t$权重不等型（non-uniform）</td>
-<td style="text-align:right">线性聚合</td>
-<td style="text-align:center">AdaBoost</td>
-</tr>
-<tr>
-<td>不同情形用不同$g_t$（conditional）</td>
-<td style="text-align:right">stacking</td>
-<td style="text-align:center">决策树</td>
-</tr>
-</tbody>
-</table>
-<h1 id="AdaBoost思路总结">7. AdaBoost思路总结</h1><ul>
-<li>一般，数据量过少时，我们无法得到更好的g.</li>
-<li>因此我们采取BootStrapping方法，生成多个数据集，得到多个g</li>
-<li>最后合成最好的g</li>
-</ul>
-<h1 id="AdaBoost伪代码">8. AdaBoost伪代码</h1><pre><code>对每次迭代：
-    用buildStump()函数找到最佳单层决策树
-    将最佳单层决策树加入到单层决策树数组
-    计算alpha
-    计算新的权重向量D
-    更新累积类别估计值
-    如果错误率等于0，则退出循环
-</code></pre><p>参考文献</p>
-<ol>
-<li>《机器学习技法》，林轩田</li>
-<li><a href="http://blog.csdn.net/JasonDing1354/article/details/46462711" target="_blank" rel="external">Jason Ding，【机器学习基础】自适应提升</a></li>
-<li><a href="http://blog.jasonding.top/2015/07/22/Machine%20Learning/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E3%80%91%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/" target="_blank" rel="external">Jason Ding，【机器学习基础】决策树算法</a></li>
-</ol>
-<p>备注：本节是《机器学习技法》第8章+《统计学习方法》第8章笔记</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/机器学习/">机器学习</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/05/自适应提升 AdaBoost/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/05/自适应提升 AdaBoost/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/05/随机森林算法/" title="随机森林算法" itemprop="url">随机森林算法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-05T08:49:09.000Z" itemprop="datePublished"> 发表于 2017-03-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><strong>引言</strong></p>
-<p>回顾之前学习过的两个算法：</p>
-<ul>
-<li>Bagging<br>– 简要：通过bootstrapping得到不一样的数据，得到不同的g，对g取平均得到G<br>– 特点：通过投票和平均的方式来降低对不同数据的敏感性（variance的效果）</li>
-<li>决策树<br>– 简要：通过递归方式建立子树，最终得到完整的树<br>– 特点：对不同数据较敏感（算法的variance很大）</li>
-<li>随机森林<br>– 两者的结合</li>
-</ul>
-<h1 id="随机森林算法">1. 随机森林算法</h1><p>概述：利用随机的方式将许多决策树组合成一个森林,每个决策树$g_t(t)$在分类的时候投票决定测试样本的最终类别。在得到森林之后，当有一个新的输入样本进入的时候，就让森林中的每一棵决策树分别进行一下判断，看看这个样本应该属于哪一类（对于分类算法），然后看看哪一类被选择最多，就预测这个样本为那一类。</p>
-<p>详细算法：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-17-09-01.png" alt=""> </p>
-<ul>
-<li>左边的总算法是Bagging思想–体现随机性</li>
-<li><p>其中为每个$g_t(t)$建树时，是决策树的思想–体现森林</p>
-</li>
-<li><p>并行计算的可能性：随机森林算法从Bagging过程中可以分配到不同的计算机中进行计算，每台计算机可以独立学习一棵树，不同的树之间没有任何依赖关系。这使得Bagging过程很容易实现并行化。</p>
-</li>
-</ul>
-<h1 id="特征投影（Feature-Project">2. 特征投影（Feature Project)</h1><ul>
-<li>原来在Bagging中，我们对数据进行抽取，得到不同的数据集，从而产生不同的$g_t$</li>
-<li>在随机森林算法中，除了对数据抽取，也可以在<strong>特征</strong>这一角度抽取</li>
-<li>例，如果事先我们有100个特征，现在我们可以抽取10个特征<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-44.png" alt=""> </li>
-</ul>
-<ul>
-<li>得到数据集<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-07.png" alt=""> </li>
-<li><p>来训练一棵树，这样的方式我们也可以得到很不一样的树，其对于分类的标准显然也很不一样</p>
-</li>
-<li><p>这等效于一个特征转换，这个过程中，从100维度到10个维度的转换中，相当于作了低维度的投影(Projection)</p>
-</li>
-<li><p>一般来说，<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-18.png" alt=""> </p>
-</li>
-</ul>
-<ul>
-<li>得到的特征实际上是原始特征的随机子集，这使得生成模型过程中的效率也大大提高了</li>
-</ul>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-17-17-10.png" alt=""> </p>
-<h1 id="特征扩展（feature-Expansion）">3. 特征扩展（feature Expansion）</h1><p>每次随机抽取子空间 <code>等效于</code> 对原来的特征向量左乘一个<strong>投影矩阵</strong>$P$,使得$\Phi(X)=P\cdot x$</p>
-<p>更加有能力的特征投影就是不再单一选取单一维度的特征，而是将多个维度的特征进行组合(随机的方向)，得到新的一维的特征，这称为<strong>特征扩展</strong>。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-18-43-19.png" alt=""> </p>
-<ul>
-<li>将多个方向的特征随机合起来(combination)，即对于投影矩阵$P$的每一个方向$p_i$，不再固定方向（row）。即变为$\Phi_i(X)=P_i^T\cdot x$<br>– 一般情况下，会考虑<code>low-dimensional</code>，即投影过去时，一般每次选取少量维度进行投影。即只有$d’’$的<code>非零项</code>被投影过去</li>
-<li>这样的方式，包含了随机抽取（random subspace）的思想</li>
-<li>一般来说，每次投影都采用新的不一样的投影</li>
-</ul>
-<h1 id="随机森林的采样过程">4. 随机森林的采样过程</h1><p>在建立森林的每颗决策树$g_t$的过程中，首先需要随机采样数据点。</p>
-<p>不是所有数据点都能被采到。以下介绍OOB点</p>
-<h2 id="Out-of-bag（OOB）点">4.1. Out-of-bag（OOB）点</h2><p>OOB点：在bootstrapping过程中，有些数据可能没有被选择，这些数据被称为OOB点。例如下表，对于训练每一个决策树$g_t$，其中用*号标注的就是$g_t$的OOB<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-19-18-06.png" alt=""> </p>
-<h3 id="OOB点个数">4.1.1. OOB点个数</h3><p>假设bootstrapping抽了$N’$次数据，探讨会有多少数据不会被抽到：</p>
-<ul>
-<li>若$N’=N$，某个数据$(x_n,y_n)$从未被抽到的概率是$(1-\frac{1}{N})^N$<br>$$(1-\frac{1}{N})^N=\frac{1}{\frac{N}{N-1}^N}\approx \frac{1}{e}$$</li>
-<li>那么每个决策树$g_t$OOB集合的大小就约为$\frac{1}{e}N\approx 0.3N$</li>
-</ul>
-<h3 id="OOB用途-验证随机森林的G">4.1.2. OOB用途-验证随机森林的G</h3><p>可以用来做测试集-问题在于————验证<code>g</code>还是<code>G</code>？<br>以数据集$(x_N,y_N)为例$</p>
-<ul>
-<li>验证$g$的必要性不大</li>
-<li>验证$G$不方便</li>
-<li>可以用来验证<code>除了g1之外的G</code> = $G_N^-(x)=average(g_2,g_3,g_T)$</li>
-<li>总之，用来验证$G$表现是否好的方式：<br>$$E_{oob}(G)=\frac{1}{N}\sum_1^N error(y_n,G_n^-(x_n))$$</li>
-</ul>
-<h1 id="特征选择（feature-selection）">5. 特征选择（feature selection）</h1><p>目的：自动选择需要的特征，去除冗余、不相关的特征<br>优点：降维，减少复杂度；减少噪声，提高模型泛化能力；物理意义；<br>缺点：计算量大；可能导致过拟合；</p>
-<p>下面介绍特征选择的方法。</p>
-<h2 id="根据重要性选择（线性的）">5.1. 根据重要性选择（线性的）</h2><ul>
-<li>给每个特征算一个权重（分数）</li>
-<li>问题：特征选择是线性的，不符合随机森林的非线性特点</li>
-</ul>
-<h2 id="置换检验（非线性的，Permutation-Test）">5.2. 置换检验（非线性的，Permutation Test）</h2><p>问题：每个特征是有噪音的，由于噪音的存在，导致某些原本很优秀的特征的分数被降低</p>
-<p>解决方法：将第i个维度特征的所有数据重新的随机调整位置，然后比较一下原始数据和调整之后的数据表现的差距，来评价这个维度的特征是有多么重要。</p>
-<ul>
-<li>调整方法1：高斯什么的，但会改变数据原始分布</li>
-<li>调整方法2：随机重排，即置换检验。将某一维度的数据随机重排，可以看出来这个维度有多重要。</li>
-</ul>
-<h2 id="在Out-Of-Bag-Estimate过程中做Permutation-Test">5.3. 在Out-Of-Bag Estimate过程中做Permutation Test</h2><p>在随机森林中可以用OOB代替验证的过程，为了简化Permutation Test带来的重新进行训练的代价，我们在使用OOB Example（bootstrap过程中没有选取的数据）进行验证的过程中做一些修改，即在验证的时候去进行Permutation Test，而非训练时进行。<br>在求Eoob(G)时，我们通过G-(xn)来计算，我们在这里将x(n)修改成x(n,i)，就可以不用对G进行修改了。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-17-46.png" alt=""><br>在实际应用中，面对非线性的问题时，可以通过随机森林的方法来进行初步的特征选择。</p>
-<p> <img src="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-16-21.png" alt=""> </p>
-<p>参考资料：</p>
-<ol>
-<li><a href="http://database.51cto.com/art/201407/444788.htm" target="_blank" rel="external">机器学习的算法(1):决策树之随机森林</a></li>
-<li>机器学习技法</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/05/随机森林算法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/05/随机森林算法/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
@@ -1828,7 +1778,7 @@ minError = inf
 		<ul>
 		
 		  
-			<li><a href="/categories/ACM/" title="ACM">ACM<sup>4</sup></a></li>
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>5</sup></a></li>
 		  
 		
 		  
@@ -1848,7 +1798,7 @@ minError = inf
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>6</sup></a></li>
 		  
 		
 		  
@@ -1873,22 +1823,6 @@ minError = inf
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
 			
 		
@@ -1898,6 +1832,30 @@ minError = inf
 		
 			
 				<li><a href="/tags/长整型/" title="长整型">长整型<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
 			
 		
 		</ul>

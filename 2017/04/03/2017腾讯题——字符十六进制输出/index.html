@@ -4,54 +4,43 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>矩阵LU分解及其实现 | jiayi797的专栏</title>
+    <title>2017腾讯题——字符十六进制输出 | jiayi797的专栏</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="jiayi797">
     
 
     
-    <meta name="description" content="LU分解:可以将一个矩阵分解为一个单位下三角矩阵和一个上三角矩阵的乘积（有时是它们和一个置换矩阵的乘积）。LU分解主要应用在数值分析中，用来解线性方程、求反矩阵或计算行列式。
+    <meta name="description" content="1. 题目编写代码，接收从屏幕输入的长度为16字节整数倍的字符串。回车后，按实例格式排版输出。
+实例：
+屏幕输入（均为可见字符）：abcdefghigklmnopqrstuvwxyzabcdefghigklmnopqrstuvwxyzabcdefghigkl
  
-1. LU分解条件如果n阶方阵A的各阶顺序主子式 ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU
-其中k阶顺序主子式指 
-2. LU分解方法由于L存在可逆矩阵L’">
+2. 代码#include &amp;lt;iostream&amp;gt;
+#include&amp;lt;cstring&amp;gt;
+#include&amp;lt;c">
 <meta property="og:type" content="article">
-<meta property="og:title" content="矩阵LU分解及其实现">
-<meta property="og:url" content="http://yoursite.com/child/2017/03/29/矩阵LU分解/index.html">
+<meta property="og:title" content="2017腾讯题——字符十六进制输出">
+<meta property="og:url" content="http://yoursite.com/child/2017/04/03/2017腾讯题——字符十六进制输出/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="LU分解:可以将一个矩阵分解为一个单位下三角矩阵和一个上三角矩阵的乘积（有时是它们和一个置换矩阵的乘积）。LU分解主要应用在数值分析中，用来解线性方程、求反矩阵或计算行列式。
+<meta property="og:description" content="1. 题目编写代码，接收从屏幕输入的长度为16字节整数倍的字符串。回车后，按实例格式排版输出。
+实例：
+屏幕输入（均为可见字符）：abcdefghigklmnopqrstuvwxyzabcdefghigklmnopqrstuvwxyzabcdefghigkl
  
-1. LU分解条件如果n阶方阵A的各阶顺序主子式 ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU
-其中k阶顺序主子式指 
-2. LU分解方法由于L存在可逆矩阵L’">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-31-33.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-34-31.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-36-08.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-13-15.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-54-39.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-55-24.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-57-24.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-57-48.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-58-09.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-59-09.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-05-36.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-00-46.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-02-44.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-30-10-36-28.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-16-46.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-22-05.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-39-25.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-11-02-01.png">
-<meta property="og:updated_time" content="2017-03-31T04:00:58.746Z">
+2. 代码#include &amp;lt;iostream&amp;gt;
+#include&amp;lt;cstring&amp;gt;
+#include&amp;lt;c">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-04-03-21-24-41.png">
+<meta property="og:updated_time" content="2017-04-03T13:26:53.370Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="矩阵LU分解及其实现">
-<meta name="twitter:description" content="LU分解:可以将一个矩阵分解为一个单位下三角矩阵和一个上三角矩阵的乘积（有时是它们和一个置换矩阵的乘积）。LU分解主要应用在数值分析中，用来解线性方程、求反矩阵或计算行列式。
+<meta name="twitter:title" content="2017腾讯题——字符十六进制输出">
+<meta name="twitter:description" content="1. 题目编写代码，接收从屏幕输入的长度为16字节整数倍的字符串。回车后，按实例格式排版输出。
+实例：
+屏幕输入（均为可见字符）：abcdefghigklmnopqrstuvwxyzabcdefghigklmnopqrstuvwxyzabcdefghigkl
  
-1. LU分解条件如果n阶方阵A的各阶顺序主子式 ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU
-其中k阶顺序主子式指 
-2. LU分解方法由于L存在可逆矩阵L’">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-31-33.png">
+2. 代码#include &amp;lt;iostream&amp;gt;
+#include&amp;lt;cstring&amp;gt;
+#include&amp;lt;c">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-04-03-21-24-41.png">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -113,14 +102,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/29/矩阵LU分解/" title="矩阵LU分解及其实现" itemprop="url">矩阵LU分解及其实现</a>
+      <a href="/2017/04/03/2017腾讯题——字符十六进制输出/" title="2017腾讯题——字符十六进制输出" itemprop="url">2017腾讯题——字符十六进制输出</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
 		
   <p class="article-time">
-    <time datetime="2017-03-29T11:27:31.000Z" itemprop="datePublished"> 发表于 2017-03-29</time>
+    <time datetime="2017-04-03T13:24:29.000Z" itemprop="datePublished"> 发表于 2017-04-03</time>
     
   </p>
 </header>
@@ -129,208 +118,62 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LU分解条件"><span class="toc-text">1. LU分解条件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#LU分解方法"><span class="toc-text">2. LU分解方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#直接消去法的矩阵解释"><span class="toc-text">3. 直接消去法的矩阵解释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#列主元高斯消去法"><span class="toc-text">4. 列主元高斯消去法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">5. 参考文献</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-text">1. 题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码"><span class="toc-text">2. 代码</span></a></li></ol>
 		
 		</div>
 		
-		<p>LU分解:可以将一个矩阵分解为一个<strong>单位下三角矩阵</strong>和一个<strong>上三角矩阵</strong>的<strong>乘积</strong>（有时是它们和一个置换矩阵的乘积）。LU分解主要应用在数值分析中，用来解线性方程、求反矩阵或计算行列式。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-31-33.png" alt=""> </p>
-<h1 id="LU分解条件">1. LU分解条件</h1><p>如果n阶方阵A的各阶顺序主子式<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-34-31.png" alt=""> ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU</p>
-<p>其中k阶顺序主子式指<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-36-08.png" alt=""> </p>
-<h1 id="LU分解方法">2. LU分解方法</h1><p>由于L存在可逆矩阵L’，即LL’=E<br>则L’A=LL’U=U<br>因此得出一般的分解方法：<br>通过对(A,E)做初等行变换得到(U,L’),再由L’得到L.</p>
-<p>其中：</p>
-<ol>
-<li>L是单位下三角矩阵（对角线上的系数都为1的下三角矩阵）；L’也是单位上三角矩阵；</li>
-<li>U是非奇异上三角矩阵；</li>
-</ol>
-<h1 id="直接消去法的矩阵解释">3. 直接消去法的矩阵解释</h1><p>计算过程如图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-13-15.png" alt=""> </p>
-<p><strong>目的</strong>：将[A|E]–&gt;[U|L]形式，其中U是上三角矩阵</p>
-<p><strong>过程</strong>：每轮将一列的下三角消为0，就相当于给A左乘一个下三角单位矩阵Lk（对角线为1，保证变换后对角线元素不变）。</p>
-<p><strong>第一轮消元</strong>：将第一列的下三角消为0，相当于对A1左乘矩阵L1，即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-54-39.png" alt=""><br>其中，<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-55-24.png" alt=""><br>我们注意到li1恰好使得第i行的第一列元素变为零，即ai1-li1*a11=0。</p>
-<p><strong>第二轮消元</strong>：将第二列的下三角消为0，对应于<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-57-24.png" alt=""> </p>
-<p><strong>第k轮消元</strong>:<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-57-48.png" alt=""><br>其中，<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-58-09.png" alt=""> </p>
-<p>把k轮消元相乘，即：<br><strong>整个消元过程为</strong>：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-59-09.png" alt=""> </p>
-<p><strong>总结</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-05-36.png" alt=""><br>初始（第一步）：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-00-46.png" alt=""> </p>
-<p>迭代第r步：<br>即<br>ur=f(u1,u2,…,u(r-1),l1,l2,…,l(r-1)),第r项由前r-1项计算得到<br>lr=g(u1,u2,…,u(r-1),l1,l2,…,l(r-1))<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-02-44.png" alt=""> </p>
-<p>计算顺序：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-10-36-28.png" alt=""> </p>
-<p>需要注意的是，我们在计算时需要判断本阶的顺序主子式是否为零。</p>
-<p><strong>代码实现</strong><br>备注：其中的piovt暂时没有卵用。</p>
-<p>输入矩阵：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-16-46.png" alt=""> </p>
-<pre><code>bool lu(double *a,int *pivot,int n){//矩阵是n*n的
-double test = det(a,r,n);//检验本阶顺序主子式是否为0
- if(test==0){
-    return true;
- }
-//数组a在内存中按行优先次序存放
-//pivot:输出参数
-//pivot[0,n)中存放主元的位置排列
-//成功时返回false，否则返回ture
-//int len = sizeof(a)/sizeof(a[0]);
-double *U,*L;
-U = new double[n*n];
-L = new double[n*n];
-set0(U,n);
-set0(L,n);
-//先算urj(固定r，计算完所有的urj)，再算ljr(固定i，计算完所有的ljr)
-for(int r=0;r&lt;n;r++){
-    //计算urj(固定r，计算完所有的urj)
-    //计算ljr(固定i，计算完所有的ljr)
-    for(int j=r;j&lt;n;j++){
-        double sum_lu1=0;
-        double sum_lu2=0;
-        for(int k=0;k&lt;r;k++){
-            sum_lu1 = sum_lu1+L[r*n+k]*U[k*n+j];
-            sum_lu2 = sum_lu2+L[j*n+k]*U[k*n+r];
-        }
-        U[r*n+j]=a[r*n+j]-sum_lu1;
-        if(j==r){
-            L[j*n+r]=1;
-        }else{
-            L[j*n+r]=a[j*n+r]-sum_lu2;
-            L[j*n+r]=L[j*n+r]/U[r*n+r];
-        }
-    }
-}
-return false;
-}
-</code></pre><p>结果：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-22-05.png" alt=""> </p>
-<p>不知道为什么，我的答案与网上的之前学长做过的这道题的答案统统不一样。仔细检查后还是查不出来。又用Matlab验证了一下LU分解，MATLAB跑的结果为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-39-25.png" alt=""><br>与我自己的L矩阵一致。决定还是相信自己。</p>
-<h1 id="列主元高斯消去法">4. 列主元高斯消去法</h1><p>主要思想是在每次计算第r行时，选取当前第r列下的最大的a[i,r]的所在的第i行作为主元，即将第i行与第r行交换，再进行计算。</p>
-<p>主要理论见参考文献-北邮理学院数值分析课件chapter5.</p>
-<p>代码：</p>
-<pre><code>#include &lt;iostream&gt;
+		<h1 id="题目">1. 题目</h1><p>编写代码，接收从屏幕输入的长度为16字节整数倍的字符串。回车后，按实例格式排版输出。</p>
+<p>实例：</p>
+<p>屏幕输入（均为可见字符）：<br>abcdefghigklmnopqrstuvwxyzabcdefghigklmnopqrstuvwxyzabcdefghigkl</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-03-21-24-41.png" alt=""> </p>
+<h1 id="代码">2. 代码</h1><pre><code>#include &lt;iostream&gt;
+#include&lt;cstring&gt;
 #include&lt;cstdio&gt;
-#include&lt;cstdlib&gt;
-#include&lt;iomanip&gt;
-#define LIM -100000000
 using namespace std;
-double *luReult;
-void printmat(double *mat,int n,string s){
-    std::cout&lt;&lt;endl&lt;&lt;endl&lt;&lt;s&lt;&lt;endl;
-    for(int i=0;i&lt;n;i++){
-        for(int j=0;j&lt;n;j++){
-            printf(&quot;%.5f\t&quot;,mat[i*n+j]);
-        }
-        std::cout&lt;&lt;endl;
-    }
-}
-void printarr(int *mat,int n,string s){
-    std::cout&lt;&lt;endl&lt;&lt;endl&lt;&lt;s&lt;&lt;endl;
-    for(int i=0;i&lt;n;i++){
-        std::cout&lt;&lt;mat[i]&lt;&lt;&quot;\t&quot;;
-        //printf(&quot;%s\t&quot;,mat[i]);
-    }
-}
-int findMainNumber(double *a,int n,int r){
-    float maxa=-99999;
-    int maxaIdx=-1;
-    //printmat(a,n,&quot;a is now :&quot;);
-    for(int i=r;i&lt;n;i++){
-        if(a[i*n+r]&gt;maxa){
-            maxa=a[i*n+r];
-            maxaIdx=i;
-        }
-    }
-    return maxaIdx;
-}
-void exchange(double *a,int n,int e,int r){
-    float temp=0;
-    for(int i=0;i&lt;n;i++){
-        temp = a[r*n+i];
-        a[r*n+i]=a[e*n+i];
-        a[e*n+i]=temp;
-    }
-}
-bool lu(double* a, int* pivot, int n)//矩阵LU分解
-{
-      for(int k=0;k&lt;n;k++){
-        //寻找第k列的主元
-        int p = findMainNumber(a,n,k);
-        exchange(a,n,p,k);//交换k行和p行
-        pivot[k]=p;//记录置换矩阵p
-        if(a[k*n+k]!=0){
-                for(int i=k+1;i&lt;n;i++){//部分下三角L
-                    a[i*n+k]=a[i*n+k]/a[k*n+k];
-                }
-                for(int i=k+1;i&lt;n;i++){//计算上三角U
-                    for(int j=k+1;j&lt;n;j++){
-                        a[i*n+j]=a[i*n+j]-a[i*n+k]*a[k*n+j];
-                    }
-                }
-        }else{
-            return true;//矩阵奇异
-        }
-      }
-      /*
-      //计算下三角L
-      double temp=0;
-       for(int i=0; i&lt;n-2; i++)//i行k列
-            for(int k=i+1; k&lt;n-1;k++)
-            {
-                    temp=a[n*pivot[k] + i];
-                    a[n*pivot[k] + i]=a[k*n + i];
-                    a[k*n + i]=temp;
-            }
-        */
-      luReult=a;
-      printmat(a,n,&quot;lu&quot;);
-      return false ;
-}
-double radio(int a,int b){
-    return (double)(a)/(double)(b);
-}
-void buildHilbert(double *a,double *b,int n){
-    for(int r=0;r&lt;n;r++){
-        for(int j=0;j&lt;n;j++){
-            a[r*n+j]=radio(1,j+r+1);
-            b[r]=b[r]+a[r*n+j];
-        }
-    }
-}
-void exchangeb(double *b,int n,int r,int e){
-    double temp=0;
-    temp=b[e];
-    b[e]=b[r];
-    b[r]=temp;
-    /*r(int i=0;i&lt;n;i++){
-        temp=b[r*n+i];
-        b[r*n+i]=b[e*n+i];
-        b[e*n+i]=temp;
-    }*/
-}
-
 int main()
 {
-    int n=6;//矩阵是n*n的
-    double *b=new double[n];
-    double *a=new double[n*n];
-    /*double input[n*n]={0.001,1.00,1.00,2.00};
-    a=input;
-    double inputb[n]={1.00,3.00};
-    b=inputb;*/
-    buildHilbert(a,b,n);
-    printmat(a,n,&quot;a:&quot;);
-    int *pivot=new int[n*n];
-    luReult=new double[n*n];
-    lu(a,pivot,n);
-    printarr(pivot,n,&quot;p:&quot;);
-    //cout &lt;&lt; &quot;Hello world!&quot; &lt;&lt; endl;
+    //freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    char c[16];
+    int count=0;
+    int level=0;
+    int temp=0;
+    char in;
+    while(true){
+        c[count]=getchar();
+        if(c[count]==-1){
+            break;
+        }
+        if(count==16){
+            printf(&quot;%08d&quot;,level*10);
+            printf(&quot;  &quot;);
+            for(int i=0;i&lt;16;i++){
+                if(i==8){
+                    printf(&quot; &quot;);
+                }
+                temp=c[i]+16*level;
+                printf(&quot;%02X&quot;,c[i]);
+                printf(&quot; &quot;);
+            }
+            printf(&quot; &quot;);
+            for(int i=0;i&lt;16;i++){
+                std::cout&lt;&lt;c[i];
+            }
+            printf(&quot;\n&quot;);
+            ++level;
+            count=0;
+        }
+        ++count;
+    }
     return 0;
 }
-</code></pre><p>输出：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-11-02-01.png" alt=""> </p>
-<h1 id="参考文献">5. 参考文献</h1><ol>
-<li><a href="https://ccjou.wordpress.com/2010/09/01/lu-%E5%88%86%E8%A7%A3/" target="_blank" rel="external">LU 分解</a></li>
-<li><a href="http://blog.csdn.net/u010945683/article/details/45803141" target="_blank" rel="external">矩阵分析——LU分解</a></li>
-</ol>
-  
+</code></pre>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/数学/">数学</a>
+  <a class="article-category-link" href="/categories/ACM/">ACM</a>
 </div>
 
 
@@ -340,7 +183,7 @@ int main()
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/child/2017/03/29/矩阵LU分解/" data-title="矩阵LU分解及其实现 | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
+	  <div data-url="http://yoursite.com/child/2017/04/03/2017腾讯题——字符十六进制输出/" data-title="2017腾讯题——字符十六进制输出 | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -354,18 +197,18 @@ int main()
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/03/30/求线代方程的解/" title="求线代方程的解">
+ <a href="/2017/04/04/《Improving-Regressors-Using-Boosting-Techniques》论文笔记/" title="《Improving Regressors Using Boosting Techniques》论文笔记">
   <strong>上一篇：</strong><br/>
   <span>
-  求线代方程的解</span>
+  《Improving Regressors Using Boosting Techniques》论文笔记</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/03/28/最大流/"  title="最大流">
+<a href="/2017/04/03/BUPT-ACM-2017-F-Simple-recursion/"  title="BUPT_ACM_2017_F_Simple_recursion">
  <strong>下一篇：</strong><br/> 
- <span>最大流
+ <span>BUPT_ACM_2017_F_Simple_recursion
 </span>
 </a>
 </div>
@@ -374,7 +217,7 @@ int main()
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/03/29/矩阵LU分解/" data-title="矩阵LU分解及其实现" data-url="http://yoursite.com/child/2017/03/29/矩阵LU分解/"></div>
+	<div class="ds-thread" data-thread-key="2017/04/03/2017腾讯题——字符十六进制输出/" data-title="2017腾讯题——字符十六进制输出" data-url="http://yoursite.com/child/2017/04/03/2017腾讯题——字符十六进制输出/"></div>
 </section>
 
 
@@ -384,7 +227,7 @@ int main()
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LU分解条件"><span class="toc-text">1. LU分解条件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#LU分解方法"><span class="toc-text">2. LU分解方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#直接消去法的矩阵解释"><span class="toc-text">3. 直接消去法的矩阵解释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#列主元高斯消去法"><span class="toc-text">4. 列主元高斯消去法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">5. 参考文献</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-text">1. 题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码"><span class="toc-text">2. 代码</span></a></li></ol>
  
   </div>
 

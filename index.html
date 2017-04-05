@@ -80,6 +80,198 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/04/04/《Improving-Regressors-Using-Boosting-Techniques》论文笔记/" title="《Improving Regressors Using Boosting Techniques》论文笔记" itemprop="url">《Improving Regressors Using Boosting Techniques》论文笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-04T12:12:45.000Z" itemprop="datePublished"> 发表于 2017-04-04</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="introduction部分">1. introduction部分</h1><p><strong>Bagging和boosting用途</strong></p>
+<p>Bagging和boosting主要是用多重预测来解决以下两个问题：</p>
+<ol>
+<li>在回归问题中获取最小误差；</li>
+<li>在分类问题中获取最小错误率。</li>
+</ol>
+<p><strong>Bagging和Boosting共性</strong><br>都是通过训练不同的数据集来得到回归模型。</p>
+<p><strong>不同点</strong></p>
+<p><strong>bagging</strong></p>
+<ol>
+<li>从$N_1$个原始样本中，有放回地抽样(可能overlap)得到$N_1$个样本</li>
+<li>独立训练模型</li>
+<li>得到不同的预测</li>
+<li>求所有预测的平均得到最终结果</li>
+</ol>
+<p>由于模型之间独立，因此可以对训练过程采取分布式或并行的方式。</p>
+<p><strong>boosting</strong></p>
+<p>模型是依次训练出来的。</p>
+<ol>
+<li>从训练集中挑出$N_1$个样本，训练出第一个模型</li>
+<li>挑出误差最大的样本</li>
+<li>增大这些样本在下次被抽到的概率</li>
+<li>再次进行训练，最终得到多个模型</li>
+<li>最终对模型进行不同权重的加权，权重公式如下定义：</li>
+</ol>
+<p>设已知训练集$(y_i,x_i),i=1,…,N_1$<br>其中，$x$是$M$维的向量，且$(y_i,x_i)$唯一但未知(fixed but unknown)</p>
+<ol>
+<li>的</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Boosting/">Boosting</a><a href="/tags/Bagging/">Bagging</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/04/04/《Improving-Regressors-Using-Boosting-Techniques》论文笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/04/04/《Improving-Regressors-Using-Boosting-Techniques》论文笔记/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/03/2017腾讯题——字符十六进制输出/" title="2017腾讯题——字符十六进制输出" itemprop="url">2017腾讯题——字符十六进制输出</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-03T13:24:29.000Z" itemprop="datePublished"> 发表于 2017-04-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="题目">1. 题目</h1><p>编写代码，接收从屏幕输入的长度为16字节整数倍的字符串。回车后，按实例格式排版输出。</p>
+<p>实例：</p>
+<p>屏幕输入（均为可见字符）：<br>abcdefghigklmnopqrstuvwxyzabcdefghigklmnopqrstuvwxyzabcdefghigkl</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-03-21-24-41.png" alt=""> </p>
+<h1 id="代码">2. 代码</h1><pre><code>#include &lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;cstdio&gt;
+using namespace std;
+int main()
+{
+    //freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    char c[16];
+    int count=0;
+    int level=0;
+    int temp=0;
+    char in;
+    while(true){
+        c[count]=getchar();
+        if(c[count]==-1){
+            break;
+        }
+        if(count==16){
+            printf(&quot;%08d&quot;,level*10);
+            printf(&quot;  &quot;);
+            for(int i=0;i&lt;16;i++){
+                if(i==8){
+                    printf(&quot; &quot;);
+                }
+                temp=c[i]+16*level;
+                printf(&quot;%02X&quot;,c[i]);
+                printf(&quot; &quot;);
+            }
+            printf(&quot; &quot;);
+            for(int i=0;i&lt;16;i++){
+                std::cout&lt;&lt;c[i];
+            }
+            printf(&quot;\n&quot;);
+            ++level;
+            count=0;
+        }
+        ++count;
+    }
+    return 0;
+}
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/ACM/">ACM</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/04/03/2017腾讯题——字符十六进制输出/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/04/03/2017腾讯题——字符十六进制输出/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/04/03/BUPT-ACM-2017-F-Simple-recursion/" title="BUPT_ACM_2017_F_Simple_recursion" itemprop="url">BUPT_ACM_2017_F_Simple_recursion</a>
   </h1>
   <p class="article-author">By
@@ -122,7 +314,57 @@
 <p>即：$A(n)$是$A(n-1)$的平方倍！</p>
 <p>实现：</p>
 <pre><code><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">quick</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> ans=<span class="number">1</span>;   <span class="comment">//记录结果</span></div><div class="line">    a=a%c;   <span class="comment">//预处理，使得a处于c的数据范围之下</span></div><div class="line">    <span class="keyword">while</span>(b!=<span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>) ans=(ans*a)%c;   <span class="comment">//如果b的二进制位不是0，那么我们的结果是要参与运算的</span></div><div class="line">        b&gt;&gt;=<span class="number">1</span>;    <span class="comment">//二进制的移位操作，相当于每次除以2，用二进制看，就是我们不断的遍历b的二进制位</span></div><div class="line">        a=(a*a)%c;   <span class="comment">//不断的加倍</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> ans;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><h1 id="参考文献">6. 参考文献</h1><ol>
+</code></pre><h1 id="代码">6. 代码</h1><pre><code>#include &lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cmath&gt;
+#include&lt;cstdlib&gt;
+#include&lt;cstring&gt;
+#include&lt;string&gt;
+#include&lt;algorithm&gt;
+#include &lt;math.h&gt;
+using namespace std;
+long quick_algorithm(long long a,long long n,int modNum){
+    a=a%modNum ;
+    long long ans=1 ;
+    //这里我们不需要考虑b&lt;0，因为分数没有取模运算
+    while(n!=0){
+        if(n&amp;1)
+            ans=(ans*a)%modNum ;
+        n&gt;&gt;=1  ;
+        a=(a*a)%modNum;
+    }
+    return ans;
+}
+long set2(long long n,int modNum){
+    long long a=3;
+    long long b=1;
+    /*for(long long i=0;i&lt;n;i++){
+        a=a*3;
+        a=a%modNum;
+    }*/
+    a= quick_algorithm(a,n,modNum);
+    if(n%2==1){
+        b=-1;
+    }
+    //a=a;
+    a=0.5*a+0.5*b;
+    return a;
+}
+
+int main()
+{
+    int modNum=1000000007;
+    long long input=999999999;
+    scanf(&quot;%lld&quot;,&amp;input);
+    if(input==0||input==1){
+        printf(&quot;%lld\n&quot;,1);
+    }else{
+        long long out=set2(input,modNum);
+        printf(&quot;%lld\n&quot;,out);
+    }
+    return 0;
+}
+</code></pre><h1 id="参考文献">7. 参考文献</h1><ol>
 <li>《组合数学引论》</li>
 </ol>
 <p>附上本题的艰辛史。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-03-13-55-57.png" alt=""> </p>
@@ -1121,279 +1363,6 @@ while Q!={}
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/23/单源最短路径问题/" title="单源最短路径问题" itemprop="url">单源最短路径问题</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-23T08:02:59.000Z" itemprop="datePublished"> 发表于 2017-03-23</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>单源最短路径问题：给定一个图 $G=(V,E)$ ，我们希望找到从给定源节点$s\in V$到每个节点$v \in V$的最短路径。</p>
-<p>先总结：</p>
-<p>Bellman-Ford算法：采用动态规划进行设计。<strong>待总结</strong>。简单，还能侦探含源节点的负权重回路。<br>Dijkstra算法：采用贪心算法范式进行设计。复杂度低，但要求权重非负。</p>
-<h1 id="最短路径树">1. 最短路径树</h1><p>一颗根节点为s的最短路径树是一个有向子图$G’=(V’,E’)$，这里$V’\in V$,$E’\in E$,满足：</p>
-<ol>
-<li>$V’$是图G中从源节点s可以到达的所有结点的集合；</li>
-<li>$G’$形成一颗根节点为s的树；</li>
-<li>对于所有结点$v\in V’$,图$G’$中从结点s到结点v的唯一简单路径是图G中从结点s到结点v的一条最短路径。</li>
-</ol>
-<h1 id="松弛操作">2. 松弛操作</h1><p>对每个节点v，我们维持一个属性v.d，记录s→v的最短路径估计</p>
-<p>松弛操作：比较s→u→v与s→v的d,然后进行更新。</p>
-<pre><code>RELEAX(u,v,w)
-    if v.d&gt;u.d+w(u,v)
-        v.d=u.d+w(u,v)
-        v.π=u
-</code></pre><h1 id="Bellman-Ford算法">3. Bellman-Ford算法</h1><p><strong>目标</strong>：解决单源最短路径问题<br><strong>条件</strong>：边权重可负<br><strong>输入</strong>：带权有向图$G=(V,E)$和权重函数$w:E→R$<br><strong>输出</strong>：布尔值，是否存在一个从源节点可以到达的负权重回路。若存在，则算法无解。</p>
-<p><strong>思路</strong>：Bellman-Ford通过对边进行松弛操作来渐进地降低从源节点s到每个节点v的最短路径估计值v.d，直到该估计值与实际的最短路径权重$δ(s,v)$相同为止。</p>
-<p>初始函数：</p>
-<pre><code>INITIALIZE-SINGLE-SOURCE(G,s)
-    for eahc vertex v∈G.V
-        v.d=∞
-        v.π=null
-    s.d=0
-</code></pre><p><strong>算法</strong>：</p>
-<pre><code>BELLMAN-FORD(G,w,s)
-    INITIALIZE-SINGLE-SOURCE(G,s)//对每个点v.d和v.π初始化
-    for i=1 to |G.V|-1 //对每个边处理V-1次
-        for each edge(u,v)∈G.E //遍历所有的边
-            RELAX(u,v,w)
-    for each edge(u,v)∈G.E
-        if v.d&gt;u.d+w(u,v)
-            return False
-        else
-            return True
-</code></pre><p><strong>复杂度</strong>：$O(VE)$</p>
-<p><strong>对每个边处理V-1的原因</strong>：设p是从s到v的最短路径，则p最多包含V-1条边。</p>
-<p>如下图所示的极限条件，v0-v5路径应该为<code>&lt;v0,v1,v2,v3,v4,v5&gt;</code></p>
-<p>原本v0-v5的路径是灰色的。<br>第一轮松弛后，v0-v5路径变为<code>&lt;v0,v1,v5&gt;</code>，即黑色的<br>同理，第二轮松弛后，v0-v5路径变为<code>&lt;v0,v1,v2,v5&gt;</code><br>因此要松弛V-1次才可以<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-17-07-49.png" alt=""> </p>
-<h1 id="Dijkstra算法">4. Dijkstra算法</h1><p><strong>条件</strong>：所有边的权重非负<br><strong>思想</strong>：由上述性质可知，如果存在一条从i到j的最短路径(Vi…..Vk,Vj)，Vk是Vj前面的一顶点。那么(Vi…Vk)也必定是从i到k的最短路径。为了求出最短路径，Dijkstra就提出了以最短路径长度递增，逐次生成最短路径的算法。即：每次找到离源点最近的一个顶点，然后以该顶点为中心进行扩展，最终得到源点到其余所有点的最短路径。</p>
-<p><strong>Dijkstra算法的关键</strong>：维持一组节点集合S，从s到该集合中的每个节点的最短路径已经被找到。算法重复从V-S中选择最短路径估计最小的节点u，将u加入结合S，然后对所有从u出发的边进行松弛。</p>
-<pre><code>DIJKSTRA(G,w,s)
-    INITIALIZE-SINGLE-SOURCE(G,s)//对v.d和v.π初始化
-    S={}
-    Q=G.V
-    while Q.length != 0
-        u = UXTRACT-MIN(Q)//从V-S中选出最短路径估计最小的节点u
-        S=S∪{u}
-        for each vertex v∈G.Adj[u]
-            RELAX(u,v,w)
-</code></pre><p><strong>算法解释</strong><br>二维数组 e 来存储顶点之间边的关系，初始值如下：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-23-08.png" alt=""> </p>
-<p>我们还需要用一个一维数组 dis 来存储 1 号顶点到其余各个顶点的初始路程，如下。<br>我们将此时 dis 数组中的值称为最短路的“估计值”<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-23-38.png" alt=""> </p>
-<p>图的关系如图所示，1是源点<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-22-41.png" alt=""> </p>
-<p>既然是求 1 号顶点到其余各个顶点的最短路程，那就先找一个离 1 号顶点最近的顶点。通过数组 dis 可知当前离 1 号顶点最近是 2 号顶点。当选择了 2 号顶点后，dis[2]的值就已经从“估计值”变为了“确定值”，即 1 号顶点到 2 号顶点的最短路程就是当前 dis[2]值。<br>原因：目前离 1 号顶点最近的是 2 号顶点，并且这个图所有的边都是正数，那么肯定不可能通过第三个顶点中转，使得 1 号顶点到 2 号顶点的路程进一步缩短了。因为 1 号顶点到其它顶点的路程肯定没有 1 号到 2 号顶点短，</p>
-<p>既然选了 2 号顶点，接下来再来看 2 号顶点有哪些出边呢。有 2-&gt;3 和 2-&gt;4 这两条边。先讨论通过 2-&gt;3 这条边能否让 1 号顶点到 3 号顶点的路程变短。也就是说现在来比较 dis[3]和 dis[2]+e[2][3]的大小。其中 dis[3]表示 1 号顶点到 3 号顶点的路程。dis[2]+e[2][3]中 dis[2]表示 1 号顶点到 2 号顶点的路程，e[2][3]表示 2-&gt;3 这条边。所以 dis[2]+e[2][3]就表示从 1 号顶点先到 2 号顶点，再通过 2-&gt;3 这条边，到达 3 号顶点的路程。</p>
-<p>我们发现 dis[3]=12，dis[2]+e[2][3]=1+9=10，dis[3]&gt;dis[2]+e[2][3]，因此 dis[3]要更新为 10。这个过程有个专业术语叫做“松弛”。即 1 号顶点到 3 号顶点的路程即 dis[3]，通过 2-&gt;3 这条边松弛成功。这便是 Dijkstra 算法的主要思想：通过“边”来松弛 1 号顶点到其余各个顶点的路程。</p>
-<p>同理通过 2-&gt;4（e[2][4]），可以将 dis[4]的值从 ∞ 松弛为 4（dis[4]初始为 ∞，dis[2]+e[2][4]=1+3=4，dis[4]&gt;dis[2]+e[2][4]，因此 dis[4]要更新为 4）。</p>
-<p>刚才我们对 2 号顶点所有的出边进行了松弛。松弛完毕之后 dis 数组为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-31-33.png" alt=""> </p>
-<p>以此类推，此处不再多加阐述。</p>
-<p>参考文献<a href="http://wiki.jikexueyuan.com/project/easy-learn-algorithm/dijkstra.html" target="_blank" rel="external">算法 7：Dijkstra 最短路算法</a></p>
-<h1 id="有向无环图的单源最短路径问题">5. 有向无环图的单源最短路径问题</h1><p>来日再填坑。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/算法/">算法</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/23/单源最短路径问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/23/单源最短路径问题/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/22/ACM-Radar-Installation/" title="ACM--Radar Installation" itemprop="url">ACM--Radar Installation</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-22T11:30:08.000Z" itemprop="datePublished"> 发表于 2017-03-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="题目描述">1. 题目描述</h1><p>Assume the coasting is an infinite straight line. Land is in one side of coasting, sea in the other. Each small island is a point locating in the sea side. And any radar installation, locating on the coasting, can only cover d distance, so an island in the sea can be covered by a radius installation, if the distance between them is at most d. </p>
-<p>We use Cartesian coordinate system, defining the coasting is the x-axis. The sea side is above x-axis, and the land side below. Given the position of each island in the sea, and given the distance of the coverage of the radar installation, your task is to write a program to find the minimal number of radar installations to cover all the islands. Note that the position of an island is represented by its x-y coordinates. </p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-22-19-32-14.png" alt=""> </p>
-<p>coasting：滑行<br>infinite：无穷的<br>Cartesian coordinate system：笛卡尔坐标系</p>
-<p>已知：海岸线是x轴，以上是海，以下是陆地。雷达安装在海岸线上，覆盖半径是d。<br>目标：求能够覆盖所有岛屿的雷达安装数目。<br>需需要注意的是，海岛坐标在x-y坐标系中。</p>
-<h1 id="Input">2. Input</h1><p>The input consists of several test cases. The first line of each case contains two integers n (1&lt;=n&lt;=1000) and d, where n is the number of islands in the sea and d is the distance of coverage of the radar installation. This is followed by n lines each containing two integers representing the coordinate of the position of each island. Then a blank line follows to separate the cases. </p>
-<p>The input is terminated by a line containing pair of zeros </p>
-<p>输入一般包含好几组case测试数据。</p>
-<p>每个case的第一行是(n,d)<br>然后是n行岛屿坐标</p>
-<p>最后以（0,0）结尾</p>
-<h1 id="Output">3. Output</h1><p>For each test case output one line consisting of the test case number followed by the minimal number of radar installations needed. “-1” installation means no solution for that case.</p>
-<h1 id="思路">4. 思路</h1><p>这道题问的是怎样放雷达使其放的雷达数目最少而能够探测到所有的岛屿，这里需要转换为求每个岛屿的能放雷达的区间的问题:</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-22-21-06-38.png" alt=""> </p>
-<p>抽象问题:每个小岛都对应一个区域,这个区域内的雷达都能探测到这个小岛,把这N个区域求出来,问题现在就变成了,最少放置几个点,能使得每个区域内都至少有一个点.</p>
-<p>这道题目的关键之处就是把面的问题转换成线的问题，每一个座海岛在x轴上有一个区间，在这个区间里面的雷达都可以侦测到海岛，区间的范围即是[x-sqrt(dd – yy), x+sqrt(dd+yy)]，然后先以右端点为基进行从小到大排序，然后把第一个雷达默认放在最左端的xmax，接下来的点只要是xmin小于当前xmax就可以不用增加雷达，如果xmax == xmin的话也不用增加雷达。然后如果xmax &lt; xmin的话就加一个雷达，然后以xmin所属区间的xmax为基进行比较。</p>
-<h1 id="代码">5. 代码</h1><pre><code>import java.io.PrintWriter;
-
-import java.util.Arrays;
-import java.util.Scanner;
-public class Main {
-    static class Range implements Comparable&lt;Range&gt;{
-        double left,right;
-        public Range(double left,double right){
-            this.left = left;
-
-            this.right = right;
-        }
-        @Override
-
-        public int compareTo(Range range) {
-            if(range.left == left){
-                return ((Double)right).compareTo((Double)(range.right));
-            }else{
-                return ((Double)left).compareTo((Double)(range.left));
-            }
-        }
-
-        @Override
-        public String toString() {
-            return &quot;(&quot; + left + &quot;,&quot; + right + &quot;)&quot;;
-        }
-
-    }
-
-
-    public static void main(String[] args) {
-        Scanner scn = new Scanner(System.in);
-
-        PrintWriter out = new PrintWriter(System.out);
-        int n ,d,x,y,num;
-        double dx;
-        Range[] ranges;
-        int index = 0;
-        while(true){
-            num = 0;
-            n = scn.nextInt();
-            d = scn.nextInt();
-            if(n == 0){
-                break;
-            }
-            ranges = new Range[n];
-            for(int i = 0; i &lt; n; i++){
-                x = scn.nextInt();
-                y = scn.nextInt();
-                if(y &gt; d){
-                    num = -1;
-                }
-                dx = Math.sqrt(d*d - y*y);
-                ranges[i] = new Range(x - dx, x + dx);
-            }
-            Arrays.sort(ranges);//���
-            if(num != -1){
-                num = calute(ranges);
-            }
-            out.format(&quot;Case %d: %d\n&quot;,++index,num);
-        }
-        out.flush();
-
-    }
-
-    private static int calute(Range[] ranges) {
-        int num = 1;
-        int n = ranges.length;
-        Range preRange = ranges[0],range;
-        for(int i = 1; i &lt; n; i++){
-            range = ranges[i];
-            if(range.left &gt;= preRange.left &amp;&amp; range.left &lt;= preRange.right){
-                preRange.left = range.left;
-                if(range.right &lt; preRange.right){
-                    preRange.right = range.right;
-                }
-            }else{
-                num++;
-                preRange = range;
-            }
-        }
-        return num;
-    }
-}
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/ACM/">ACM</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/22/ACM-Radar-Installation/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/22/ACM-Radar-Installation/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -1422,7 +1391,7 @@ public class Main {
 		<ul>
 		
 		  
-			<li><a href="/categories/ACM/" title="ACM">ACM<sup>4</sup></a></li>
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>5</sup></a></li>
 		  
 		
 		  
@@ -1442,7 +1411,7 @@ public class Main {
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>6</sup></a></li>
 		  
 		
 		  
@@ -1467,22 +1436,6 @@ public class Main {
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
 			
 		
@@ -1492,6 +1445,30 @@ public class Main {
 		
 			
 				<li><a href="/tags/长整型/" title="长整型">长整型<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
 			
 		
 		</ul>

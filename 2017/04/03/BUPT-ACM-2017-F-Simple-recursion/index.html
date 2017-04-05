@@ -22,7 +22,7 @@
 1. 题目题目描述r_clover shows you a BIIIIIIIIIIG water problem:if $f(0)=1,f(1)=1$,$f(n)=2f(n-1)+3f(n-2)$, what is $f(n)mod1000000007$?
 输入格式A single integ">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-04-03-13-55-57.png">
-<meta property="og:updated_time" content="2017-04-03T06:54:55.873Z">
+<meta property="og:updated_time" content="2017-04-03T07:13:38.257Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BUPT_ACM_2017_F_Simple_recursion">
 <meta name="twitter:description" content="本文是2017年北京邮电大学第十一届程序设计竞赛网络热身赛的F. Simple recursion题解。
@@ -106,7 +106,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-text">1. 题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路"><span class="toc-text">2. 思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#递推关系求解"><span class="toc-text">3. 递推关系求解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常系数线性齐次递归关系的求解"><span class="toc-text">4. 常系数线性齐次递归关系的求解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#快速大数幂运算"><span class="toc-text">5. 快速大数幂运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">6. 参考文献</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-text">1. 题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路"><span class="toc-text">2. 思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#递推关系求解"><span class="toc-text">3. 递推关系求解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常系数线性齐次递归关系的求解"><span class="toc-text">4. 常系数线性齐次递归关系的求解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#快速大数幂运算"><span class="toc-text">5. 快速大数幂运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码"><span class="toc-text">6. 代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">7. 参考文献</span></a></li></ol>
 		
 		</div>
 		
@@ -139,7 +139,57 @@
 <p>即：$A(n)$是$A(n-1)$的平方倍！</p>
 <p>实现：</p>
 <pre><code><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">quick</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> ans=<span class="number">1</span>;   <span class="comment">//记录结果</span></div><div class="line">    a=a%c;   <span class="comment">//预处理，使得a处于c的数据范围之下</span></div><div class="line">    <span class="keyword">while</span>(b!=<span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>) ans=(ans*a)%c;   <span class="comment">//如果b的二进制位不是0，那么我们的结果是要参与运算的</span></div><div class="line">        b&gt;&gt;=<span class="number">1</span>;    <span class="comment">//二进制的移位操作，相当于每次除以2，用二进制看，就是我们不断的遍历b的二进制位</span></div><div class="line">        a=(a*a)%c;   <span class="comment">//不断的加倍</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> ans;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><h1 id="参考文献">6. 参考文献</h1><ol>
+</code></pre><h1 id="代码">6. 代码</h1><pre><code>#include &lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cmath&gt;
+#include&lt;cstdlib&gt;
+#include&lt;cstring&gt;
+#include&lt;string&gt;
+#include&lt;algorithm&gt;
+#include &lt;math.h&gt;
+using namespace std;
+long quick_algorithm(long long a,long long n,int modNum){
+    a=a%modNum ;
+    long long ans=1 ;
+    //这里我们不需要考虑b&lt;0，因为分数没有取模运算
+    while(n!=0){
+        if(n&amp;1)
+            ans=(ans*a)%modNum ;
+        n&gt;&gt;=1  ;
+        a=(a*a)%modNum;
+    }
+    return ans;
+}
+long set2(long long n,int modNum){
+    long long a=3;
+    long long b=1;
+    /*for(long long i=0;i&lt;n;i++){
+        a=a*3;
+        a=a%modNum;
+    }*/
+    a= quick_algorithm(a,n,modNum);
+    if(n%2==1){
+        b=-1;
+    }
+    //a=a;
+    a=0.5*a+0.5*b;
+    return a;
+}
+
+int main()
+{
+    int modNum=1000000007;
+    long long input=999999999;
+    scanf(&quot;%lld&quot;,&amp;input);
+    if(input==0||input==1){
+        printf(&quot;%lld\n&quot;,1);
+    }else{
+        long long out=set2(input,modNum);
+        printf(&quot;%lld\n&quot;,out);
+    }
+    return 0;
+}
+</code></pre><h1 id="参考文献">7. 参考文献</h1><ol>
 <li>《组合数学引论》</li>
 </ol>
 <p>附上本题的艰辛史。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-03-13-55-57.png" alt=""> </p>
@@ -178,6 +228,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2017/04/03/2017腾讯题——字符十六进制输出/" title="2017腾讯题——字符十六进制输出">
+  <strong>上一篇：</strong><br/>
+  <span>
+  2017腾讯题——字符十六进制输出</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2017/03/31/QR分解/"  title="QR分解">
@@ -201,7 +259,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-text">1. 题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路"><span class="toc-text">2. 思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#递推关系求解"><span class="toc-text">3. 递推关系求解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常系数线性齐次递归关系的求解"><span class="toc-text">4. 常系数线性齐次递归关系的求解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#快速大数幂运算"><span class="toc-text">5. 快速大数幂运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">6. 参考文献</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-text">1. 题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路"><span class="toc-text">2. 思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#递推关系求解"><span class="toc-text">3. 递推关系求解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常系数线性齐次递归关系的求解"><span class="toc-text">4. 常系数线性齐次递归关系的求解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#快速大数幂运算"><span class="toc-text">5. 快速大数幂运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码"><span class="toc-text">6. 代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">7. 参考文献</span></a></li></ol>
  
   </div>
 
@@ -225,7 +283,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/ACM/" title="ACM">ACM<sup>4</sup></a></li>
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>5</sup></a></li>
 		  
 		
 		  
@@ -245,7 +303,7 @@
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>6</sup></a></li>
 		  
 		
 		  
@@ -270,22 +328,6 @@
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
 			
 		
@@ -295,6 +337,30 @@
 		
 			
 				<li><a href="/tags/长整型/" title="长整型">长整型<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
 			
 		
 		</ul>
