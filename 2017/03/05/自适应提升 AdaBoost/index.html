@@ -159,13 +159,13 @@
 <ol>
 <li>初始化训练数据的权值(每个都设为1/N)：</li>
 </ol>
-<p>$$D<em>1=(w</em>{11},w<em>{1i},…,w</em>{1N}),w_{1i}=\frac{1}{N},i=1,2,…,N$$</p>
+<p>$$D_1=(w_{11},w_{1i},…,w_{1N}),w_{1i}=\frac{1}{N},i=1,2,…,N$$</p>
 <ol>
 <li>对m=1,2,…,M:</li>
 </ol>
 <ul>
 <li>使用带权值$D_m$的训练集学习，得到基本分类器$G_m(x):X\rightarrow \{-1,+1\}$</li>
-<li>计算$G_m(x)$在训练集上的分类误差率：$$e_m=P(G_m(x_i)\neq y<em>i)=\sum</em>{n=1}^N w_{mi}I(G_m(x_i)\neq y_i)$$</li>
+<li>计算$G_m(x)$在训练集上的分类误差率：$$e_m=P(G_m(x_i)\neq y_i)=\sum_{n=1}^N w_{mi}I(G_m(x_i)\neq y_i)$$</li>
 </ul>
 <ol>
 <li>计算$G_m(x)$的系数：$$\alpha_m=\frac{1}{2}log\frac{1-e_m}{e_m}$$</li>
@@ -189,7 +189,7 @@
 <p>得到g差异很大的方法：</p>
 <ul>
 <li>第一轮$u_n^t$时，得到$g_t$<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-39-48.png" alt=""> </li>
-<li>第二轮，选择一个 在$g_t$ 表现不好的 $u<em>n^{t+1}$  ，得到 $g</em>{t+1}$ <img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-41-02.png" alt=""><br>– 表现不好的定义：<br>— 将$u_n^{t+1}$作用在$g_t$上，得到一个归一化的错误率<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-45-01.png" alt=""><br>— 为了简便，定义橙色方块为所有犯错误的$u_n^{t+1}$的累加，绿色圆形为所有正确的$u_n^{t+1}$累加<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-47-12.png" alt=""><br>– 表现不好的选择方法：<br>— 将本次正确的$u_n^t$，除以一个错误的比例（缩小正确），赋给$u_n^{t+1}$<br>— 将本次错误的$u_n^t$，乘以一个正确的比例（放大错误），赋给$u_n^{t+1}$<br>— 这样得到的$u_n^{t+1}$的比率就会为2/1<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-51-21.png" alt=""> </li>
+<li>第二轮，选择一个 在$g_t$ 表现不好的 $u_n^{t+1}$  ，得到 $g_{t+1}$ <img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-41-02.png" alt=""><br>– 表现不好的定义：<br>— 将$u_n^{t+1}$作用在$g_t$上，得到一个归一化的错误率<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-45-01.png" alt=""><br>— 为了简便，定义橙色方块为所有犯错误的$u_n^{t+1}$的累加，绿色圆形为所有正确的$u_n^{t+1}$累加<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-47-12.png" alt=""><br>– 表现不好的选择方法：<br>— 将本次正确的$u_n^t$，除以一个错误的比例（缩小正确），赋给$u_n^{t+1}$<br>— 将本次错误的$u_n^t$，乘以一个正确的比例（放大错误），赋给$u_n^{t+1}$<br>— 这样得到的$u_n^{t+1}$的比率就会为2/1<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-51-21.png" alt=""> </li>
 </ul>
 <h3 id="优化权重u的方法————放缩因子">2.3.2. 优化权重u的方法————放缩因子</h3><p>放缩因子-Adaptive Boosting Algorithm<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-02-12.png" alt=""> </p>
 <ul>
@@ -380,7 +380,7 @@
 		  
 		
 		  
-			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>1</sup></a></li>
+			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>2</sup></a></li>
 		  
 		
 		  
@@ -413,11 +413,7 @@
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 			
@@ -425,11 +421,15 @@
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
 			
 		
 			

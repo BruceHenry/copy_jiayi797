@@ -80,6 +80,95 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/03/02/从出租车行驶数据筛选出OD点数据/" title="从出租车行驶数据筛选出OD点数据" itemprop="url">从出租车行驶数据筛选出OD点数据</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-02T06:12:00.000Z" itemprop="datePublished"> 发表于 2017-03-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>动手前先动脑，这句话献给自己。</p>
+<h2 id="目标">0.1. 目标</h2><p>从出租车行驶数据中，筛选出OD点。</p>
+<h2 id="数据集">0.2. 数据集</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">名称：2012年11月1日 北京市出租车GPS数据</div><div class="line"></div><div class="line">格式：txt文本文件</div><div class="line"></div><div class="line">数据项及顺序：车辆标识,触发事件,运营状态,GPS时间,GPS经度,GPS纬度,GPS速度,GPS方向,GPS状态</div><div class="line">车辆标识：6个字符</div><div class="line">触发事件：0=变空车，1=变载客，2=设防，3=撤防，4=其它</div><div class="line">运营状态：0=空车，1=载客，2=驻车，3=停运，4=其它</div><div class="line">GPS时间</div><div class="line">GPS经度</div><div class="line">GPS纬度</div><div class="line">GPS速度：取值000-255内整数，以公里/小时为单位</div><div class="line">GPS方位：取值000-360内整数，以度为单位</div><div class="line">GPS状态：0=无效，1=有效</div><div class="line">结束串：回车符+换行符</div><div class="line"></div><div class="line">数据示例:</div><div class="line">123456,0,0,20110414160613,116.4078674,40.2220650,21,274,1</div></pre></td></tr></table></figure>
+<h2 id="思路">0.3. 思路</h2><ol>
+<li>将数据点按照“车牌号、运营时间、运营状态”依次从小到大排序</li>
+<li>筛出同一车牌号的运营状态变化的时刻的数据</li>
+</ol>
+<h2 id="方法">0.4. 方法</h2><ul>
+<li><p>方法一：导入数据库，再写脚本操作数据。可能是我对数据库实在没缘分，这个方法没有成功。</p>
+</li>
+<li><p>方法二：将车牌号分段后，在每段上进行如上思路所示的操作。</p>
+</li>
+</ul>
+<p>为了更好地分段，我们先对车牌号段进行分析。</p>
+<h3 id="车牌号段分析">0.4.1. 车牌号段分析</h3><p>查询车的数目：12409个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT COUNT(DISTINCT id) FROM SET1</div></pre></td></tr></table></figure>
+<p>脚本名：data1IDcount.py</p>
+<p>地址：81服务器上，D:\jiayi\wxt</p>
+<p>听说数据集有三千多万，所以我决定每一千个数据取一条进行粗略分析。</p>
+<p>车牌号分布：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-01-15-01-24.png" alt=""> </p>
+<p>结果：</p>
+<ol>
+<li>车牌号分布在1-800000之间</li>
+<li>100000-200000的车最多</li>
+<li>一共有32885600条数据</li>
+</ol>
+<h3 id="分段">0.4.2. 分段</h3><p>脚本名：data2cut.py</p>
+<p>分段法：将车牌号分为10段，其中100000-200000为三段，其余段均分。 <del>简单起见，还是将车牌号均分为十段了(ERROR:Errcode: 28 - No space left on device))</del></p>
+<p>还是采用了数据库。是福不是祸，是祸躲不过呀。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-01-19-49-25.png" alt=""> </p>
+<h3 id="伪代码">0.4.3. 伪代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">for i = 0:10000:800000</div><div class="line">    # 为本区间数据建立新表，并插入数据</div><div class="line">    CREATE TABLE to this range</div><div class="line">    INSERT data </div><div class="line">    #将本区间数据排序</div><div class="line">    ORDER BY id,timen,opevent</div><div class="line">    #遍历，筛出本段的OD点</div><div class="line">    for line in this range table</div><div class="line">    </div><div class="line">        #如果本条数据是跳跃点，则插入到OD表中</div><div class="line">        #vehicle:上一条数据的车牌号</div><div class="line">        #pre:上一条数据的opevent</div><div class="line">        </div><div class="line">        #第一条数据</div><div class="line">        if vehicle==&quot;&quot;:</div><div class="line">            vehicle = row[0]</div><div class="line">            pre=row[2]</div><div class="line">        else:#从第二条记录开始</div><div class="line">            # 如果与上一条是一个车</div><div class="line">            if vehicle==row[0]:</div><div class="line">                #如果与上一条记录是同一个车，且event有变化</div><div class="line">                if pre!=row[2]:</div><div class="line">                    INSERT to OD_table</div><div class="line">                    pre=row[2]</div><div class="line">                    vehicle=row[0]</div><div class="line">                else:</div><div class="line">                    continue</div><div class="line">            #如果与上一条不是同一个车</div><div class="line">            else:</div><div class="line">                vehicle=row[0]</div><div class="line">                pre=row[2]</div></pre></td></tr></table></figure>
+<h3 id="结果">0.4.4. 结果</h3><p>原始数据：data.set1，32885600个</p>
+<p>OD点：data.set1_od ,645271个</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/数据预处理/">数据预处理</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/02/从出租车行驶数据筛选出OD点数据/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/02/从出租车行驶数据筛选出OD点数据/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/02/28/PLA/" title="PLA" itemprop="url">PLA</a>
   </h1>
   <p class="article-author">By
@@ -306,12 +395,12 @@
 <li>通过演算法A，来计算出一个g，使得g很接近f<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-09-29.png" alt=""> </li>
 </ul>
 <h1 id="误差E">3. 误差E</h1><p>不知道为什么公式显示不出来，只好手动展图了<br>输入误差：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-44-49.png" alt=""> </p>
-<p>$$E<em>{in}(h)=\frac{1}{N} \sum</em>{n=1}^N(h(x_n)-y_n)^2$$</p>
+<p>$$E_{in}(h)=\frac{1}{N} \sum_{n=1}^N(h(x_n)-y_n)^2$$</p>
 <ul>
 <li>样本（训练集）中出现的错误率</li>
 </ul>
 <p>输出误差：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-45-03.png" alt=""> </p>
-<p>$$E<em>{out}(h)=\mathcal{E}</em>{(x,y)\text~P}(w^Tx-y)^2$$</p>
+<p>$$E_{out}(h)=\mathcal{E}_{(x,y)\text~P}(w^Tx-y)^2$$</p>
 <ul>
 <li>总体（测试集+训练集）中出现的错误率</li>
 </ul>
@@ -405,7 +494,7 @@
 		  
 		
 		  
-			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>1</sup></a></li>
+			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>2</sup></a></li>
 		  
 		
 		  
@@ -438,11 +527,7 @@
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 			
@@ -450,11 +535,15 @@
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
 			
 		
 			

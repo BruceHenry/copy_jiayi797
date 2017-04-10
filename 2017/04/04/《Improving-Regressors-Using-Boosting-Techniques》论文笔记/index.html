@@ -39,7 +39,7 @@ bagging
 
 从$N_1$个原始样本中，有放回地抽样(可能overlap)得到$N_1$个样本
 独立训练模">
-<meta property="og:updated_time" content="2017-04-05T05:56:49.882Z">
+<meta property="og:updated_time" content="2017-04-05T07:03:22.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Improving Regressors Using Boosting Techniques》论文笔记">
 <meta name="twitter:description" content="1. introduction部分Bagging和boosting用途
@@ -160,9 +160,12 @@ bagging
 <li>再次进行训练，最终得到多个模型</li>
 <li>最终对模型进行不同权重的加权，权重公式如下定义：</li>
 </ol>
-<p>设已知训练集$(y_i,x_i),i=1,…,N_1$<br>其中，$x$是$M$维的向量，且$(y_i,x_i)$唯一但未知(fixed but unknown)</p>
+<p>设已知训练集$(y_i,x_i),i=1,…,N_1$。其中，$x$是$M$维的向量，且$(y_i,x_i)$唯一但未知(fixed but unknown)<br>我们将预测函数表示为$y^{(p)}(x)$，则：</p>
+<p><strong>sample modeling error</strong>:<br> $$PE=\frac{1}{N_2}\sum_{i=1}^{N_2}[y_i-y_i^{(p)}(x_i)]^2$$<br><strong>prediction error</strong>:<br> $$ME=\frac{1}{N_2}\sum_{i=1}^{N_2}[y_i^{(t)}-y_i^{(p)}(x_i)]^2$$</p>
+<p>其中，<br>$y_i^{(p)}(x_i)$表示第$i$个测试集的预测值<br>$y_i$表示第$i$个测试集的观测值<br>$y^{(t)}_i$是实际值<br>$y^{(p)}(x)$的参数p是从$N_2$个测试集的观测值中获得的，但是上面的累加的式子中的$y_i$和$x_i$是从从未被seen过的测试集的观测值$N_2$获得的。</p>
 <ol>
-<li>的</li>
+<li><p>看到这里突然发现有点跑偏了。决定先暂停这篇论文的研究。</p>
+</li>
 </ol>
   
 	</div>
@@ -199,6 +202,14 @@ bagging
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2017/04/05/python实现某网站自动打卡/" title="python实现某网站自动打卡">
+  <strong>上一篇：</strong><br/>
+  <span>
+  python实现某网站自动打卡</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2017/04/03/2017腾讯题——字符十六进制输出/"  title="2017腾讯题——字符十六进制输出">
@@ -270,7 +281,7 @@ bagging
 		  
 		
 		  
-			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>1</sup></a></li>
+			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>2</sup></a></li>
 		  
 		
 		  
@@ -303,11 +314,7 @@ bagging
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 			
@@ -315,11 +322,15 @@ bagging
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
 			
 		
 			

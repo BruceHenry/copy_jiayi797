@@ -80,6 +80,204 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/03/06/梯度提升决策树 AdaBoost DecisonTree/" title="梯度提升决策树 AdaBoost DecisonTree" itemprop="url">梯度提升决策树 AdaBoost DecisonTree</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-06T11:28:33.000Z" itemprop="datePublished"> 发表于 2017-03-06</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>上一节中介绍了《随机森林算法》，该算法使用bagging的方式作出一些决策树来，同时在决策树的学习过程中加入了更多的随机因素。该模型可以自动做到验证过程同时还可以进行特征选择。 </p>
+<p>本节，我们结合<code>AdaBoost+决策树</code>算法。</p>
+<h1 id="AdaBoost决策树算法引入">1. AdaBoost决策树算法引入</h1><p>在AdaBoost中每一轮迭代，都会给数据更新一个权重，利用这个权重，我们学习得到一个g，在这里我们得到一个决策树，最终利用线性组合的方式得到多个决策树组成的G。</p>
+<p>=======================================<br><strong>AdaBoost-DTree(DD)</strong><br>对于t=1,2,…,T，循环执行：</p>
+<ul>
+<li>更新数据的权重$u(t)$；</li>
+<li>通过决策树算法$DTree(D,u(t))$得到$g_t$；</li>
+<li>计算$g_t$的投票权重$α_t$。</li>
+</ul>
+<p>返回$G=LinearHypo({(g_t,α_t)})$。</p>
+<p>========================================</p>
+<p><strong>问题</strong>：如何要在决策树中，加入权重<code>ut</code></p>
+<p><strong>解决方案</strong>有两种：</p>
+<ul>
+<li>一种是通过算法加权，在计算Ein的地方嵌入权重计算，比如AdaBoost采用的最小化加权误差；</li>
+<li>另一种方法是将算法当成黑盒不变更，通过数据集加权，根据权重在bootstrap时“复制”数据，也就是加权的重采样。</li>
+</ul>
+<p>AdaBoost决策树通常用后一种，即：$AdaBoost+sampling∝u^{(t)}+DTree(D_t) $</p>
+<h1 id="加权的决策树算法-Weighted-Decision-Tree-Algorithm">2. 加权的决策树算法(Weighted Decision Tree Algorithm)</h1><p> 之前含有权重的算法中，我们在误差估计中加入了权重<code>u</code>：</p>
+<p> <img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-46-47.png" alt=""> </p>
+<p>为了对决策树中加入权重，且不改变原算法的健壮性，我们设法对输入的<code>数据</code>进行<code>权重加成</code>。而权重等效于数据的重复次数。根据这种方式得到一组新的数据，那么这组新的数据中的比例大概就是和权重的比例呈正比的，也就是说它能够表达权重对于数据的意义。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-14.png" alt=""> </p>
+<p>在AdaBoost-DTree中，为了简单起见，我们不去改变AdaBoost的框架，也不去修改决策树的内部细节，而只是通过基于权重的训练数据的采样来实现。</p>
+<p>即如下图所示的：AdaBoost提升决策树=AdaBoost提升+关于权重u的数据抽样+决策树</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-50.png" alt=""> </p>
+<h2 id="弱决策树算法">2.1. 弱决策树算法</h2><p>在AdaBoost算法中，我们<strong>通过错误率<code>εt</code>来计算单个的g的权重αt</strong>，那么如果我们使用决策树作为g的时候，g是一个完全长成的树，该树对整个数据集进行细致的切分导致Ein=0，那么这使得εt=0，但计算得到的权重αt会变成无限大。</p>
+<p>其意义是，如果使用一个能力很强的树作为g的话，那么该算法会赋予该树无限大的权重或票数，最终得到了一棵“独裁”的树（因为AdaBoost的哲学意义是庶民政治，就是集中多方的意见，及时有的意见可能是错误的），违背了AdaBoost的宗旨。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-59-58.png" alt=""> </p>
+<p>上面的问题出在使用了所有的数据和让树完全长成这两方面。针对这两个问题，我们要通过<code>剪枝</code>和<code>部分训练数据</code>得到一个弱一点的树。<br>所以实际上，AdaBoost-DTree是通过sampling的方式得到部分训练数据，通过剪枝的方式限制树的高度，得到弱一点的决策树。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-19-02.png" alt=""> </p>
+<p>下面介绍最弱的决策树。</p>
+<h2 id="决策桩，AdaBoost-Stump">2.2. 决策桩，AdaBoost-Stump</h2><p>什么样是树才是弱决策树呢？<br>我们这里限制这棵树只有一层（即它仅基于单个特征来做决策），即决策桩(Decision Stump)。这样我们需要让CART树的不纯度(impurity)尽可能低，学习一个决策桩。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-21-14.png" alt=""> </p>
+<p>所以，使用决策桩作为弱分类器的AdaBoost称为AdaBoost-Stump，它是一种特殊的AdaBoost-DTree。</p>
+<h2 id="决策桩的实现">2.3. 决策桩的实现</h2><p>本节主要参考《机器学习实战》p120</p>
+<h3 id="实验数据adaboost-py">2.3.1. 实验数据adaboost.py</h3><pre><code>from numpy import *
+def loadSimpData():
+    dataMat = matrix([[1.,2.1],[2.,1.1],[1.3,1.],[1.,1.],[2.,1.]])
+    classLabels = [1.0,1.0,-1.0,-1.0,1.0]
+    return dataMat,classLabels
+</code></pre><h3 id="二分类的决策桩实现stump-py">2.3.2. 二分类的决策桩实现stump.py</h3><p>先导入数据</p>
+<pre><code>import adaboost
+dataMat,classLabels = adaboost.loadSimpData()
+</code></pre><p>建立一个<code>buidStump()</code>函数，根据数据集，建立最佳单层决策树（只需要选择一个最好的特征即可）</p>
+<pre><code>def buildStump(dataArr,classLabels,D):
+    dataMatrix = mat(dataArr)
+    labelMat = mat(classLabels).T # T是做转置
+</code></pre><p><code>dataMatrix</code>形式为<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-16-16-29-28.png" alt=""><br><code>labelMat</code>形式为<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-16-16-29-39.png" alt=""> </p>
+<p>先令一些变量，之后解释。</p>
+<pre><code>m,n = shape(dataMatrix)
+numSteps = 10.0#步长
+bestStup = {}#最佳桩
+bestClasEst = mat(zeros((m,1)))#最佳分类est
+minError = inf
+</code></pre><p>接下来需要对每个特征计算出一个阈值<code>threshVal</code>，根据阈值二分类。</p>
+<pre><code>for i in range(n): # 遍历特征个数
+    #为了确定threshVal，我们从本特征下的最小值到最大值分10 step进行依次测试
+    rangeMin = dataMatrix[:,i].min();rangeMax = dataMatrix[:,i].max();
+    stepSize = (rangeMax - rangeMin)/numSteps
+    #下面对每个threshVal可能的值进行依次测试
+    for j in range(-1,int(numSteps)+1):
+        #然后应该开始比较大于阈值和小于阈值怎么怎么滴，为了增加代码的复用性，此处用一个循环来在大于和小于之间切换不等式
+        for inequal in [&apos;lt&apos;,&apos;gt&apos;]:#lt=小于等于，gt=大于
+            threshVal = (rangeMin + float(j)*stepSize)
+            # 开始测试这个特征下这个阈值的二分类器好不好用
+            predictedVals = stumpClassify(dataMatrix,i,threshVal,inequal)
+            #计算本次分类的err
+            errArr = mat(ones((m,1)))
+            errArr[predictedVals==labelMat]=0
+            #基于权重向量D计算权重
+            weightedError = D.T*errArr
+            if weightedError &lt; minError :
+                minError = weightedError
+                bestClasEst = predictedVals.copy()
+                bestStump[&apos;dim&apos;] = i
+                bestStump[&apos;thresh&apos;] = threshVal
+                bestStump[&apos;ineq&apos;] = inequal
+</code></pre><p>最后，返回最佳的决策桩，和误差</p>
+<pre><code>return bestStump,minError,bestClasEst
+</code></pre><h1 id="求解AdaBoost决策树">3. 求解AdaBoost决策树</h1><h2 id="AdaBoost的权重与投票分数的关系">3.1. AdaBoost的权重与投票分数的关系</h2><p>回顾AdaBoost算法：</p>
+<p>从权重<code>ut</code>，通过<code>◆t</code>对<code>u(t+1)</code>进行修正，而两个公式可以合成为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-35-34.png" alt=""> </p>
+<p>如下图，接着我们将<code>u(t+1)</code>展开(表达为<code>u(1)乘以一坨</code>)，最终可以变成连加；<br>我们发现图中橘色部分<code>∑αt·gt(xn)</code>是G(x)的分数！它现在出现在Adaboost的权重表达式中；<br>我们称橘色<code>∑αt·gt(xn)</code>为<strong>投票分数(voting score)</strong>：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-38-40.png" alt=""> </p>
+<p><strong>结论</strong>：AdaBoost里面每一个数据的权重，和<code>exp(-yn( 投票分数 on xn))</code>呈正比。即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-41-04.png" alt=""> </p>
+<h2 id="投票分数-Voting-Score-和间隔-Margin-的关系">3.2. 投票分数(Voting Score)和间隔(Margin)的关系</h2><p>线性混合(linear blending)等价于将假设看做是特征转换的线性模型：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-13-20.png" alt=""> </p>
+<p>其中<code>αt·gt(xn)</code>如果换作是<code>wT·φ(xn)</code>可能就更清楚了，这与下面给出的在SVM中的margin表达式对比，我们可以明白投票分数<code>∑αt·gt(xn)</code>的物理意义，即可以看做是没有正规化的边界(margin)。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-20-39.png" alt=""> </p>
+<p>所以，<code>yn·(voting score)</code>是有符号的、没有正规化的边界距离，从这个角度来说，我们希望<code>yn·(voting score)</code>越大越好，因为这样的泛化能力越强。于是，<code>exp(-yn·(voting score))</code>越小越好，那么<code>un(T+1)</code>越小越好。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-21-01.png" alt=""> </p>
+<p><strong>结论</strong>：AdaBoost在迭代过程中，是让<code>∑un(t)</code>越来越小的过程，在这个过程中，逐渐达到SVM中最大分类间隔的效果。</p>
+<h2 id="AdaBoost误差函数">3.3. AdaBoost误差函数</h2><p>上面解释到了，AdaBoost在迭代学习的过程，就是希望让<code>∑un(t)</code>越来越小的过程，那么我们<strong>新的目标</strong>就是最佳化权重和<code>∑un(T+1)</code>：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-58-44.png" alt=""> </p>
+<p>我们可以画出<code>0/1错误</code>和<code>AdaBoost误差函数err(s,y) = exp(-ys)</code>的函数曲线，我们发现AdaBoost的误差函数（称为exponential error measure）实际上也是0/1错误函数的上限函数，于是，<strong>我们可以通过最小化该函数来起到最佳化的效果</strong>。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-59-15.png" alt=""> </p>
+<h2 id="AdaBoost误差函数的梯度下降求解">3.4. AdaBoost误差函数的梯度下降求解</h2><p>本节目的————最小化AdaBoost的误差函数<code>Ein</code>：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-58-44.png" alt=""> </p>
+<p>这个任务比较麻烦，因为是Σ套着exp再套着Σ，因此需要一些前人的智慧了。</p>
+<p>我们可以将<code>Ein</code>函数在所在点的附近做泰勒展开，我们就可以发现在该点的附近可以被梯度所描述，我们希望求一个最好的方向（最大梯度相反的方向），然后在该方向上走一小步，这样我们就可以做到比现在的函数效果好一点点，依次进行梯度下降，最终达到最小化误差函数的效果。</p>
+<p>原始的梯度下降法：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-02-45.png" alt=""> </p>
+<p>为了模仿梯度下降的方法，假设前面已经AdaBoost完t-1轮了，现在要求的是一个函数gt(x)（或者称为h(x)）。</p>
+<p>在第t轮，我们沿着函数h(x)的方向走$η$的步长，可以使得目标函数迅速往min的方向走。如下：现在我们把<code>函数gt</code>当做向量，希望去找到这个<code>gt</code>（这里函数方向gt和上面介绍的最大梯度的方向向量没有什么差别，只是表示方式有所不同而已）。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-03-24.png" alt=""> </p>
+<p>我们解释一下上面的公式：</p>
+<ul>
+<li>(1、2行)由于前面已经执行完了<code>t-1</code>轮，因此可以把式子化简一下，把一些项目合并成<code>ut</code>的函数形式</li>
+<li>(3行左) 将<code>exp(-y·η·h(xn))</code>在原点xn=0点的泰勒展开，进一步化简得到得到<code>(1-yn·η·h(xn))</code>；（这里为什么要用0这个位置的taylor展开呢，可以理解成h(x)只是沿着原来的Σ1,t-1(alphat*g’(xn)这个函数，挪动的了一小步；这一小步，就意味着变化很小，变化很小甚至接近0，因此就可以在0点taylor展开。不晓得这种理解是否正确，意会吧）</li>
+<li>(3行右) 然后拆成两部分<code>∑un(t)</code>和<code>η·∑un(t)·yn·h(xn)</code>，第一部分是Ein，第二部分就是要最小化的目标。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-07.png" alt=""> </li>
+</ul>
+<p>到此，我们利用前人的智慧已经把目标函数给大大简化了，下面需要要求的东西有俩：</p>
+<p>1）<code>h(x)</code>是啥？</p>
+<p>2）<code>$η$</code>是啥？</p>
+<h3 id="求h-x">3.4.1. 求h(x)</h3><p>我们对<code>∑un(t)·yn·h(xn)</code>整理一下，对于二元分类情形，我们把<code>yn</code>和<code>h(xn)</code>是否同号进行分别讨论：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-29.png" alt=""> </p>
+<p>上面的公式中，我们特意将<code>∑un(t)·yn·h(xn)</code>拆成<code>-∑un(t)</code>和<code>Ein(h)</code>的形式，这里最小化<code>Ein</code>对应于AdaBoost中的A（弱学习算法），好的弱学习算法就是对应于梯度下降的函数方向。</p>
+<p><strong>结论</strong>：在AdaBoost的过程中，算法A就是good gt了！</p>
+<h3 id="求最佳化步长-η">3.4.2. 求最佳化步长$η$</h3><p>我们要最小化Eada，需要找到好的函数方向gt，但是得打这个gt的代价有些大，梯度下降的过程中，每走一小步，就需要计算得到一个gt。如果转换一下思路，我们现在已经确定了好的gt，我们希望快速找到梯度下降的最低点，那么我们需要找到一个合适的最大步长η。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-39.png" alt=""> </p>
+<p>我们这里使用贪心算法来得到最大步长η，称为steepest decent for optimization。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-54.png" alt=""> </p>
+<p>让Eada对η求偏微分，得到最陡时候的ηt，我们发现这时ηt等于AdaBoost的αt。所以在AdaBoost中αt是在偷偷地做最佳化的工作。</p>
+<p>核心在于EADA是怎么变成可对$η$求导的形式的：</p>
+<p>EADA = u1t<em>exp(-$η$) + u2t</em>exp($η$)…</p>
+<p>EADA1 = u1t<em>exp(-$η$) + ut2t</em>0 … （EADA1只考虑exp(-$η$)的项，其余的补上0）</p>
+<p>EADA2 = u1t<em>0 + u2t </em> exp($η$) …（EADA2只考虑exp(+$η$)的项，其余的补上0）</p>
+<p>则，EADA = EADA1 + EADA1 = (Σunt) <em> ( (1-epson)exp(-$η$) + epson</em>exp($η$) )</p>
+<p>随后的求导步骤就是很自然的了，因此就验证了之前的结论，$η$t = sqrt( (1-epsont)/epsont) )就是最优的。前一次课直接给出了这个结论，并没有说为什么，这次算是给出了一个相对理论些的推导。</p>
+<p><strong>结论</strong>：通过求解<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-25-13.png" alt=""><br>，我们得到最佳的<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-25-32.png" alt=""> </p>
+<h3 id="小结">3.4.3. 小结</h3><p>在第二小节中，我们从另外一个角度介绍了AdaBoost算法，它其实是steepest gradient decent。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-06-19.png" alt=""> </p>
+<p>上面的式子很清楚了，我们将AdaBoost的误差函数看做是指数误差函数，AdaBoost就是在这个函数上一步一步做最佳化，每一步求得一个h，并将该h当做是gt，决定这个gt上面要走多长的距离ηt，最终得到这个gt的票数αt。</p>
+<h1 id="AdaBoost决策树总结">4. AdaBoost决策树总结</h1><ol>
+<li>AdaBoost本次的u(t+1)与<code>exp(-yn( 投票分数 on xn))</code>成正比</li>
+<li>AdaBoost在迭代过程中，是让<code>∑un(t)</code>越来越小的过程，在这个过程中，逐渐达到SVM中最大分类间隔的效果</li>
+<li>上目标与最小化误差函数<code>err(s,y) = exp(-ys)</code>等价</li>
+<li>要使得<code>err(s,y)</code>最小，就需要求得<code>h(x)</code>和<code>η</code></li>
+</ol>
+<h1 id="参考文献">5. 参考文献</h1><ol>
+<li><a href="http://qianjiye.de/2015/01/gradient-boosted-decision-tree" target="_blank" rel="external">梯度提升决策树</a></li>
+<li><a href="http://www.cnblogs.com/xbf9xbf/p/4706150.html" target="_blank" rel="external">【Gradient Boosted Decision Tree】林轩田机器学习技术</a></li>
+<li>《机器学习实战》</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/06/梯度提升决策树 AdaBoost DecisonTree/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/06/梯度提升决策树 AdaBoost DecisonTree/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/03/05/自适应提升 AdaBoost/" title="提升方法 AdaBoost" itemprop="url">提升方法 AdaBoost</a>
   </h1>
   <p class="article-author">By
@@ -114,13 +312,13 @@
 <ol>
 <li>初始化训练数据的权值(每个都设为1/N)：</li>
 </ol>
-<p>$$D<em>1=(w</em>{11},w<em>{1i},…,w</em>{1N}),w_{1i}=\frac{1}{N},i=1,2,…,N$$</p>
+<p>$$D_1=(w_{11},w_{1i},…,w_{1N}),w_{1i}=\frac{1}{N},i=1,2,…,N$$</p>
 <ol>
 <li>对m=1,2,…,M:</li>
 </ol>
 <ul>
 <li>使用带权值$D_m$的训练集学习，得到基本分类器$G_m(x):X\rightarrow \{-1,+1\}$</li>
-<li>计算$G_m(x)$在训练集上的分类误差率：$$e_m=P(G_m(x_i)\neq y<em>i)=\sum</em>{n=1}^N w_{mi}I(G_m(x_i)\neq y_i)$$</li>
+<li>计算$G_m(x)$在训练集上的分类误差率：$$e_m=P(G_m(x_i)\neq y_i)=\sum_{n=1}^N w_{mi}I(G_m(x_i)\neq y_i)$$</li>
 </ul>
 <ol>
 <li>计算$G_m(x)$的系数：$$\alpha_m=\frac{1}{2}log\frac{1-e_m}{e_m}$$</li>
@@ -144,7 +342,7 @@
 <p>得到g差异很大的方法：</p>
 <ul>
 <li>第一轮$u_n^t$时，得到$g_t$<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-39-48.png" alt=""> </li>
-<li>第二轮，选择一个 在$g_t$ 表现不好的 $u<em>n^{t+1}$  ，得到 $g</em>{t+1}$ <img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-41-02.png" alt=""><br>– 表现不好的定义：<br>— 将$u_n^{t+1}$作用在$g_t$上，得到一个归一化的错误率<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-45-01.png" alt=""><br>— 为了简便，定义橙色方块为所有犯错误的$u_n^{t+1}$的累加，绿色圆形为所有正确的$u_n^{t+1}$累加<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-47-12.png" alt=""><br>– 表现不好的选择方法：<br>— 将本次正确的$u_n^t$，除以一个错误的比例（缩小正确），赋给$u_n^{t+1}$<br>— 将本次错误的$u_n^t$，乘以一个正确的比例（放大错误），赋给$u_n^{t+1}$<br>— 这样得到的$u_n^{t+1}$的比率就会为2/1<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-51-21.png" alt=""> </li>
+<li>第二轮，选择一个 在$g_t$ 表现不好的 $u_n^{t+1}$  ，得到 $g_{t+1}$ <img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-41-02.png" alt=""><br>– 表现不好的定义：<br>— 将$u_n^{t+1}$作用在$g_t$上，得到一个归一化的错误率<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-45-01.png" alt=""><br>— 为了简便，定义橙色方块为所有犯错误的$u_n^{t+1}$的累加，绿色圆形为所有正确的$u_n^{t+1}$累加<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-47-12.png" alt=""><br>– 表现不好的选择方法：<br>— 将本次正确的$u_n^t$，除以一个错误的比例（缩小正确），赋给$u_n^{t+1}$<br>— 将本次错误的$u_n^t$，乘以一个正确的比例（放大错误），赋给$u_n^{t+1}$<br>— 这样得到的$u_n^{t+1}$的比率就会为2/1<br>— 即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-19-51-21.png" alt=""> </li>
 </ul>
 <h3 id="优化权重u的方法————放缩因子">2.3.2. 优化权重u的方法————放缩因子</h3><p>放缩因子-Adaptive Boosting Algorithm<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-20-02-12.png" alt=""> </p>
 <ul>
@@ -1178,95 +1376,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/02/从出租车行驶数据筛选出OD点数据/" title="从出租车行驶数据筛选出OD点数据" itemprop="url">从出租车行驶数据筛选出OD点数据</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-02T06:12:00.000Z" itemprop="datePublished"> 发表于 2017-03-02</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>动手前先动脑，这句话献给自己。</p>
-<h2 id="目标">0.1. 目标</h2><p>从出租车行驶数据中，筛选出OD点。</p>
-<h2 id="数据集">0.2. 数据集</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">名称：2012年11月1日 北京市出租车GPS数据</div><div class="line"></div><div class="line">格式：txt文本文件</div><div class="line"></div><div class="line">数据项及顺序：车辆标识,触发事件,运营状态,GPS时间,GPS经度,GPS纬度,GPS速度,GPS方向,GPS状态</div><div class="line">车辆标识：6个字符</div><div class="line">触发事件：0=变空车，1=变载客，2=设防，3=撤防，4=其它</div><div class="line">运营状态：0=空车，1=载客，2=驻车，3=停运，4=其它</div><div class="line">GPS时间</div><div class="line">GPS经度</div><div class="line">GPS纬度</div><div class="line">GPS速度：取值000-255内整数，以公里/小时为单位</div><div class="line">GPS方位：取值000-360内整数，以度为单位</div><div class="line">GPS状态：0=无效，1=有效</div><div class="line">结束串：回车符+换行符</div><div class="line"></div><div class="line">数据示例:</div><div class="line">123456,0,0,20110414160613,116.4078674,40.2220650,21,274,1</div></pre></td></tr></table></figure>
-<h2 id="思路">0.3. 思路</h2><ol>
-<li>将数据点按照“车牌号、运营时间、运营状态”依次从小到大排序</li>
-<li>筛出同一车牌号的运营状态变化的时刻的数据</li>
-</ol>
-<h2 id="方法">0.4. 方法</h2><ul>
-<li><p>方法一：导入数据库，再写脚本操作数据。可能是我对数据库实在没缘分，这个方法没有成功。</p>
-</li>
-<li><p>方法二：将车牌号分段后，在每段上进行如上思路所示的操作。</p>
-</li>
-</ul>
-<p>为了更好地分段，我们先对车牌号段进行分析。</p>
-<h3 id="车牌号段分析">0.4.1. 车牌号段分析</h3><p>查询车的数目：12409个</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT COUNT(DISTINCT id) FROM SET1</div></pre></td></tr></table></figure>
-<p>脚本名：data1IDcount.py</p>
-<p>地址：81服务器上，D:\jiayi\wxt</p>
-<p>听说数据集有三千多万，所以我决定每一千个数据取一条进行粗略分析。</p>
-<p>车牌号分布：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-01-15-01-24.png" alt=""> </p>
-<p>结果：</p>
-<ol>
-<li>车牌号分布在1-800000之间</li>
-<li>100000-200000的车最多</li>
-<li>一共有32885600条数据</li>
-</ol>
-<h3 id="分段">0.4.2. 分段</h3><p>脚本名：data2cut.py</p>
-<p>分段法：将车牌号分为10段，其中100000-200000为三段，其余段均分。 <del>简单起见，还是将车牌号均分为十段了(ERROR:Errcode: 28 - No space left on device))</del></p>
-<p>还是采用了数据库。是福不是祸，是祸躲不过呀。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-01-19-49-25.png" alt=""> </p>
-<h3 id="伪代码">0.4.3. 伪代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">for i = 0:10000:800000</div><div class="line">    # 为本区间数据建立新表，并插入数据</div><div class="line">    CREATE TABLE to this range</div><div class="line">    INSERT data </div><div class="line">    #将本区间数据排序</div><div class="line">    ORDER BY id,timen,opevent</div><div class="line">    #遍历，筛出本段的OD点</div><div class="line">    for line in this range table</div><div class="line">    </div><div class="line">        #如果本条数据是跳跃点，则插入到OD表中</div><div class="line">        #vehicle:上一条数据的车牌号</div><div class="line">        #pre:上一条数据的opevent</div><div class="line">        </div><div class="line">        #第一条数据</div><div class="line">        if vehicle==&quot;&quot;:</div><div class="line">            vehicle = row[0]</div><div class="line">            pre=row[2]</div><div class="line">        else:#从第二条记录开始</div><div class="line">            # 如果与上一条是一个车</div><div class="line">            if vehicle==row[0]:</div><div class="line">                #如果与上一条记录是同一个车，且event有变化</div><div class="line">                if pre!=row[2]:</div><div class="line">                    INSERT to OD_table</div><div class="line">                    pre=row[2]</div><div class="line">                    vehicle=row[0]</div><div class="line">                else:</div><div class="line">                    continue</div><div class="line">            #如果与上一条不是同一个车</div><div class="line">            else:</div><div class="line">                vehicle=row[0]</div><div class="line">                pre=row[2]</div></pre></td></tr></table></figure>
-<h3 id="结果">0.4.4. 结果</h3><p>原始数据：data.set1，32885600个</p>
-<p>OD点：data.set1_od ,645271个</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/数据预处理/">数据预处理</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/02/从出租车行驶数据筛选出OD点数据/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/02/从出租车行驶数据筛选出OD点数据/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -1319,7 +1428,7 @@
 		  
 		
 		  
-			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>1</sup></a></li>
+			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>2</sup></a></li>
 		  
 		
 		  
@@ -1352,11 +1461,7 @@
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 			
@@ -1364,11 +1469,15 @@
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
 			
 		
 			
