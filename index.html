@@ -80,6 +80,788 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/05/12/多线程/" title="多线程" itemprop="url">多线程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-12T05:51:34.000Z" itemprop="datePublished"> 发表于 2017-05-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>线程(thread)</strong>：每个任务称为一个线程<br><strong>线程和进程区别</strong>：每个进程有自己独立的变量，而线程则共享数据。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/05/12/多线程/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/05/12/多线程/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/05/11/OpenMessaging/" title="OpenMessaging" itemprop="url">OpenMessaging</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-11T14:58:55.000Z" itemprop="datePublished"> 发表于 2017-05-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>OpenMessaging的主要关系如下图所示：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-05-12-16-24-52.png" alt=""> </p>
+<p>其中，各部分的内容和关系见下述。</p>
+<h1 id="Namespace">1. Namespace</h1><p>Namespace就像一个cgroup namespace,是用来创建一个有安全保障的独立的空间。每个namespace都有自己的producer,consumer,topic,queue等等。OpenMessaging用 ​<strong>MessagingAccessPoint</strong>​（消息访问点）来访问/读/写指定namespace的<strong>​资源</strong>​。</p>
+<h1 id="Producer">2. Producer</h1><p>Openmessaging定义了两种Producer:<strong>​Producer</strong>​和 <strong>​SequenceProducer</strong>​</p>
+<ul>
+<li><strong>​Producer</strong>​:提供各种send方法，用来将一个消息送往指定的destination,<strong>Topic</strong>或者<strong>Queue</strong>。支持三种方式：同步、异步、单向(oneway)</li>
+<li><strong>SequenceProducer</strong>:重点在于速度，且支持批处理。能发送多个数据并一次提交。</li>
+</ul>
+<h1 id="Consumer">3. Consumer</h1><p>Openmessaging定义了两种Consumer::<strong>PullConsumer</strong>、<strong>PushConsumer</strong>和<strong>StreamConsumer</strong>.每种Consumer仅支持来自于<strong>Queue</strong>的consume消息。</p>
+<ul>
+<li><strong>PullConsumer</strong>:从指定队列中pulls消息。支持“submit the consume<br>result by acknowledgement at any time”。每个PullConsumer仅能从固定的队列中pull消息。</li>
+<li><strong>PushConsumer</strong>:可从多个队列中接收消息，且这个消息是由MOM server push上去的。PushConsumer可依附于多个独立的、具有不同的MessageListener的队列，并且可以随时通过<strong>ReceivedMessageContext</strong>提交结果。</li>
+<li><strong>StreamingConsumer</strong>:一种崭新的consumer类型，是一种面向流的consumer,面向留信息的一体化信息系统。</li>
+</ul>
+<h1 id="Topic-Queue-and-Routing">4. Topic Queue and Routing</h1><p>这三个概念非常相近。虽然Topic和Queue有不同的用途，但它们总让人迷惑。</p>
+<h2 id="Topic">4.1. Topic</h2><p>Topic是原始信息的载体，用来holding消息。消息的分发方式和有序性是没有定义的。</p>
+<h2 id="Routing">4.2. Routing</h2><p>Topic中的消息是原始的，是待处理的，一般不易引起consumers的注意。总之，Topic中的数据是producer-orented（导向）的，而不是consumer-oriented。</p>
+<p>因此Routing负责加工Topic中的原始消息，并routing去Queue中。每个Routing有一个<strong>操作管线（operator pipeline）</strong>，包含着一系列的操作。消息会通过操作管线从Topic流向Queue。</p>
+<p><strong>操作（operator）</strong>是用来处理在Routing流通的消息的。有很多操作，例如expression operator, deduplicator operator, joiner operator, filter operator, rpc<br>operator等等。</p>
+<h2 id="Queue-队列">4.3. Queue(队列)</h2><p>现在消息已经被routed到Queue中了。现在消息就可以被consumers使用了。</p>
+<p>需要注意的是，一个Queue可能会被分为几部分，消息可能通过MessageHeader#SHARDING_KEY被routed到某个特殊的部分中。</p>
+<h2 id="Topic与Queue比较">4.4. Topic与Queue比较</h2><ul>
+<li>都是消息的载体</li>
+<li>Topic是preducer-oriented的，而Queue是consumer-oriented的</li>
+<li>Topic中的消息来自于Producer,而Queue中的消息来自于Topic或者Producer</li>
+<li>Queue包含几个部分，而Topic形状未定义</li>
+<li>在大多数情况下，Queue是Topic的一个子集</li>
+<li>Queue的创建、销毁都很容易，且与producer无关</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/中间件/">中间件</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/OpenMessaging/">OpenMessaging</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/05/11/OpenMessaging/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/05/11/OpenMessaging/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/05/11/中间件入门/" title="中间件入门" itemprop="url">中间件入门</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-11T08:52:49.000Z" itemprop="datePublished"> 发表于 2017-05-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="中间件概念">1. 中间件概念</h1><p><strong>中间件</strong>：处于操作系统和应用程序之间的软件。</p>
+<p>中间件简单解释，可以理解为面向信息系统交互，集成过程中的通用部分的集合，屏蔽了底层的通讯，交互，连接等复杂又通用化的功能，以产品的形式提供出来，系统在交互时，直接采用中间件进行连接和交互即可，避免了大量的代码开发和人工成本。</p>
+<p>其实，理论上来讲，中间件所提供的功能通过代码编写都可以实现，只不过开发的周期和需要考虑的问题太多，逐渐的，这些部分，以中间件产品的形式进行了替代。</p>
+<p>比如常见的消息中间件，即系统之间的通讯与交互的专用通道，类似于邮局，系统只需要把传输的消息交给中间件，由中间件负责传递，并保证传输过程中的各类问题，如网络问题，协议问题，两端的开发接口问题等均由消息中间件屏蔽了，出现了网络故障时，消息中间件会负责缓存消息，以避免信息丢失。相当于你想给美国发一个邮包，只需要把邮包交给邮局，填写地址和收件人，至于运送过程中的一系列问题你都不需要关心了。</p>
+<h1 id="中间件分类">2. 中间件分类</h1><ol>
+<li>消息中间件（MOM：Message-Oriented Middleware）</li>
+<li>数据中间件（Database Middleware）</li>
+<li>远程过程调用中间件（RPC：Remote Process Call）</li>
+<li>对象请求代理中间件（ORB：Object Request Broker）</li>
+<li>事务处理中间件（TP Monitor：Transaction Process Monitor）</li>
+<li>J2EE中间件</li>
+</ol>
+<h1 id="Open-Messaging">3. Open-Messaging</h1><p>是一个建立行业内的指引和消息的协议（charter）。它的streaming规范提供了一个可用于电子商务、物联网和大数据的基础框架。它的主要目标是建立一个在分布式异构环境中面向云、简单、灵活和独立于语言的环境。协议的一致性似的它可以跨平台开发异构消息应用程序。</p>
+<p><strong>域结构</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-05-11-17-16-52.png" alt=""> </p>
+<h1 id="消息中间件-Message-Queue">4. 消息中间件 Message Queue</h1><p>Message Queue是一种应用程序对应用程序的通信方法。程序之间通过在消息中发送数据进行通信，而不是通过直接调用彼此来通信，直接调用通常是用于诸如远程过程调用的技术。排队指的是应用程序通过队列来通信。队列的使用除去了接收和发送应用程序同时执行的要求。</p>
+<p>提及消息中间件的时候，还会涉及生产者和消费者两个概念。消息中间件是负责接收来自生产者的消息，并存储并转发给对应的消费者，生产者可以按 topic 发布各样消息，消费者也可以按 topic 订阅各样消息。生产者只管往消息队列里推送消息，不用等待消费者的回应；消费者只管从消息队列中取出数据并处理，可用可靠性等问题都交由消息中间件来负责。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-05-12-15-43-09.png" alt=""><br>生产者和消费者通常有两种对应关系，一个生产者对应一个消费者，以及一个生产者对应多个消费者。</p>
+<h1 id="参考文献">5. 参考文献</h1><p>1.<a href="https://www.zhihu.com/question/19730582/answer/16390709" target="_blank" rel="external">知乎FireJones的回答</a><br>2.<a href="http://wiki.jikexueyuan.com/project/redis/middleware.html" target="_blank" rel="external">极客学院，消息中间件</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/05/11/中间件入门/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/05/11/中间件入门/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/05/04/python——os操作/" title="python——os模块" itemprop="url">python——os模块</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-04T08:06:29.000Z" itemprop="datePublished"> 发表于 2017-05-04</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="os模块">1. os模块</h1><p>os模块的作用：</p>
+<p>　　os，语义为操作系统，所以肯定就是操作系统相关的功能了，可以处理文件和目录这些我们日常手动需要做的操作，就比如说：显示当前目录下所有文件/删除某个文件/获取文件大小……</p>
+<p>　　另外，os模块不受平台限制，也就是说：当我们要在linux中显示当前命令时就要用到pwd命令，而Windows中cmd命令行下就要用到这个，额…我擦，我还真不知道，（甭管怎么着，肯定不是pwd），这时候我们使用python中os模块的os.path.abspath(name)功能，甭管是linux或者Windows都可以获取当前的绝对路径。</p>
+<h1 id="文件夹操作">2. 文件夹操作</h1><h2 id="检验文件夹是否存在">2.1. 检验文件夹是否存在</h2><pre><code>os.path.exists(directory)
+</code></pre><h2 id="创建文件夹">2.2. 创建文件夹</h2><pre><code>os.makedirs(directory)
+</code></pre><p>实例：<br>检验文件夹是否存在，若不存在，则创建之</p>
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_dir</span><span class="params">(directory)</span>:</span></div><div class="line">    flag=os.path.exists(directory)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> flag:</div><div class="line">        os.makedirs(directory)</div></pre></td></tr></table></figure>
+</code></pre><h2 id="遍历指定目录名，显示目录下所有文件">2.3. 遍历指定目录名，显示目录下所有文件</h2><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pathDir =  os.listdir(filepath)</div><div class="line">    <span class="keyword">for</span> allDir <span class="keyword">in</span> pathDir:</div><div class="line">        <span class="keyword">print</span> allDir</div></pre></td></tr></table></figure>
+</code></pre><h1 id="参考文献">3. 参考文献</h1><ol>
+<li><a href="http://www.cnblogs.com/MnCu8261/p/5483657.html" target="_blank" rel="external">python基础之模块之os模块</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Python/">Python</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/05/04/python——os操作/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/05/04/python——os操作/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/05/04/java学习笔记-3-Object/" title="java学习笔记(3)-Object" itemprop="url">java学习笔记(3)-Object</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-04T03:47:33.000Z" itemprop="datePublished"> 发表于 2017-05-04</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="Object特性">1. Object特性</h1><ul>
+<li>所有类的超类</li>
+<li>可以引用任何对象</li>
+</ul>
+<h1 id="equals方法">2. equals方法</h1><p><code>Object</code>类中的<code>equals</code>方法判断两对象是否有相同的<strong>引用</strong></p>
+<h2 id="equals的重写">2.1. equals的重写</h2><p>在实际coding中，一般我们都会对<code>equals</code>方法进行重写，例:</p>
+<ol>
+<li><p>对于超类<code>Employee</code>：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span></span>&#123;</div><div class="line">        <span class="comment">//如果otherObject与this是同一个引用</span></div><div class="line">        <span class="keyword">if</span>(<span class="keyword">this</span> == therObject) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line"></div><div class="line">        <span class="comment">//如果therObject为空</span></div><div class="line">        <span class="keyword">if</span>(therObject == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line"></div><div class="line">        <span class="comment">//如果类型不同</span></div><div class="line">        <span class="keyword">if</span>(getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line"></div><div class="line">        <span class="comment">//现在我们已经确认了otherObject是一个非空的Employee对象</span></div><div class="line">        <span class="comment">//为了比较实例域，我们将otherObject转换为Employee类型</span></div><div class="line">        Employee other = (Employee) otherObject</div><div class="line"></div><div class="line">        <span class="comment">//检测实例域是否相等</span></div><div class="line">        <span class="keyword">return</span> name.equals(other.name)</div><div class="line">            &amp;&amp; salary == other.salary</div><div class="line">            &amp;&amp; hireDay.equals(other.hireDay);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 为了防止<code>this.name</code>或<code>this.hireDay</code>可能为<code>null</code>的情况，将最后一句改为：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> Obejcts.equals(name,other.name)</div><div class="line">    &amp;&amp; salary == other.salary</div><div class="line">    &amp;&amp; Objects.equals(hireDay,other.hireDay);</div></pre></td></tr></table></figure>
+<p> <strong><code>Obejcts.equals(a,b)</code>运行过程</strong>：</p>
+<ul>
+<li>如果<code>a</code>和<code>b</code>都为<code>null</code>，则返回true</li>
+<li>如果其中一个为<code>null</code>，返回false</li>
+<li>如果都不为<code>null</code>，则调用<code>a.equals(b)</code></li>
+</ul>
+</li>
+<li><p>对于<code>Employee</code>的子类<code>Manager</code></p>
+</li>
+</ol>
+<p>在子类中定义<code>euqals</code>方法时，要首先调用超类的euqals，然后比较子类中的实例域。</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span></span>&#123;</div><div class="line">        <span class="comment">//先调用超类的equals方法，检验this与otherObject是否属于同一class</span></div><div class="line">        <span class="keyword">if</span>(!<span class="keyword">super</span>.equals(otherObject)) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        Manager other = (Manager) otherObejct;</div><div class="line">        <span class="keyword">return</span> bonus == other.bonus</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><h2 id="equals方法的特性">2.2. equals方法的特性</h2><ul>
+<li>自反性：若<code>x!=null</code>,则<code>x.equals(x)</code>应返回<code>true</code></li>
+<li>对称性：<code>y.equals(x)</code>与<code>x.euqals(y)</code>应返回同样结果</li>
+<li>传递性：若<code>x.equals(y)</code>返回<code>true</code>,且<code>y.equals(z)</code>返回<code>true</code>，则<code>x.equals(z)</code>也必须返回<code>true</code></li>
+<li>一致性：若x与y的引用对象没有发生变化，则反复调用<code>x.equals(y)</code>应返回同样结果</li>
+<li>对任意非空引用x，则<code>x.equals(null)</code>应该返回false</li>
+</ul>
+<h2 id="相等测试">2.3. 相等测试</h2><p><strong>问题</strong><br>如果隐式（this）和显式（传入的）的参数不属于同一类，equals方法如何处理？</p>
+<p><strong>解决方法一</strong><br>在上例中，我们用到了<code>getClass()</code>：</p>
+<pre><code>//如果类型不同
+      if(getClass() != otherObject.getClass()) return false;
+</code></pre><p><strong>解决方法二</strong><br>有的程序员喜欢用<code>instanceof</code>检测：<br>(instanceof 运算符是用来在运行时指出对象是否是特定类的一个实例)</p>
+<pre><code>if(!(otherObeject instanceof Employee)) return false;
+</code></pre><p><strong>方法一存在的问题</strong><br>若<code>e</code>是一个<code>Employee</code>对象，<code>m</code>是一个<code>Manager</code>对象，且两者具有相同姓名、薪水和雇用日期。</p>
+<p>如果<code>Manager</code>没有重新实现<code>equals</code>方法，那么当<code>m1.equals(m2)</code>比较时，就会使用到<code>e.getClass() != m2.getClass()</code>来进行比较，显然结果返回<code>false</code>，因此这不是正确的比较。</p>
+<p><strong>方法二存在的问题</strong><br>那么对于<code>e.equals(m)</code>来说，<code>instanceof</code>返回<code>true</code>.（<code>Manager</code>是<code>Employee</code>的一个实例）<br>但对于<code>m.equals(e)</code>来说，<code>instanceof</code>返回<code>false</code></p>
+<p>！！！！！违反了对称性！</p>
+<p><strong>总结</strong></p>
+<ul>
+<li>如果子类拥有自己的相等概念，例如若两个<code>Manager</code>对象的姓名、薪水和雇用日期（父类Employee的域）均相等，而奖金（子类Manager的域）不相等，就认为两个<code>Manager</code>不相等。此时可以用<code>getClass</code>检测</li>
+<li>如果使用雇员ID(父类Employee的域)来作为相等检测标准，并这个标准适合所有的子类，就可以用<code>instanceof</code>检测，并将<code>Employee</code>的<code>equals</code>申明为<code>final</code></li>
+</ul>
+<p><strong>完美的equals</strong>：</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span></span>&#123;</div><div class="line">    <span class="comment">//检测this与otherObject是否引用同一对象</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>==otherObject)<span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    <span class="comment">//检测otherObject是否为null</span></div><div class="line">    <span class="keyword">if</span>(otherObject == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="comment">//比较this与Object是否属于同一个类，有以下两种方案：</span></div><div class="line">    <span class="comment">//如果equals的语义在每个子类中都有改变，就用getClass:</span></div><div class="line">    <span class="keyword">if</span>(getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="comment">//如果所有子类都有统一equals语义，则用instanceof检测：</span></div><div class="line">    <span class="keyword">if</span>(!(otherObject <span class="keyword">instanceof</span> ClassName)) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="comment">//将otherObject转换为相应的类类型</span></div><div class="line">    ClassName other = (ClassName) otherObject</div><div class="line">    <span class="comment">//对所需要的域进行比较</span></div><div class="line">    <span class="keyword">return</span> field1 == other.field1 </div><div class="line">        &amp;&amp; field2 == other.field2</div><div class="line">        &amp;&amp; Objects.equals(field3,other field3)</div><div class="line">        &amp;&amp; ...;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p><strong>注意</strong>：如果在子类中重新定义<code>equals</code>，则要在其中包含调用<code>super.equals(other)</code></p>
+<h1 id="hashCode方法">3. hashCode方法</h1>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/05/04/java学习笔记-3-Object/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/05/04/java学习笔记-3-Object/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/28/xgboost参数/" title="xgboost参数调节完全指南（Python版）" itemprop="url">xgboost参数调节完全指南（Python版）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-28T09:16:11.000Z" itemprop="datePublished"> 发表于 2017-04-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>本文大多来自于参考文献2.的翻译。</p>
+<h1 id="Xgboost参数">1. Xgboost参数</h1><p>XGBoost作者将参数分为3类：</p>
+<ol>
+<li>基本(General)参数：指导整体函数</li>
+<li>提升(Booster)参数：在每一步指导每个提升（树或回归）</li>
+<li>学习任务(Learning Task Parameters)参数：指导优化模型表现</li>
+</ol>
+<h2 id="基本参数">1.1. 基本参数</h2><h3 id="booster">1.1.1. booster</h3><ol>
+<li>默认值：gbtree</li>
+<li>含义：在每次迭代中的模型类型，有两种选择：</li>
+</ol>
+<ul>
+<li>gbtree:树模型</li>
+<li>gblinear:线性模型</li>
+</ul>
+<h3 id="silent">1.1.2. silent</h3><ol>
+<li>默认值：0</li>
+<li>含义</li>
+</ol>
+<ul>
+<li>0=运行时打印running messages</li>
+<li>1=不打running messages</li>
+</ul>
+<h3 id="nthread">1.1.3. nthread</h3><ol>
+<li>运行时的最大线程数</li>
+<li>默认值：占当前计算机的最大线程</li>
+</ol>
+<h2 id="提升参数">1.2. 提升参数</h2><p>这里仅仅介绍树模型（gbtree）的相关参数。</p>
+<h3 id="eta">1.2.1. eta</h3><ol>
+<li>学习步长</li>
+<li>default=0.3</li>
+<li>一般调整下限为0.01-0.2</li>
+</ol>
+<h3 id="min-child-weight">1.2.2. min_child_weight</h3><ol>
+<li>表示所有孩子节点(all observations required in a child)的最小权重和</li>
+<li>一般都用来控制过拟合。</li>
+<li>但如果调得太高就会导致欠拟合。</li>
+<li>default=1</li>
+</ol>
+<h3 id="max-depth">1.2.3. max_depth</h3><ol>
+<li>default=6</li>
+<li>用来控制过拟合</li>
+<li>一般在3-10之间</li>
+</ol>
+<h3 id="gamma">1.2.4. gamma</h3><ol>
+<li>default=0</li>
+<li>range: [0,∞]</li>
+<li>模型在默认情况下，对于一个节点的划分只有在其损失函数得到结果大于0的情况下才进行，而gamma给定了所需的最低损失函数的值</li>
+<li>gamma值使得算法更conservation，且其值依赖于损失函数，在模型中应该进行调参。</li>
+</ol>
+<h3 id="max-delta-step">1.2.5. max_delta_step</h3><ol>
+<li>default=0</li>
+<li>在最大化步长的时候，我们允许每个树的权重去估算它。</li>
+<li>当max_delta_step=0时，意味着没有误差</li>
+<li>当max_delta_step&gt;0时，意味着结果更保守</li>
+<li>一般不需要调参。但当类别及不平衡的逻辑回归时可能会用到。</li>
+</ol>
+<h3 id="subsample-default-1">1.2.6. subsample [default=1]</h3><p>Same as the subsample of GBM. Denotes the fraction of observations to be randomly samples for each tree.<br>Lower values make the algorithm more conservative and prevents overfitting but too small values might lead to under-fitting.<br>Typical values: 0.5-1</p>
+<h3 id="colsample-bytree-default-1">1.2.7. colsample_bytree [default=1]</h3><p>Similar to max_features in GBM. Denotes the fraction of columns to be randomly samples for each tree.</p>
+<p>Typical values: 0.5-1</p>
+<h3 id="colsample-bylevel-default-1">1.2.8. colsample_bylevel [default=1]</h3><p>Denotes the subsample ratio of columns for each split, in each level.<br>I don’t use this often because subsample and colsample_bytree will do the job<br>for you. but you can explore further if you feel so.</p>
+<h3 id="lambda-default-1">1.2.9. lambda [default=1]</h3><p>L2 regularization term on weights (analogous to Ridge regression)<br>This used to handle the regularization part of XGBoost. Though many data scientists don’t use it often, it should be explored to reduce overfitting.</p>
+<h3 id="alpha-default-0">1.2.10. alpha [default=0]</h3><p>L1 regularization term on weight (analogous to Lasso regression)<br>Can be used in case of very high dimensionality so that the algorithm runs faster when implemented</p>
+<h3 id="scale-pos-weight-default-1">1.2.11. scale_pos_weight [default=1]</h3><p>A value greater than 0 should be used in case of high class imbalance as it helps in faster convergence.</p>
+<h2 id="学习任务参数">1.3. 学习任务参数</h2><h3 id="objective-default-reg-linear">1.3.1. objective [default=reg:linear]</h3><ol>
+<li>default=reg:linear</li>
+<li>定义学习任务及相应的学习目标，可选的目标函数如下：</li>
+</ol>
+<ul>
+<li>“reg:linear” –线性回归。</li>
+<li>“reg:logistic” –逻辑回归。</li>
+<li>“binary:logistic” –二分类的逻辑回归问题，输出为概率。</li>
+<li>“binary:logitraw” –二分类的逻辑回归问题，输出的结果为wTx。</li>
+<li>“count:poisson” –计数问题的poisson回归，输出结果为poisson分布。在poisson回归中，max_delta_step的缺省值为0.7。(used to safeguard optimization)</li>
+<li>“multi:softmax” –让XGBoost采用softmax目标函数处理多分类问题，同时需要设置参数num_class（类别个数）</li>
+<li>“multi:softprob” –和softmax一样，但是输出的是ndata * nclass的向量，可以将该向量reshape成ndata行nclass列的矩阵。没行数据表示样本所属于每个类别的概率。</li>
+<li>“rank:pairwise” –set XGBoost to do ranking task by minimizing the pairwise loss</li>
+<li></li>
+</ul>
+<h3 id="eval-metric">1.3.2. eval_metric</h3><ol>
+<li>默认值根据objective参数调整</li>
+<li>用来验证数据的参数</li>
+<li>几个典型值：</li>
+</ol>
+<ul>
+<li>rmse – root mean square error</li>
+<li>mae – mean absolute error</li>
+<li>logloss – negative log-likelihood</li>
+<li>error – Binary classification error rate (0.5 threshold)</li>
+<li>merror – Multiclass classification error rate</li>
+<li>mlogloss – Multiclass logloss</li>
+<li>auc: Area under the curve</li>
+</ul>
+<h3 id="seed-default-0">1.3.3. seed [default=0]</h3><p>The random number seed.<br>Can be used for generating reproducible results and also for parameter tuning.</p>
+<h1 id="例：CTR问题的正样本过少">2. 例：CTR问题的正样本过少</h1><p>参考文献[xgboost导读和实战]</p>
+<p>《xgboost导读和实战》中提到，CTR问题的正样本很稀疏，根据理论推导，会导致叶子节点权重变大，进而导致每一步的估计step过大。</p>
+<p>这时可以调节以下参数：</p>
+<p><code>min_child_weight</code></p>
+<p>默认为1.是每个叶子里h的和至少是多少。对正负样本不均衡时的0-1分类而言，假设h在0.01附近，min_child_weight为1意味着叶子节点中最少需要包含100 个样本。这个参数非常影响结果，控制叶子节点中二阶导的和的最小值，该参数值越小，越容易 overfitting。</p>
+<p><code>eta</code><br>shrinkage 参数，用于更新叶子节点权重时，乘以该系数，避免步长过大。参数值越大，越可能无法收敛。把学习率eta设置的小一些，小学习率可以使得后面的学习更加仔细。</p>
+<p><code>scale_pos_weight</code><br>如果优化的是仅仅展示排序，就是AUC的话，可以采用平衡正负样本权重的<br>办法调大正样本权重。设置 scale_pos_weight就可以把正样本权重乘这个系数。如果还需要优化回归的性能，还需要在此基础上做下 recalibration。</p>
+<p><code>max_delta_step</code><br>如果设立了该值，对叶子节点的权重值做了约束在 [max_delta_step,max_delta_step]。以防在某些 loss 下权重值过大，默认是 0（其实代表 inf)。可以试试把这个参数设置到 1-10 之间的一个值。这样会防止做太大的更新步子，<br>使得更新更加平缓。</p>
+<h1 id="参考文献">3. 参考文献</h1><ol>
+<li>《xgboost导读和实战》</li>
+<li><a href="http://wepon.me/2016/05/07/XGBoost%E6%B5%85%E5%85%A5%E6%B5%85%E5%87%BA/" target="_blank" rel="external">Xgboost深入浅出</a></li>
+<li><a href="https://www.analyticsvidhya.com/blog/2016/03/complete-guide-parameter-tuning-xgboost-with-codes-python/" target="_blank" rel="external">Complete Guide to Parameter Tuning in XGBoost (with codes in Python)</a></li>
+<li><a href="http://xgboost.readthedocs.io/en/latest/parameter.html" target="_blank" rel="external">xgboost参数官方文档</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/04/28/xgboost参数/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/04/28/xgboost参数/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/28/pandas笔记/" title="" itemprop="url"></a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-28T06:45:30.980Z" itemprop="datePublished"> 发表于 2017-04-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="用pandas求差集">1. 用pandas求差集</h1><p>从df1中去除掉df2的内容</p>
+<p>data={‘id’:[1,2,3]}<br>data2={‘id’:[3,1,4]}<br>df1=pd.DataFrame(data)<br>df2=pd.DataFrame(data2)<br>print df1<br>print df2<br>df3=df1[~df1[‘id’].isin(df2[‘id’])]<br>print df3</p>
+<h1 id="求某个时间区间的数据集">2. 求某个时间区间的数据集</h1><p>tart_t=’2016-04-05 00:00:00’<br>end_t=’2016-04-16 00:00:00’<br>action.time=pd.to_datetime(action.time,format=’%Y-%m-%d %H:%M:%S’)<br>starttime=pd.to_datetime(start_t,format=’%Y-%m-%d %H:%M:%S’)<br>endtime=pd.to_datetime(end_t,format=’%Y-%m-%d %H:%M:%S’)<br>action=action[(action.time<endtime)&(action.time>=starttime)]</endtime)&(action.time></p>
+<h1 id="dummies">3. dummies</h1><p>我理解get_dummies是将拥有不同值的变量转换为0/1数值。打个比方，小明有黄、红、蓝三种颜色的帽子，小明今天戴黄色帽子用1表示，红色帽子用2表示，蓝色帽子用3表示。但1、2、3数值大小本身是没有意义的，只是用于区分帽子的颜色，因此在实际分析时，需要将1、2、3转化为0、1，如下代码所示：</p>
+<pre><code>import pandas as pd
+xiaoming=pd.DataFrame([1,2,3],index=[&apos;yellow&apos;,&apos;red&apos;,&apos;blue&apos;],columns=[&apos;hat&apos;])
+print(xiaoming)
+hat_ranks=pd.get_dummies(xiaoming[&apos;hat&apos;],prefix=&apos;hat&apos;)
+print(hat_ranks.head())
+
+            hat
+yellow    1
+red       2
+blue      3
+        hat_1  hat_2  hat_3
+yellow      1      0      0
+red         0      1      0
+blue        0      0      1
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/04/28/pandas笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/04/28/pandas笔记/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/25/天猫推荐算法资资料/" title="天猫推荐算法资资料" itemprop="url">天猫推荐算法资资料</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-25T06:32:40.000Z" itemprop="datePublished"> 发表于 2017-04-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="特征工程">1. 特征工程</h1><h2 id="别人的例子">1.1. 别人的例子</h2><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-25-16-54-35.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-25-16-54-53.png" alt=""> </p>
+<h2 id="特征选择">1.2. 特征选择</h2><p>特征选择，就是从多个特征中，挑选出一些对结果预测最有用的特征。因为原始的特征中可能会有冗余和噪声。<br>特征选择和降维有什么区别呢？前者只踢掉原本特征里和结果预测关系不大的， 后者做特征的计算组合构成新特征。</p>
+<h3 id="过滤型">1.2.1. 过滤型</h3><ul>
+<li>方法：  评估单个特征和结果值之间的相关程度， 排序留下Top相关的特征部分。 </li>
+<li>评价方式：Pearson相关系数， 互信息， 距离相关度。 </li>
+<li>缺点：只评估了单个特征对结果的影响，没有考虑到特征之间的关联作用， 可能把有用的关联特征误踢掉。因此工业界使用比较少。 </li>
+<li>python包：SelectKBest指定过滤个数、SelectPercentile指定过滤百分比。</li>
+</ul>
+<h3 id="包裹型">1.2.2. 包裹型</h3><ul>
+<li>方法：把特征选择看做一个特征子集搜索问题， 筛选各种特<br>征子集， 用模型评估效果。 </li>
+<li>典型算法：“递归特征删除算法”。 </li>
+<li>应用在逻辑回归的过程：用全量特征跑一个模型；根据线性模型的系数(体现相关性)，删掉5-10%的弱特征，观察准确率/auc的变化；逐步进行， 直至准确率/auc出现大的下滑停止。 </li>
+<li>python包：RFE 
+　　</li>
+</ul>
+<h3 id="嵌入型">1.2.3. 嵌入型</h3><ul>
+<li>方法：根据模型来分析特征的重要性，最常见的方式为用正则化方式来做特征选择。 </li>
+<li>举例：最早在电商用LR做CTR预估， 在3-5亿维的系数特征上用L1正则化的LR模型。上一篇介绍了L1正则化有截断作用，剩余2-3千万的feature， 意味着其他的feature重要度不够。 </li>
+<li>python包：feature_selection.SelectFromModel选出权重不为0的特征。</li>
+</ul>
+<h1 id="参考文献">2. 参考文献</h1><ol>
+<li><a href="https://ask.julyedu.com/question/7114" target="_blank" rel="external">四月机器学习算法班—特征工程笔记</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/04/25/天猫推荐算法资资料/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/04/25/天猫推荐算法资资料/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/14/linux常见命令/" title="linux常见命令" itemprop="url">linux常见命令</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-14T08:07:04.000Z" itemprop="datePublished"> 发表于 2017-04-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="IO">1. IO</h1><h2 id="linux-windows互传">1.1. linux/windows互传</h2><p>需要安装：yum install -y lrzsz</p>
+<p>从Windows上传文件<code>[root@localhost src]# rz</code><br>从Linux下载文件<code>sz nginx-1.6.2.tar.gz</code></p>
+<h2 id="linux互传">1.2. linux互传</h2><ol>
+<li>从服务器下载文件<br> scp username@servername:/path/filename /tmp/local_destination<br> 例如scp codinglog@192.168.0.101:/home/kimi/test.txt  把192.168.0.101上的/home/kimi/test.txt的文件下载到 /tmp/local_destination</li>
+<li>上传本地文件到服务器<br> scp /path/local_filename username@servername:/path<br> 例如scp /var/www/test.php  codinglog@192.168.0.101:/var/www/  把本机/var/www/目录下的test.php文件上传到192.168.0.101这台服务器上的/var/www/目录中</li>
+<li>从服务器下载整个目录<br> scp -r username@servername:remote_dir/ /tmp/local_dir<br> 例如:scp -r codinglog@192.168.0.101 /home/kimi/test  /tmp/local_dir</li>
+<li>上传目录到服务器<br> scp  -r /tmp/local_dir username@servername:remote_dir<br> 例如：scp -r test      codinglog@192.168.0.101:/var/www/把当前目录下的test目录上传到服务器的/var/www/目录</li>
+</ol>
+<h1 id="文件夹">2. 文件夹</h1><p>新建文件夹<code>mkdir name</code></p>
+<h1 id="杂絮">3. 杂絮</h1><p>查看硬盘情况<code>df -h</code><br>合并文件<code>cat *.csv  &gt; full.csv</code><br>查看文件<code>$ ps -ef | grep 关键字</code></p>
+<h1 id="解压">4. 解压</h1><h2 id="批量解压-zip">4.1. 批量解压.zip</h2><p>两种方式：（经测试第一种好用）</p>
+<pre><code>ls *.zip | xargs -n1 unzip
+unzip &quot;*.zip&quot;
+</code></pre><h2 id="批量解压-tar-gz">4.2. 批量解压.tar.gz</h2><pre><code>ls *.tar.gz | xargs -n1 tar xzvf    
+</code></pre><h1 id="vim">5. vim</h1><p><code>i</code>——进入插入模式<br><code>ESC+:wq!</code>：保存，退出<br><code>ESC+:q!</code>：不保存，退出</p>
+<h1 id="VNC-tiger">6. VNC-tiger</h1><p>安装：<br><a href="http://www.jianshu.com/p/35640fc5672b" target="_blank" rel="external">CentOs 7安装配置VNC Server</a><br><a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-remote-access-for-the-gnome-desktop-on-centos-7" target="_blank" rel="external">digitalOcean,How to install vncserver in centos 7</a></p>
+<p>使用：</p>
+<p>help:<code>vncserver -help</code><br>开启：<code>vncserver :1</code><br>按照一定比例输出（屏幕旋转）：<code>vncserver 900x1440 :1</code><br>停止：<code>vncserver -kill: 1</code><br>临时文档：<code>/tmp/.X11-unix</code>.</p>
+<h1 id="用sublime搭建简单的python">7. 用sublime搭建简单的python</h1><p>安装 Python，安装时选择添加路径到系统中，或者稍后自己添加也可<br>随便写个 demo，Ctrl + B 就可以运行了</p>
+<p><a href="http://docs.sublimetext.info/en/latest/getting_started/install.html?highlight=ln" target="_blank" rel="external">sublime官方文档</a><br><a href="https://www.zhihu.com/question/22904994" target="_blank" rel="external">各路方法</a></p>
+<p>中文无法输入问题解决<a href="http://www.jianshu.com/p/bf05fb3a4709" target="_blank" rel="external">解决Ubuntu下Sublime Text 3无法输入中文</a><br><a href="http://www.brightempty.com/?p=91" target="_blank" rel="external">装python包</a></p>
+<h1 id="nohup">8. nohup</h1><pre><code>nohup command &gt; nohup.out &amp;
+</code></pre><p>nohup相关：<br>将nohup后面的<code>command</code>设置成后台运行，并且将标准输出的日志重定向至文件nohup.out。<br>查看运行状态：jobs<br>查看日志内容：tail -f nohup.out (ctrl + c 退出查看)<br>查看进程信息：<br>ps -ef |grep java<br>ps -ef | grep rm<br>停止运行 kill %n<br>很好的参考文献：<a href="http://blog.sina.com.cn/s/blog_90546d6f0101en9y.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_90546d6f0101en9y.html</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/04/14/linux常见命令/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/04/14/linux常见命令/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/04/05/python实现某网站自动打卡/" title="python实现某网站自动打卡" itemprop="url">python实现某网站自动打卡</a>
   </h1>
   <p class="article-author">By
@@ -212,1222 +994,9 @@ logging.info(str)#写入日志
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/04/《Improving-Regressors-Using-Boosting-Techniques》论文笔记/" title="《Improving Regressors Using Boosting Techniques》论文笔记" itemprop="url">《Improving Regressors Using Boosting Techniques》论文笔记</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-04T12:12:45.000Z" itemprop="datePublished"> 发表于 2017-04-04</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="introduction部分">1. introduction部分</h1><p><strong>Bagging和boosting用途</strong></p>
-<p>Bagging和boosting主要是用多重预测来解决以下两个问题：</p>
-<ol>
-<li>在回归问题中获取最小误差；</li>
-<li>在分类问题中获取最小错误率。</li>
-</ol>
-<p><strong>Bagging和Boosting共性</strong><br>都是通过训练不同的数据集来得到回归模型。</p>
-<p><strong>不同点</strong></p>
-<p><strong>bagging</strong></p>
-<ol>
-<li>从$N_1$个原始样本中，有放回地抽样(可能overlap)得到$N_1$个样本</li>
-<li>独立训练模型</li>
-<li>得到不同的预测</li>
-<li>求所有预测的平均得到最终结果</li>
-</ol>
-<p>由于模型之间独立，因此可以对训练过程采取分布式或并行的方式。</p>
-<p><strong>boosting</strong></p>
-<p>模型是依次训练出来的。</p>
-<ol>
-<li>从训练集中挑出$N_1$个样本，训练出第一个模型</li>
-<li>挑出误差最大的样本</li>
-<li>增大这些样本在下次被抽到的概率</li>
-<li>再次进行训练，最终得到多个模型</li>
-<li>最终对模型进行不同权重的加权，权重公式如下定义：</li>
-</ol>
-<p>设已知训练集$(y_i,x_i),i=1,…,N_1$。其中，$x$是$M$维的向量，且$(y_i,x_i)$唯一但未知(fixed but unknown)<br>我们将预测函数表示为$y^{(p)}(x)$，则：</p>
-<p><strong>sample modeling error</strong>:<br> $$PE=\frac{1}{N_2}\sum_{i=1}^{N_2}[y_i-y_i^{(p)}(x_i)]^2$$<br><strong>prediction error</strong>:<br> $$ME=\frac{1}{N_2}\sum_{i=1}^{N_2}[y_i^{(t)}-y_i^{(p)}(x_i)]^2$$</p>
-<p>其中，<br>$y_i^{(p)}(x_i)$表示第$i$个测试集的预测值<br>$y_i$表示第$i$个测试集的观测值<br>$y^{(t)}_i$是实际值<br>$y^{(p)}(x)$的参数p是从$N_2$个测试集的观测值中获得的，但是上面的累加的式子中的$y_i$和$x_i$是从从未被seen过的测试集的观测值$N_2$获得的。</p>
-<ol>
-<li><p>看到这里突然发现有点跑偏了。决定先暂停这篇论文的研究。</p>
-</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Boosting/">Boosting</a><a href="/tags/Bagging/">Bagging</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/04/04/《Improving-Regressors-Using-Boosting-Techniques》论文笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/04/04/《Improving-Regressors-Using-Boosting-Techniques》论文笔记/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/03/2017腾讯题——字符十六进制输出/" title="2017腾讯题——字符十六进制输出" itemprop="url">2017腾讯题——字符十六进制输出</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-03T13:24:29.000Z" itemprop="datePublished"> 发表于 2017-04-03</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="题目">1. 题目</h1><p>编写代码，接收从屏幕输入的长度为16字节整数倍的字符串。回车后，按实例格式排版输出。</p>
-<p>实例：</p>
-<p>屏幕输入（均为可见字符）：<br>abcdefghigklmnopqrstuvwxyzabcdefghigklmnopqrstuvwxyzabcdefghigkl</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-03-21-24-41.png" alt=""> </p>
-<h1 id="代码">2. 代码</h1><pre><code>#include &lt;iostream&gt;
-#include&lt;cstring&gt;
-#include&lt;cstdio&gt;
-using namespace std;
-int main()
-{
-    //freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
-    char c[16];
-    int count=0;
-    int level=0;
-    int temp=0;
-    char in;
-    while(true){
-        c[count]=getchar();
-        if(c[count]==-1){
-            break;
-        }
-        if(count==16){
-            printf(&quot;%08d&quot;,level*10);
-            printf(&quot;  &quot;);
-            for(int i=0;i&lt;16;i++){
-                if(i==8){
-                    printf(&quot; &quot;);
-                }
-                temp=c[i]+16*level;
-                printf(&quot;%02X&quot;,c[i]);
-                printf(&quot; &quot;);
-            }
-            printf(&quot; &quot;);
-            for(int i=0;i&lt;16;i++){
-                std::cout&lt;&lt;c[i];
-            }
-            printf(&quot;\n&quot;);
-            ++level;
-            count=0;
-        }
-        ++count;
-    }
-    return 0;
-}
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/ACM/">ACM</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/04/03/2017腾讯题——字符十六进制输出/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/04/03/2017腾讯题——字符十六进制输出/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/03/BUPT-ACM-2017-F-Simple-recursion/" title="BUPT_ACM_2017_F_Simple_recursion" itemprop="url">BUPT_ACM_2017_F_Simple_recursion</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-03T05:53:01.000Z" itemprop="datePublished"> 发表于 2017-04-03</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>本文是2017年北京邮电大学第十一届程序设计竞赛网络热身赛的F. Simple recursion题解。</p>
-<h1 id="题目">1. 题目</h1><p>题目描述<br>r_clover shows you a BIIIIIIIIIIG water problem:<br>if $f(0)=1,f(1)=1$,$f(n)=2f(n-1)+3f(n-2)$, what is $f(n)mod1000000007$?</p>
-<p>输入格式<br>A single integer n(0≤n≤10000000000).</p>
-<p>输出格式<br>A single integer, which is the answer for f(n)mod1000000007.</p>
-<p>输入样例<br>10<br>输出样例<br>29525</p>
-<h1 id="思路">2. 思路</h1><p>一开始想的是用递归。但经测试发现递归的时间、空间复杂度都太高，导致超时。</p>
-<p>正确打开方式：求出递推关系，并用快速幂取模方法计算结果。</p>
-<h1 id="递推关系求解">3. 递推关系求解</h1><p>《组合数学》内容————常系数线性齐次递推关系的求解。公式见后面的附1。<br>求解题目中所给的递推关系：<br>$$f(n)=2f(n-1)+3f(n-2)$$<br>$$f(0)=1,f(1)=1$$<br>它的特征方程为：<br>$$x^2-2x-3=0$$<br>解方程得：<br>$$x_1=3,x_2=-1$$<br>所以递推关系的通解为：<br>$$f(n)=c_13^n+c_2(-1)^n$$<br>代入初值$f(0)=1,f(1)=1$，得到：<br>$$f(0)=c_1+c_2=1$$<br>$$f(1)=3c_1-c_2=1$$<br>解得:$c_1=c_2=0.5$<br>因此该递推关系的解为$$f(n)=0.5(3)^n+0.5(-1)^n$$</p>
-<p>代码实现：</p>
-<pre><code><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">long</span> <span class="title">f</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> n,<span class="keyword">int</span> modNum)</span></span>&#123;</div><div class="line">    <span class="keyword">long</span> <span class="keyword">long</span> a=<span class="number">3</span>;</div><div class="line">    <span class="keyword">long</span> <span class="keyword">long</span> b=<span class="number">1</span>;</div><div class="line">    a= quick_algorithm(a,n,modNum);<span class="comment">//(a的n次方)mod(modNum),是快速求幂取模的方法，详细见后面的推导</span></div><div class="line">    <span class="keyword">if</span>(n%<span class="number">2</span>==<span class="number">1</span>)&#123;</div><div class="line">        b=<span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line">    a=<span class="number">0.5</span>*a+<span class="number">0.5</span>*b;</div><div class="line">    <span class="keyword">return</span> a;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><h1 id="常系数线性齐次递归关系的求解">4. 常系数线性齐次递归关系的求解</h1><p><strong>递推关系：</strong></p>
-<p>$$f(n)=c_1f(n-1)+c_2f(n-2)+…+c_kf(n-k)$$</p>
-<p><strong>递推关系的特征方程</strong>：</p>
-<p>$$x^k-c_1x^{k-1}-c_2x^{k-2}-…-c_k=0$$</p>
-<p><strong>递归关系的特征根：</strong></p>
-<p>特征方程的k个根（可能重根）：$$q_1,q_2,…,q_k$$</p>
-<p><strong>递归关系的特解：</strong></p>
-<p>设q是非零复数，则$f(n)=q^n$是递推关系的解，当且仅当q是它的特征根。</p>
-<p><strong>递归关系的通解：</strong></p>
-<p>设$q_1,q_2,…,q_k$是递推关系的k个互不相等的特征根，则<br>$$f(n)=b_1q_1^n+b_2q_2^n+b_3q_3^n+…+b_kq_k^n$$是递推关系的通解。</p>
-<h1 id="快速大数幂运算">5. 快速大数幂运算</h1><p>这是一种很神奇的方法。</p>
-<p>首先引入一些基础知识。</p>
-<p><strong>幂取模运算的一个性质</strong></p>
-<p>$$(a\times b)mod(c)=(((a)mod(c))\times ((b) mod(c)))mod(c)$$</p>
-<p><strong>大数幂运算</strong><br>核心思想：将大数的幂运算拆解成了相对应的乘法运算，利用上面的式子，始终将我们的运算的数据量控制在c的范围以下。</p>
-<p>对于目标：<br>$$a^bmodc$$<br>我们将b表示为二进制：<br>$$b=b_0+b_12+b_22^2+…+b_n2^n$$<br>那么，<br>$$a^b=a^b_1\times a^{b_22^2} \times a^{b_32^3} \times … \times a^{b_n2^n}$$<br>其中$b_k$要么为0，要么为1<br>去掉所有的0后，我们得到<br>$$a^b=a^{b_k2^k} \times … \times a^{b_n2^n}$$<br>上式的模可以表示为：<br>$$a^b mod c =a^{b_k2^k} mod c\times … \times a^{b_n2^n}mod c$$<br>易发现：<br>$$A_k=a^{b_k2^k} mod c$$<br>$$…$$<br>$$A_n=a^{b_n2^n} mod c$$</p>
-<p>即：$A(n)$是$A(n-1)$的平方倍！</p>
-<p>实现：</p>
-<pre><code><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">quick</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> ans=<span class="number">1</span>;   <span class="comment">//记录结果</span></div><div class="line">    a=a%c;   <span class="comment">//预处理，使得a处于c的数据范围之下</span></div><div class="line">    <span class="keyword">while</span>(b!=<span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>) ans=(ans*a)%c;   <span class="comment">//如果b的二进制位不是0，那么我们的结果是要参与运算的</span></div><div class="line">        b&gt;&gt;=<span class="number">1</span>;    <span class="comment">//二进制的移位操作，相当于每次除以2，用二进制看，就是我们不断的遍历b的二进制位</span></div><div class="line">        a=(a*a)%c;   <span class="comment">//不断的加倍</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> ans;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><h1 id="代码">6. 代码</h1><pre><code>#include &lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cmath&gt;
-#include&lt;cstdlib&gt;
-#include&lt;cstring&gt;
-#include&lt;string&gt;
-#include&lt;algorithm&gt;
-#include &lt;math.h&gt;
-using namespace std;
-long quick_algorithm(long long a,long long n,int modNum){
-    a=a%modNum ;
-    long long ans=1 ;
-    //这里我们不需要考虑b&lt;0，因为分数没有取模运算
-    while(n!=0){
-        if(n&amp;1)
-            ans=(ans*a)%modNum ;
-        n&gt;&gt;=1  ;
-        a=(a*a)%modNum;
-    }
-    return ans;
-}
-long set2(long long n,int modNum){
-    long long a=3;
-    long long b=1;
-    /*for(long long i=0;i&lt;n;i++){
-        a=a*3;
-        a=a%modNum;
-    }*/
-    a= quick_algorithm(a,n,modNum);
-    if(n%2==1){
-        b=-1;
-    }
-    //a=a;
-    a=0.5*a+0.5*b;
-    return a;
-}
-
-int main()
-{
-    int modNum=1000000007;
-    long long input=999999999;
-    scanf(&quot;%lld&quot;,&amp;input);
-    if(input==0||input==1){
-        printf(&quot;%lld\n&quot;,1);
-    }else{
-        long long out=set2(input,modNum);
-        printf(&quot;%lld\n&quot;,out);
-    }
-    return 0;
-}
-</code></pre><h1 id="参考文献">7. 参考文献</h1><ol>
-<li>《组合数学引论》</li>
-</ol>
-<p>附上本题的艰辛史。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-03-13-55-57.png" alt=""> </p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/ACM/">ACM</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/递推关系/">递推关系</a><a href="/tags/快速幂取模/">快速幂取模</a><a href="/tags/长整型/">长整型</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/04/03/BUPT-ACM-2017-F-Simple-recursion/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/04/03/BUPT-ACM-2017-F-Simple-recursion/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/31/QR分解/" title="QR分解" itemprop="url">QR分解</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-31T04:02:39.000Z" itemprop="datePublished"> 发表于 2017-03-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="QR分解">1. QR分解</h1><p><strong>引理</strong>：</p>
-<ol>
-<li>对于任意的$A\in C^{n\times n}$,若存在$n$阶正交矩阵$Q$和$n$阶上三角矩阵$R$，使得$A=QR$，则称$QR$为$A$的$QR$分解。</li>
-<li>若$A\in C^{n\times n}$可逆，则存在正交矩阵$Q$和正对角元的上三角矩阵$R$，使得$A=QR$，且表示式唯一。</li>
-</ol>
-<p>备注：正交矩阵：$A^{-1}=A^T$<br><strong>QR分解定理</strong>：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-04.png" alt=""><br>，则A有QR分解：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-23.png" alt=""><br>Q是m<em>m的正交矩阵<br>R是n</em>n的有非负对角元的上三角阵</p>
-<p>当m=n，且A非奇异时，上述分解唯一。</p>
-<p><strong>计算QR分解的方法</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-28-42.png" alt=""> </p>
-<p>备注：<br>计算A(j:m,j:n)=(I(m-j+1)-bvvT)A(j:m,j:n)时，<br>I(m-j+1)-bvvT可以表示为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-01-21-24-25.png" alt=""> </p>
-<p><strong>QR分解的存储方法</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-01-21-54-20.png" alt=""> </p>
-<p><strong>用QR分解解线性方程组</strong><br>$Ax=b$<br>$QRx=b$<br>$Rx=Q^{-1}b$<br>$x=R^{-1}Q^{-1}b$<br>$x=R^{-1}Q^Tb$</p>
-<h1 id="householder方法">2. householder方法</h1><p>利用Householder变换逐步将A化为上三角矩阵。</p>
-<p>使用Gauss变换将矩阵化为上三角的理论依据————对于一个给定的向量x，可构造一个初等下三角阵L，使得$Lx=ae_1$，其中$e_1$是I的第一列，a是实数。（I是单位矩阵）</p>
-<p>householder变换目的：<br>求一个初等正交矩阵，使其具有矩阵L的功能。</p>
-<p>使得：<br>可以通过一系列初等正交变换来完成矩阵的上三角化任务。</p>
-<p><strong>Householder变换</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-03-16.png" alt=""> </p>
-<p>其中：<br>I是单位矩阵<br>w是实的单位列向量（单位正交矩阵），$ww^T=I$</p>
-<p>HouseHolder变换可以将一个向量映射到一个超平面上。 </p>
-<p><strong>Householder变换的性质</strong></p>
-<ol>
-<li>对称性。$H^T=H$</li>
-<li>正交性。$H^TH=I$</li>
-<li>对合性。$H^2=I$</li>
-<li>反射性(householder变换的物理意义)：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-09-23.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-10-12.png" alt=""> </li>
-</ol>
-<p><strong>Householder变换的用途</strong></p>
-<p>它能如Gauss变换一样，可以通过适当选取单位向量w，把一个给定向量的若干指定的分量变为零。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-12-23.png" alt=""><br>由以上定理可知，对于任意的x，都可以构造出Householder矩阵H，使得Hx的后n-1个分量为零。</p>
-<p><strong>Householder变换方法</strong><br>计算某一行向量的houser变换：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-15.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-37.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-58.png" alt=""> </p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/数学/">数学</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/31/QR分解/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/31/QR分解/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/30/求线代方程的解/" title="求线代方程的解" itemprop="url">求线代方程的解</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-30T06:48:21.000Z" itemprop="datePublished"> 发表于 2017-03-30</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="LU分解条件">1. LU分解条件</h1><p>如果n阶方阵A的各阶顺序主子式<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-34-31.png" alt=""> ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU</p>
-<p>其中k阶顺序主子式指<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-36-08.png" alt=""> </p>
-<h1 id="LU分解方法">2. LU分解方法</h1><p>由于L存在可逆矩阵L’，即LL’=E<br>则L’A=LL’U=U<br>因此得出一般的分解方法：<br>通过对(A,E)做初等行变换得到(U,L’),再由L’得到L.</p>
-<p>其中：</p>
-<ol>
-<li>L是单位下三角矩阵（对角线上的系数都为1的下三角矩阵）；L’也是单位上三角矩阵；</li>
-<li>U是非奇异上三角矩阵；</li>
-</ol>
-<h1 id="求解方法">3. 求解方法</h1><p>对于一般的线性方程组：<br>$$Ax=b$$<br>如果我们能将A分解成$A=LU$,即一个下三角阵和一个上三角阵U的乘积，那原方程组的解x便可由下面两步得到：</p>
-<ol>
-<li>用前代法解$Ly=b$的y；<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-16-20-29.png" alt=""> </li>
-<li>用回代法解$Ux=y$的x.<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-16-31-08.png" alt=""> </li>
-</ol>
-<p>对于列主元消去法，求线性方程组$Ax=b$的计算过程可以按照以下步骤进行：</p>
-<ol>
-<li>求A的列主元LU分解$PA=LU$</li>
-<li>解下三角形方程组$Ly=Pb$</li>
-<li>解上三角形方程组$Ux=y$</li>
-</ol>
-<h1 id="实现">4. 实现</h1><p>前代法：<br>需要注意的是，回代法在计算的过程中需要考虑到主元位置序列，并同时对b进行调整。</p>
-<pre><code>double * forwardSub(double *lu,int n,double *b,int *p){
-    //double *y=new double[n];
-    double temp;
-      //按qivot对b行变换，与LU匹配
-      for(int i=0; i&lt;n-1; i++)  
-      {
-            temp = b[p[i]];
-            b[p[i]] = b[i];
-            b[i]=temp;
-      }
-    for(int i=0; i&lt;n; i++)
-            for(int j=0; j&lt;i; j++)
-                b[i]=b[i]-lu[n*i+j]*b[j];
-    b[n-1]=b[n-1];
-    return b;
-}
-</code></pre><p>回代法：<br>由于U是上三角矩阵，所以要从x[n-1]开始计算。</p>
-<pre><code>double * backSub(double *b,double *lu,int n){
-     for(int i=n-1; i&gt;=0; i--)
-      {
-            for(int j=n-1; j&gt;i; j--)
-                b[i]=b[i]-lu[n*i+j]*b[j];
-            b[i]=b[i]/lu[n*i+i];
-      }
-    return b;
-}
-</code></pre><p>计算：</p>
-<pre><code>bool guass(double *lu,int *p,double*b,int n){
-    double * y = forwardSub(lu,n,b,p);
-    double * x = backSub(y,lu,n);
-    std::cout&lt;&lt;endl&lt;&lt;&quot;the sulution is ; &quot;&lt;&lt;endl;
-    for(int i=0;i&lt;n;i++){
-        std::cout&lt;&lt;x[i]&lt;&lt;&quot;\t&quot;;
-    }
-    std::cout&lt;&lt;endl;
-}
-</code></pre><p>输出：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-11-02-01.png" alt=""> </p>
-<p>代码：</p>
-<pre><code>#include &lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstdlib&gt;
-#include&lt;iomanip&gt;
-#define LIM -100000000
-using namespace std;
-double *luReult;
-void printmat(double *mat,int n,string s){
-    std::cout&lt;&lt;endl&lt;&lt;endl&lt;&lt;s&lt;&lt;endl;
-    for(int i=0;i&lt;n;i++){
-        for(int j=0;j&lt;n;j++){
-            printf(&quot;%.5f\t&quot;,mat[i*n+j]);
-        }
-        std::cout&lt;&lt;endl;
-    }
-}
-void printarr(int *mat,int n,string s){
-    std::cout&lt;&lt;endl&lt;&lt;endl&lt;&lt;s&lt;&lt;endl;
-    for(int i=0;i&lt;n;i++){
-        std::cout&lt;&lt;mat[i]&lt;&lt;&quot;\t&quot;;
-        //printf(&quot;%s\t&quot;,mat[i]);
-    }
-}
-int findMainNumber(double *a,int n,int r){
-    float maxa=-99999;
-    int maxaIdx=-1;
-    //printmat(a,n,&quot;a is now :&quot;);
-    for(int i=r;i&lt;n;i++){
-        if(a[i*n+r]&gt;maxa){
-            maxa=a[i*n+r];
-            maxaIdx=i;
-        }
-    }
-    return maxaIdx;
-}
-void exchange(double *a,int n,int e,int r){
-    float temp=0;
-    for(int i=0;i&lt;n;i++){
-        temp = a[r*n+i];
-        a[r*n+i]=a[e*n+i];
-        a[e*n+i]=temp;
-    }
-}
-bool lu(double* a, int* pivot, int n)//矩阵LU分解
-{
-      for(int k=0;k&lt;n;k++){
-        //寻找第k列的主元
-        int p = findMainNumber(a,n,k);
-        exchange(a,n,p,k);//交换k行和p行
-        pivot[k]=p;//记录置换矩阵p
-        if(a[k*n+k]!=0){
-                for(int i=k+1;i&lt;n;i++){//部分下三角L
-                    a[i*n+k]=a[i*n+k]/a[k*n+k];
-                }
-                for(int i=k+1;i&lt;n;i++){//计算上三角U
-                    for(int j=k+1;j&lt;n;j++){
-                        a[i*n+j]=a[i*n+j]-a[i*n+k]*a[k*n+j];
-                    }
-                }
-        }else{
-            return true;//矩阵奇异
-        }
-      }
-      /*
-      //计算下三角L
-      double temp=0;
-       for(int i=0; i&lt;n-2; i++)//i行k列
-            for(int k=i+1; k&lt;n-1;k++)
-            {
-                    temp=a[n*pivot[k] + i];
-                    a[n*pivot[k] + i]=a[k*n + i];
-                    a[k*n + i]=temp;
-            }
-        */
-      luReult=a;
-      printmat(a,n,&quot;lu&quot;);
-      return false ;
-}
-double radio(int a,int b){
-    return (double)(a)/(double)(b);
-}
-void buildHilbert(double *a,double *b,int n){
-    for(int r=0;r&lt;n;r++){
-        for(int j=0;j&lt;n;j++){
-            a[r*n+j]=radio(1,j+r+1);
-            b[r]=b[r]+a[r*n+j];
-        }
-    }
-}
-void exchangeb(double *b,int n,int r,int e){
-    double temp=0;
-    temp=b[e];
-    b[e]=b[r];
-    b[r]=temp;
-    /*r(int i=0;i&lt;n;i++){
-        temp=b[r*n+i];
-        b[r*n+i]=b[e*n+i];
-        b[e*n+i]=temp;
-    }*/
-}
-double * forwardSub(double *lu,int n,double *b,int *p){
-    //double *y=new double[n];
-    double temp;
-      //按qivot对b行变换，与LU匹配
-      for(int i=0; i&lt;n-1; i++)
-      {
-            temp = b[p[i]];
-            b[p[i]] = b[i];
-            b[i]=temp;
-      }
-    for(int i=0; i&lt;n; i++)
-            for(int j=0; j&lt;i; j++)
-                b[i]=b[i]-lu[n*i+j]*b[j];
-    b[n-1]=b[n-1];
-    return b;
-}
-
-double * backSub(double *b,double *lu,int n){
-     for(int i=n-1; i&gt;=0; i--)
-      {
-            for(int j=n-1; j&gt;i; j--)
-                b[i]=b[i]-lu[n*i+j]*b[j];
-            b[i]=b[i]/lu[n*i+i];
-      }
-    return b;
-}
-
-bool guass(double *lu,int *p,double*b,int n){
-    double * y = forwardSub(lu,n,b,p);
-    double * x = backSub(y,lu,n);
-    std::cout&lt;&lt;endl&lt;&lt;&quot;the sulution is ; &quot;&lt;&lt;endl;
-    for(int i=0;i&lt;n;i++){
-        std::cout&lt;&lt;x[i]&lt;&lt;&quot;\t&quot;;
-    }
-    std::cout&lt;&lt;endl;
-}
-int main()
-{
-    int n=6;//矩阵是n*n的
-    double *b=new double[n];
-    double *a=new double[n*n];
-    /*double input[n*n]={0.001,1.00,1.00,2.00};
-    a=input;
-    double inputb[n]={1.00,3.00};
-    b=inputb;*/
-    buildHilbert(a,b,n);
-    printmat(a,n,&quot;a:&quot;);
-    int *pivot=new int[n*n];
-    luReult=new double[n*n];
-    lu(a,pivot,n);
-    printarr(pivot,n,&quot;p:&quot;);
-     guass(luReult,pivot,b,n);
-    //cout &lt;&lt; &quot;Hello world!&quot; &lt;&lt; endl;
-    return 0;
-}
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/数学/">数学</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/30/求线代方程的解/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/30/求线代方程的解/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/29/矩阵LU分解/" title="矩阵LU分解及其实现" itemprop="url">矩阵LU分解及其实现</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-29T11:27:31.000Z" itemprop="datePublished"> 发表于 2017-03-29</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>LU分解:可以将一个矩阵分解为一个<strong>单位下三角矩阵</strong>和一个<strong>上三角矩阵</strong>的<strong>乘积</strong>（有时是它们和一个置换矩阵的乘积）。LU分解主要应用在数值分析中，用来解线性方程、求反矩阵或计算行列式。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-31-33.png" alt=""> </p>
-<h1 id="LU分解条件">1. LU分解条件</h1><p>如果n阶方阵A的各阶顺序主子式<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-34-31.png" alt=""> ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU</p>
-<p>其中k阶顺序主子式指<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-36-08.png" alt=""> </p>
-<h1 id="LU分解方法">2. LU分解方法</h1><p>由于L存在可逆矩阵L’，即LL’=E<br>则L’A=LL’U=U<br>因此得出一般的分解方法：<br>通过对(A,E)做初等行变换得到(U,L’),再由L’得到L.</p>
-<p>其中：</p>
-<ol>
-<li>L是单位下三角矩阵（对角线上的系数都为1的下三角矩阵）；L’也是单位上三角矩阵；</li>
-<li>U是非奇异上三角矩阵；</li>
-</ol>
-<h1 id="直接消去法的矩阵解释">3. 直接消去法的矩阵解释</h1><p>计算过程如图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-13-15.png" alt=""> </p>
-<p><strong>目的</strong>：将[A|E]–&gt;[U|L]形式，其中U是上三角矩阵</p>
-<p><strong>过程</strong>：每轮将一列的下三角消为0，就相当于给A左乘一个下三角单位矩阵Lk（对角线为1，保证变换后对角线元素不变）。</p>
-<p><strong>第一轮消元</strong>：将第一列的下三角消为0，相当于对A1左乘矩阵L1，即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-54-39.png" alt=""><br>其中，<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-55-24.png" alt=""><br>我们注意到li1恰好使得第i行的第一列元素变为零，即ai1-li1*a11=0。</p>
-<p><strong>第二轮消元</strong>：将第二列的下三角消为0，对应于<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-57-24.png" alt=""> </p>
-<p><strong>第k轮消元</strong>:<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-57-48.png" alt=""><br>其中，<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-58-09.png" alt=""> </p>
-<p>把k轮消元相乘，即：<br><strong>整个消元过程为</strong>：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-59-09.png" alt=""> </p>
-<p><strong>总结</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-05-36.png" alt=""><br>初始（第一步）：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-00-46.png" alt=""> </p>
-<p>迭代第r步：<br>即<br>ur=f(u1,u2,…,u(r-1),l1,l2,…,l(r-1)),第r项由前r-1项计算得到<br>lr=g(u1,u2,…,u(r-1),l1,l2,…,l(r-1))<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-02-44.png" alt=""> </p>
-<p>计算顺序：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-10-36-28.png" alt=""> </p>
-<p>需要注意的是，我们在计算时需要判断本阶的顺序主子式是否为零。</p>
-<p><strong>代码实现</strong><br>备注：其中的piovt暂时没有卵用。</p>
-<p>输入矩阵：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-16-46.png" alt=""> </p>
-<pre><code>bool lu(double *a,int *pivot,int n){//矩阵是n*n的
-double test = det(a,r,n);//检验本阶顺序主子式是否为0
- if(test==0){
-    return true;
- }
-//数组a在内存中按行优先次序存放
-//pivot:输出参数
-//pivot[0,n)中存放主元的位置排列
-//成功时返回false，否则返回ture
-//int len = sizeof(a)/sizeof(a[0]);
-double *U,*L;
-U = new double[n*n];
-L = new double[n*n];
-set0(U,n);
-set0(L,n);
-//先算urj(固定r，计算完所有的urj)，再算ljr(固定i，计算完所有的ljr)
-for(int r=0;r&lt;n;r++){
-    //计算urj(固定r，计算完所有的urj)
-    //计算ljr(固定i，计算完所有的ljr)
-    for(int j=r;j&lt;n;j++){
-        double sum_lu1=0;
-        double sum_lu2=0;
-        for(int k=0;k&lt;r;k++){
-            sum_lu1 = sum_lu1+L[r*n+k]*U[k*n+j];
-            sum_lu2 = sum_lu2+L[j*n+k]*U[k*n+r];
-        }
-        U[r*n+j]=a[r*n+j]-sum_lu1;
-        if(j==r){
-            L[j*n+r]=1;
-        }else{
-            L[j*n+r]=a[j*n+r]-sum_lu2;
-            L[j*n+r]=L[j*n+r]/U[r*n+r];
-        }
-    }
-}
-return false;
-}
-</code></pre><p>结果：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-22-05.png" alt=""> </p>
-<p>不知道为什么，我的答案与网上的之前学长做过的这道题的答案统统不一样。仔细检查后还是查不出来。又用Matlab验证了一下LU分解，MATLAB跑的结果为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-39-25.png" alt=""><br>与我自己的L矩阵一致。决定还是相信自己。</p>
-<h1 id="列主元高斯消去法">4. 列主元高斯消去法</h1><p>主要思想是在每次计算第r行时，选取当前第r列下的最大的a[i,r]的所在的第i行作为主元，即将第i行与第r行交换，再进行计算。</p>
-<p>主要理论见参考文献-北邮理学院数值分析课件chapter5.</p>
-<p>代码：</p>
-<pre><code>#include &lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstdlib&gt;
-#include&lt;iomanip&gt;
-#define LIM -100000000
-using namespace std;
-double *luReult;
-void printmat(double *mat,int n,string s){
-    std::cout&lt;&lt;endl&lt;&lt;endl&lt;&lt;s&lt;&lt;endl;
-    for(int i=0;i&lt;n;i++){
-        for(int j=0;j&lt;n;j++){
-            printf(&quot;%.5f\t&quot;,mat[i*n+j]);
-        }
-        std::cout&lt;&lt;endl;
-    }
-}
-void printarr(int *mat,int n,string s){
-    std::cout&lt;&lt;endl&lt;&lt;endl&lt;&lt;s&lt;&lt;endl;
-    for(int i=0;i&lt;n;i++){
-        std::cout&lt;&lt;mat[i]&lt;&lt;&quot;\t&quot;;
-        //printf(&quot;%s\t&quot;,mat[i]);
-    }
-}
-int findMainNumber(double *a,int n,int r){
-    float maxa=-99999;
-    int maxaIdx=-1;
-    //printmat(a,n,&quot;a is now :&quot;);
-    for(int i=r;i&lt;n;i++){
-        if(a[i*n+r]&gt;maxa){
-            maxa=a[i*n+r];
-            maxaIdx=i;
-        }
-    }
-    return maxaIdx;
-}
-void exchange(double *a,int n,int e,int r){
-    float temp=0;
-    for(int i=0;i&lt;n;i++){
-        temp = a[r*n+i];
-        a[r*n+i]=a[e*n+i];
-        a[e*n+i]=temp;
-    }
-}
-bool lu(double* a, int* pivot, int n)//矩阵LU分解
-{
-      for(int k=0;k&lt;n;k++){
-        //寻找第k列的主元
-        int p = findMainNumber(a,n,k);
-        exchange(a,n,p,k);//交换k行和p行
-        pivot[k]=p;//记录置换矩阵p
-        if(a[k*n+k]!=0){
-                for(int i=k+1;i&lt;n;i++){//部分下三角L
-                    a[i*n+k]=a[i*n+k]/a[k*n+k];
-                }
-                for(int i=k+1;i&lt;n;i++){//计算上三角U
-                    for(int j=k+1;j&lt;n;j++){
-                        a[i*n+j]=a[i*n+j]-a[i*n+k]*a[k*n+j];
-                    }
-                }
-        }else{
-            return true;//矩阵奇异
-        }
-      }
-      /*
-      //计算下三角L
-      double temp=0;
-       for(int i=0; i&lt;n-2; i++)//i行k列
-            for(int k=i+1; k&lt;n-1;k++)
-            {
-                    temp=a[n*pivot[k] + i];
-                    a[n*pivot[k] + i]=a[k*n + i];
-                    a[k*n + i]=temp;
-            }
-        */
-      luReult=a;
-      printmat(a,n,&quot;lu&quot;);
-      return false ;
-}
-double radio(int a,int b){
-    return (double)(a)/(double)(b);
-}
-void buildHilbert(double *a,double *b,int n){
-    for(int r=0;r&lt;n;r++){
-        for(int j=0;j&lt;n;j++){
-            a[r*n+j]=radio(1,j+r+1);
-            b[r]=b[r]+a[r*n+j];
-        }
-    }
-}
-void exchangeb(double *b,int n,int r,int e){
-    double temp=0;
-    temp=b[e];
-    b[e]=b[r];
-    b[r]=temp;
-    /*r(int i=0;i&lt;n;i++){
-        temp=b[r*n+i];
-        b[r*n+i]=b[e*n+i];
-        b[e*n+i]=temp;
-    }*/
-}
-
-int main()
-{
-    int n=6;//矩阵是n*n的
-    double *b=new double[n];
-    double *a=new double[n*n];
-    /*double input[n*n]={0.001,1.00,1.00,2.00};
-    a=input;
-    double inputb[n]={1.00,3.00};
-    b=inputb;*/
-    buildHilbert(a,b,n);
-    printmat(a,n,&quot;a:&quot;);
-    int *pivot=new int[n*n];
-    luReult=new double[n*n];
-    lu(a,pivot,n);
-    printarr(pivot,n,&quot;p:&quot;);
-    //cout &lt;&lt; &quot;Hello world!&quot; &lt;&lt; endl;
-    return 0;
-}
-</code></pre><p>输出：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-11-02-01.png" alt=""> </p>
-<h1 id="参考文献">5. 参考文献</h1><ol>
-<li><a href="https://ccjou.wordpress.com/2010/09/01/lu-%E5%88%86%E8%A7%A3/" target="_blank" rel="external">LU 分解</a></li>
-<li><a href="http://blog.csdn.net/u010945683/article/details/45803141" target="_blank" rel="external">矩阵分析——LU分解</a></li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/数学/">数学</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/29/矩阵LU分解/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/29/矩阵LU分解/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/28/最大流/" title="最大流" itemprop="url">最大流</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-28T11:20:05.000Z" itemprop="datePublished"> 发表于 2017-03-28</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>最大流问题：给定流网络、源节点、汇点，找到值最大的一个流。</p>
-<h1 id="Ford-Fullkerson方法">1. Ford-Fullkerson方法</h1><p><strong>主要思想</strong>：循环增加流的值。</p>
-<h2 id="几个概念">1.1. 几个概念</h2><h3 id="残存网络-G-f">1.1.1. 残存网络$G_f$</h3><p>残存网络简单定义：</p>
-<pre><code>残存网络=网络容量Capacity-流量网络flow
-</code></pre><p>残存网络形式化定义：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-28-19-36-03.png" alt=""> </p>
-<p>说明：<br>第一项很好理解，就是=网络容量Capacity-流量网络flow</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/算法/">算法</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/28/最大流/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/28/最大流/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/27/ACM-poj1789-TruckHistory/" title="ACM-poj1789-TruckHistory" itemprop="url">ACM-poj1789-TruckHistory</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-27T07:56:38.000Z" itemprop="datePublished"> 发表于 2017-03-27</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="Description">1. Description</h1><p>Advanced Cargo Movement, Ltd. uses trucks of different types. Some trucks are used for vegetable delivery, other for furniture, or for bricks. The company has its own code describing each type of a truck. The code is simply a string of exactly seven lowercase letters (each letter on each position has a very special meaning but that is unimportant for this task). At the beginning of company’s history, just a single truck type was used but later other types were derived from it, then from the new types another types were derived, and so on. </p>
-<p>Movement:运动<br>trucks：卡车<br>exactly seven lowercase letters ：正好七个小写字母<br>derived：派生</p>
-<p>Today, ACM is rich enough to pay historians to study its history. One thing historians tried to find out is so called derivation plan – i.e. how the truck types were derived. They defined the distance of truck types as the number of positions with different letters in truck type codes. They also assumed that each truck type was derived from exactly one other truck type (except for the first truck type which was not derived from any other type). The quality of a derivation plan was then defined as<br><code>1/Σ(to,td)d(to,td)</code></p>
-<p>quality：质量</p>
-<p>where the sum goes over all pairs of types in the derivation plan such that to is the original type and td the type derived from it and d(to,td) is the distance of the types.<br>Since historians failed, you are to write a program to help them. Given the codes of truck types, your program should find the highest possible quality of a derivation plan. </p>
-<h1 id="Input">2. Input</h1><p>The input consists of several test cases. Each test case begins with a line containing the number of truck types, N, 2 &lt;= N &lt;= 2 000. Each of the following N lines of input contains one truck type code (a string of seven lowercase letters). You may assume that the codes uniquely describe the trucks, i.e., no two of these N lines are the same. The input is terminated with zero at the place of number of truck types.</p>
-<h1 id="Output">3. Output</h1><p>For each test case, your program should output the text “The highest possible quality is 1/Q.”, where 1/Q is the quality of the best derivation plan.<br>Sample Input</p>
-<p>4<br>aaaaaaa<br>baaaaaa<br>abaaaaa<br>aabaaaa<br>0</p>
-<h1 id="Sample-Output">4. Sample Output</h1><p>The highest possible quality is 1/3.</p>
-<h1 id="解决方案">5. 解决方案</h1><p>t:表示卡车的七个字母的字符串<br>d(t0,td)=t0和td两卡车的字符串不相同的个数</p>
-<p>每个卡车都是由另一个卡车派生而来。<br>现在给出n种不同型号的truck，问怎样使quality的值最小————即找到一条连接所有truck的最短路径</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/ACM/">ACM</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/27/ACM-poj1789-TruckHistory/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/27/ACM-poj1789-TruckHistory/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/26/最小生成树算法/" title="最小生成树算法" itemprop="url">最小生成树算法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-26T12:01:21.000Z" itemprop="datePublished"> 发表于 2017-03-26</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>带权图分为有向和无向，无向图的最短路径又叫做最小生成树，有prime算法和kruskal算法；有向图的最短路径算法有dijkstra算法和floyd算法。</p>
-<p>最小生成树问题：给定一个连通无向图，寻找一颗无环树，使得树上所有边权值之和最小。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-26-20-15-02.png" alt=""> </p>
-<h1 id="最小生成树的贪心策略的通用方法">1. 最小生成树的贪心策略的通用方法</h1><h2 id="问题描述">1.1. 问题描述</h2><p><strong>已知</strong>：连通无向图$G=(V,E)$，权重函数$w:E \rightarrow R$<br><strong>循环不变式</strong>：在每边循环之前，A是某颗最小生成树的一个子集。<br><strong>伪代码</strong></p>
-<pre><code>GENERIC-MST(G,w)
-A={}
-while A does not form a spanning tree // 当A不是一个生成树时
-    find an edge(u,v) that is safe for A // 找到一条A的安全边
-    A = A ∪ {(u,v)}
-return A
-</code></pre><p>注：安全边是指加入A后，不会使得A违反循环不变式。即 A ∪ {(u,v)}也是某颗最小生成树的一个子集</p>
-<p><strong>问题</strong>：如何寻找安全边</p>
-<h2 id="求安全边">1.2. 求安全边</h2><p><strong>定理</strong>：设A是图G的某最小生成树的一个子集。设（S,V-S）是图G中尊重集合A的任意一个切割，又设(u,v)是横跨切割(S,V-S)的一条轻量级边，则边(u,v)对于集合A是安全的。</p>
-<p><strong>切割</strong>：图中的线<br><strong>切割尊重集合A</strong>：集合A中不存在横跨切割的边（如图a中的灰粗线构成的集合）<br><strong>轻量级边</strong>：横跨一个切割的所有边中权重最小的边（不唯一）。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-26-21-11-54.png" alt=""> </p>
-<h1 id="Kruskal和Prim关系">2. Kruskal和Prim关系</h1><table>
-<thead>
-<tr>
-<th>term</th>
-<th style="text-align:right">集合A</th>
-<th style="text-align:center">说明</th>
-<th style="text-align:center">共性</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Kruskal</td>
-<td style="text-align:right">森林</td>
-<td style="text-align:center">结点是原图结点，安全边是权重最小的连接两个不同分量的边</td>
-<td style="text-align:center">都是用具体的规则来确定安全边的方法</td>
-</tr>
-<tr>
-<td>Prim</td>
-<td style="text-align:right">树</td>
-<td style="text-align:center">安全边是连接A和A之外某个节点的边中权重最小的边</td>
-</tr>
-</tbody>
-</table>
-<h1 id="Kruskal算法">3. Kruskal算法</h1><p><strong>寻找安全边</strong>:在所有连接两个不同树的边里，找到权重最小的边(u,v)</p>
-<h2 id="伪代码">3.1. 伪代码</h2><pre><code>MST-KRUSKAL(G,w)
-A={}//A是森林
-for each vertex v∈G.V
-    MAKE-SET(v)//将集合A初始化为空集，并创建M颗子树，每棵树各含一个结点
-sort the edges of G.E into nondecreasing order by weight w //对边按照权重排序
-for each edge(u,v)∈G.E,taken in nondecreasing order by weight//按权重顺序遍历边
-    if FIND-SET(v)!=FIND-SET(u)//(u,v)不在一棵树
-        A= A ∪ {(u,v)}
-        UNION(u,v)
-return A
-</code></pre><h2 id="时间复杂度">3.2. 时间复杂度</h2><p>$O(ElgV)$</p>
-<h2 id="特点">3.3. 特点</h2><p>图的存贮结构采用边集数组,且权值相等的边在数组中排列次序可以是任意的.该方法对于边相对比较多的不是很实用,浪费时间.</p>
-<p>c++实现（写的很好，一定要看）:<a href="http://blog.csdn.net/niushuai666/article/details/6689285" target="_blank" rel="external">Kruskal算法</a></p>
-<h1 id="Prim算法">4. Prim算法</h1><p><strong>寻找安全边</strong>:A总是一颗树。从单一顶点开始，逐步扩大树中所含顶点的数目，直到遍及连通图的所有顶点。</p>
-<p>为了快速选择新边， 在算法执行的过程中，所有不在树A中的结点都存放在一个基于key属性的<code>最小优先队列Q</code>中。</p>
-<p><code>u.key</code> : 连接结点u和<strong>树</strong>中结点的所有边中最小边的权重。<br><code>u.π</code>：u在<strong>树</strong>中的父节点</p>
-<h2 id="描述">4.1. 描述</h2><p><strong>输入</strong>:连通图G,边权w,最小生成树的根节点r</p>
-<p><strong>初始化</strong>：Vnew = {x}，其中x为集合V中的任一节点（起始点），Enew = {}</p>
-<p><strong>循环</strong>：重复以下操作，直到$V_{new}=V$：</p>
-<ol>
-<li>在集合E中选取权值最小的边（u,v），其中u是集合Vnew中的元素，而v则是V中没有加入Vnew的顶点；</li>
-<li>将v加入Vnew中，将(u,v)加入Enew中；</li>
-</ol>
-<p><strong>输出</strong>：使用集合Vnew和Enew来描述所得到的最小生成树。</p>
-<p>图例：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-27-15-47-24.png" alt=""> </p>
-<h2 id="伪代码-1">4.2. 伪代码</h2><pre><code>MST-PRIM(G,w,r)//r是最小生成树的根节点
-for each u∈G.V
-    u.key=∞ 
-    u.π=NIL //u在树中的父节点
-r.key=0
-Q=G.V
-while Q!={}
-    u=EXTRACT-MIN(Q)//某条横跨切割(V-Q,Q)的一个轻量级边的端点
-    for each v∈G.Adj[u]//遍历u的邻接表
-    if v∈Q and w(u,v)&lt;v.key
-        v.π=u
-        v.key=w(u,v)
-</code></pre><h2 id="时间复杂度-1">4.3. 时间复杂度</h2><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-27-15-51-25.png" alt=""> </p>
-<p>通过邻接矩阵图表示的简易实现中，找到所有最小权边共需O（V2）的运行时间。使用简单的二叉堆与邻接表来表示的话，普里姆算法的运行时间则可缩减为O(E log V)，其中E为连通图的边数，V为顶点数。如果使用较为复杂的斐波那契堆，则可将运行时间进一步缩短为O(E + V log V)，这在连通图足够密集时（当E满足Ω（V log V）条件时），可较显著地提高运行速度</p>
-<h1 id="参考文献">5. 参考文献</h1><ol>
-<li><a href="https://zh.wikipedia.org/wiki/%E6%99%AE%E6%9E%97%E5%A7%86%E7%AE%97%E6%B3%95" target="_blank" rel="external">维基百科</a></li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/算法/">算法</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/26/最小生成树算法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/26/最小生成树算法/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
@@ -1457,7 +1026,7 @@ while Q!={}
 		  
 		
 		  
-			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>5</sup></a></li>
 		  
 		
 		  
@@ -1465,7 +1034,19 @@ while Q!={}
 		  
 		
 		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/中间件/" title="中间件">中间件<sup>1</sup></a></li>
 		  
 		
 		  
@@ -1473,7 +1054,7 @@ while Q!={}
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>6</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>7</sup></a></li>
 		  
 		
 		  
@@ -1494,15 +1075,11 @@ while Q!={}
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
 			
 		
 			
@@ -1514,6 +1091,18 @@ while Q!={}
 			
 		
 			
+				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
 			
 		
@@ -1522,15 +1111,15 @@ while Q!={}
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/OpenMessaging/" title="OpenMessaging">OpenMessaging<sup>1</sup></a></li>
 			
 		
 		</ul>

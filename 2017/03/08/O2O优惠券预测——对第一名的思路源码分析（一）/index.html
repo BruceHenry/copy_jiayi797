@@ -11,27 +11,22 @@
     
 
     
-    <meta name="description" content="感觉自己还是太渣，看了些许算法，并不知道有什么卵用。决定好好分析分析别人的思路，也许能够对我带来些许启发。
-本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[https://github.com/wepe/O2O-Coupon-Usage-Forecast]。
-本文主要对数据的抽取extract_feature.py做一些详细的分">
+    <meta name="description" content="感觉自己还是太渣，看了些许算法，并不知道有什么卵用。决定好好分析分析别人的思路，也许能够对我带来些许启发。 本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[https://github.com/wepe/O2O-Coupon-Usage-Forecast]。 本文主要对数据的抽取extract_feature.py做一些详细的分">
+<meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="O2O优惠券预测——对第一名的思路源码分析（一）">
 <meta property="og:url" content="http://yoursite.com/child/2017/03/08/O2O优惠券预测——对第一名的思路源码分析（一）/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="感觉自己还是太渣，看了些许算法，并不知道有什么卵用。决定好好分析分析别人的思路，也许能够对我带来些许启发。
-本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[https://github.com/wepe/O2O-Coupon-Usage-Forecast]。
-本文主要对数据的抽取extract_feature.py做一些详细的分">
+<meta property="og:description" content="感觉自己还是太渣，看了些许算法，并不知道有什么卵用。决定好好分析分析别人的思路，也许能够对我带来些许启发。 本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[https://github.com/wepe/O2O-Coupon-Usage-Forecast]。 本文主要对数据的抽取extract_feature.py做一些详细的分">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-10-27.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-09-22-39-21.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-09-22-43-02.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-34-44.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-33-13.png">
-<meta property="og:updated_time" content="2017-03-11T12:12:03.471Z">
+<meta property="og:updated_time" content="2017-04-24T13:26:32.502Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="O2O优惠券预测——对第一名的思路源码分析（一）">
-<meta name="twitter:description" content="感觉自己还是太渣，看了些许算法，并不知道有什么卵用。决定好好分析分析别人的思路，也许能够对我带来些许启发。
-本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[https://github.com/wepe/O2O-Coupon-Usage-Forecast]。
-本文主要对数据的抽取extract_feature.py做一些详细的分">
+<meta name="twitter:description" content="感觉自己还是太渣，看了些许算法，并不知道有什么卵用。决定好好分析分析别人的思路，也许能够对我带来些许启发。 本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[https://github.com/wepe/O2O-Coupon-Usage-Forecast]。 本文主要对数据的抽取extract_feature.py做一些详细的分">
 <meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-10-27.png">
 
     
@@ -110,7 +105,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#解决方案概述"><span class="toc-text">1. 解决方案概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#import概述"><span class="toc-text">2. import概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#import包概述"><span class="toc-text">2.1. import包概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pandas"><span class="toc-text">2.2. pandas</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-text">2.3. 注意</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#读取数据集"><span class="toc-text">3. 读取数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#源码分析"><span class="toc-text">3.1. 源码分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#采集特征"><span class="toc-text">4. 采集特征</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#主要特征"><span class="toc-text">4.1. 主要特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#源码分析-1"><span class="toc-text">4.1.1. 源码分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他特征"><span class="toc-text">4.2. 其他特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#other-feature3"><span class="toc-text">4.2.1. other_feature3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#源码分析-2"><span class="toc-text">4.2.1.1. 源码分析</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录"><span class="toc-text">5. 附录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看dataFrame类型的内容"><span class="toc-text">5.1. 查看dataFrame类型的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lambda-functions"><span class="toc-text">5.2. lambda functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pandas的merge的how参数"><span class="toc-text">5.3. pandas的merge的how参数</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#解决方案概述"><span class="toc-text">1. 解决方案概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#import概述"><span class="toc-text">2. import概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#import包概述"><span class="toc-text">2.1. import包概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pandas"><span class="toc-text">2.2. pandas</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-text">2.3. 注意</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#读取数据集"><span class="toc-text">3. 读取数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#源码分析"><span class="toc-text">3.1. 源码分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#采集特征"><span class="toc-text">4. 采集特征</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#主要特征"><span class="toc-text">4.1. 主要特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#源码分析-1"><span class="toc-text">4.1.1. 源码分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他特征"><span class="toc-text">4.2. 其他特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#other-feature3"><span class="toc-text">4.2.1. other_feature3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#源码分析-2"><span class="toc-text">4.2.1.1. 源码分析</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#合并特征"><span class="toc-text">5. 合并特征</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成训练集"><span class="toc-text">5.1. 生成训练集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成预测集"><span class="toc-text">5.2. 生成预测集</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录"><span class="toc-text">6. 附录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看dataFrame类型的内容"><span class="toc-text">6.1. 查看dataFrame类型的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lambda-functions"><span class="toc-text">6.2. lambda functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pandas的merge的how参数"><span class="toc-text">6.3. pandas的merge的how参数</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -127,10 +122,8 @@
 <li><code>xgb.py</code> 训练xgboost模型，生成特征重要性文件，生成预测结果。单模型第一赛季A榜AUC得分0.798.</li>
 </ul>
 <h1 id="import概述">2. import概述</h1><p>分析对象：extract_feature.py</p>
-<h2 id="import包概述">2.1. import包概述</h2><pre><code>import pandas as pd
-import numpy as np
-from datetime import date
-</code></pre><h2 id="pandas">2.2. pandas</h2><p>Pandas 是基于 NumPy (因此还要<code>import numpy</code>) 的一个非常好用的库，正如名字一样，人见人爱。之所以如此，就在于不论是读取、处理数据，用它都非常简单。Pandas提供了很多处理大数据的方法。我想是因为此，原作者才采用了它。</p>
+<h2 id="import包概述">2.1. import包概述</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> date</div></pre></td></tr></table></figure>
+<h2 id="pandas">2.2. pandas</h2><p>Pandas 是基于 NumPy (因此还要<code>import numpy</code>) 的一个非常好用的库，正如名字一样，人见人爱。之所以如此，就在于不论是读取、处理数据，用它都非常简单。Pandas提供了很多处理大数据的方法。我想是因为此，原作者才采用了它。</p>
 <p>Pandas 有两种自己独有的基本数据结构。<code>Series</code> 和 <code>DataFrame</code>，它们让数据操作更简单了。</p>
 <p>两种结构的属性和方法不再多阐述。见两份很好的参考文档：</p>
 <ol>
@@ -175,21 +168,8 @@ from datetime import date
 </tr>
 </tbody>
 </table>
-<h2 id="源码分析">3.1. 源码分析</h2><pre><code>#1754884 record,1053282 with coupon_id,9738 coupon. date_received:20160101~20160615,date:20160101~20160630, 539438 users, 8415 merchants
-
-off_train = pd.read_csv(&apos;data/ccf_offline_stage1_train.csv&apos;,header=None)
-off_train.columns = [&apos;user_id&apos;,&apos;merchant_id&apos;,&apos;coupon_id&apos;,&apos;discount_rate&apos;,&apos;distance&apos;,&apos;date_received&apos;,&apos;date&apos;]
-
-#2050 coupon_id. date_received:20160701~20160731, 76309 users(76307 in trainset, 35965 in online_trainset), 1559 merchants(1558 in trainset)
-
-off_test = pd.read_csv(&apos;data/ccf_offline_stage1_test_revised.csv&apos;,header=None,nrows=3000)
-off_test.columns = [&apos;user_id&apos;,&apos;merchant_id&apos;,&apos;coupon_id&apos;,&apos;discount_rate&apos;,&apos;distance&apos;,&apos;date_received&apos;]
-
-#11429826 record(872357 with coupon_id),762858 user(267448 in off_train)
-
-on_train = pd.read_csv(&apos;data/ccf_online_stage1_train.csv&apos;,header=None,nrows=47000)
-on_train.columns = [&apos;user_id&apos;,&apos;merchant_id&apos;,&apos;action&apos;,&apos;coupon_id&apos;,&apos;discount_rate&apos;,&apos;date_received&apos;,&apos;date&apos;]
-</code></pre><p>读数据主要用了pandas的read_cvs方法. 为了快捷分析，我们限定只读取数据集的前7w、3k、47w行</p>
+<h2 id="源码分析">3.1. 源码分析</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#1754884 record,1053282 with coupon_id,9738 coupon. date_received:20160101~20160615,date:20160101~20160630, 539438 users, 8415 merchants</span></div><div class="line"></div><div class="line">off_train = pd.read_csv(<span class="string">'data/ccf_offline_stage1_train.csv'</span>,header=<span class="keyword">None</span>)</div><div class="line">off_train.columns = [<span class="string">'user_id'</span>,<span class="string">'merchant_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'discount_rate'</span>,<span class="string">'distance'</span>,<span class="string">'date_received'</span>,<span class="string">'date'</span>]</div><div class="line"></div><div class="line"><span class="comment">#2050 coupon_id. date_received:20160701~20160731, 76309 users(76307 in trainset, 35965 in online_trainset), 1559 merchants(1558 in trainset)</span></div><div class="line"></div><div class="line">off_test = pd.read_csv(<span class="string">'data/ccf_offline_stage1_test_revised.csv'</span>,header=<span class="keyword">None</span>,nrows=<span class="number">3000</span>)</div><div class="line">off_test.columns = [<span class="string">'user_id'</span>,<span class="string">'merchant_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'discount_rate'</span>,<span class="string">'distance'</span>,<span class="string">'date_received'</span>]</div><div class="line"></div><div class="line"><span class="comment">#11429826 record(872357 with coupon_id),762858 user(267448 in off_train)</span></div><div class="line"></div><div class="line">on_train = pd.read_csv(<span class="string">'data/ccf_online_stage1_train.csv'</span>,header=<span class="keyword">None</span>,nrows=<span class="number">47000</span>)</div><div class="line">on_train.columns = [<span class="string">'user_id'</span>,<span class="string">'merchant_id'</span>,<span class="string">'action'</span>,<span class="string">'coupon_id'</span>,<span class="string">'discount_rate'</span>,<span class="string">'date_received'</span>,<span class="string">'date'</span>]</div></pre></td></tr></table></figure>
+<p>读数据主要用了pandas的read_cvs方法. 为了快捷分析，我们限定只读取数据集的前7w、3k、47w行</p>
 <h1 id="采集特征">4. 采集特征</h1><h2 id="主要特征">4.1. 主要特征</h2><p>总结：</p>
 <table>
 <thead>
@@ -265,33 +245,8 @@ on_train.columns = [&apos;user_id&apos;,&apos;merchant_id&apos;,&apos;action&apo
 </tbody>
 </table>
 <p>上面这个表格很清晰地说明了原作者划分数据的方法.</p>
-<h3 id="源码分析-1">4.1.1. 源码分析</h3><pre><code>#dataset3存放table3 的数据
-dataset3 = off_test 
-
-#feature3存放：筛出off_train中，以下四种情况：
-#消费日期data在20160315-20160630的，
-#或消费日期为空且领券日期在20160315-20160630的，
-feature3 = off_train[
-((off_train.date&gt;=&apos;20160315&apos;)&amp;(off_train.date&lt;=&apos;20160630&apos;))
-|((off_train.date==&apos;null&apos;)&amp;(off_train.date_received&gt;=&apos;20160315&apos;)&amp;(off_train.date_received&lt;=&apos;20160630&apos;))]
-
-#dataset2存放：从off_train筛出：领券时期在20160515-20160615之间的
-dataset2 = off_train[
-(off_train.date_received&gt;=&apos;20160515&apos;)&amp;off_train.date_received&lt;=&apos;20160615&apos;)]
-
-#feature2存放：从off_train筛出：
-#消费日期在20160201-20160514的，
-#或领券日期在20160201-20160514但没有消费的
-feature2 = off_train[(off_train.date&gt;=&apos;20160201&apos;)&amp;(off_train.date&lt;=&apos;20160514&apos;)|((off_train.date==&apos;null&apos;)&amp;(off_train.date_received&gt;=&apos;20160201&apos;)&amp;(off_train.date_received&lt;=&apos;20160514&apos;))]
-
-#dataset1存放：从off_train筛出： 领券日期在20160414-20160514的
-dataset1 = off_train[(off_train.date_received&gt;=&apos;20160414&apos;)&amp;(off_train.date_received&lt;=&apos;20160514&apos;)]
-
-#feature1存放：从off_train筛出：
-#消费日期在20160101-20160413的，或
-#领券日期在20160101-20160413但没有消费的
-feature1 = off_train[(off_train.date&gt;=&apos;20160101&apos;)&amp;(off_train.date&lt;=&apos;20160413&apos;)|((off_train.date==&apos;null&apos;)&amp;(off_train.date_received&gt;=&apos;20160101&apos;)&amp;(off_train.date_received&lt;=&apos;20160413&apos;))]
-</code></pre><h2 id="其他特征">4.2. 其他特征</h2><h3 id="other-feature3">4.2.1. other_feature3</h3><table>
+<h3 id="源码分析-1">4.1.1. 源码分析</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#dataset3存放table3 的数据</span></div><div class="line">dataset3 = off_test </div><div class="line"></div><div class="line"><span class="comment">#feature3存放：筛出off_train中，以下四种情况：</span></div><div class="line"><span class="comment">#消费日期data在20160315-20160630的，</span></div><div class="line"><span class="comment">#或消费日期为空且领券日期在20160315-20160630的，</span></div><div class="line">feature3 = off_train[</div><div class="line">((off_train.date&gt;=<span class="string">'20160315'</span>)&amp;(off_train.date&lt;=<span class="string">'20160630'</span>))</div><div class="line">|((off_train.date==<span class="string">'null'</span>)&amp;(off_train.date_received&gt;=<span class="string">'20160315'</span>)&amp;(off_train.date_received&lt;=<span class="string">'20160630'</span>))]</div><div class="line"></div><div class="line"><span class="comment">#dataset2存放：从off_train筛出：领券时期在20160515-20160615之间的</span></div><div class="line">dataset2 = off_train[</div><div class="line">(off_train.date_received&gt;=<span class="string">'20160515'</span>)&amp;off_train.date_received&lt;=<span class="string">'20160615'</span>)]</div><div class="line"></div><div class="line"><span class="comment">#feature2存放：从off_train筛出：</span></div><div class="line"><span class="comment">#消费日期在20160201-20160514的，</span></div><div class="line"><span class="comment">#或领券日期在20160201-20160514但没有消费的</span></div><div class="line">feature2 = off_train[(off_train.date&gt;=<span class="string">'20160201'</span>)&amp;(off_train.date&lt;=<span class="string">'20160514'</span>)|((off_train.date==<span class="string">'null'</span>)&amp;(off_train.date_received&gt;=<span class="string">'20160201'</span>)&amp;(off_train.date_received&lt;=<span class="string">'20160514'</span>))]</div><div class="line"></div><div class="line"><span class="comment">#dataset1存放：从off_train筛出： 领券日期在20160414-20160514的</span></div><div class="line">dataset1 = off_train[(off_train.date_received&gt;=<span class="string">'20160414'</span>)&amp;(off_train.date_received&lt;=<span class="string">'20160514'</span>)]</div><div class="line"></div><div class="line"><span class="comment">#feature1存放：从off_train筛出：</span></div><div class="line"><span class="comment">#消费日期在20160101-20160413的，或</span></div><div class="line"><span class="comment">#领券日期在20160101-20160413但没有消费的</span></div><div class="line">feature1 = off_train[(off_train.date&gt;=<span class="string">'20160101'</span>)&amp;(off_train.date&lt;=<span class="string">'20160413'</span>)|((off_train.date==<span class="string">'null'</span>)&amp;(off_train.date_received&gt;=<span class="string">'20160101'</span>)&amp;(off_train.date_received&lt;=<span class="string">'20160413'</span>))]</div></pre></td></tr></table></figure>
+<h2 id="其他特征">4.2. 其他特征</h2><h3 id="other-feature3">4.2.1. other_feature3</h3><table>
 <thead>
 <tr>
 <th></th>
@@ -337,71 +292,100 @@ feature1 = off_train[(off_train.date&gt;=&apos;20160101&apos;)&amp;(off_train.da
 <p>格式：user_id,coupon_id,this_month_user_receive_same_coupon_count,this_month_user_receive_all_coupon_count,date_received,this_month_user_receive_same_coupon_lastone,this_month_user_receive_same_coupon_firstone,this_day_user_receive_all_coupon_count,this_day_user_receive_same_coupon_count,day_gap_before,day_gap_after</p>
 <p>解释：用户id,优惠券id,本月用户使用本券次数，本月用户使用所有券次数，使用时间，本月用户使用本券末次时间、首次时间，本日用户用券总数，本日用户用本券总数，上次用本券间隔，下次用本券间隔</p>
 <h4 id="源码分析-2">4.2.1.1. 源码分析</h4><p>t:计算每个用户使用优惠券的总次数：</p>
-<pre><code>#将测试集dataset3的userid存在t中
-t = dataset3[[&apos;user_id&apos;]]
-#给t添加一个列，列名是this_month_user_receive_all_coupon_count，值都是1
-t[&apos;this_month_user_receive_all_coupon_count&apos;] = 1
-#按照user_id分组，将user_id重复的项目的this_month_user_receive_all_coupon_count相加，然后进行reset_index
-#其实就是算出每个用户使用优惠券的总次数
-t = t.groupby(&apos;user_id&apos;).agg(&apos;sum&apos;).reset_index()
-</code></pre><p>t1:统计每个用户，使用不同优惠券的次数：</p>
-<pre><code>t1 = dataset3[[&apos;user_id&apos;,&apos;coupon_id&apos;]]
-t1[&apos;this_month_user_receive_same_coupon_count&apos;] = 1
-#按照user_id和coupon_id进行分组
-#统计每个用户，使用不同优惠券的次数
-t1 = t1.groupby([&apos;user_id&apos;,&apos;coupon_id&apos;]).agg(&apos;sum&apos;).reset_index()
-</code></pre><p>t2:找出每个人，消费每个券的时间，并用冒号分隔例如：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-10-27.png" alt=""> </p>
-<pre><code>t2 = dataset3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;]]
-t2.date_received = t2.date_received.astype(&apos;str&apos;)
-# 按照user_id&apos;,&apos;coupon_id排序后，提出来date_received，进行agg运算
-# agg运算：用冒号连接起来
-t2 = t2.groupby([&apos;user_id&apos;,&apos;coupon_id&apos;])[&apos;date_received&apos;].agg(lambda x:&apos;:&apos;.join(x)).reset_index()
-</code></pre><p>t2:每个用户使用某张优惠券（使用次数大于1次）的首次和末次使用时间</p>
-<pre><code>#apply会返回每个优惠券的使用次数
-t2[&apos;receive_number&apos;] = t2.date_received.apply(lambda s:len(s.split(&apos;:&apos;)))
-#筛出使用次数大于1次的数据
-t2 = t2[t2.receive_number&gt;1]
-#对max_date_received赋值为最近一次的使用时间
-t2[&apos;max_date_received&apos;] = t2.date_received.apply(lambda s:max([int(d) for d in s.split(&apos;:&apos;)]))
-#对min_date_received赋值为最早一次的使用时间
-t2[&apos;min_date_received&apos;] = t2.date_received.apply(lambda s:min([int(d) for d in s.split(&apos;:&apos;)]))
-# 重新定义t2为以下项目
-t2 = t2[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;max_date_received&apos;,&apos;min_date_received&apos;]]
-</code></pre><p>t3:每个用户使用优惠券的时间、本次优惠券与首次使用的间隔、末次使用的间隔</p>
-<pre><code>t3 = dataset3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;]]
-#merge，将两个数据集合并
-#将t2和t3在[&apos;user_id&apos;,&apos;coupon_id&apos;]上进行左帧合并，即根据t3合并t2的user_id&apos;,&apos;coupon_id
-#t2[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;max_date_received&apos;,&apos;min_date_received&apos;]]
-#t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;]]
-#因此合并方式为：找到每个用户每张优惠券的消费时间和对应券的max_date_received与min_date_received
-t3 = pd.merge(t3,t2,on=[&apos;user_id&apos;,&apos;coupon_id&apos;],how=&apos;left&apos;)
-#t3的this_month_user_receive_same_coupon_lastone项目设置为:此用户消费本张优惠券与最近一次消费本张优惠券的间隔
-
-t3 = t3.apply(pd.to_numeric, args=(&apos;coerce&apos;,))
-t3[&apos;this_month_user_receive_same_coupon_lastone&apos;] = t3.max_date_received - t3.date_received
-#此用户消费本张优惠券与第一次消费本张优惠券的间隔
-t3[&apos;this_month_user_receive_same_coupon_firstone&apos;] = t3.date_received - t3.min_date_received
-</code></pre><p>上面跑到<code>t3[&#39;this_month_user_receive_same_coupon_lastone&#39;] = t3.max_date_received - t3.date_received</code>的时候会出现<code>TypeError: unsupported operand type(s) for -: &#39;float&#39; and &#39;str&#39;</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#将测试集dataset3的userid存在t中</span></div><div class="line">t = dataset3[[<span class="string">'user_id'</span>]]</div><div class="line"><span class="comment">#给t添加一个列，列名是this_month_user_receive_all_coupon_count，值都是1</span></div><div class="line">t[<span class="string">'this_month_user_receive_all_coupon_count'</span>] = <span class="number">1</span></div><div class="line"><span class="comment">#按照user_id分组，将user_id重复的项目的this_month_user_receive_all_coupon_count相加，然后进行reset_index</span></div><div class="line"><span class="comment">#其实就是算出每个用户使用优惠券的总次数</span></div><div class="line">t = t.groupby(<span class="string">'user_id'</span>).agg(<span class="string">'sum'</span>).reset_index()</div></pre></td></tr></table></figure>
+<p>t1:统计每个用户，使用不同优惠券的次数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">t1 = dataset3[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>]]</div><div class="line">t1[<span class="string">'this_month_user_receive_same_coupon_count'</span>] = <span class="number">1</span></div><div class="line"><span class="comment">#按照user_id和coupon_id进行分组</span></div><div class="line"><span class="comment">#统计每个用户，使用不同优惠券的次数</span></div><div class="line">t1 = t1.groupby([<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>]).agg(<span class="string">'sum'</span>).reset_index()</div></pre></td></tr></table></figure>
+<p>t2:找出每个人，消费每个券的时间，并用冒号分隔例如：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-10-27.png" alt=""> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">t2 = dataset3[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'date_received'</span>]]</div><div class="line">t2.date_received = t2.date_received.astype(<span class="string">'str'</span>)</div><div class="line"><span class="comment"># 按照user_id','coupon_id排序后，提出来date_received，进行agg运算</span></div><div class="line"><span class="comment"># agg运算：用冒号连接起来</span></div><div class="line">t2 = t2.groupby([<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>])[<span class="string">'date_received'</span>].agg(<span class="keyword">lambda</span> x:<span class="string">':'</span>.join(x)).reset_index()</div></pre></td></tr></table></figure>
+<p>t2:每个用户使用某张优惠券（使用次数大于1次）的首次和末次使用时间</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#apply会返回每个优惠券的使用次数</span></div><div class="line">t2[<span class="string">'receive_number'</span>] = t2.date_received.apply(<span class="keyword">lambda</span> s:len(s.split(<span class="string">':'</span>)))</div><div class="line"><span class="comment">#筛出使用次数大于1次的数据</span></div><div class="line">t2 = t2[t2.receive_number&gt;<span class="number">1</span>]</div><div class="line"><span class="comment">#对max_date_received赋值为最近一次的使用时间</span></div><div class="line">t2[<span class="string">'max_date_received'</span>] = t2.date_received.apply(<span class="keyword">lambda</span> s:max([int(d) <span class="keyword">for</span> d <span class="keyword">in</span> s.split(<span class="string">':'</span>)]))</div><div class="line"><span class="comment">#对min_date_received赋值为最早一次的使用时间</span></div><div class="line">t2[<span class="string">'min_date_received'</span>] = t2.date_received.apply(<span class="keyword">lambda</span> s:min([int(d) <span class="keyword">for</span> d <span class="keyword">in</span> s.split(<span class="string">':'</span>)]))</div><div class="line"><span class="comment"># 重新定义t2为以下项目</span></div><div class="line">t2 = t2[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'max_date_received'</span>,<span class="string">'min_date_received'</span>]]</div></pre></td></tr></table></figure>
+<p>t3:每个用户使用优惠券的时间、本次优惠券与首次使用的间隔、末次使用的间隔</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">t3 = dataset3[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'date_received'</span>]]</div><div class="line"><span class="comment">#merge，将两个数据集合并</span></div><div class="line"><span class="comment">#将t2和t3在['user_id','coupon_id']上进行左帧合并，即根据t3合并t2的user_id','coupon_id</span></div><div class="line"><span class="comment">#t2[['user_id','coupon_id','max_date_received','min_date_received']]</span></div><div class="line"><span class="comment">#t3[['user_id','coupon_id','date_received']]</span></div><div class="line"><span class="comment">#因此合并方式为：找到每个用户每张优惠券的消费时间和对应券的max_date_received与min_date_received</span></div><div class="line">t3 = pd.merge(t3,t2,on=[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>],how=<span class="string">'left'</span>)</div><div class="line"><span class="comment">#t3的this_month_user_receive_same_coupon_lastone项目设置为:此用户消费本张优惠券与最近一次消费本张优惠券的间隔</span></div><div class="line"></div><div class="line">t3 = t3.apply(pd.to_numeric, args=(<span class="string">'coerce'</span>,))</div><div class="line">t3[<span class="string">'this_month_user_receive_same_coupon_lastone'</span>] = t3.max_date_received - t3.date_received</div><div class="line"><span class="comment">#此用户消费本张优惠券与第一次消费本张优惠券的间隔</span></div><div class="line">t3[<span class="string">'this_month_user_receive_same_coupon_firstone'</span>] = t3.date_received - t3.min_date_received</div></pre></td></tr></table></figure>
+<p>上面跑到<code>t3[&#39;this_month_user_receive_same_coupon_lastone&#39;] = t3.max_date_received - t3.date_received</code>的时候会出现<code>TypeError: unsupported operand type(s) for -: &#39;float&#39; and &#39;str&#39;</code>.</p>
 <p>在执行这句话之前，我们看到<code>t3.date_received</code>的类型为<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-22-39-21.png" alt=""> </p>
 <p>因此我们需要将数据类型先转换为float。在网上查到本方法对本代码有效（暂不知原因）。<a href="http://stackoverflow.com/questions/14450020/unsupported-operand-in-pandas-dataframe-operation" target="_blank" rel="external">参考文献</a></p>
 <p><code>t3 = t3.apply(pd.anumeric, args=(&#39;coerce&#39;,))</code></p>
 <p>把这句话加上后，我们看到<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-22-43-02.png" alt=""> </p>
 <p>定义函数is_firstlastone判断优惠券是否是末次使用</p>
-<pre><code>def is_firstlastone(x):
-    if x==0:
-        return 1
-    elif x&gt;0:
-        return 0
-    else:
-        return -1 #those only receive once
-</code></pre><p>t3:加上两个数据，…</p>
-<pre><code>t3.this_month_user_receive_same_coupon_lastone = t3.this_month_user_receive_same_coupon_lastone.apply(is_firstlastone)
-t3.this_month_user_receive_same_coupon_firstone = t3.this_month_user_receive_same_coupon_firstone.apply(is_firstlastone)
-t3 = t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&apos;this_month_user_receive_same_coupon_lastone&apos;,&apos;this_month_user_receive_same_coupon_firstone&apos;]]
-</code></pre><p>后面套路差不多，此处不再继续分析。主要结论已经总结在上表中。</p>
-<h1 id="附录">5. 附录</h1><h2 id="查看dataFrame类型的内容">5.1. 查看dataFrame类型的内容</h2><p>见pandas 文档之 10 minutes to pandas — viewing data</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_firstlastone</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="keyword">if</span> x==<span class="number">0</span>:</div><div class="line">        <span class="keyword">return</span> <span class="number">1</span></div><div class="line">    <span class="keyword">elif</span> x&gt;<span class="number">0</span>:</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span></div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span> <span class="comment">#those only receive once</span></div></pre></td></tr></table></figure>
+<p>t3:加上两个数据，…</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">t3.this_month_user_receive_same_coupon_lastone = t3.this_month_user_receive_same_coupon_lastone.apply(is_firstlastone)</div><div class="line">t3.this_month_user_receive_same_coupon_firstone = t3.this_month_user_receive_same_coupon_firstone.apply(is_firstlastone)</div><div class="line">t3 = t3[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'date_received'</span>,<span class="string">'this_month_user_receive_same_coupon_lastone'</span>,<span class="string">'this_month_user_receive_same_coupon_firstone'</span>]]</div></pre></td></tr></table></figure>
+<p>后面套路差不多，此处不再继续分析。主要结论已经总结在上表中。</p>
+<h1 id="合并特征">5. 合并特征</h1><h2 id="生成训练集">5.1. 生成训练集</h2><pre><code>coupon2 = pd.read_csv(&apos;data/coupon2_feature.csv&apos;)
+merchant2 = pd.read_csv(&apos;data/merchant2_feature.csv&apos;)
+user2 = pd.read_csv(&apos;data/user2_feature.csv&apos;)
+user_merchant2 = pd.read_csv(&apos;data/user_merchant2.csv&apos;)
+other_feature2 = pd.read_csv(&apos;data/other_feature2.csv&apos;)
+#dataset2是根据 优惠券特征 合并商户、用户、用户-商户、其他特征
+dataset2 = pd.merge(coupon2,merchant2,on=&apos;merchant_id&apos;,how=&apos;left&apos;)
+dataset2 = pd.merge(dataset2,user2,on=&apos;user_id&apos;,how=&apos;left&apos;)
+dataset2 = pd.merge(dataset2,user_merchant2,on=[&apos;user_id&apos;,&apos;merchant_id&apos;],how=&apos;left&apos;)
+dataset2 = pd.merge(dataset2,other_feature2,on=[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;],how=&apos;left&apos;)
+dataset2.drop_duplicates(inplace=True)
+print dataset2.shape
+dataset2.user_merchant_buy_total = dataset2.user_merchant_buy_total.replace(np.nan,0)
+dataset2.user_merchant_any = dataset2.user_merchant_any.replace(np.nan,0)
+dataset2.user_merchant_received = dataset2.user_merchant_received.replace(np.nan,0)
+dataset2[&apos;is_weekend&apos;] = dataset2.day_of_week.apply(lambda x:1 if x in (6,7) else 0)
+weekday_dummies = pd.get_dummies(dataset2.day_of_week)
+weekday_dummies.columns = [&apos;weekday&apos;+str(i+1) for i in range(weekday_dummies.shape[1])]
+dataset2 = pd.concat([dataset2,weekday_dummies],axis=1)
+dataset2[&apos;label&apos;] = dataset2.date.astype(&apos;str&apos;) + &apos;:&apos; +  dataset2.date_received.astype(&apos;str&apos;)
+dataset2.label = dataset2.label.apply(get_label)
+dataset2.drop([&apos;merchant_id&apos;,&apos;day_of_week&apos;,&apos;date&apos;,&apos;date_received&apos;,&apos;coupon_id&apos;,&apos;coupon_count&apos;],axis=1,inplace=True)
+dataset2 = dataset2.replace(&apos;null&apos;,np.nan)
+dataset2.to_csv(&apos;data/dataset2.csv&apos;,index=None)
+
+
+coupon1 = pd.read_csv(&apos;data/coupon1_feature.csv&apos;)
+merchant1 = pd.read_csv(&apos;data/merchant1_feature.csv&apos;)
+user1 = pd.read_csv(&apos;data/user1_feature.csv&apos;)
+user_merchant1 = pd.read_csv(&apos;data/user_merchant1.csv&apos;)
+other_feature1 = pd.read_csv(&apos;data/other_feature1.csv&apos;)
+dataset1 = pd.merge(coupon1,merchant1,on=&apos;merchant_id&apos;,how=&apos;left&apos;)
+dataset1 = pd.merge(dataset1,user1,on=&apos;user_id&apos;,how=&apos;left&apos;)
+dataset1 = pd.merge(dataset1,user_merchant1,on=[&apos;user_id&apos;,&apos;merchant_id&apos;],how=&apos;left&apos;)
+dataset1 = pd.merge(dataset1,other_feature1,on=[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;],how=&apos;left&apos;)
+dataset1.drop_duplicates(inplace=True)
+print dataset1.shape
+
+dataset1.user_merchant_buy_total = dataset1.user_merchant_buy_total.replace(np.nan,0)
+dataset1.user_merchant_any = dataset1.user_merchant_any.replace(np.nan,0)
+dataset1.user_merchant_received = dataset1.user_merchant_received.replace(np.nan,0)
+dataset1[&apos;is_weekend&apos;] = dataset1.day_of_week.apply(lambda x:1 if x in (6,7) else 0)
+weekday_dummies = pd.get_dummies(dataset1.day_of_week)
+weekday_dummies.columns = [&apos;weekday&apos;+str(i+1) for i in range(weekday_dummies.shape[1])]
+dataset1 = pd.concat([dataset1,weekday_dummies],axis=1)
+dataset1[&apos;label&apos;] = dataset1.date.astype(&apos;str&apos;) + &apos;:&apos; +  dataset1.date_received.astype(&apos;str&apos;)
+dataset1.label = dataset1.label.apply(get_label)
+dataset1.drop([&apos;merchant_id&apos;,&apos;day_of_week&apos;,&apos;date&apos;,&apos;date_received&apos;,&apos;coupon_id&apos;,&apos;coupon_count&apos;],axis=1,inplace=True)
+dataset1 = dataset1.replace(&apos;null&apos;,np.nan)
+dataset1.to_csv(&apos;data/dataset1.csv&apos;,index=None)
+</code></pre><h2 id="生成预测集">5.2. 生成预测集</h2><pre><code>coupon3 = pd.read_csv(&apos;data/coupon3_feature.csv&apos;)
+merchant3 = pd.read_csv(&apos;data/merchant3_feature.csv&apos;)
+user3 = pd.read_csv(&apos;data/user3_feature.csv&apos;)
+user_merchant3 = pd.read_csv(&apos;data/user_merchant3.csv&apos;)
+other_feature3 = pd.read_csv(&apos;data/other_feature3.csv&apos;)
+dataset3 = pd.merge(coupon3,merchant3,on=&apos;merchant_id&apos;,how=&apos;left&apos;)
+dataset3 = pd.merge(dataset3,user3,on=&apos;user_id&apos;,how=&apos;left&apos;)
+dataset3 = pd.merge(dataset3,user_merchant3,on=[&apos;user_id&apos;,&apos;merchant_id&apos;],how=&apos;left&apos;)
+dataset3 = pd.merge(dataset3,other_feature3,on=[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;],how=&apos;left&apos;)
+dataset3.drop_duplicates(inplace=True)
+print dataset3.shape
+
+dataset3.user_merchant_buy_total = dataset3.user_merchant_buy_total.replace(np.nan,0)
+dataset3.user_merchant_any = dataset3.user_merchant_any.replace(np.nan,0)
+dataset3.user_merchant_received = dataset3.user_merchant_received.replace(np.nan,0)
+dataset3[&apos;is_weekend&apos;] = dataset3.day_of_week.apply(lambda x:1 if x in (6,7) else 0)
+weekday_dummies = pd.get_dummies(dataset3.day_of_week)
+weekday_dummies.columns = [&apos;weekday&apos;+str(i+1) for i in range(weekday_dummies.shape[1])]
+dataset3 = pd.concat([dataset3,weekday_dummies],axis=1)
+dataset3.drop([&apos;merchant_id&apos;,&apos;day_of_week&apos;,&apos;coupon_count&apos;],axis=1,inplace=True)
+dataset3 = dataset3.replace(&apos;null&apos;,np.nan)
+dataset3.to_csv(&apos;data/dataset3.csv&apos;,index=None)
+</code></pre><h1 id="附录">6. 附录</h1><h2 id="查看dataFrame类型的内容">6.1. 查看dataFrame类型的内容</h2><p>见pandas 文档之 10 minutes to pandas — viewing data</p>
 <p>用t.values,t.columns</p>
-<h2 id="lambda-functions">5.2. lambda functions</h2><p>源代码中有一行<code>t2.groupby([&#39;user_id&#39;,&#39;coupon_id&#39;])[&#39;date_received&#39;].agg(lambda x:&#39;:&#39;.join(x)).reset_index()</code></p>
+<h2 id="lambda-functions">6.2. lambda functions</h2><p>源代码中有一行<code>t2.groupby([&#39;user_id&#39;,&#39;coupon_id&#39;])[&#39;date_received&#39;].agg(lambda x:&#39;:&#39;.join(x)).reset_index()</code></p>
 <p><a href="http://www.diveintopython.net/power_of_introspection/lambda_functions.html" target="_blank" rel="external">官方文档</a></p>
 <p><code>lambda functions</code>是python的一个function.<br>用例：</p>
 <pre><code>#函数f(x)
@@ -420,13 +404,8 @@ t3 = t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&ap
 6
 </code></pre><p>作者代码中，有一行<br><code>lambda x:&#39;:&#39;.join(x)</code>即将前后叠加,用<code>:</code>连接<br><code>t2.groupby([&#39;user_id&#39;,&#39;coupon_id&#39;])[&#39;date_received&#39;].agg(lambda x:&#39;:&#39;.join(x)).reset_index()</code>意思是将数据集先按照user_id’,’coupon_id排序，然后对date_received进行用:连接一起来</p>
 <p>例如，输入：</p>
-<pre><code>df = pd.DataFrame({&apos;A&apos; : [&apos;foo&apos;, &apos;bar&apos;, &apos;foo&apos;, &apos;bar&apos;,
-                            &apos;foo&apos;, &apos;bar&apos;, &apos;foo&apos;, &apos;foo&apos;],
-                            &apos;B&apos; : [&apos;one&apos;, &apos;one&apos;, &apos;two&apos;, &apos;three&apos;,
-                             &apos;two&apos;, &apos;two&apos;, &apos;one&apos;, &apos;three&apos;],
-                            &apos;C&apos; : np.random.randn(8),
-                            &apos;D&apos; : np.random.randn(8)})
-</code></pre><table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">df = pd.DataFrame(&#123;<span class="string">'A'</span> : [<span class="string">'foo'</span>, <span class="string">'bar'</span>, <span class="string">'foo'</span>, <span class="string">'bar'</span>,</div><div class="line">                            <span class="string">'foo'</span>, <span class="string">'bar'</span>, <span class="string">'foo'</span>, <span class="string">'foo'</span>],</div><div class="line">                            <span class="string">'B'</span> : [<span class="string">'one'</span>, <span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>,</div><div class="line">                             <span class="string">'two'</span>, <span class="string">'two'</span>, <span class="string">'one'</span>, <span class="string">'three'</span>],</div><div class="line">                            <span class="string">'C'</span> : np.random.randn(<span class="number">8</span>),</div><div class="line">                            <span class="string">'D'</span> : np.random.randn(<span class="number">8</span>)&#125;)</div></pre></td></tr></table></figure>
+<table>
 <thead>
 <tr>
 <th>i</th>
@@ -511,7 +490,7 @@ t3 = t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&ap
 </tr>
 </tbody>
 </table>
-<h2 id="pandas的merge的how参数">5.3. pandas的merge的how参数</h2><p>原代码出现了<code>t3 = pd.merge(t3,t2,on=[&#39;user_id&#39;,&#39;coupon_id&#39;],how=&#39;left&#39;)</code></p>
+<h2 id="pandas的merge的how参数">6.3. pandas的merge的how参数</h2><p>原代码出现了<code>t3 = pd.merge(t3,t2,on=[&#39;user_id&#39;,&#39;coupon_id&#39;],how=&#39;left&#39;)</code></p>
 <p>how参数主要决定了哪一个keys会被包含在结果表中。它的值有四种可能性：<code>left,right,outer,inner</code>。我们主要看<code>left和right</code></p>
 <p>how=’left’:遍历left表，找与right一样的，依次放入行。 如果没有，则设为NAN</p>
 <p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-34-44.png" alt=""> </p>
@@ -549,18 +528,18 @@ t3 = t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&ap
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/" title="O2O优惠券预测——对第一名的思路源码分析（二）">
+ <a href="/2017/03/06/梯度提升决策树 AdaBoost DecisonTree/" title="梯度提升决策树 AdaBoost DecisonTree">
   <strong>上一篇：</strong><br/>
   <span>
-  O2O优惠券预测——对第一名的思路源码分析（二）</span>
+  梯度提升决策树 AdaBoost DecisonTree</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/03/06/梯度提升决策树 AdaBoost DecisonTree/"  title="梯度提升决策树 AdaBoost DecisonTree">
+<a href="/2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/"  title="O2O优惠券预测——对第一名的思路源码分析（二）">
  <strong>下一篇：</strong><br/> 
- <span>梯度提升决策树 AdaBoost DecisonTree
+ <span>O2O优惠券预测——对第一名的思路源码分析（二）
 </span>
 </a>
 </div>
@@ -579,7 +558,7 @@ t3 = t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&ap
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#解决方案概述"><span class="toc-text">1. 解决方案概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#import概述"><span class="toc-text">2. import概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#import包概述"><span class="toc-text">2.1. import包概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pandas"><span class="toc-text">2.2. pandas</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-text">2.3. 注意</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#读取数据集"><span class="toc-text">3. 读取数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#源码分析"><span class="toc-text">3.1. 源码分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#采集特征"><span class="toc-text">4. 采集特征</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#主要特征"><span class="toc-text">4.1. 主要特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#源码分析-1"><span class="toc-text">4.1.1. 源码分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他特征"><span class="toc-text">4.2. 其他特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#other-feature3"><span class="toc-text">4.2.1. other_feature3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#源码分析-2"><span class="toc-text">4.2.1.1. 源码分析</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录"><span class="toc-text">5. 附录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看dataFrame类型的内容"><span class="toc-text">5.1. 查看dataFrame类型的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lambda-functions"><span class="toc-text">5.2. lambda functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pandas的merge的how参数"><span class="toc-text">5.3. pandas的merge的how参数</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#解决方案概述"><span class="toc-text">1. 解决方案概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#import概述"><span class="toc-text">2. import概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#import包概述"><span class="toc-text">2.1. import包概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pandas"><span class="toc-text">2.2. pandas</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-text">2.3. 注意</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#读取数据集"><span class="toc-text">3. 读取数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#源码分析"><span class="toc-text">3.1. 源码分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#采集特征"><span class="toc-text">4. 采集特征</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#主要特征"><span class="toc-text">4.1. 主要特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#源码分析-1"><span class="toc-text">4.1.1. 源码分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他特征"><span class="toc-text">4.2. 其他特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#other-feature3"><span class="toc-text">4.2.1. other_feature3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#源码分析-2"><span class="toc-text">4.2.1.1. 源码分析</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#合并特征"><span class="toc-text">5. 合并特征</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成训练集"><span class="toc-text">5.1. 生成训练集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成预测集"><span class="toc-text">5.2. 生成预测集</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录"><span class="toc-text">6. 附录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看dataFrame类型的内容"><span class="toc-text">6.1. 查看dataFrame类型的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lambda-functions"><span class="toc-text">6.2. lambda functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pandas的merge的how参数"><span class="toc-text">6.3. pandas的merge的how参数</span></a></li></ol></li></ol>
  
   </div>
 
@@ -607,7 +586,7 @@ t3 = t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&ap
 		  
 		
 		  
-			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>5</sup></a></li>
 		  
 		
 		  
@@ -615,7 +594,19 @@ t3 = t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&ap
 		  
 		
 		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/中间件/" title="中间件">中间件<sup>1</sup></a></li>
 		  
 		
 		  
@@ -623,7 +614,7 @@ t3 = t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&ap
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>6</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>7</sup></a></li>
 		  
 		
 		  
@@ -644,15 +635,11 @@ t3 = t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&ap
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
 			
 		
 			
@@ -664,6 +651,18 @@ t3 = t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&ap
 			
 		
 			
+				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
 			
 		
@@ -672,15 +671,15 @@ t3 = t3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&ap
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/OpenMessaging/" title="OpenMessaging">OpenMessaging<sup>1</sup></a></li>
 			
 		
 		</ul>

@@ -11,34 +11,13 @@
     
 
     
-    <meta name="description" content="1. 决策树简介模仿人类决策的过程
- 
-
-优点：好理解；简单
-缺点：缺少很强的理论支持；树结构不唯一；
-
-1.1. 决策树的表达方式如上图所示的决策树，我们用$G(x)$来表达决策树：
-$$G(x)=\sum_{t=1}^T q_t(x)\cdot g_t(x) $$
-tips:
-
-$g(x)$是最终的决策（Y or N），叶子节点
-$q_t(x)$是条件，condition。就是橘色箭头的判断过">
+    <meta name="description" content="1. 决策树简介模仿人类决策的过程    优点：好理解；简单 缺点：缺少很强的理论支持；树结构不唯一；  1.1. 决策树的表达方式如上图所示的决策树，我们用$G(x)$来表达决策树： $$G(x)=\sum_{t=1}^T q_t(x)\cdot g_t(x) $$ tips:  $g(x)$是最终的决策（Y or N），叶子节点 $q_t(x)$是条件，condition。就是橘色箭头的判断过">
+<meta name="keywords" content="机器学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="决策树和CART">
 <meta property="og:url" content="http://yoursite.com/child/2017/03/05/决策树和CART/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="1. 决策树简介模仿人类决策的过程
- 
-
-优点：好理解；简单
-缺点：缺少很强的理论支持；树结构不唯一；
-
-1.1. 决策树的表达方式如上图所示的决策树，我们用$G(x)$来表达决策树：
-$$G(x)=\sum_{t=1}^T q_t(x)\cdot g_t(x) $$
-tips:
-
-$g(x)$是最终的决策（Y or N），叶子节点
-$q_t(x)$是条件，condition。就是橘色箭头的判断过">
+<meta property="og:description" content="1. 决策树简介模仿人类决策的过程    优点：好理解；简单 缺点：缺少很强的理论支持；树结构不唯一；  1.1. 决策树的表达方式如上图所示的决策树，我们用$G(x)$来表达决策树： $$G(x)=\sum_{t=1}^T q_t(x)\cdot g_t(x) $$ tips:  $g(x)$是最终的决策（Y or N），叶子节点 $q_t(x)$是条件，condition。就是橘色箭头的判断过">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-12-43-33.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-12-53-15.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-12-53-25.png">
@@ -48,21 +27,10 @@ $q_t(x)$是条件，condition。就是橘色箭头的判断过">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-16-11-41.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-16-19-09.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-16-20-48.png">
-<meta property="og:updated_time" content="2017-03-16T12:36:34.377Z">
+<meta property="og:updated_time" content="2017-04-24T13:26:32.627Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="决策树和CART">
-<meta name="twitter:description" content="1. 决策树简介模仿人类决策的过程
- 
-
-优点：好理解；简单
-缺点：缺少很强的理论支持；树结构不唯一；
-
-1.1. 决策树的表达方式如上图所示的决策树，我们用$G(x)$来表达决策树：
-$$G(x)=\sum_{t=1}^T q_t(x)\cdot g_t(x) $$
-tips:
-
-$g(x)$是最终的决策（Y or N），叶子节点
-$q_t(x)$是条件，condition。就是橘色箭头的判断过">
+<meta name="twitter:description" content="1. 决策树简介模仿人类决策的过程    优点：好理解；简单 缺点：缺少很强的理论支持；树结构不唯一；  1.1. 决策树的表达方式如上图所示的决策树，我们用$G(x)$来表达决策树： $$G(x)=\sum_{t=1}^T q_t(x)\cdot g_t(x) $$ tips:  $g(x)$是最终的决策（Y or N），叶子节点 $q_t(x)$是条件，condition。就是橘色箭头的判断过">
 <meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-12-43-33.png">
 
     
@@ -252,18 +220,18 @@ $q_t(x)$是条件，condition。就是橘色箭头的判断过">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/03/05/随机森林算法/" title="随机森林算法">
+ <a href="/2017/03/04/boosting（混合模型）和bagging/" title="boosting（混合模型）和bagging（装袋）">
   <strong>上一篇：</strong><br/>
   <span>
-  随机森林算法</span>
+  boosting（混合模型）和bagging（装袋）</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/03/04/boosting（混合模型）和bagging/"  title="boosting（混合模型）和bagging（装袋）">
+<a href="/2017/03/05/随机森林算法/"  title="随机森林算法">
  <strong>下一篇：</strong><br/> 
- <span>boosting（混合模型）和bagging（装袋）
+ <span>随机森林算法
 </span>
 </a>
 </div>
@@ -310,7 +278,7 @@ $q_t(x)$是条件，condition。就是橘色箭头的判断过">
 		  
 		
 		  
-			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>5</sup></a></li>
 		  
 		
 		  
@@ -318,7 +286,19 @@ $q_t(x)$是条件，condition。就是橘色箭头的判断过">
 		  
 		
 		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/中间件/" title="中间件">中间件<sup>1</sup></a></li>
 		  
 		
 		  
@@ -326,7 +306,7 @@ $q_t(x)$是条件，condition。就是橘色箭头的判断过">
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>6</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>7</sup></a></li>
 		  
 		
 		  
@@ -347,15 +327,11 @@ $q_t(x)$是条件，condition。就是橘色箭头的判断过">
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
 			
 		
 			
@@ -367,6 +343,18 @@ $q_t(x)$是条件，condition。就是橘色箭头的判断过">
 			
 		
 			
+				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
 			
 		
@@ -375,15 +363,15 @@ $q_t(x)$是条件，condition。就是橘色箭头的判断过">
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/OpenMessaging/" title="OpenMessaging">OpenMessaging<sup>1</sup></a></li>
 			
 		
 		</ul>

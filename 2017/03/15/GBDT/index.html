@@ -11,28 +11,13 @@
     
 
     
-    <meta name="description" content="之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。
-1. GBDT的误差函数 
-2. 目标
-求函数h(x)的形式
-求h(x)的步长η
-
-3. 回归问题求解目标对于回归（regression）问题，误差函数一般采用平方误差。即：
- 
-为了进一步求解，我们对上式">
+    <meta name="description" content="之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。 1. GBDT的误差函数  2. 目标 求函数h(x)的形式 求h(x)的步长η  3. 回归问题求解目标对于回归（regression）问题，误差函数一般采用平方误差。即：   为了进一步求解，我们对上式">
+<meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GBDT">
 <meta property="og:url" content="http://yoursite.com/child/2017/03/15/GBDT/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。
-1. GBDT的误差函数 
-2. 目标
-求函数h(x)的形式
-求h(x)的步长η
-
-3. 回归问题求解目标对于回归（regression）问题，误差函数一般采用平方误差。即：
- 
-为了进一步求解，我们对上式">
+<meta property="og:description" content="之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。 1. GBDT的误差函数  2. 目标 求函数h(x)的形式 求h(x)的步长η  3. 回归问题求解目标对于回归（regression）问题，误差函数一般采用平方误差。即：   为了进一步求解，我们对上式">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-49-01.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-55-15.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-58-42.png">
@@ -43,18 +28,10 @@
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-21-27.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-22-55.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-32-42.png">
-<meta property="og:updated_time" content="2017-03-16T12:46:08.319Z">
+<meta property="og:updated_time" content="2017-04-24T13:26:32.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GBDT">
-<meta name="twitter:description" content="之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。
-1. GBDT的误差函数 
-2. 目标
-求函数h(x)的形式
-求h(x)的步长η
-
-3. 回归问题求解目标对于回归（regression）问题，误差函数一般采用平方误差。即：
- 
-为了进一步求解，我们对上式">
+<meta name="twitter:description" content="之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。 1. GBDT的误差函数  2. 目标 求函数h(x)的形式 求h(x)的步长η  3. 回归问题求解目标对于回归（regression）问题，误差函数一般采用平方误差。即：   为了进一步求解，我们对上式">
 <meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-49-01.png">
 
     
@@ -203,18 +180,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/03/16/java学习笔记-继承/" title="java学习笔记——继承">
+ <a href="/2017/03/14/jacman-hexo目录改成浮动/" title="jacman/hexo目录改成浮动">
   <strong>上一篇：</strong><br/>
   <span>
-  java学习笔记——继承</span>
+  jacman/hexo目录改成浮动</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/03/14/jacman-hexo目录改成浮动/"  title="jacman/hexo目录改成浮动">
+<a href="/2017/03/16/java学习笔记(2)-继承/"  title="java学习笔记(2)-继承">
  <strong>下一篇：</strong><br/> 
- <span>jacman/hexo目录改成浮动
+ <span>java学习笔记(2)-继承
 </span>
 </a>
 </div>
@@ -261,7 +238,7 @@
 		  
 		
 		  
-			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>5</sup></a></li>
 		  
 		
 		  
@@ -269,7 +246,19 @@
 		  
 		
 		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/中间件/" title="中间件">中间件<sup>1</sup></a></li>
 		  
 		
 		  
@@ -277,7 +266,7 @@
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>6</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>7</sup></a></li>
 		  
 		
 		  
@@ -298,15 +287,11 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
 			
 		
 			
@@ -318,6 +303,18 @@
 			
 		
 			
+				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
 			
 		
@@ -326,15 +323,15 @@
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/OpenMessaging/" title="OpenMessaging">OpenMessaging<sup>1</sup></a></li>
 			
 		
 		</ul>

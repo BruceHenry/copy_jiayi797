@@ -11,24 +11,13 @@
     
 
     
-    <meta name="description" content="1. SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
-#线性可分SVM
-1.0.0.0.1. 概念复习 参考文献输入空间：输入所有可能的取值的集合
-特征向量：每个具体的输入
-特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。
-输出空间：输出所有可能的取值的集合
-1.0.0.0.2. 线性可分">
+    <meta name="description" content="1. SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。 #线性可分SVM 1.0.0.0.1. 概念复习 参考文献输入空间：输入所有可能的取值的集合 特征向量：每个具体的输入 特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。 输出空间：输出所有可能的取值的集合 1.0.0.0.2. 线性可分">
+<meta name="keywords" content="机器学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SVM（一） 线性可分">
 <meta property="og:url" content="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="1. SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
-#线性可分SVM
-1.0.0.0.1. 概念复习 参考文献输入空间：输入所有可能的取值的集合
-特征向量：每个具体的输入
-特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。
-输出空间：输出所有可能的取值的集合
-1.0.0.0.2. 线性可分">
+<meta property="og:description" content="1. SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。 #线性可分SVM 1.0.0.0.1. 概念复习 参考文献输入空间：输入所有可能的取值的集合 特征向量：每个具体的输入 特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。 输出空间：输出所有可能的取值的集合 1.0.0.0.2. 线性可分">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-14-56-13.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-22-00.png">
@@ -43,16 +32,10 @@
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-03.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-26.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-47.png">
-<meta property="og:updated_time" content="2017-03-04T09:34:10.377Z">
+<meta property="og:updated_time" content="2017-04-24T13:26:32.580Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SVM（一） 线性可分">
-<meta name="twitter:description" content="1. SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。
-#线性可分SVM
-1.0.0.0.1. 概念复习 参考文献输入空间：输入所有可能的取值的集合
-特征向量：每个具体的输入
-特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。
-输出空间：输出所有可能的取值的集合
-1.0.0.0.2. 线性可分">
+<meta name="twitter:description" content="1. SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。 #线性可分SVM 1.0.0.0.1. 概念复习 参考文献输入空间：输入所有可能的取值的集合 特征向量：每个具体的输入 特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。 输出空间：输出所有可能的取值的集合 1.0.0.0.2. 线性可分">
 <meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png">
 
     
@@ -225,18 +208,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/03/03/O2O优惠券预测——思路总结/" title="O2O优惠券预测——思路总结">
+ <a href="/2017/03/02/逻辑回归（Logistic-regression）/" title="逻辑回归（Logistic regression）">
   <strong>上一篇：</strong><br/>
   <span>
-  O2O优惠券预测——思路总结</span>
+  逻辑回归（Logistic regression）</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/03/02/逻辑回归（Logistic-regression）/"  title="逻辑回归（Logistic regression）">
+<a href="/2017/03/03/O2O优惠券预测——思路总结/"  title="O2O优惠券预测——思路总结">
  <strong>下一篇：</strong><br/> 
- <span>逻辑回归（Logistic regression）
+ <span>O2O优惠券预测——思路总结
 </span>
 </a>
 </div>
@@ -283,7 +266,7 @@
 		  
 		
 		  
-			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>5</sup></a></li>
 		  
 		
 		  
@@ -291,7 +274,19 @@
 		  
 		
 		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/中间件/" title="中间件">中间件<sup>1</sup></a></li>
 		  
 		
 		  
@@ -299,7 +294,7 @@
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>6</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>7</sup></a></li>
 		  
 		
 		  
@@ -320,15 +315,11 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
 			
 		
 			
@@ -340,6 +331,18 @@
 			
 		
 			
+				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
 			
 		
@@ -348,15 +351,15 @@
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/OpenMessaging/" title="OpenMessaging">OpenMessaging<sup>1</sup></a></li>
 			
 		
 		</ul>

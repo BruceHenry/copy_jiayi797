@@ -1,0 +1,846 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  
+    <title>java学习笔记(1)-类与对象 | jiayi797的专栏</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="jiayi797">
+    
+
+    
+    <meta name="description" content="本文主要总结了一些自己不太熟悉的概念。 1. 对象与对象变量Date birthday = new Date(); 对象变量：birthday对象：右边的部分 一个对象变量并没有实际包含一个对象，仅仅是引用一个对象。 可以显示地将对象变量设置为null，表明这个对象变量目前没有引用任何对象： birthday = null; 2. 隐式参数与显式参数例，methodName()是类class1的方">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java学习笔记(1)-类与对象">
+<meta property="og:url" content="http://yoursite.com/child/2017/03/14/java学习笔记(1)-类与对象/index.html">
+<meta property="og:site_name" content="jiayi797的专栏">
+<meta property="og:description" content="本文主要总结了一些自己不太熟悉的概念。 1. 对象与对象变量Date birthday = new Date(); 对象变量：birthday对象：右边的部分 一个对象变量并没有实际包含一个对象，仅仅是引用一个对象。 可以显示地将对象变量设置为null，表明这个对象变量目前没有引用任何对象： birthday = null; 2. 隐式参数与显式参数例，methodName()是类class1的方">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-14-10-47-16.png">
+<meta property="og:updated_time" content="2017-05-04T02:43:59.560Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java学习笔记(1)-类与对象">
+<meta name="twitter:description" content="本文主要总结了一些自己不太熟悉的概念。 1. 对象与对象变量Date birthday = new Date(); 对象变量：birthday对象：右边的部分 一个对象变量并没有实际包含一个对象，仅仅是引用一个对象。 可以显示地将对象变量设置为null，表明这个对象变量目前没有引用任何对象： birthday = null; 2. 隐式参数与显式参数例，methodName()是类class1的方">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-14-10-47-16.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<link rel="dns-prefetch" href="//cdn.bootcss.com" />
+<link rel="dns-prefetch" href="//cdn.mathjax.org" />
+
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="jiayi797的专栏" title="jiayi797的专栏"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="jiayi797的专栏">jiayi797的专栏</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com/child">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/14/java学习笔记(1)-类与对象/" title="java学习笔记(1)-类与对象" itemprop="url">java学习笔记(1)-类与对象</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-14T01:56:21.000Z" itemprop="datePublished"> 发表于 2017-03-14</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#对象与对象变量"><span class="toc-text">1. 对象与对象变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#隐式参数与显式参数"><span class="toc-text">2. 隐式参数与显式参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#封装"><span class="toc-text">3. 封装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#final实例域"><span class="toc-text">4. final实例域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#static静态"><span class="toc-text">5. static静态</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#static域"><span class="toc-text">5.1. static域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#static常量"><span class="toc-text">5.2. static常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#static方法"><span class="toc-text">5.3. static方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工厂方法"><span class="toc-text">5.4. 工厂方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#main方法"><span class="toc-text">5.5. main方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#初始化块"><span class="toc-text">6. 初始化块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#初始化数据域的三种方法"><span class="toc-text">7. 初始化数据域的三种方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#类的初始化顺序"><span class="toc-text">8. 类的初始化顺序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他重点"><span class="toc-text">9. 其他重点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Java类库中的GregorianCalendar类-（删除本节）"><span class="toc-text">10. Java类库中的GregorianCalendar类 （删除本节）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#纪元"><span class="toc-text">10.1. 纪元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间与日历"><span class="toc-text">10.2. 时间与日历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Date类"><span class="toc-text">10.2.1. Date类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GregorianCalendar类"><span class="toc-text">10.2.2. GregorianCalendar类</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<p>本文主要总结了一些自己不太熟悉的概念。</p>
+<h1 id="对象与对象变量">1. 对象与对象变量</h1><pre><code>Date birthday = new Date();
+</code></pre><p>对象变量：birthday<br>对象：右边的部分</p>
+<p>一个对象变量并没有实际包含一个对象，仅仅是引用一个对象。</p>
+<p>可以显示地将对象变量设置为<code>null</code>，表明这个对象变量目前没有引用任何对象：</p>
+<pre><code>birthday = null;
+</code></pre><h1 id="隐式参数与显式参数">2. 隐式参数与显式参数</h1><p>例，methodName()是类class1的方法，</p>
+<pre><code>calss class1{
+int a;
+    public void methodName(int b){
+    this.a = b ;
+}
+</code></pre><ul>
+<li>显式参数(explicit)：括号里面的，例如double pName</li>
+<li>隐式参数(implicit)：出现在方法名前的class1类对象<br>– 关键词<code>this</code>表示隐式参数。例如<code>this.a</code></li>
+</ul>
+<h1 id="封装">3. 封装</h1><p>不能编写返回<code>引用可变对象</code>的访问器方法！例如：</p>
+<pre><code>class class1{
+    private Date a;
+    public Date get(){
+        return Date a; //会破坏封装性！
+    }
+}
+</code></pre><p>以上操作破坏了<code>a</code>的私有性。</p>
+<p>改正方法：克隆（clone）</p>
+<pre><code>class class1{
+    private Date a;
+    public Date get(){
+        return Date a.clone(); //使用clone()
+    }
+}
+</code></pre><h1 id="final实例域">4. final实例域</h1><pre><code>class class1{
+    private final String name;
+}
+</code></pre><p>final域的特征：</p>
+<ol>
+<li>构造对象时，必须初始化final</li>
+<li>后面操作中，不能再改动</li>
+<li>但并不等于常量！</li>
+<li>属于对象，并不是类！</li>
+</ol>
+<h1 id="static静态">5. static静态</h1><h2 id="static域">5.1. static域</h2><ol>
+<li>每个类只能有一个static域</li>
+<li>同一类的所有对象共享一个static域</li>
+<li>即使没有对象，static域也存在。它属于类，不属于任何一个对象</li>
+</ol>
+<pre><code>class Employee{
+    private static int nextId = 1;
+    private int id;
+}
+</code></pre><h2 id="static常量">5.2. static常量</h2><ol>
+<li>如下例，在程序中，可以使用<code>Math.PI</code>来获取这个常量。</li>
+</ol>
+<pre><code>public class Math{
+    public static final double PI = 3.14;
+}
+</code></pre><h2 id="static方法">5.3. static方法</h2><pre><code>Math.pow(x,a)
+</code></pre><ol>
+<li>不使用任何对象；</li>
+<li>不能操作实例域（即类内的非static方法和变量），因为它不能操作对象；</li>
+<li>可以访问自身类的static域；</li>
+<li>对象也可以调用static方法。</li>
+</ol>
+<p>在下面两种情况使用静态方法：</p>
+<ol>
+<li>一个方法不需要访问对象；</li>
+<li>一个方法只需要访问类的static域。</li>
+</ol>
+<h2 id="工厂方法">5.4. 工厂方法</h2><p>工厂方法是静态方法的一种常见用途。<br>例如，<code>NumberFormat</code>使用工厂方法(而不是构造器)产生<strong>不同风格</strong>的格式对象。</p>
+<pre><code>NumberFormat a = NumberFormat.getSytleA();
+NumberFormat b = NumberFormat.getStyleB();
+</code></pre><h2 id="main方法">5.5. main方法</h2><pre><code>public class Application{
+    public static void main(String[] args){
+        // construct objects here
+    }
+}
+</code></pre><ol>
+<li>每一个类可以有一个main方法，用来单元测试；</li>
+<li>多个类被调用时，只会执行一个main方法；</li>
+</ol>
+<h1 id="初始化块">6. 初始化块</h1><p>构造对象时，先运行初始化块，才运行构造器主体部分。</p>
+<pre><code>class Employee{
+    private static int nextId;
+    private int id;
+    //初始化块
+    {
+        id=nextId;
+    }
+}
+</code></pre><p>如果对类的静态域进行初始化的代码比较复杂，就可以使用静态的初始化块：</p>
+<pre><code>static{
+    Random generator = new Random();
+    nextId = generator.nextId(10000);
+}
+</code></pre><p>类（！！！不是对象）第一次加载时，将会进行static域的初始化。</p>
+<h1 id="初始化数据域的三种方法">7. 初始化数据域的三种方法</h1><ol>
+<li>在构造器中设置值</li>
+<li>在声明中赋值</li>
+<li>在初始化块中赋值</li>
+</ol>
+<h1 id="类的初始化顺序">8. 类的初始化顺序</h1><p>对于静态变量、静态初始化块、变量、初始化块、构造器，它们的初始化顺序依次是（静态变量、静态初始化块）&gt;（变量、初始化块）&gt;构造器。</p>
+<p>例如，</p>
+<pre><code>public class InitialOrderTest {   
+    // 静态变量   
+    public static String staticField = &quot;静态变量&quot;;   
+    // 变量   
+    public String field = &quot;变量&quot;;   
+    // 静态初始化块   
+    static {   
+        System.out.println(staticField);   
+        System.out.println(&quot;静态初始化块&quot;);   
+    }   
+    // 初始化块   
+    {   
+        System.out.println(field);   
+        System.out.println(&quot;初始化块&quot;);   
+    }   
+    // 构造器   
+    public InitialOrderTest() {   
+        System.out.println(&quot;构造器&quot;);   
+    }   
+    public static void main(String[] args) {   
+        new InitialOrderTest();   
+    }   
+}  
+</code></pre><p>运行以上代码，我们会得到如下的输出结果： </p>
+<pre><code>静态变量
+静态初始化块
+变量
+初始化块
+构造器
+</code></pre><p>对于继承的情况：</p>
+<pre><code>class Parent {   
+    // 静态变量   
+    public static String p_StaticField = &quot;父类--静态变量&quot;;   
+    // 变量   
+    public String p_Field = &quot;父类--变量&quot;;   
+
+    // 静态初始化块   
+    static {   
+        System.out.println(p_StaticField);   
+        System.out.println(&quot;父类--静态初始化块&quot;);   
+    }   
+
+    // 初始化块   
+    {   
+        System.out.println(p_Field);   
+        System.out.println(&quot;父类--初始化块&quot;);   
+    }   
+
+    // 构造器   
+    public Parent() {   
+        System.out.println(&quot;父类--构造器&quot;);   
+    }   
+}   
+
+public class SubClass extends Parent {   
+    // 静态变量   
+    public static String s_StaticField = &quot;子类--静态变量&quot;;   
+    // 变量   
+    public String s_Field = &quot;子类--变量&quot;;   
+    // 静态初始化块   
+    static {   
+        System.out.println(s_StaticField);   
+        System.out.println(&quot;子类--静态初始化块&quot;);   
+    }   
+    // 初始化块   
+    {   
+        System.out.println(s_Field);   
+        System.out.println(&quot;子类--初始化块&quot;);   
+    }   
+
+    // 构造器   
+    public SubClass() {   
+        System.out.println(&quot;子类--构造器&quot;);   
+    }   
+
+    // 程序入口   
+    public static void main(String[] args) {   
+        new SubClass();   
+    }   
+}  
+</code></pre><p>运行一下上面的代码，结果马上呈现在我们的眼前： </p>
+<pre><code>父类--静态变量
+父类--静态初始化块
+子类--静态变量
+子类--静态初始化块
+父类--变量
+父类--初始化块
+父类--构造器
+子类--变量
+子类--初始化块
+子类--构造器
+</code></pre><p>总得来说，是先静态后变量，先父类后子类</p>
+<h1 id="其他重点">9. 其他重点</h1><ol>
+<li>基于类的访问权限：一个方法可以访问所属类的所有私有数据。</li>
+<li>java的值引用（基本数据类型、对象引用）</li>
+<li>如果类中提供了至少一个有参构造器，而没有无参构造器，则在构造无参对象时会出错。</li>
+</ol>
+<h1 id="Java类库中的GregorianCalendar类-（删除本节）">10. Java类库中的GregorianCalendar类 （删除本节）</h1><h2 id="纪元">10.1. 纪元</h2><p>时间是用距离一个固定时间点的毫秒数表示的，这个点就是纪元(epoch)。</p>
+<h2 id="时间与日历">10.2. 时间与日历</h2><p>为了将<strong>时间</strong>与<strong>日历</strong>分开，标准Java类库分别包含两个类：</p>
+<ul>
+<li>Date类：用来表示时间点的类；</li>
+<li>GregorianCalendar类：用来表示公历法的类；（通过它还有一个扩展类——Calendar类，描述了日历的一般属性）</li>
+</ul>
+<h3 id="Date类">10.2.1. Date类</h3><p>用来表示时间的类；</p>
+<p>只有少量的方法，例如比较两个时间点before(),after()：</p>
+<pre><code>doday.before(birthday)
+</code></pre><h3 id="GregorianCalendar类">10.2.2. GregorianCalendar类</h3><p>常见方法：</p>
+<p><code>new GregorianCalendar()</code>，构造新的对象，用于表示对象构造时的日期和时间；</p>
+<p>例如:</p>
+<pre><code>GregorianCalendar g1 = new GregorianCalendar();
+</code></pre><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-14-10-47-16.png" alt=""> </p>
+<p><code>new GregorianCalendar(1999,11,31)</code>，提供年月日构造一个表示特定日期午夜的日历对象。（月份从0开始计数，11表示12月）</p>
+<p><code>new GregorianCalendar(1991,Calendar.DECEMBER,31)</code>,与上等价</p>
+<p><code>new GregorianCalendar(1991,Calendar.DECEMBER,31,23,59,59)</code>,设置时间</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/child/2017/03/14/java学习笔记(1)-类与对象/" data-title="java学习笔记(1)-类与对象 | jiayi797的专栏" data-tsina="1145120523" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/" title="O2O优惠券预测——对第一名的思路源码分析（二）">
+  <strong>上一篇：</strong><br/>
+  <span>
+  O2O优惠券预测——对第一名的思路源码分析（二）</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/03/14/jacman-hexo目录改成浮动/"  title="jacman/hexo目录改成浮动">
+ <strong>下一篇：</strong><br/> 
+ <span>jacman/hexo目录改成浮动
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/03/14/java学习笔记(1)-类与对象/" data-title="java学习笔记(1)-类与对象" data-url="http://yoursite.com/child/2017/03/14/java学习笔记(1)-类与对象/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#对象与对象变量"><span class="toc-text">1. 对象与对象变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#隐式参数与显式参数"><span class="toc-text">2. 隐式参数与显式参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#封装"><span class="toc-text">3. 封装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#final实例域"><span class="toc-text">4. final实例域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#static静态"><span class="toc-text">5. static静态</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#static域"><span class="toc-text">5.1. static域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#static常量"><span class="toc-text">5.2. static常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#static方法"><span class="toc-text">5.3. static方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工厂方法"><span class="toc-text">5.4. 工厂方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#main方法"><span class="toc-text">5.5. main方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#初始化块"><span class="toc-text">6. 初始化块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#初始化数据域的三种方法"><span class="toc-text">7. 初始化数据域的三种方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#类的初始化顺序"><span class="toc-text">8. 类的初始化顺序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他重点"><span class="toc-text">9. 其他重点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Java类库中的GregorianCalendar类-（删除本节）"><span class="toc-text">10. Java类库中的GregorianCalendar类 （删除本节）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#纪元"><span class="toc-text">10.1. 纪元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间与日历"><span class="toc-text">10.2. 时间与日历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Date类"><span class="toc-text">10.2.1. Date类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GregorianCalendar类"><span class="toc-text">10.2.2. GregorianCalendar类</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="jiayi797" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Numpy/" title="Numpy">Numpy<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/中间件/" title="中间件">中间件<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数学/" title="数学">数学<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/瞎折腾/" title="瞎折腾">瞎折腾<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>3</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/长整型/" title="长整型">长整型<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/OpenMessaging/" title="OpenMessaging">OpenMessaging<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1145120523&verifier=a7c00b5e&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Nothing lasts forever. <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1145120523" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/jiayi797" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:jiayi797@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="jiayi797">jiayi797</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"jiayi797"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?9856596edaab494b299151eb0e9bb214";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  </body>
+</html>

@@ -12,33 +12,20 @@
 
     
     <meta name="description" content="1. super关键字1.1. 子类override(覆盖)父类的函数override时，使用super调用父类的方法。
-//超类，员工
-class Employee{
-    private String name;
-    private double salary;//薪水
-    private Date hireDay;
-    public double getSalary(){">
+12345678910111213141516//超类，员工class Employee&amp;#123;    private String name;    private double salary;//薪水    private Date hireDay;    public">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java学习笔记——继承">
 <meta property="og:url" content="http://yoursite.com/child/2017/03/16/java学习笔记-继承/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="1. super关键字1.1. 子类override(覆盖)父类的函数override时，使用super调用父类的方法。
-//超类，员工
-class Employee{
-    private String name;
-    private double salary;//薪水
-    private Date hireDay;
-    public double getSalary(){">
-<meta property="og:updated_time" content="2017-03-29T11:28:40.453Z">
+12345678910111213141516//超类，员工class Employee&amp;#123;    private String name;    private double salary;//薪水    private Date hireDay;    public">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-04-13-10-25-16.png">
+<meta property="og:updated_time" content="2017-04-24T13:26:32.440Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java学习笔记——继承">
 <meta name="twitter:description" content="1. super关键字1.1. 子类override(覆盖)父类的函数override时，使用super调用父类的方法。
-//超类，员工
-class Employee{
-    private String name;
-    private double salary;//薪水
-    private Date hireDay;
-    public double getSalary(){">
+12345678910111213141516//超类，员工class Employee&amp;#123;    private String name;    private double salary;//薪水    private Date hireDay;    public">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-04-13-10-25-16.png">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -116,32 +103,14 @@ class Employee{
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#super关键字"><span class="toc-text">1. super关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#子类override-覆盖-父类的函数"><span class="toc-text">1.1. 子类override(覆盖)父类的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super在构造器中的应用"><span class="toc-text">1.2. super在构造器中的应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多态"><span class="toc-text">2. 多态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调用对象方法的执行过程"><span class="toc-text">3. 调用对象方法的执行过程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#阻止继承：final类和方法"><span class="toc-text">4. 阻止继承：final类和方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#抽象类，abstruct"><span class="toc-text">5. 抽象类，abstruct</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#super关键字"><span class="toc-text">1. super关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#子类override-覆盖-父类的函数"><span class="toc-text">1.1. 子类override(覆盖)父类的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super在构造器中的应用"><span class="toc-text">1.2. super在构造器中的应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多态"><span class="toc-text">2. 多态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调用对象方法的执行过程"><span class="toc-text">3. 调用对象方法的执行过程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#阻止继承：final类和方法"><span class="toc-text">4. 阻止继承：final类和方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#抽象类，abstract"><span class="toc-text">5. 抽象类，abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#受保护访问，Protected"><span class="toc-text">6. 受保护访问，Protected</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Object"><span class="toc-text">7. Object</span></a></li></ol>
 		
 		</div>
 		
 		<h1 id="super关键字">1. super关键字</h1><h2 id="子类override-覆盖-父类的函数">1.1. 子类override(覆盖)父类的函数</h2><p>override时，使用<code>super</code>调用父类的方法。</p>
-<pre><code>//超类，员工
-class Employee{
-    private String name;
-    private double salary;//薪水
-    private Date hireDay;
-    public double getSalary(){
-        return salary;
-    }
-}
-//经理
-class Manage extends Employee{
-    private double bonus;//奖金
-    public double getSalary(){//对原来的getSalary进行override
-        return this.bonus + super.getSalary();//super调用父类的getSalary()方法
-    }
-}
-</code></pre><h2 id="super在构造器中的应用">1.2. super在构造器中的应用</h2><pre><code>public Manager(String n, double s, int year, int mouth, int day){
-    super(n,s,year,mouth,day);//调用超类Employee中对应参数的构造器
-    bonus = 0;
-}
-</code></pre><h1 id="多态">2. 多态</h1><p>一个对象变量可以指示多种实际类型的现象————多态（polymorphism）<br>在运行时自动选择调用那个方法的现象————动态绑定（dynamic binding）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//超类，员工</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> salary;<span class="comment">//薪水</span></div><div class="line">    <span class="keyword">private</span> Date hireDay;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> salary;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//经理</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manage</span> <span class="keyword">extends</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> bonus;<span class="comment">//奖金</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span>&#123;<span class="comment">//对原来的getSalary进行override</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.bonus + <span class="keyword">super</span>.getSalary();<span class="comment">//super调用父类的getSalary()方法</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="super在构造器中的应用">1.2. super在构造器中的应用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String n, <span class="keyword">double</span> s, <span class="keyword">int</span> year, <span class="keyword">int</span> mouth, <span class="keyword">int</span> day)</span></span>&#123;</div><div class="line">    <span class="keyword">super</span>(n,s,year,mouth,day);<span class="comment">//调用超类Employee中对应参数的构造器</span></div><div class="line">    bonus = <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="多态">2. 多态</h1><p>一个对象变量可以指示多种实际类型的现象————多态（polymorphism）<br>在运行时自动选择调用那个方法的现象————动态绑定（dynamic binding）</p>
 <p>例如：</p>
 <pre><code>Employee e = new Employee();
 e = new Manage(); // is ok
@@ -150,24 +119,38 @@ e = new Manage(); // is ok
 Employee[] staff = new Employee();
 </code></pre><h1 id="调用对象方法的执行过程">3. 调用对象方法的执行过程</h1><ol>
 <li>编译器查看对象的声明类型和方法名。假设调用<code>x.f(param)</code>，且隐式参数x声明为C类的对象。编译器一一列举所有C类中名为f的方法和其超类中访问属性为public且名为f的方法。</li>
-<li>编译器查看调用方法时提供的参数类型。这个过程叫做重载解析（overloading resolution）</li>
-<li>如果是private方法、static方法、final方法或者构造器，那么编译器会准确地知道应该调用哪个方法（编译器可以在编译阶段就完成绑定），这种调用方式叫<strong>静态绑定</strong>(static binding)。与此对应的是，调用的方法依赖于隐式参数的实际类型（动态绑定是指编译器在编译阶段不知道要调用哪个方法，直到运行时才能确定），并在运行时实现<strong>动态绑定</strong>。</li>
+<li>编译器查看调用方法时提供的参数类型。这个过程叫做<strong>重载解析</strong>（overloading resolution）</li>
+<li>如果是private方法、static方法、final方法或者构造器，那么编译器会准确地知道应该调用哪个方法（编译器可以在编译阶段就完成绑定），这种调用方式叫<strong>静态绑定</strong>(static binding)。与此对应的是，调用的方法依赖于隐式参数的实际类型（编译器在编译阶段不知道要调用哪个方法，直到运行时才能确定），并在运行时实现<strong>动态绑定</strong>。有一个很好的例子解释这两个概念——<a href="http://blog.csdn.net/lingzhm/article/details/44116091" target="_blank" rel="external">lingzhm-动态绑定</a></li>
 <li>程序运行时，若是动态绑定调用方法，那就先从本类中寻找，否则从超类中寻找。（每个类都有一个方法表method table）</li>
 </ol>
 <h1 id="阻止继承：final类和方法">4. 阻止继承：final类和方法</h1><p>不允许扩展（被继承）的类被称为final类。</p>
 <p>例如下例子中的Executive类就不能有子类。</p>
-<pre><code>final class Executive extends Manager{
-    ...
-}
-</code></pre><p>类中的方法也可以final,那么子类就不能覆盖这个方法。</p>
-<pre><code>class Employee{
-    ...
-    public final String getName(){
-        return name;
-    }
-    ...
-}
-</code></pre><h1 id="抽象类，abstruct">5. 抽象类，abstruct</h1><p>用于表示某种很抽象的、上层的、更通用的类。例如图中的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Executive</span> <span class="keyword">extends</span> <span class="title">Manager</span></span>&#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>类中的方法也可以final,那么子类就不能覆盖这个方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">getName</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="抽象类，abstract">5. 抽象类，abstract</h1><p>用于表示某种很抽象的、上层的、更通用的类。例如图中的<code>Person</code>类。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-13-10-25-16.png" alt=""> </p>
+<ul>
+<li>一般来说，包含一个或多个抽象方法的类本身必须被声明为抽象的。</li>
+<li>抽象类<strong>不能</strong>被实例化！</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="keyword">private</span> String name;<span class="comment">//人类共有的属性,是具体的属性</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String n)</span></span>&#123;<span class="comment">//具体的方法</span></div><div class="line">        name=n;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;<span class="comment">//抽象方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>可以定义抽象类的对象变量，但只能引用非抽象子类的对象：</p>
+<p>  Person p = new Student(“Vince Vu”,”Economics”);</p>
+</li>
+</ul>
+<p>照着书上写了abstract的<a href="https://github.com/jiayi797/Java/tree/master/abstactClasses" target="_blank" rel="external">demo</a></p>
+<p>输出为：</p>
+<pre><code>Harry Hacker,an employee with a salary of 50000.00
+Maria Morris,a student majoring in computer science
+</code></pre><h1 id="受保护访问，Protected">6. 受保护访问，Protected</h1><p>若超类的某个域被声明为protected,那么子类就可以直接访问这个protected域。</p>
+<ul>
+<li>private-仅本类可见</li>
+<li>public-所有类可见</li>
+<li>protected-对本包和所有子类可见</li>
+<li>默认-对本包可见</li>
+</ul>
+<h1 id="Object">7. Object</h1><p>- </p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -229,7 +212,7 @@ Employee[] staff = new Employee();
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#super关键字"><span class="toc-text">1. super关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#子类override-覆盖-父类的函数"><span class="toc-text">1.1. 子类override(覆盖)父类的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super在构造器中的应用"><span class="toc-text">1.2. super在构造器中的应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多态"><span class="toc-text">2. 多态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调用对象方法的执行过程"><span class="toc-text">3. 调用对象方法的执行过程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#阻止继承：final类和方法"><span class="toc-text">4. 阻止继承：final类和方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#抽象类，abstruct"><span class="toc-text">5. 抽象类，abstruct</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#super关键字"><span class="toc-text">1. super关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#子类override-覆盖-父类的函数"><span class="toc-text">1.1. 子类override(覆盖)父类的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super在构造器中的应用"><span class="toc-text">1.2. super在构造器中的应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多态"><span class="toc-text">2. 多态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调用对象方法的执行过程"><span class="toc-text">3. 调用对象方法的执行过程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#阻止继承：final类和方法"><span class="toc-text">4. 阻止继承：final类和方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#抽象类，abstract"><span class="toc-text">5. 抽象类，abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#受保护访问，Protected"><span class="toc-text">6. 受保护访问，Protected</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Object"><span class="toc-text">7. Object</span></a></li></ol>
  
   </div>
 
@@ -265,6 +248,10 @@ Employee[] staff = new Employee();
 		  
 		
 		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>4</sup></a></li>
 		  
 		
@@ -273,7 +260,7 @@ Employee[] staff = new Employee();
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>6</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>7</sup></a></li>
 		  
 		
 		  
@@ -294,15 +281,11 @@ Employee[] staff = new Employee();
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
 			
 		
 			
@@ -314,6 +297,18 @@ Employee[] staff = new Employee();
 			
 		
 			
+				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
 			
 		
@@ -322,11 +317,7 @@ Employee[] staff = new Employee();
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
 			
 		
 			

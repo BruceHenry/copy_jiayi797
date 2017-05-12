@@ -11,26 +11,13 @@
     
 
     
-    <meta name="description" content="引言
-回顾之前学习过的两个算法：
-
-Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同的g，对g取平均得到G– 特点：通过投票和平均的方式来降低对不同数据的敏感性（variance的效果）
-决策树– 简要：通过递归方式建立子树，最终得到完整的树– 特点：对不同数据较敏感（算法的variance很大）
-随机森林– 两者的结合
-
-1. 随机森林算法概述：利用随机的方式将许">
+    <meta name="description" content="引言 回顾之前学习过的两个算法：  Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同的g，对g取平均得到G– 特点：通过投票和平均的方式来降低对不同数据的敏感性（variance的效果） 决策树– 简要：通过递归方式建立子树，最终得到完整的树– 特点：对不同数据较敏感（算法的variance很大） 随机森林– 两者的结合  1. 随机森林算法概述：利用随机的方式将许">
+<meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="随机森林算法">
 <meta property="og:url" content="http://yoursite.com/child/2017/03/05/随机森林算法/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="引言
-回顾之前学习过的两个算法：
-
-Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同的g，对g取平均得到G– 特点：通过投票和平均的方式来降低对不同数据的敏感性（variance的效果）
-决策树– 简要：通过递归方式建立子树，最终得到完整的树– 特点：对不同数据较敏感（算法的variance很大）
-随机森林– 两者的结合
-
-1. 随机森林算法概述：利用随机的方式将许">
+<meta property="og:description" content="引言 回顾之前学习过的两个算法：  Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同的g，对g取平均得到G– 特点：通过投票和平均的方式来降低对不同数据的敏感性（variance的效果） 决策树– 简要：通过递归方式建立子树，最终得到完整的树– 特点：对不同数据较敏感（算法的variance很大） 随机森林– 两者的结合  1. 随机森林算法概述：利用随机的方式将许">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-17-09-01.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-44.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-34-07.png">
@@ -40,17 +27,10 @@ Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同�
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-19-18-06.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-17-46.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-20-16-21.png">
-<meta property="og:updated_time" content="2017-03-05T12:34:50.227Z">
+<meta property="og:updated_time" content="2017-04-24T13:26:32.815Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="随机森林算法">
-<meta name="twitter:description" content="引言
-回顾之前学习过的两个算法：
-
-Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同的g，对g取平均得到G– 特点：通过投票和平均的方式来降低对不同数据的敏感性（variance的效果）
-决策树– 简要：通过递归方式建立子树，最终得到完整的树– 特点：对不同数据较敏感（算法的variance很大）
-随机森林– 两者的结合
-
-1. 随机森林算法概述：利用随机的方式将许">
+<meta name="twitter:description" content="引言 回顾之前学习过的两个算法：  Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同的g，对g取平均得到G– 特点：通过投票和平均的方式来降低对不同数据的敏感性（variance的效果） 决策树– 简要：通过递归方式建立子树，最终得到完整的树– 特点：对不同数据较敏感（算法的variance很大） 随机森林– 两者的结合  1. 随机森林算法概述：利用随机的方式将许">
 <meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-05-17-09-01.png">
 
     
@@ -240,18 +220,18 @@ Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/03/05/自适应提升 AdaBoost/" title="提升方法 AdaBoost">
+ <a href="/2017/03/05/决策树和CART/" title="决策树和CART">
   <strong>上一篇：</strong><br/>
   <span>
-  提升方法 AdaBoost</span>
+  决策树和CART</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/03/05/决策树和CART/"  title="决策树和CART">
+<a href="/2017/03/05/提升方法 AdaBoost/"  title="提升方法 AdaBoost">
  <strong>下一篇：</strong><br/> 
- <span>决策树和CART
+ <span>提升方法 AdaBoost
 </span>
 </a>
 </div>
@@ -298,7 +278,7 @@ Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同�
 		  
 		
 		  
-			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>5</sup></a></li>
 		  
 		
 		  
@@ -306,7 +286,19 @@ Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同�
 		  
 		
 		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/o2o优惠券使用预测/" title="o2o优惠券使用预测">o2o优惠券使用预测<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/中间件/" title="中间件">中间件<sup>1</sup></a></li>
 		  
 		
 		  
@@ -314,7 +306,7 @@ Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同�
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>6</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>7</sup></a></li>
 		  
 		
 		  
@@ -335,15 +327,11 @@ Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同�
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>5</sup></a></li>
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>4</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
 			
 		
 			
@@ -355,6 +343,18 @@ Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同�
 			
 		
 			
+				<li><a href="/tags/递推关系/" title="递推关系">递推关系<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/数据预处理/" title="数据预处理">数据预处理<sup>1</sup></a></li>
 			
 		
@@ -363,15 +363,15 @@ Bagging– 简要：通过bootstrapping得到不一样的数据，得到不同�
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Bagging/" title="Bagging">Bagging<sup>1</sup></a></li>
+				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/OpenMessaging/" title="OpenMessaging">OpenMessaging<sup>1</sup></a></li>
 			
 		
 		</ul>
