@@ -11,17 +11,17 @@
     
 
     
-    <meta name="description" content="线程(thread)：每个任务称为一个线程线程和进程区别：每个进程有自己独立的变量，而线程则共享数据。">
+    <meta name="description" content="线程(thread)：每个任务称为一个线程线程和进程区别：  每个进程有自己独立的变量，而线程则共享数据。 线程是进程的执行单元 线程是进程的组成部分。一个进程可以有多个线程，一个线程必须有一个父进程。 线程可以拥有自己的堆栈、自己的程序计数器和自己的局部变量，但不拥有系统资源（与父进程其它线程共享该进程则资源）  1. 线程的创建有以下两种方法：  通过继承Thread来创建线程 通过实现Run">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多线程">
 <meta property="og:url" content="http://yoursite.com/child/2017/05/12/多线程/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="线程(thread)：每个任务称为一个线程线程和进程区别：每个进程有自己独立的变量，而线程则共享数据。">
-<meta property="og:updated_time" content="2017-05-12T06:01:55.308Z">
+<meta property="og:description" content="线程(thread)：每个任务称为一个线程线程和进程区别：  每个进程有自己独立的变量，而线程则共享数据。 线程是进程的执行单元 线程是进程的组成部分。一个进程可以有多个线程，一个线程必须有一个父进程。 线程可以拥有自己的堆栈、自己的程序计数器和自己的局部变量，但不拥有系统资源（与父进程其它线程共享该进程则资源）  1. 线程的创建有以下两种方法：  通过继承Thread来创建线程 通过实现Run">
+<meta property="og:updated_time" content="2017-05-16T03:30:05.069Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程">
-<meta name="twitter:description" content="线程(thread)：每个任务称为一个线程线程和进程区别：每个进程有自己独立的变量，而线程则共享数据。">
+<meta name="twitter:description" content="线程(thread)：每个任务称为一个线程线程和进程区别：  每个进程有自己独立的变量，而线程则共享数据。 线程是进程的执行单元 线程是进程的组成部分。一个进程可以有多个线程，一个线程必须有一个父进程。 线程可以拥有自己的堆栈、自己的程序计数器和自己的局部变量，但不拥有系统资源（与父进程其它线程共享该进程则资源）  1. 线程的创建有以下两种方法：  通过继承Thread来创建线程 通过实现Run">
 
     
     <link rel="alternative" href="/atom.xml" title="jiayi797的专栏" type="application/atom+xml">
@@ -99,12 +99,73 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#线程的创建"><span class="toc-text">1. 线程的创建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#通过继承Thread来创建线程"><span class="toc-text">1.1. 通过继承Thread来创建线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过实现Runnable接口创建线程"><span class="toc-text">1.2. 通过实现Runnable接口创建线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用Callable和Future创建线程"><span class="toc-text">1.3. 使用Callable和Future创建线程</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<p><strong>线程(thread)</strong>：每个任务称为一个线程<br><strong>线程和进程区别</strong>：每个进程有自己独立的变量，而线程则共享数据。</p>
-  
+		<p><strong>线程(thread)</strong>：每个任务称为一个线程<br><strong>线程和进程区别</strong>：</p>
+<ol>
+<li>每个进程有自己独立的变量，而线程则共享数据。</li>
+<li>线程是进程的执行单元</li>
+<li>线程是进程的组成部分。一个进程可以有多个线程，一个线程必须有一个父进程。</li>
+<li>线程可以拥有自己的堆栈、自己的程序计数器和自己的局部变量，但不拥有系统资源（与父进程其它线程共享该进程则资源）</li>
+</ol>
+<h1 id="线程的创建">1. 线程的创建</h1><p>有以下两种方法：</p>
+<ol>
+<li>通过继承Thread来创建线程</li>
+<li>通过实现Runnable接口创建线程</li>
+</ol>
+<h2 id="通过继承Thread来创建线程">1.1. 通过继承Thread来创建线程</h2><p>要点：通过继承<code>Thread</code>类创建并启动多线程<br>步骤：</p>
+<ol>
+<li>定义Thread类的子类，并重写<code>run()</code>方法（线程执行体）</li>
+<li>创建<code>Thread</code>子类的实例(创建线程对象)</li>
+<li><p>调用<code>start()</code>（启用该线程）</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"run\t"</span>+getName()+<span class="string">"\t"</span>);<span class="comment">//getName()返回thread name</span></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="keyword">new</span> FirstThread().start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>以上代码输出：</p>
+<pre><code>run  Thread-0
+</code></pre><p><strong>一个有意思的现象</strong></p>
+<p>运行如下代码时：</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"run\t"</span>+getName()+<span class="string">"\t"</span>);<span class="comment">//getName()返回thread name</span></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="comment">//调用currentThread()获取当前线程</span></div><div class="line">        System.out.println(<span class="string">"currentThread : "</span>+Thread.currentThread().getName());</div><div class="line">        <span class="keyword">new</span> FirstThread().start();</div><div class="line">        System.out.println(<span class="string">"currentThread : "</span>+Thread.currentThread().getName());</div><div class="line">        <span class="keyword">new</span> FirstThread().start();</div><div class="line">        System.out.println(<span class="string">"currentThread : "</span>+Thread.currentThread().getName());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p>按照以前的理解，应该是：</p>
+<pre><code>currentThread : main
+run Thread-0 
+currentThread : main 
+run Thread-1    
+currentThread : main
+</code></pre><p>实际输出：（也有可能是其它顺序）</p>
+<pre><code>currentThread : main
+currentThread : main
+run Thread-0    
+run Thread-1    
+currentThread : main
+</code></pre><p>新发现：其实<code>start</code>一个线程的时候，<code>main</code>线程在继续运行。<code>main</code>线程不会等<code>start</code>完事儿之后再运行下一句！</p>
+<h2 id="通过实现Runnable接口创建线程">1.2. 通过实现Runnable接口创建线程</h2><pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"run\t"</span>+Thread.currentThread().getName()+<span class="string">"\t"</span>);<span class="comment">//getName()返回thread name</span></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        SecondThread st = <span class="keyword">new</span> SecondThread();</div><div class="line">        <span class="keyword">new</span> Thread(st,<span class="string">"new_thread_1"</span>).start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p>区别：<br>需要通过<code>Thread.currentThread().getName()</code>来获取getName()<br>main不同</p>
+<p><strong>多线程共享变量</strong></p>
+<p>以下是一个多线程共享变量<code>i</code>的情况：</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> i;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">while</span>(i&lt;<span class="number">5</span>)&#123;</div><div class="line">            System.out.println(<span class="string">"run\t"</span>+Thread.currentThread().getName()+<span class="string">"\t"</span>+i);<span class="comment">//getName()返回thread name</span></div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        SecondThread st = <span class="keyword">new</span> SecondThread();</div><div class="line">        <span class="keyword">new</span> Thread(st,<span class="string">"thread_name_1"</span>).start();</div><div class="line">        <span class="keyword">new</span> Thread(st,<span class="string">"thread_name_2"</span>).start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p>两次运行结果：</p>
+<pre><code>run thread_name_1    0
+run thread_name_1    1
+run thread_name_1    2
+run thread_name_1    3
+run thread_name_2    3
+run thread_name_1    4
+
+run thread_name_1    0
+run thread_name_2    0
+run thread_name_1    1
+run thread_name_2    2
+run thread_name_1    3
+run thread_name_2    4
+</code></pre><p><strong>发现</strong>：</p>
+<ol>
+<li>两个线程共有变量<code>i</code></li>
+<li>线程间抢占资源</li>
+</ol>
+<h2 id="使用Callable和Future创建线程">1.3. 使用Callable和Future创建线程</h2>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -135,13 +196,21 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/05/11/OpenMessaging/" title="OpenMessaging">
+ <a href="/2017/05/11/OpenMessaging简介/" title="OpenMessaging简介">
   <strong>上一篇：</strong><br/>
   <span>
-  OpenMessaging</span>
+  OpenMessaging简介</span>
 </a>
 </div>
 
+
+<div class="next">
+<a href="/2017/05/13/OpenMessaging源码阅读1/"  title="OpenMessaging源码阅读1">
+ <strong>下一篇：</strong><br/> 
+ <span>OpenMessaging源码阅读1
+</span>
+</a>
+</div>
 
 </nav>
 
@@ -157,7 +226,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#线程的创建"><span class="toc-text">1. 线程的创建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#通过继承Thread来创建线程"><span class="toc-text">1.1. 通过继承Thread来创建线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过实现Runnable接口创建线程"><span class="toc-text">1.2. 通过实现Runnable接口创建线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用Callable和Future创建线程"><span class="toc-text">1.3. 使用Callable和Future创建线程</span></a></li></ol></li></ol>
  
   </div>
 
@@ -205,7 +274,7 @@
 		  
 		
 		  
-			<li><a href="/categories/中间件/" title="中间件">中间件<sup>2</sup></a></li>
+			<li><a href="/categories/中间件/" title="中间件">中间件<sup>5</sup></a></li>
 		  
 		
 		  
@@ -213,7 +282,7 @@
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>7</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>8</sup></a></li>
 		  
 		
 		  
@@ -238,7 +307,11 @@
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+				<li><a href="/tags/OpenMessaging/" title="OpenMessaging">OpenMessaging<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
 			
 		
 			
@@ -246,7 +319,11 @@
 			
 		
 			
-				<li><a href="/tags/OpenMessaging/" title="OpenMessaging">OpenMessaging<sup>1</sup></a></li>
+				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/openMessaging/" title="openMessaging">openMessaging<sup>1</sup></a></li>
 			
 		
 			
@@ -254,11 +331,7 @@
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
 			
 		
 			
@@ -270,15 +343,15 @@
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 		</ul>

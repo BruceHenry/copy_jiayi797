@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://yoursite.com/child/2017/04/28/xgboost参数/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="本文大多来自于参考文献2.的翻译。 1. Xgboost参数XGBoost作者将参数分为3类：  基本(General)参数：指导整体函数 提升(Booster)参数：在每一步指导每个提升（树或回归） 学习任务(Learning Task Parameters)参数：指导优化模型表现  1.1. 基本参数1.1.1. booster 默认值：gbtree 含义：在每次迭代中的模型类型，有两种选择：">
-<meta property="og:updated_time" content="2017-04-28T10:26:14.775Z">
+<meta property="og:updated_time" content="2017-05-19T07:08:31.600Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xgboost参数调节完全指南（Python版）">
 <meta name="twitter:description" content="本文大多来自于参考文献2.的翻译。 1. Xgboost参数XGBoost作者将参数分为3类：  基本(General)参数：指导整体函数 提升(Booster)参数：在每一步指导每个提升（树或回归） 学习任务(Learning Task Parameters)参数：指导优化模型表现  1.1. 基本参数1.1.1. booster 默认值：gbtree 含义：在每次迭代中的模型类型，有两种选择：">
@@ -99,7 +99,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Xgboost参数"><span class="toc-text">1. Xgboost参数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本参数"><span class="toc-text">1.1. 基本参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#booster"><span class="toc-text">1.1.1. booster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#silent"><span class="toc-text">1.1.2. silent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nthread"><span class="toc-text">1.1.3. nthread</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提升参数"><span class="toc-text">1.2. 提升参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#eta"><span class="toc-text">1.2.1. eta</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#min-child-weight"><span class="toc-text">1.2.2. min_child_weight</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#max-depth"><span class="toc-text">1.2.3. max_depth</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gamma"><span class="toc-text">1.2.4. gamma</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#max-delta-step"><span class="toc-text">1.2.5. max_delta_step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subsample-default-1"><span class="toc-text">1.2.6. subsample [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#colsample-bytree-default-1"><span class="toc-text">1.2.7. colsample_bytree [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#colsample-bylevel-default-1"><span class="toc-text">1.2.8. colsample_bylevel [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda-default-1"><span class="toc-text">1.2.9. lambda [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#alpha-default-0"><span class="toc-text">1.2.10. alpha [default=0]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scale-pos-weight-default-1"><span class="toc-text">1.2.11. scale_pos_weight [default=1]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学习任务参数"><span class="toc-text">1.3. 学习任务参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#objective-default-reg-linear"><span class="toc-text">1.3.1. objective [default=reg:linear]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eval-metric"><span class="toc-text">1.3.2. eval_metric</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#seed-default-0"><span class="toc-text">1.3.3. seed [default=0]</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#例：CTR问题的正样本过少"><span class="toc-text">2. 例：CTR问题的正样本过少</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">3. 参考文献</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Xgboost参数"><span class="toc-text">1. Xgboost参数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本参数"><span class="toc-text">1.1. 基本参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#booster"><span class="toc-text">1.1.1. booster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#silent"><span class="toc-text">1.1.2. silent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nthread"><span class="toc-text">1.1.3. nthread</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提升参数"><span class="toc-text">1.2. 提升参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#eta"><span class="toc-text">1.2.1. eta</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#min-child-weight"><span class="toc-text">1.2.2. min_child_weight</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#max-depth"><span class="toc-text">1.2.3. max_depth</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gamma"><span class="toc-text">1.2.4. gamma</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#max-delta-step"><span class="toc-text">1.2.5. max_delta_step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subsample-default-1"><span class="toc-text">1.2.6. subsample [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#colsample-bytree-default-1"><span class="toc-text">1.2.7. colsample_bytree [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#colsample-bylevel-default-1"><span class="toc-text">1.2.8. colsample_bylevel [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda-default-1"><span class="toc-text">1.2.9. lambda [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#alpha-default-0"><span class="toc-text">1.2.10. alpha [default=0]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scale-pos-weight-default-1"><span class="toc-text">1.2.11. scale_pos_weight [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不均衡数据在xgboost中的处理"><span class="toc-text">1.2.12. 不均衡数据在xgboost中的处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学习任务参数"><span class="toc-text">1.3. 学习任务参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#objective-default-reg-linear"><span class="toc-text">1.3.1. objective [default=reg:linear]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eval-metric"><span class="toc-text">1.3.2. eval_metric</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#seed-default-0"><span class="toc-text">1.3.3. seed [default=0]</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#例：CTR问题的正样本过少"><span class="toc-text">2. 例：CTR问题的正样本过少</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#交叉验证"><span class="toc-text">3. 交叉验证</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">4. 参考文献</span></a></li></ol>
 		
 		</div>
 		
@@ -166,7 +166,12 @@
 <h3 id="colsample-bylevel-default-1">1.2.8. colsample_bylevel [default=1]</h3><p>Denotes the subsample ratio of columns for each split, in each level.<br>I don’t use this often because subsample and colsample_bytree will do the job<br>for you. but you can explore further if you feel so.</p>
 <h3 id="lambda-default-1">1.2.9. lambda [default=1]</h3><p>L2 regularization term on weights (analogous to Ridge regression)<br>This used to handle the regularization part of XGBoost. Though many data scientists don’t use it often, it should be explored to reduce overfitting.</p>
 <h3 id="alpha-default-0">1.2.10. alpha [default=0]</h3><p>L1 regularization term on weight (analogous to Lasso regression)<br>Can be used in case of very high dimensionality so that the algorithm runs faster when implemented</p>
-<h3 id="scale-pos-weight-default-1">1.2.11. scale_pos_weight [default=1]</h3><p>A value greater than 0 should be used in case of high class imbalance as it helps in faster convergence.</p>
+<h3 id="scale-pos-weight-default-1">1.2.11. scale_pos_weight [default=1]</h3><p>A value greater than 0 should be used in case of high class imbalance as it helps in faster convergence.<br>Control the balance of positive and negative weights, useful for unbalanced classes. A typical value to consider: sum(negative cases) / sum(positive cases) See Parameters Tuning for more discussion. Also see Higgs Kaggle competition demo for examples: R, py1, py2, py3</p>
+<p>控制正负样本权重的平衡。一般对非平衡的很有用。一个很特殊的取值是：负样本个数/正样本个数。</p>
+<h3 id="不均衡数据在xgboost中的处理">1.2.12. 不均衡数据在xgboost中的处理</h3><p><a href="https://github.com/dmlc/xgboost/blob/master/doc/how_to/param_tuning.md" target="_blank" rel="external">官方文档</a>:</p>
+<p>对于一些case，比如：广告点击日志，数据集极不平衡。这会影响xgboost模型的训练，有两个方法来改进它。</p>
+<p>如果你关心的预测的ranking order（AUC)： – 通过scale_pos_weight来平衡正负类的权重 – 使用AUC进行评估</p>
+<p>如果你关心的是预测的正确率： – 不能再平衡（re-balance）数据集 – 将参数max_delta_step设置到一个有限的数（比如：1）可以获得效果提升.</p>
 <h2 id="学习任务参数">1.3. 学习任务参数</h2><h3 id="objective-default-reg-linear">1.3.1. objective [default=reg:linear]</h3><ol>
 <li>default=reg:linear</li>
 <li>定义学习任务及相应的学习目标，可选的目标函数如下：</li>
@@ -205,11 +210,29 @@
 <p><code>eta</code><br>shrinkage 参数，用于更新叶子节点权重时，乘以该系数，避免步长过大。参数值越大，越可能无法收敛。把学习率eta设置的小一些，小学习率可以使得后面的学习更加仔细。</p>
 <p><code>scale_pos_weight</code><br>如果优化的是仅仅展示排序，就是AUC的话，可以采用平衡正负样本权重的<br>办法调大正样本权重。设置 scale_pos_weight就可以把正样本权重乘这个系数。如果还需要优化回归的性能，还需要在此基础上做下 recalibration。</p>
 <p><code>max_delta_step</code><br>如果设立了该值，对叶子节点的权重值做了约束在 [max_delta_step,max_delta_step]。以防在某些 loss 下权重值过大，默认是 0（其实代表 inf)。可以试试把这个参数设置到 1-10 之间的一个值。这样会防止做太大的更新步子，<br>使得更新更加平缓。</p>
-<h1 id="参考文献">3. 参考文献</h1><ol>
+<h1 id="交叉验证">3. 交叉验证</h1><p>xgboost自带的交叉验证据说很好用。</p>
+<p>下面是参考文献3给出的一个使用案例：</p>
+<pre><code>cvresult = xgb.cv(xgb_param, 
+                    xgtrain, num_boost_round=alg.get_params()[&apos;n_estimators&apos;],
+                    nfold=cv_folds,
+                    metrics=&apos;auc&apos;, early_stopping_rounds=early_stopping_rounds, show_progress=False)
+</code></pre><p>其中：</p>
+<ul>
+<li>xgb_params：参数</li>
+<li>xgtrain:训练集</li>
+<li>num_boost_round：树个数（迭代次数）</li>
+<li>nfold:kfold的k</li>
+<li>metrics:在CV中的评价度量指标</li>
+<li>early_stopping_rounds：Activates early stopping. CV error needs to decrease at least every <early_stopping_rounds> round(s) to continue. Last entry in evaluation history is the one from best iteration.</early_stopping_rounds></li>
+</ul>
+<h1 id="参考文献">4. 参考文献</h1><ol>
 <li>《xgboost导读和实战》</li>
 <li><a href="http://wepon.me/2016/05/07/XGBoost%E6%B5%85%E5%85%A5%E6%B5%85%E5%87%BA/" target="_blank" rel="external">Xgboost深入浅出</a></li>
 <li><a href="https://www.analyticsvidhya.com/blog/2016/03/complete-guide-parameter-tuning-xgboost-with-codes-python/" target="_blank" rel="external">Complete Guide to Parameter Tuning in XGBoost (with codes in Python)</a></li>
 <li><a href="http://xgboost.readthedocs.io/en/latest/parameter.html" target="_blank" rel="external">xgboost参数官方文档</a></li>
+<li><a href="http://blog.csdn.net/u010657489/article/details/51952785" target="_blank" rel="external">XGBoost参数调优完全指南（附Python代码）</a></li>
+<li><a href="http://d0evi1.com/sklearn/imbalanced_classes/" target="_blank" rel="external">如何处理偏斜类(imbalanced classes)</a></li>
+<li><a href="https://github.com/dmlc/xgboost/blob/master/doc/parameter.md" target="_blank" rel="external">XGBoost Parameters</a></li>
 </ol>
   
 	</div>
@@ -267,7 +290,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Xgboost参数"><span class="toc-text">1. Xgboost参数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本参数"><span class="toc-text">1.1. 基本参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#booster"><span class="toc-text">1.1.1. booster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#silent"><span class="toc-text">1.1.2. silent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nthread"><span class="toc-text">1.1.3. nthread</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提升参数"><span class="toc-text">1.2. 提升参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#eta"><span class="toc-text">1.2.1. eta</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#min-child-weight"><span class="toc-text">1.2.2. min_child_weight</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#max-depth"><span class="toc-text">1.2.3. max_depth</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gamma"><span class="toc-text">1.2.4. gamma</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#max-delta-step"><span class="toc-text">1.2.5. max_delta_step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subsample-default-1"><span class="toc-text">1.2.6. subsample [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#colsample-bytree-default-1"><span class="toc-text">1.2.7. colsample_bytree [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#colsample-bylevel-default-1"><span class="toc-text">1.2.8. colsample_bylevel [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda-default-1"><span class="toc-text">1.2.9. lambda [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#alpha-default-0"><span class="toc-text">1.2.10. alpha [default=0]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scale-pos-weight-default-1"><span class="toc-text">1.2.11. scale_pos_weight [default=1]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学习任务参数"><span class="toc-text">1.3. 学习任务参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#objective-default-reg-linear"><span class="toc-text">1.3.1. objective [default=reg:linear]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eval-metric"><span class="toc-text">1.3.2. eval_metric</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#seed-default-0"><span class="toc-text">1.3.3. seed [default=0]</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#例：CTR问题的正样本过少"><span class="toc-text">2. 例：CTR问题的正样本过少</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">3. 参考文献</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Xgboost参数"><span class="toc-text">1. Xgboost参数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本参数"><span class="toc-text">1.1. 基本参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#booster"><span class="toc-text">1.1.1. booster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#silent"><span class="toc-text">1.1.2. silent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nthread"><span class="toc-text">1.1.3. nthread</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提升参数"><span class="toc-text">1.2. 提升参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#eta"><span class="toc-text">1.2.1. eta</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#min-child-weight"><span class="toc-text">1.2.2. min_child_weight</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#max-depth"><span class="toc-text">1.2.3. max_depth</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gamma"><span class="toc-text">1.2.4. gamma</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#max-delta-step"><span class="toc-text">1.2.5. max_delta_step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subsample-default-1"><span class="toc-text">1.2.6. subsample [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#colsample-bytree-default-1"><span class="toc-text">1.2.7. colsample_bytree [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#colsample-bylevel-default-1"><span class="toc-text">1.2.8. colsample_bylevel [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda-default-1"><span class="toc-text">1.2.9. lambda [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#alpha-default-0"><span class="toc-text">1.2.10. alpha [default=0]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scale-pos-weight-default-1"><span class="toc-text">1.2.11. scale_pos_weight [default=1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不均衡数据在xgboost中的处理"><span class="toc-text">1.2.12. 不均衡数据在xgboost中的处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学习任务参数"><span class="toc-text">1.3. 学习任务参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#objective-default-reg-linear"><span class="toc-text">1.3.1. objective [default=reg:linear]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eval-metric"><span class="toc-text">1.3.2. eval_metric</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#seed-default-0"><span class="toc-text">1.3.3. seed [default=0]</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#例：CTR问题的正样本过少"><span class="toc-text">2. 例：CTR问题的正样本过少</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#交叉验证"><span class="toc-text">3. 交叉验证</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文献"><span class="toc-text">4. 参考文献</span></a></li></ol>
  
   </div>
 
@@ -315,7 +338,7 @@
 		  
 		
 		  
-			<li><a href="/categories/中间件/" title="中间件">中间件<sup>2</sup></a></li>
+			<li><a href="/categories/中间件/" title="中间件">中间件<sup>5</sup></a></li>
 		  
 		
 		  
@@ -323,7 +346,7 @@
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>7</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>8</sup></a></li>
 		  
 		
 		  
@@ -348,7 +371,11 @@
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+				<li><a href="/tags/OpenMessaging/" title="OpenMessaging">OpenMessaging<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
 			
 		
 			
@@ -356,7 +383,11 @@
 			
 		
 			
-				<li><a href="/tags/OpenMessaging/" title="OpenMessaging">OpenMessaging<sup>1</sup></a></li>
+				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/openMessaging/" title="openMessaging">openMessaging<sup>1</sup></a></li>
 			
 		
 			
@@ -364,11 +395,7 @@
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
 			
 		
 			
@@ -380,15 +407,15 @@
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 		</ul>

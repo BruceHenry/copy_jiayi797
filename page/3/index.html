@@ -80,6 +80,356 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/03/28/最大流/" title="最大流" itemprop="url">最大流</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-28T11:20:05.000Z" itemprop="datePublished"> 发表于 2017-03-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最大流问题：给定流网络、源节点、汇点，找到值最大的一个流。</p>
+<h1 id="Ford-Fullkerson方法">1. Ford-Fullkerson方法</h1><p><strong>主要思想</strong>：循环增加流的值。</p>
+<h2 id="几个概念">1.1. 几个概念</h2><h3 id="残存网络-G-f">1.1.1. 残存网络$G_f$</h3><p>残存网络简单定义：</p>
+<pre><code>残存网络=网络容量Capacity-流量网络flow
+</code></pre><p>残存网络形式化定义：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-28-19-36-03.png" alt=""> </p>
+<p>说明：<br>第一项很好理解，就是=网络容量Capacity-流量网络flow</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/算法/">算法</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/28/最大流/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/28/最大流/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/27/ACM-poj1789-TruckHistory/" title="ACM-poj1789-TruckHistory" itemprop="url">ACM-poj1789-TruckHistory</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-27T07:56:38.000Z" itemprop="datePublished"> 发表于 2017-03-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="Description">1. Description</h1><p>Advanced Cargo Movement, Ltd. uses trucks of different types. Some trucks are used for vegetable delivery, other for furniture, or for bricks. The company has its own code describing each type of a truck. The code is simply a string of exactly seven lowercase letters (each letter on each position has a very special meaning but that is unimportant for this task). At the beginning of company’s history, just a single truck type was used but later other types were derived from it, then from the new types another types were derived, and so on. </p>
+<p>Movement:运动<br>trucks：卡车<br>exactly seven lowercase letters ：正好七个小写字母<br>derived：派生</p>
+<p>Today, ACM is rich enough to pay historians to study its history. One thing historians tried to find out is so called derivation plan – i.e. how the truck types were derived. They defined the distance of truck types as the number of positions with different letters in truck type codes. They also assumed that each truck type was derived from exactly one other truck type (except for the first truck type which was not derived from any other type). The quality of a derivation plan was then defined as<br><code>1/Σ(to,td)d(to,td)</code></p>
+<p>quality：质量</p>
+<p>where the sum goes over all pairs of types in the derivation plan such that to is the original type and td the type derived from it and d(to,td) is the distance of the types.<br>Since historians failed, you are to write a program to help them. Given the codes of truck types, your program should find the highest possible quality of a derivation plan. </p>
+<h1 id="Input">2. Input</h1><p>The input consists of several test cases. Each test case begins with a line containing the number of truck types, N, 2 &lt;= N &lt;= 2 000. Each of the following N lines of input contains one truck type code (a string of seven lowercase letters). You may assume that the codes uniquely describe the trucks, i.e., no two of these N lines are the same. The input is terminated with zero at the place of number of truck types.</p>
+<h1 id="Output">3. Output</h1><p>For each test case, your program should output the text “The highest possible quality is 1/Q.”, where 1/Q is the quality of the best derivation plan.<br>Sample Input</p>
+<p>4<br>aaaaaaa<br>baaaaaa<br>abaaaaa<br>aabaaaa<br>0</p>
+<h1 id="Sample-Output">4. Sample Output</h1><p>The highest possible quality is 1/3.</p>
+<h1 id="解决方案">5. 解决方案</h1><p>t:表示卡车的七个字母的字符串<br>d(t0,td)=t0和td两卡车的字符串不相同的个数</p>
+<p>每个卡车都是由另一个卡车派生而来。<br>现在给出n种不同型号的truck，问怎样使quality的值最小————即找到一条连接所有truck的最短路径</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/ACM/">ACM</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/27/ACM-poj1789-TruckHistory/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/27/ACM-poj1789-TruckHistory/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/26/最小生成树算法/" title="最小生成树算法" itemprop="url">最小生成树算法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-26T12:01:21.000Z" itemprop="datePublished"> 发表于 2017-03-26</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>带权图分为有向和无向，无向图的最短路径又叫做最小生成树，有prime算法和kruskal算法；有向图的最短路径算法有dijkstra算法和floyd算法。</p>
+<p>最小生成树问题：给定一个连通无向图，寻找一颗无环树，使得树上所有边权值之和最小。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-26-20-15-02.png" alt=""> </p>
+<h1 id="最小生成树的贪心策略的通用方法">1. 最小生成树的贪心策略的通用方法</h1><h2 id="问题描述">1.1. 问题描述</h2><p><strong>已知</strong>：连通无向图$G=(V,E)$，权重函数$w:E \rightarrow R$<br><strong>循环不变式</strong>：在每边循环之前，A是某颗最小生成树的一个子集。<br><strong>伪代码</strong></p>
+<pre><code>GENERIC-MST(G,w)
+A={}
+while A does not form a spanning tree // 当A不是一个生成树时
+    find an edge(u,v) that is safe for A // 找到一条A的安全边
+    A = A ∪ {(u,v)}
+return A
+</code></pre><p>注：安全边是指加入A后，不会使得A违反循环不变式。即 A ∪ {(u,v)}也是某颗最小生成树的一个子集</p>
+<p><strong>问题</strong>：如何寻找安全边</p>
+<h2 id="求安全边">1.2. 求安全边</h2><p><strong>定理</strong>：设A是图G的某最小生成树的一个子集。设（S,V-S）是图G中尊重集合A的任意一个切割，又设(u,v)是横跨切割(S,V-S)的一条轻量级边，则边(u,v)对于集合A是安全的。</p>
+<p><strong>切割</strong>：图中的线<br><strong>切割尊重集合A</strong>：集合A中不存在横跨切割的边（如图a中的灰粗线构成的集合）<br><strong>轻量级边</strong>：横跨一个切割的所有边中权重最小的边（不唯一）。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-26-21-11-54.png" alt=""> </p>
+<h1 id="Kruskal和Prim关系">2. Kruskal和Prim关系</h1><table>
+<thead>
+<tr>
+<th>term</th>
+<th style="text-align:right">集合A</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">共性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kruskal</td>
+<td style="text-align:right">森林</td>
+<td style="text-align:center">结点是原图结点，安全边是权重最小的连接两个不同分量的边</td>
+<td style="text-align:center">都是用具体的规则来确定安全边的方法</td>
+</tr>
+<tr>
+<td>Prim</td>
+<td style="text-align:right">树</td>
+<td style="text-align:center">安全边是连接A和A之外某个节点的边中权重最小的边</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Kruskal算法">3. Kruskal算法</h1><p><strong>寻找安全边</strong>:在所有连接两个不同树的边里，找到权重最小的边(u,v)</p>
+<h2 id="伪代码">3.1. 伪代码</h2><pre><code>MST-KRUSKAL(G,w)
+A={}//A是森林
+for each vertex v∈G.V
+    MAKE-SET(v)//将集合A初始化为空集，并创建M颗子树，每棵树各含一个结点
+sort the edges of G.E into nondecreasing order by weight w //对边按照权重排序
+for each edge(u,v)∈G.E,taken in nondecreasing order by weight//按权重顺序遍历边
+    if FIND-SET(v)!=FIND-SET(u)//(u,v)不在一棵树
+        A= A ∪ {(u,v)}
+        UNION(u,v)
+return A
+</code></pre><h2 id="时间复杂度">3.2. 时间复杂度</h2><p>$O(ElgV)$</p>
+<h2 id="特点">3.3. 特点</h2><p>图的存贮结构采用边集数组,且权值相等的边在数组中排列次序可以是任意的.该方法对于边相对比较多的不是很实用,浪费时间.</p>
+<p>c++实现（写的很好，一定要看）:<a href="http://blog.csdn.net/niushuai666/article/details/6689285" target="_blank" rel="external">Kruskal算法</a></p>
+<h1 id="Prim算法">4. Prim算法</h1><p><strong>寻找安全边</strong>:A总是一颗树。从单一顶点开始，逐步扩大树中所含顶点的数目，直到遍及连通图的所有顶点。</p>
+<p>为了快速选择新边， 在算法执行的过程中，所有不在树A中的结点都存放在一个基于key属性的<code>最小优先队列Q</code>中。</p>
+<p><code>u.key</code> : 连接结点u和<strong>树</strong>中结点的所有边中最小边的权重。<br><code>u.π</code>：u在<strong>树</strong>中的父节点</p>
+<h2 id="描述">4.1. 描述</h2><p><strong>输入</strong>:连通图G,边权w,最小生成树的根节点r</p>
+<p><strong>初始化</strong>：Vnew = {x}，其中x为集合V中的任一节点（起始点），Enew = {}</p>
+<p><strong>循环</strong>：重复以下操作，直到$V_{new}=V$：</p>
+<ol>
+<li>在集合E中选取权值最小的边（u,v），其中u是集合Vnew中的元素，而v则是V中没有加入Vnew的顶点；</li>
+<li>将v加入Vnew中，将(u,v)加入Enew中；</li>
+</ol>
+<p><strong>输出</strong>：使用集合Vnew和Enew来描述所得到的最小生成树。</p>
+<p>图例：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-27-15-47-24.png" alt=""> </p>
+<h2 id="伪代码-1">4.2. 伪代码</h2><pre><code>MST-PRIM(G,w,r)//r是最小生成树的根节点
+for each u∈G.V
+    u.key=∞ 
+    u.π=NIL //u在树中的父节点
+r.key=0
+Q=G.V
+while Q!={}
+    u=EXTRACT-MIN(Q)//某条横跨切割(V-Q,Q)的一个轻量级边的端点
+    for each v∈G.Adj[u]//遍历u的邻接表
+    if v∈Q and w(u,v)&lt;v.key
+        v.π=u
+        v.key=w(u,v)
+</code></pre><h2 id="时间复杂度-1">4.3. 时间复杂度</h2><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-27-15-51-25.png" alt=""> </p>
+<p>通过邻接矩阵图表示的简易实现中，找到所有最小权边共需O（V2）的运行时间。使用简单的二叉堆与邻接表来表示的话，普里姆算法的运行时间则可缩减为O(E log V)，其中E为连通图的边数，V为顶点数。如果使用较为复杂的斐波那契堆，则可将运行时间进一步缩短为O(E + V log V)，这在连通图足够密集时（当E满足Ω（V log V）条件时），可较显著地提高运行速度</p>
+<h1 id="参考文献">5. 参考文献</h1><ol>
+<li><a href="https://zh.wikipedia.org/wiki/%E6%99%AE%E6%9E%97%E5%A7%86%E7%AE%97%E6%B3%95" target="_blank" rel="external">维基百科</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/算法/">算法</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/26/最小生成树算法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/26/最小生成树算法/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/23/ACM-poj1860-CurrencyExchange/" title="ACM-poj1860-CurrencyExchange" itemprop="url">ACM-poj1860-CurrencyExchange</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-23T14:40:15.000Z" itemprop="datePublished"> 发表于 2017-03-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="Description">1. Description</h1><p>Several currency exchange points are working in our city. Let us suppose that each point specializes in two particular currencies and performs exchange operations only with these currencies. There can be several points specializing in the same pair of currencies. Each point has its own exchange rates, exchange rate of A to B is the quantity of B you get for 1A. Also each exchange point has some commission, the sum you have to pay for your exchange operation. Commission is always collected in source currency.<br>For example, if you want to exchange 100 US Dollars into Russian Rubles at the exchange point, where the exchange rate is 29.75, and the commission is 0.39 you will get (100 - 0.39) * 29.75 = 2963.3975RUR.<br>You surely know that there are N different currencies you can deal with in our city. Let us assign unique integer number from 1 to N to each currency. Then each exchange point can be described with 6 numbers: integer A and B - numbers of currencies it exchanges, and real RAB, CAB, RBA and CBA - exchange rates and commissions when exchanging A to B and B to A respectively.<br>Nick has some money in currency S and wonders if he can somehow, after some exchange operations, increase his capital. Of course, he wants to have his money in currency S in the end. Help him to answer this difficult question. Nick must always have non-negative sum of money while making his operations. </p>
+<p> currency exchange points：货币兑换点<br> commission：佣金<br> assign ：分配</p>
+<p>每个货币兑换点只能互换两种货币。兑换点可重复。每个点都有自己的兑换率，A to B 的兑换率是指1个A能兑换的B的数量。</p>
+<p>兑换时收取一定的佣金，佣金是以来源货币来collect的。例如，如果你想将100dolars兑换成Russian Bules,  兑换点的兑换率是29.75，费用是0.39，，那么你会得到的钱是 (100 - 0.39) * 29.75 = 2963.3975RUR. </p>
+<p>假设每种兑换的点数量是1-N，那么每个兑换点可以由6个num来描述：</p>
+<p>interger A and B  兑换货币的序号<br>RAB A to B兑换率<br>CAB A to B 的佣金<br>RBA B to A 兑换率<br>CBA B to A 的佣金</p>
+<p>Nick有些S货币，他很好奇他能否通过货币兑换的方式对他的资金进行增值。最终他希望他拿到还是S货币。帮他解决这个问题。Nick在这个过程中不能借钱。</p>
+<h1 id="Input">2. Input</h1><p>The first line of the input contains four numbers: N - the number of currencies, M - the number of exchange points, S - the number of currency Nick has and V - the quantity of currency units he has. </p>
+<p>The following M lines contain 6 numbers each - the description of the corresponding exchange point - in specified above order. Numbers are separated by one or more spaces. </p>
+<p>1&lt;=S&lt;=N&lt;=100, 1&lt;=M&lt;=100, V is real number, 0&lt;=V&lt;=103. </p>
+<p>For each point exchange rates and commissions are real, given with at most two digits after the decimal point, 10-2&lt;=rate&lt;=102, 0&lt;=commission&lt;=102. </p>
+<p>Let us call some sequence of the exchange operations simple if no exchange point is used more than once in this sequence. You may assume that ratio of the numeric values of the sums at the end and at the beginning of any simple sequence of the exchange operations will be less than 104. </p>
+<p>corresponding：相应的</p>
+<p>第一行包含四个数字：<br>N 货币的种类<br>M 兑换点的数量<br>S Nick的货币的序号<br>V Nick拥有的钱</p>
+<p>接下来的M行，每行包含六个数字，描述相应的兑换点的属性。<br>数字由一个或多个空格隔开</p>
+<p>1&lt;=S&lt;=N&lt;=100, 1&lt;=M&lt;=100, V is real number, 0&lt;=V&lt;=103. </p>
+<p>每个兑换点的兑换率和手续费都是实数，至多精确到两位小数。</p>
+<p> 10-2&lt;=rate&lt;=102, 0&lt;=commission&lt;=102</p>
+<p>如果在操作序列中不适用多个兑换点，我们可以发起一些简单的兑换操作。你可以假设：（最后的总和/）</p>
+<h1 id="输出数据">3. 输出数据</h1><p>如果nick能够实现他的愿望，则输出YES，否则输出NO。</p>
+<h1 id="样例输入">4. 样例输入</h1><p>3 2 1 20.0<br>1 2 1.00 1.00 1.00 1.00<br>2 3 1.10 1.00 1.10 1.00</p>
+<h1 id="思路">5. 思路</h1><p>将货币看做点，每种兑换规则为边，两点的路径长度为兑换后的钱数。建图之后可以看出题意为求图中是否存在正环，用Bellman-Ford求最长路径，如果存在正环输出YES，不存在输出NO。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/ACM/">ACM</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/03/23/ACM-poj1860-CurrencyExchange/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/23/ACM-poj1860-CurrencyExchange/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/03/23/单源最短路径问题/" title="单源最短路径问题" itemprop="url">单源最短路径问题</a>
   </h1>
   <p class="article-author">By
@@ -680,1055 +1030,6 @@ Maria Morris,a student majoring in computer science
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/14/java学习笔记(1)-类与对象/" title="java学习笔记(1)-类与对象" itemprop="url">java学习笔记(1)-类与对象</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-14T01:56:21.000Z" itemprop="datePublished"> 发表于 2017-03-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>本文主要总结了一些自己不太熟悉的概念。</p>
-<h1 id="对象与对象变量">1. 对象与对象变量</h1><pre><code>Date birthday = new Date();
-</code></pre><p>对象变量：birthday<br>对象：右边的部分</p>
-<p>一个对象变量并没有实际包含一个对象，仅仅是引用一个对象。</p>
-<p>可以显示地将对象变量设置为<code>null</code>，表明这个对象变量目前没有引用任何对象：</p>
-<pre><code>birthday = null;
-</code></pre><h1 id="隐式参数与显式参数">2. 隐式参数与显式参数</h1><p>例，methodName()是类class1的方法，</p>
-<pre><code>calss class1{
-int a;
-    public void methodName(int b){
-    this.a = b ;
-}
-</code></pre><ul>
-<li>显式参数(explicit)：括号里面的，例如double pName</li>
-<li>隐式参数(implicit)：出现在方法名前的class1类对象<br>– 关键词<code>this</code>表示隐式参数。例如<code>this.a</code></li>
-</ul>
-<h1 id="封装">3. 封装</h1><p>不能编写返回<code>引用可变对象</code>的访问器方法！例如：</p>
-<pre><code>class class1{
-    private Date a;
-    public Date get(){
-        return Date a; //会破坏封装性！
-    }
-}
-</code></pre><p>以上操作破坏了<code>a</code>的私有性。</p>
-<p>改正方法：克隆（clone）</p>
-<pre><code>class class1{
-    private Date a;
-    public Date get(){
-        return Date a.clone(); //使用clone()
-    }
-}
-</code></pre><h1 id="final实例域">4. final实例域</h1><pre><code>class class1{
-    private final String name;
-}
-</code></pre><p>final域的特征：</p>
-<ol>
-<li>构造对象时，必须初始化final</li>
-<li>后面操作中，不能再改动</li>
-<li>但并不等于常量！</li>
-<li>属于对象，并不是类！</li>
-</ol>
-<h1 id="static静态">5. static静态</h1><h2 id="static域">5.1. static域</h2><ol>
-<li>每个类只能有一个static域</li>
-<li>同一类的所有对象共享一个static域</li>
-<li>即使没有对象，static域也存在。它属于类，不属于任何一个对象</li>
-</ol>
-<pre><code>class Employee{
-    private static int nextId = 1;
-    private int id;
-}
-</code></pre><h2 id="static常量">5.2. static常量</h2><ol>
-<li>如下例，在程序中，可以使用<code>Math.PI</code>来获取这个常量。</li>
-</ol>
-<pre><code>public class Math{
-    public static final double PI = 3.14;
-}
-</code></pre><h2 id="static方法">5.3. static方法</h2><pre><code>Math.pow(x,a)
-</code></pre><ol>
-<li>不使用任何对象；</li>
-<li>不能操作实例域（即类内的非static方法和变量），因为它不能操作对象；</li>
-<li>可以访问自身类的static域；</li>
-<li>对象也可以调用static方法。</li>
-</ol>
-<p>在下面两种情况使用静态方法：</p>
-<ol>
-<li>一个方法不需要访问对象；</li>
-<li>一个方法只需要访问类的static域。</li>
-</ol>
-<h2 id="工厂方法">5.4. 工厂方法</h2><p>工厂方法是静态方法的一种常见用途。<br>例如，<code>NumberFormat</code>使用工厂方法(而不是构造器)产生<strong>不同风格</strong>的格式对象。</p>
-<pre><code>NumberFormat a = NumberFormat.getSytleA();
-NumberFormat b = NumberFormat.getStyleB();
-</code></pre><h2 id="main方法">5.5. main方法</h2><pre><code>public class Application{
-    public static void main(String[] args){
-        // construct objects here
-    }
-}
-</code></pre><ol>
-<li>每一个类可以有一个main方法，用来单元测试；</li>
-<li>多个类被调用时，只会执行一个main方法；</li>
-</ol>
-<h1 id="初始化块">6. 初始化块</h1><p>构造对象时，先运行初始化块，才运行构造器主体部分。</p>
-<pre><code>class Employee{
-    private static int nextId;
-    private int id;
-    //初始化块
-    {
-        id=nextId;
-    }
-}
-</code></pre><p>如果对类的静态域进行初始化的代码比较复杂，就可以使用静态的初始化块：</p>
-<pre><code>static{
-    Random generator = new Random();
-    nextId = generator.nextId(10000);
-}
-</code></pre><p>类（！！！不是对象）第一次加载时，将会进行static域的初始化。</p>
-<h1 id="初始化数据域的三种方法">7. 初始化数据域的三种方法</h1><ol>
-<li>在构造器中设置值</li>
-<li>在声明中赋值</li>
-<li>在初始化块中赋值</li>
-</ol>
-<h1 id="类的初始化顺序">8. 类的初始化顺序</h1><p>对于静态变量、静态初始化块、变量、初始化块、构造器，它们的初始化顺序依次是（静态变量、静态初始化块）&gt;（变量、初始化块）&gt;构造器。</p>
-<p>例如，</p>
-<pre><code>public class InitialOrderTest {   
-    // 静态变量   
-    public static String staticField = &quot;静态变量&quot;;   
-    // 变量   
-    public String field = &quot;变量&quot;;   
-    // 静态初始化块   
-    static {   
-        System.out.println(staticField);   
-        System.out.println(&quot;静态初始化块&quot;);   
-    }   
-    // 初始化块   
-    {   
-        System.out.println(field);   
-        System.out.println(&quot;初始化块&quot;);   
-    }   
-    // 构造器   
-    public InitialOrderTest() {   
-        System.out.println(&quot;构造器&quot;);   
-    }   
-    public static void main(String[] args) {   
-        new InitialOrderTest();   
-    }   
-}  
-</code></pre><p>运行以上代码，我们会得到如下的输出结果： </p>
-<pre><code>静态变量
-静态初始化块
-变量
-初始化块
-构造器
-</code></pre><p>对于继承的情况：</p>
-<pre><code>class Parent {   
-    // 静态变量   
-    public static String p_StaticField = &quot;父类--静态变量&quot;;   
-    // 变量   
-    public String p_Field = &quot;父类--变量&quot;;   
-
-    // 静态初始化块   
-    static {   
-        System.out.println(p_StaticField);   
-        System.out.println(&quot;父类--静态初始化块&quot;);   
-    }   
-
-    // 初始化块   
-    {   
-        System.out.println(p_Field);   
-        System.out.println(&quot;父类--初始化块&quot;);   
-    }   
-
-    // 构造器   
-    public Parent() {   
-        System.out.println(&quot;父类--构造器&quot;);   
-    }   
-}   
-
-public class SubClass extends Parent {   
-    // 静态变量   
-    public static String s_StaticField = &quot;子类--静态变量&quot;;   
-    // 变量   
-    public String s_Field = &quot;子类--变量&quot;;   
-    // 静态初始化块   
-    static {   
-        System.out.println(s_StaticField);   
-        System.out.println(&quot;子类--静态初始化块&quot;);   
-    }   
-    // 初始化块   
-    {   
-        System.out.println(s_Field);   
-        System.out.println(&quot;子类--初始化块&quot;);   
-    }   
-
-    // 构造器   
-    public SubClass() {   
-        System.out.println(&quot;子类--构造器&quot;);   
-    }   
-
-    // 程序入口   
-    public static void main(String[] args) {   
-        new SubClass();   
-    }   
-}  
-</code></pre><p>运行一下上面的代码，结果马上呈现在我们的眼前： </p>
-<pre><code>父类--静态变量
-父类--静态初始化块
-子类--静态变量
-子类--静态初始化块
-父类--变量
-父类--初始化块
-父类--构造器
-子类--变量
-子类--初始化块
-子类--构造器
-</code></pre><p>总得来说，是先静态后变量，先父类后子类</p>
-<h1 id="其他重点">9. 其他重点</h1><ol>
-<li>基于类的访问权限：一个方法可以访问所属类的所有私有数据。</li>
-<li>java的值引用（基本数据类型、对象引用）</li>
-<li>如果类中提供了至少一个有参构造器，而没有无参构造器，则在构造无参对象时会出错。</li>
-</ol>
-<h1 id="Java类库中的GregorianCalendar类-（删除本节）">10. Java类库中的GregorianCalendar类 （删除本节）</h1><h2 id="纪元">10.1. 纪元</h2><p>时间是用距离一个固定时间点的毫秒数表示的，这个点就是纪元(epoch)。</p>
-<h2 id="时间与日历">10.2. 时间与日历</h2><p>为了将<strong>时间</strong>与<strong>日历</strong>分开，标准Java类库分别包含两个类：</p>
-<ul>
-<li>Date类：用来表示时间点的类；</li>
-<li>GregorianCalendar类：用来表示公历法的类；（通过它还有一个扩展类——Calendar类，描述了日历的一般属性）</li>
-</ul>
-<h3 id="Date类">10.2.1. Date类</h3><p>用来表示时间的类；</p>
-<p>只有少量的方法，例如比较两个时间点before(),after()：</p>
-<pre><code>doday.before(birthday)
-</code></pre><h3 id="GregorianCalendar类">10.2.2. GregorianCalendar类</h3><p>常见方法：</p>
-<p><code>new GregorianCalendar()</code>，构造新的对象，用于表示对象构造时的日期和时间；</p>
-<p>例如:</p>
-<pre><code>GregorianCalendar g1 = new GregorianCalendar();
-</code></pre><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-14-10-47-16.png" alt=""> </p>
-<p><code>new GregorianCalendar(1999,11,31)</code>，提供年月日构造一个表示特定日期午夜的日历对象。（月份从0开始计数，11表示12月）</p>
-<p><code>new GregorianCalendar(1991,Calendar.DECEMBER,31)</code>,与上等价</p>
-<p><code>new GregorianCalendar(1991,Calendar.DECEMBER,31,23,59,59)</code>,设置时间</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Java/">Java</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/14/java学习笔记(1)-类与对象/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/14/java学习笔记(1)-类与对象/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/" title="O2O优惠券预测——对第一名的思路源码分析（二）" itemprop="url">O2O优惠券预测——对第一名的思路源码分析（二）</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-11T08:58:16.000Z" itemprop="datePublished"> 发表于 2017-03-11</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[<a href="https://github.com/wepe/O2O-Coupon-Usage-Forecast]。" target="_blank" rel="external">https://github.com/wepe/O2O-Coupon-Usage-Forecast]。</a></p>
-<p>本文主要对模型训练<code>xgb.py</code> 做一些详细的分析。</p>
-<p>文件：O2O-Coupon-Usage-Forecast/code/wepon/season one </p>
-<p><code>xgb.py</code> 训练xgboost模型，生成特征重要性文件，生成预测结果。单模型第一赛季A榜AUC得分0.798.</p>
-<h1 id="import包">1. import包</h1><p>首先作者import xgboost,因此我们需要安装一下它。</p>
-<p>XGBoost是数据挖掘中用到一个新型的数据分析包，相对其它Boosting模型更加高效。</p>
-<p>安装教程<a href="http://www.jianshu.com/p/11f9229b0ecd" target="_blank" rel="external">xgboost install on windows</a></p>
-<h1 id="导入数据">2. 导入数据</h1><pre><code>#将数据集导入
-dataset1 = pd.read_csv(&apos;data/dataset1.csv&apos;)
-dataset2 = pd.read_csv(&apos;data/dataset2.csv&apos;)
-dataset3 = pd.read_csv(&apos;data/dataset3.csv&apos;)
-</code></pre><p><code>dataset1、dataset2</code>有56个特征，图是前十个。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-12-22-11-30.png" alt=""> </p>
-<p><code>dataset3</code>有57个特征</p>
-<pre><code>#将dataset1的label列的-1都换成0
-dataset1.label.replace(-1,0,inplace=True)
-dataset2.label.replace(-1,0,inplace=True)
-
-#删除重复项
-dataset1.drop_duplicates(inplace=True)
-dataset2.drop_duplicates(inplace=True)
-dataset3.drop_duplicates(inplace=True)
-</code></pre><p>将dataset1和dataset2连起来</p>
-<pre><code>dataset12 = pd.concat([dataset1,dataset2],axis=0)
-</code></pre><p>dataset1_y赋值为dataset1的label列</p>
-<pre><code>dataset1_y = dataset1.label
-</code></pre><p>删除dataset1的’user_id’,’label’,’day_gap_before’,’day_gap_after’字段，赋值给dataset1_x</p>
-<pre><code>dataset1_x = dataset1.drop([&apos;user_id&apos;,&apos;label&apos;,&apos;day_gap_before&apos;,&apos;day_gap_after&apos;],axis=1)  # &apos;day_gap_before&apos;,&apos;day_gap_after&apos; cause overfitting, 0.77
-
-
-dataset2_y = dataset2.label
-dataset2_x = dataset2.drop([&apos;user_id&apos;,&apos;label&apos;,&apos;day_gap_before&apos;,&apos;day_gap_after&apos;],axis=1)
-dataset12_y = dataset12.label
-dataset12_x = dataset12.drop([&apos;user_id&apos;,&apos;label&apos;,&apos;day_gap_before&apos;,&apos;day_gap_after&apos;],axis=1)
-dataset3_preds = dataset3[[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;]]
-dataset3_x = dataset3.drop([&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;,&apos;day_gap_before&apos;,&apos;day_gap_after&apos;],axis=1)
-</code></pre><p>用shape属性来显示数据的格式</p>
-<pre><code>print dataset1_x.shape,dataset2_x.shape,dataset3_x.shape
-</code></pre><p>若输出：(8618,36) 表示这个表格有8618行和36列的数据，其中dimensions[0]为8618，dimensions[1]为36</p>
-<h1 id="加载数据到xgboost">3. 加载数据到xgboost</h1><p>dataset1、dateset2、dateset3 为xgb的DMatrix</p>
-<pre><code>dataset1 = xgb.DMatrix(dataset1_x,label=dataset1_y)
-dataset2 = xgb.DMatrix(dataset2_x,label=dataset2_y)
-dataset12 = xgb.DMatrix(dataset12_x,label=dataset12_y)
-dataset3 = xgb.DMatrix(dataset3_x)
-</code></pre><p>参考文献<a href="http://blog.csdn.net/sb19931201/article/details/52557382" target="_blank" rel="external">xgboost入门与实战（原理篇）</a></p>
-<h1 id="设置参数">4. 设置参数</h1><pre><code>params={&apos;booster&apos;:&apos;gbtree&apos;,
-        &apos;objective&apos;: &apos;rank:pairwise&apos;,
-        &apos;eval_metric&apos;:&apos;auc&apos;,
-        &apos;gamma&apos;:0.1,
-        &apos;min_child_weight&apos;:1.1,
-        &apos;max_depth&apos;:5,
-        &apos;lambda&apos;:10,
-        &apos;subsample&apos;:0.7,
-        &apos;colsample_bytree&apos;:0.7,
-        &apos;colsample_bylevel&apos;:0.7,
-        &apos;eta&apos;: 0.01,
-        &apos;tree_method&apos;:&apos;exact&apos;,
-        &apos;seed&apos;:0,
-        &apos;nthread&apos;:12
-        }
-</code></pre><h1 id="训练模型">5. 训练模型</h1><pre><code>model = xgb.train(params,dataset12,num_boost_round=3500,evals=watchlist)    
-</code></pre><h1 id="预测测试集">6. 预测测试集</h1><pre><code>dataset3_preds[&apos;label&apos;] = model.predict(dataset3)
-dataset3_preds.label = MinMaxScaler().fit_transform(dataset3_preds.label)
-dataset3_preds.sort_values(by=[&apos;coupon_id&apos;,&apos;label&apos;],inplace=True)
-dataset3_preds.to_csv(&quot;xgb_preds.csv&quot;,index=None,header=None)
-print dataset3_preds.describe()
-</code></pre><h1 id="保存特征评分">7. 保存特征评分</h1><pre><code>feature_score = model.get_fscore()
-feature_score = sorted(feature_score.items(), key=lambda x:x[1],reverse=True)
-fs = []
-for (key,value) in feature_score:
-    fs.append(&quot;{0},{1}\n&quot;.format(key,value))
-
-with open(&apos;xgb_feature_score.csv&apos;,&apos;w&apos;) as f:
-    f.writelines(&quot;feature,score\n&quot;)
-    f.writelines(fs)
-</code></pre><h1 id="总结">8. 总结</h1><p>这次算是对自己之前的各种理论知识进行了一次梳理，感觉平时过于注重算法的研究，并没有注意到宏观上的操作。以后要多加注意</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/o2o优惠券使用预测/">o2o优惠券使用预测</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/11/O2O优惠券预测——对第一名的思路源码分析（二）/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/08/O2O优惠券预测——对第一名的思路源码分析（一）/" title="O2O优惠券预测——对第一名的思路源码分析（一）" itemprop="url">O2O优惠券预测——对第一名的思路源码分析（一）</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-08T07:20:57.000Z" itemprop="datePublished"> 发表于 2017-03-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>感觉自己还是太渣，看了些许算法，并不知道有什么卵用。决定好好分析分析别人的思路，也许能够对我带来些许启发。</p>
-<p>本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[<a href="https://github.com/wepe/O2O-Coupon-Usage-Forecast]。" target="_blank" rel="external">https://github.com/wepe/O2O-Coupon-Usage-Forecast]。</a></p>
-<p>本文主要对数据的抽取<code>extract_feature.py</code>做一些详细的分析。</p>
-<h1 id="解决方案概述">1. 解决方案概述</h1><p>本赛题提供了用户线下消费和优惠券领取核销行为的纪录表，用户线上点击/消费和优惠券领取核销行为的纪录表，记录的时间区间是2016.01.01至2016.06.30,需要预测的是2016年7月份用户领取优惠劵后是否核销。根据这两份数据表，我们首先对数据集进行划分，然后提取了用户相关的特征、商家相关的特征，优惠劵相关的特征，用户与商家之间的交互特征，以及利用本赛题的leakage得到的其它特征（这部分特征在实际业务中是不可能获取到的）。最后训练了XGBoost，GBDT，RandomForest进行模型融合。</p>
-<p><strong>源码分析</strong></p>
-<p>第二赛季暂时没有平台，所以本文只对第一赛季的源码进行分析。</p>
-<p>文件：O2O-Coupon-Usage-Forecast/code/wepon/season one </p>
-<p>这个文件夹存放第一赛季的代码</p>
-<ul>
-<li><code>extract_feature.py</code>划分数据集，提取特征，生成训练集（dataset1和dataset2）和预测集（dataset3）。</li>
-<li><code>xgb.py</code> 训练xgboost模型，生成特征重要性文件，生成预测结果。单模型第一赛季A榜AUC得分0.798.</li>
-</ul>
-<h1 id="import概述">2. import概述</h1><p>分析对象：extract_feature.py</p>
-<h2 id="import包概述">2.1. import包概述</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> date</div></pre></td></tr></table></figure>
-<h2 id="pandas">2.2. pandas</h2><p>Pandas 是基于 NumPy (因此还要<code>import numpy</code>) 的一个非常好用的库，正如名字一样，人见人爱。之所以如此，就在于不论是读取、处理数据，用它都非常简单。Pandas提供了很多处理大数据的方法。我想是因为此，原作者才采用了它。</p>
-<p>Pandas 有两种自己独有的基本数据结构。<code>Series</code> 和 <code>DataFrame</code>，它们让数据操作更简单了。</p>
-<p>两种结构的属性和方法不再多阐述。见两份很好的参考文档：</p>
-<ol>
-<li><a href="http://wiki.jikexueyuan.com/project/start-learning-python/311.html" target="_blank" rel="external">Pandas 使用</a></li>
-<li><a href="http://www.cnblogs.com/chaosimple/p/4153083.html" target="_blank" rel="external">十分钟搞定pandas</a></li>
-<li><a href="http://dataunion.org/14261.html" target="_blank" rel="external">在Python中利用Pandas库处理大数据的简单介绍</a></li>
-<li><a href="http://pandas.pydata.org/pandas-docs/stable/cookbook.html" target="_blank" rel="external">pandas官方文档</a></li>
-<li><a href="http://www.cnblogs.com/pengsixiong/p/5050833.html" target="_blank" rel="external">pandas常见方法，中文</a></li>
-</ol>
-<p>大概知道了import包的内容后，我们正式开始看源码。</p>
-<h2 id="注意">2.3. 注意</h2><ol>
-<li>读取之前，请先把数据的表头项删除（也就是第一行的string）</li>
-</ol>
-<h1 id="读取数据集">3. 读取数据集</h1><p>总结：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th style="text-align:right">name</th>
-<th style="text-align:right">content</th>
-<th style="text-align:center">varName</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td style="text-align:right">ccf_offline_stage1_train</td>
-<td style="text-align:right">用户线下消费和优惠券领取行为</td>
-<td style="text-align:center">off_train</td>
-</tr>
-<tr>
-<td>2</td>
-<td style="text-align:right">ccf_online_stage1_train</td>
-<td style="text-align:right">用户线上点击/消费和优惠券领取行为</td>
-<td style="text-align:center">on_train</td>
-</tr>
-<tr>
-<td>3</td>
-<td style="text-align:right">offline_stage1_test_revised</td>
-<td style="text-align:right">用户O2O线下优惠券使用预测样本</td>
-<td style="text-align:center">off_test</td>
-</tr>
-</tbody>
-</table>
-<h2 id="源码分析">3.1. 源码分析</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#1754884 record,1053282 with coupon_id,9738 coupon. date_received:20160101~20160615,date:20160101~20160630, 539438 users, 8415 merchants</span></div><div class="line"></div><div class="line">off_train = pd.read_csv(<span class="string">'data/ccf_offline_stage1_train.csv'</span>,header=<span class="keyword">None</span>)</div><div class="line">off_train.columns = [<span class="string">'user_id'</span>,<span class="string">'merchant_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'discount_rate'</span>,<span class="string">'distance'</span>,<span class="string">'date_received'</span>,<span class="string">'date'</span>]</div><div class="line"></div><div class="line"><span class="comment">#2050 coupon_id. date_received:20160701~20160731, 76309 users(76307 in trainset, 35965 in online_trainset), 1559 merchants(1558 in trainset)</span></div><div class="line"></div><div class="line">off_test = pd.read_csv(<span class="string">'data/ccf_offline_stage1_test_revised.csv'</span>,header=<span class="keyword">None</span>,nrows=<span class="number">3000</span>)</div><div class="line">off_test.columns = [<span class="string">'user_id'</span>,<span class="string">'merchant_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'discount_rate'</span>,<span class="string">'distance'</span>,<span class="string">'date_received'</span>]</div><div class="line"></div><div class="line"><span class="comment">#11429826 record(872357 with coupon_id),762858 user(267448 in off_train)</span></div><div class="line"></div><div class="line">on_train = pd.read_csv(<span class="string">'data/ccf_online_stage1_train.csv'</span>,header=<span class="keyword">None</span>,nrows=<span class="number">47000</span>)</div><div class="line">on_train.columns = [<span class="string">'user_id'</span>,<span class="string">'merchant_id'</span>,<span class="string">'action'</span>,<span class="string">'coupon_id'</span>,<span class="string">'discount_rate'</span>,<span class="string">'date_received'</span>,<span class="string">'date'</span>]</div></pre></td></tr></table></figure>
-<p>读数据主要用了pandas的read_cvs方法. 为了快捷分析，我们限定只读取数据集的前7w、3k、47w行</p>
-<h1 id="采集特征">4. 采集特征</h1><h2 id="主要特征">4.1. 主要特征</h2><p>总结：</p>
-<table>
-<thead>
-<tr>
-<th>term</th>
-<th style="text-align:right">来源</th>
-<th style="text-align:center">内容</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>dataset3</td>
-<td style="text-align:right">table3,off_test</td>
-<td style="text-align:center">off_test数据</td>
-</tr>
-<tr>
-<td>dataset2</td>
-<td style="text-align:right">table2,off_train</td>
-<td style="text-align:center">领券时期在20160515-20160615之间的</td>
-</tr>
-<tr>
-<td>dataset1</td>
-<td style="text-align:right">table2,off_train</td>
-<td style="text-align:center">领券日期在20160414-20160514的</td>
-</tr>
-<tr>
-<td>feature3</td>
-<td style="text-align:right">table2,off_train</td>
-<td style="text-align:center">消费data在20160315-20160630的，或领券日期在20160315-20160630但没有消费的</td>
-</tr>
-<tr>
-<td>feature2</td>
-<td style="text-align:right">table2,off_train</td>
-<td style="text-align:center">消费日期在20160201-20160514的，或领券日期在20160201-20160514但没有消费的</td>
-</tr>
-<tr>
-<td>feature1</td>
-<td style="text-align:right">table2,off_train</td>
-<td style="text-align:center">消费日期在20160101-20160413的，或领券日期在20160101-20160413但没有消费的</td>
-</tr>
-</tbody>
-</table>
-<p>这是滑窗的方法得到多份训练数据集，特征区间越小，得到的训练数据集越多。划分方式：</p>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>预测区间（提取label）</th>
-<th style="text-align:center">特征区间（提取feature）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>领券了的</td>
-<td style="text-align:center">消费了的+领券了没消费的</td>
-</tr>
-<tr>
-<td>测试集</td>
-<td>dataset3</td>
-<td style="text-align:center">feature3</td>
-</tr>
-<tr>
-<td>训练集1</td>
-<td>dataset2</td>
-<td style="text-align:center">feature2</td>
-</tr>
-<tr>
-<td>训练集2</td>
-<td>dataset1</td>
-<td style="text-align:center">feature1</td>
-</tr>
-</tbody>
-</table>
-<p>上面这个表格很清晰地说明了原作者划分数据的方法.</p>
-<h3 id="源码分析-1">4.1.1. 源码分析</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#dataset3存放table3 的数据</span></div><div class="line">dataset3 = off_test </div><div class="line"></div><div class="line"><span class="comment">#feature3存放：筛出off_train中，以下四种情况：</span></div><div class="line"><span class="comment">#消费日期data在20160315-20160630的，</span></div><div class="line"><span class="comment">#或消费日期为空且领券日期在20160315-20160630的，</span></div><div class="line">feature3 = off_train[</div><div class="line">((off_train.date&gt;=<span class="string">'20160315'</span>)&amp;(off_train.date&lt;=<span class="string">'20160630'</span>))</div><div class="line">|((off_train.date==<span class="string">'null'</span>)&amp;(off_train.date_received&gt;=<span class="string">'20160315'</span>)&amp;(off_train.date_received&lt;=<span class="string">'20160630'</span>))]</div><div class="line"></div><div class="line"><span class="comment">#dataset2存放：从off_train筛出：领券时期在20160515-20160615之间的</span></div><div class="line">dataset2 = off_train[</div><div class="line">(off_train.date_received&gt;=<span class="string">'20160515'</span>)&amp;off_train.date_received&lt;=<span class="string">'20160615'</span>)]</div><div class="line"></div><div class="line"><span class="comment">#feature2存放：从off_train筛出：</span></div><div class="line"><span class="comment">#消费日期在20160201-20160514的，</span></div><div class="line"><span class="comment">#或领券日期在20160201-20160514但没有消费的</span></div><div class="line">feature2 = off_train[(off_train.date&gt;=<span class="string">'20160201'</span>)&amp;(off_train.date&lt;=<span class="string">'20160514'</span>)|((off_train.date==<span class="string">'null'</span>)&amp;(off_train.date_received&gt;=<span class="string">'20160201'</span>)&amp;(off_train.date_received&lt;=<span class="string">'20160514'</span>))]</div><div class="line"></div><div class="line"><span class="comment">#dataset1存放：从off_train筛出： 领券日期在20160414-20160514的</span></div><div class="line">dataset1 = off_train[(off_train.date_received&gt;=<span class="string">'20160414'</span>)&amp;(off_train.date_received&lt;=<span class="string">'20160514'</span>)]</div><div class="line"></div><div class="line"><span class="comment">#feature1存放：从off_train筛出：</span></div><div class="line"><span class="comment">#消费日期在20160101-20160413的，或</span></div><div class="line"><span class="comment">#领券日期在20160101-20160413但没有消费的</span></div><div class="line">feature1 = off_train[(off_train.date&gt;=<span class="string">'20160101'</span>)&amp;(off_train.date&lt;=<span class="string">'20160413'</span>)|((off_train.date==<span class="string">'null'</span>)&amp;(off_train.date_received&gt;=<span class="string">'20160101'</span>)&amp;(off_train.date_received&lt;=<span class="string">'20160413'</span>))]</div></pre></td></tr></table></figure>
-<h2 id="其他特征">4.2. 其他特征</h2><h3 id="other-feature3">4.2.1. other_feature3</h3><table>
-<thead>
-<tr>
-<th></th>
-<th style="text-align:right">内容（都是来自测试集dataset3的数据）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>t</td>
-<td style="text-align:right">每个用户使用优惠券的总次数</td>
-</tr>
-<tr>
-<td>t1</td>
-<td style="text-align:right">每个用户使用不同优惠券的次数</td>
-</tr>
-<tr>
-<td>t2</td>
-<td style="text-align:right">每个用户使用某张优惠券（使用次数大于1次）的首次和末次使用时间</td>
-</tr>
-<tr>
-<td>t3</td>
-<td style="text-align:right">每个用户用优惠券date；本优惠券首、末次间隔；本优惠券首/末次使用date</td>
-</tr>
-<tr>
-<td>t4</td>
-<td style="text-align:right">每个用户每天使用优惠券的次数</td>
-</tr>
-<tr>
-<td>t5</td>
-<td style="text-align:right">每个用户每天使用每张优惠券的次数</td>
-</tr>
-<tr>
-<td>t6</td>
-<td style="text-align:right">用户使用每张优惠券的date，不同date用冒号分隔</td>
-</tr>
-<tr>
-<td>t7</td>
-<td style="text-align:right">用户使用每张券的时间，以及和前、后一张券的时间间隔</td>
-</tr>
-</tbody>
-</table>
-<p>文件名：data/other_feature3.csv</p>
-<p>格式：user_id,coupon_id,this_month_user_receive_same_coupon_count,this_month_user_receive_all_coupon_count,date_received,this_month_user_receive_same_coupon_lastone,this_month_user_receive_same_coupon_firstone,this_day_user_receive_all_coupon_count,this_day_user_receive_same_coupon_count,day_gap_before,day_gap_after</p>
-<p>解释：用户id,优惠券id,本月用户使用本券次数，本月用户使用所有券次数，使用时间，本月用户使用本券末次时间、首次时间，本日用户用券总数，本日用户用本券总数，上次用本券间隔，下次用本券间隔</p>
-<h4 id="源码分析-2">4.2.1.1. 源码分析</h4><p>t:计算每个用户使用优惠券的总次数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#将测试集dataset3的userid存在t中</span></div><div class="line">t = dataset3[[<span class="string">'user_id'</span>]]</div><div class="line"><span class="comment">#给t添加一个列，列名是this_month_user_receive_all_coupon_count，值都是1</span></div><div class="line">t[<span class="string">'this_month_user_receive_all_coupon_count'</span>] = <span class="number">1</span></div><div class="line"><span class="comment">#按照user_id分组，将user_id重复的项目的this_month_user_receive_all_coupon_count相加，然后进行reset_index</span></div><div class="line"><span class="comment">#其实就是算出每个用户使用优惠券的总次数</span></div><div class="line">t = t.groupby(<span class="string">'user_id'</span>).agg(<span class="string">'sum'</span>).reset_index()</div></pre></td></tr></table></figure>
-<p>t1:统计每个用户，使用不同优惠券的次数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">t1 = dataset3[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>]]</div><div class="line">t1[<span class="string">'this_month_user_receive_same_coupon_count'</span>] = <span class="number">1</span></div><div class="line"><span class="comment">#按照user_id和coupon_id进行分组</span></div><div class="line"><span class="comment">#统计每个用户，使用不同优惠券的次数</span></div><div class="line">t1 = t1.groupby([<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>]).agg(<span class="string">'sum'</span>).reset_index()</div></pre></td></tr></table></figure>
-<p>t2:找出每个人，消费每个券的时间，并用冒号分隔例如：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-10-27.png" alt=""> </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">t2 = dataset3[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'date_received'</span>]]</div><div class="line">t2.date_received = t2.date_received.astype(<span class="string">'str'</span>)</div><div class="line"><span class="comment"># 按照user_id','coupon_id排序后，提出来date_received，进行agg运算</span></div><div class="line"><span class="comment"># agg运算：用冒号连接起来</span></div><div class="line">t2 = t2.groupby([<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>])[<span class="string">'date_received'</span>].agg(<span class="keyword">lambda</span> x:<span class="string">':'</span>.join(x)).reset_index()</div></pre></td></tr></table></figure>
-<p>t2:每个用户使用某张优惠券（使用次数大于1次）的首次和末次使用时间</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#apply会返回每个优惠券的使用次数</span></div><div class="line">t2[<span class="string">'receive_number'</span>] = t2.date_received.apply(<span class="keyword">lambda</span> s:len(s.split(<span class="string">':'</span>)))</div><div class="line"><span class="comment">#筛出使用次数大于1次的数据</span></div><div class="line">t2 = t2[t2.receive_number&gt;<span class="number">1</span>]</div><div class="line"><span class="comment">#对max_date_received赋值为最近一次的使用时间</span></div><div class="line">t2[<span class="string">'max_date_received'</span>] = t2.date_received.apply(<span class="keyword">lambda</span> s:max([int(d) <span class="keyword">for</span> d <span class="keyword">in</span> s.split(<span class="string">':'</span>)]))</div><div class="line"><span class="comment">#对min_date_received赋值为最早一次的使用时间</span></div><div class="line">t2[<span class="string">'min_date_received'</span>] = t2.date_received.apply(<span class="keyword">lambda</span> s:min([int(d) <span class="keyword">for</span> d <span class="keyword">in</span> s.split(<span class="string">':'</span>)]))</div><div class="line"><span class="comment"># 重新定义t2为以下项目</span></div><div class="line">t2 = t2[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'max_date_received'</span>,<span class="string">'min_date_received'</span>]]</div></pre></td></tr></table></figure>
-<p>t3:每个用户使用优惠券的时间、本次优惠券与首次使用的间隔、末次使用的间隔</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">t3 = dataset3[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'date_received'</span>]]</div><div class="line"><span class="comment">#merge，将两个数据集合并</span></div><div class="line"><span class="comment">#将t2和t3在['user_id','coupon_id']上进行左帧合并，即根据t3合并t2的user_id','coupon_id</span></div><div class="line"><span class="comment">#t2[['user_id','coupon_id','max_date_received','min_date_received']]</span></div><div class="line"><span class="comment">#t3[['user_id','coupon_id','date_received']]</span></div><div class="line"><span class="comment">#因此合并方式为：找到每个用户每张优惠券的消费时间和对应券的max_date_received与min_date_received</span></div><div class="line">t3 = pd.merge(t3,t2,on=[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>],how=<span class="string">'left'</span>)</div><div class="line"><span class="comment">#t3的this_month_user_receive_same_coupon_lastone项目设置为:此用户消费本张优惠券与最近一次消费本张优惠券的间隔</span></div><div class="line"></div><div class="line">t3 = t3.apply(pd.to_numeric, args=(<span class="string">'coerce'</span>,))</div><div class="line">t3[<span class="string">'this_month_user_receive_same_coupon_lastone'</span>] = t3.max_date_received - t3.date_received</div><div class="line"><span class="comment">#此用户消费本张优惠券与第一次消费本张优惠券的间隔</span></div><div class="line">t3[<span class="string">'this_month_user_receive_same_coupon_firstone'</span>] = t3.date_received - t3.min_date_received</div></pre></td></tr></table></figure>
-<p>上面跑到<code>t3[&#39;this_month_user_receive_same_coupon_lastone&#39;] = t3.max_date_received - t3.date_received</code>的时候会出现<code>TypeError: unsupported operand type(s) for -: &#39;float&#39; and &#39;str&#39;</code>.</p>
-<p>在执行这句话之前，我们看到<code>t3.date_received</code>的类型为<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-22-39-21.png" alt=""> </p>
-<p>因此我们需要将数据类型先转换为float。在网上查到本方法对本代码有效（暂不知原因）。<a href="http://stackoverflow.com/questions/14450020/unsupported-operand-in-pandas-dataframe-operation" target="_blank" rel="external">参考文献</a></p>
-<p><code>t3 = t3.apply(pd.anumeric, args=(&#39;coerce&#39;,))</code></p>
-<p>把这句话加上后，我们看到<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-22-43-02.png" alt=""> </p>
-<p>定义函数is_firstlastone判断优惠券是否是末次使用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_firstlastone</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="keyword">if</span> x==<span class="number">0</span>:</div><div class="line">        <span class="keyword">return</span> <span class="number">1</span></div><div class="line">    <span class="keyword">elif</span> x&gt;<span class="number">0</span>:</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span></div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span> <span class="comment">#those only receive once</span></div></pre></td></tr></table></figure>
-<p>t3:加上两个数据，…</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">t3.this_month_user_receive_same_coupon_lastone = t3.this_month_user_receive_same_coupon_lastone.apply(is_firstlastone)</div><div class="line">t3.this_month_user_receive_same_coupon_firstone = t3.this_month_user_receive_same_coupon_firstone.apply(is_firstlastone)</div><div class="line">t3 = t3[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'date_received'</span>,<span class="string">'this_month_user_receive_same_coupon_lastone'</span>,<span class="string">'this_month_user_receive_same_coupon_firstone'</span>]]</div></pre></td></tr></table></figure>
-<p>后面套路差不多，此处不再继续分析。主要结论已经总结在上表中。</p>
-<h1 id="合并特征">5. 合并特征</h1><h2 id="生成训练集">5.1. 生成训练集</h2><pre><code>coupon2 = pd.read_csv(&apos;data/coupon2_feature.csv&apos;)
-merchant2 = pd.read_csv(&apos;data/merchant2_feature.csv&apos;)
-user2 = pd.read_csv(&apos;data/user2_feature.csv&apos;)
-user_merchant2 = pd.read_csv(&apos;data/user_merchant2.csv&apos;)
-other_feature2 = pd.read_csv(&apos;data/other_feature2.csv&apos;)
-#dataset2是根据 优惠券特征 合并商户、用户、用户-商户、其他特征
-dataset2 = pd.merge(coupon2,merchant2,on=&apos;merchant_id&apos;,how=&apos;left&apos;)
-dataset2 = pd.merge(dataset2,user2,on=&apos;user_id&apos;,how=&apos;left&apos;)
-dataset2 = pd.merge(dataset2,user_merchant2,on=[&apos;user_id&apos;,&apos;merchant_id&apos;],how=&apos;left&apos;)
-dataset2 = pd.merge(dataset2,other_feature2,on=[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;],how=&apos;left&apos;)
-dataset2.drop_duplicates(inplace=True)
-print dataset2.shape
-dataset2.user_merchant_buy_total = dataset2.user_merchant_buy_total.replace(np.nan,0)
-dataset2.user_merchant_any = dataset2.user_merchant_any.replace(np.nan,0)
-dataset2.user_merchant_received = dataset2.user_merchant_received.replace(np.nan,0)
-dataset2[&apos;is_weekend&apos;] = dataset2.day_of_week.apply(lambda x:1 if x in (6,7) else 0)
-weekday_dummies = pd.get_dummies(dataset2.day_of_week)
-weekday_dummies.columns = [&apos;weekday&apos;+str(i+1) for i in range(weekday_dummies.shape[1])]
-dataset2 = pd.concat([dataset2,weekday_dummies],axis=1)
-dataset2[&apos;label&apos;] = dataset2.date.astype(&apos;str&apos;) + &apos;:&apos; +  dataset2.date_received.astype(&apos;str&apos;)
-dataset2.label = dataset2.label.apply(get_label)
-dataset2.drop([&apos;merchant_id&apos;,&apos;day_of_week&apos;,&apos;date&apos;,&apos;date_received&apos;,&apos;coupon_id&apos;,&apos;coupon_count&apos;],axis=1,inplace=True)
-dataset2 = dataset2.replace(&apos;null&apos;,np.nan)
-dataset2.to_csv(&apos;data/dataset2.csv&apos;,index=None)
-
-
-coupon1 = pd.read_csv(&apos;data/coupon1_feature.csv&apos;)
-merchant1 = pd.read_csv(&apos;data/merchant1_feature.csv&apos;)
-user1 = pd.read_csv(&apos;data/user1_feature.csv&apos;)
-user_merchant1 = pd.read_csv(&apos;data/user_merchant1.csv&apos;)
-other_feature1 = pd.read_csv(&apos;data/other_feature1.csv&apos;)
-dataset1 = pd.merge(coupon1,merchant1,on=&apos;merchant_id&apos;,how=&apos;left&apos;)
-dataset1 = pd.merge(dataset1,user1,on=&apos;user_id&apos;,how=&apos;left&apos;)
-dataset1 = pd.merge(dataset1,user_merchant1,on=[&apos;user_id&apos;,&apos;merchant_id&apos;],how=&apos;left&apos;)
-dataset1 = pd.merge(dataset1,other_feature1,on=[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;],how=&apos;left&apos;)
-dataset1.drop_duplicates(inplace=True)
-print dataset1.shape
-
-dataset1.user_merchant_buy_total = dataset1.user_merchant_buy_total.replace(np.nan,0)
-dataset1.user_merchant_any = dataset1.user_merchant_any.replace(np.nan,0)
-dataset1.user_merchant_received = dataset1.user_merchant_received.replace(np.nan,0)
-dataset1[&apos;is_weekend&apos;] = dataset1.day_of_week.apply(lambda x:1 if x in (6,7) else 0)
-weekday_dummies = pd.get_dummies(dataset1.day_of_week)
-weekday_dummies.columns = [&apos;weekday&apos;+str(i+1) for i in range(weekday_dummies.shape[1])]
-dataset1 = pd.concat([dataset1,weekday_dummies],axis=1)
-dataset1[&apos;label&apos;] = dataset1.date.astype(&apos;str&apos;) + &apos;:&apos; +  dataset1.date_received.astype(&apos;str&apos;)
-dataset1.label = dataset1.label.apply(get_label)
-dataset1.drop([&apos;merchant_id&apos;,&apos;day_of_week&apos;,&apos;date&apos;,&apos;date_received&apos;,&apos;coupon_id&apos;,&apos;coupon_count&apos;],axis=1,inplace=True)
-dataset1 = dataset1.replace(&apos;null&apos;,np.nan)
-dataset1.to_csv(&apos;data/dataset1.csv&apos;,index=None)
-</code></pre><h2 id="生成预测集">5.2. 生成预测集</h2><pre><code>coupon3 = pd.read_csv(&apos;data/coupon3_feature.csv&apos;)
-merchant3 = pd.read_csv(&apos;data/merchant3_feature.csv&apos;)
-user3 = pd.read_csv(&apos;data/user3_feature.csv&apos;)
-user_merchant3 = pd.read_csv(&apos;data/user_merchant3.csv&apos;)
-other_feature3 = pd.read_csv(&apos;data/other_feature3.csv&apos;)
-dataset3 = pd.merge(coupon3,merchant3,on=&apos;merchant_id&apos;,how=&apos;left&apos;)
-dataset3 = pd.merge(dataset3,user3,on=&apos;user_id&apos;,how=&apos;left&apos;)
-dataset3 = pd.merge(dataset3,user_merchant3,on=[&apos;user_id&apos;,&apos;merchant_id&apos;],how=&apos;left&apos;)
-dataset3 = pd.merge(dataset3,other_feature3,on=[&apos;user_id&apos;,&apos;coupon_id&apos;,&apos;date_received&apos;],how=&apos;left&apos;)
-dataset3.drop_duplicates(inplace=True)
-print dataset3.shape
-
-dataset3.user_merchant_buy_total = dataset3.user_merchant_buy_total.replace(np.nan,0)
-dataset3.user_merchant_any = dataset3.user_merchant_any.replace(np.nan,0)
-dataset3.user_merchant_received = dataset3.user_merchant_received.replace(np.nan,0)
-dataset3[&apos;is_weekend&apos;] = dataset3.day_of_week.apply(lambda x:1 if x in (6,7) else 0)
-weekday_dummies = pd.get_dummies(dataset3.day_of_week)
-weekday_dummies.columns = [&apos;weekday&apos;+str(i+1) for i in range(weekday_dummies.shape[1])]
-dataset3 = pd.concat([dataset3,weekday_dummies],axis=1)
-dataset3.drop([&apos;merchant_id&apos;,&apos;day_of_week&apos;,&apos;coupon_count&apos;],axis=1,inplace=True)
-dataset3 = dataset3.replace(&apos;null&apos;,np.nan)
-dataset3.to_csv(&apos;data/dataset3.csv&apos;,index=None)
-</code></pre><h1 id="附录">6. 附录</h1><h2 id="查看dataFrame类型的内容">6.1. 查看dataFrame类型的内容</h2><p>见pandas 文档之 10 minutes to pandas — viewing data</p>
-<p>用t.values,t.columns</p>
-<h2 id="lambda-functions">6.2. lambda functions</h2><p>源代码中有一行<code>t2.groupby([&#39;user_id&#39;,&#39;coupon_id&#39;])[&#39;date_received&#39;].agg(lambda x:&#39;:&#39;.join(x)).reset_index()</code></p>
-<p><a href="http://www.diveintopython.net/power_of_introspection/lambda_functions.html" target="_blank" rel="external">官方文档</a></p>
-<p><code>lambda functions</code>是python的一个function.<br>用例：</p>
-<pre><code>#函数f(x)
-&gt;&gt;&gt; def f(x):
-...     return x*2
-...
-&gt;&gt;&gt; f(3) #输入x=3     
-6 #输出6
-
-#f(x)等价于：
-&gt;&gt;&gt; g = lambda x: x*2  1
-&gt;&gt;&gt; g(3)
-6
-#f(x)还等价于：
-&gt;&gt;&gt; (lambda x: x*2)(3) 2
-6
-</code></pre><p>作者代码中，有一行<br><code>lambda x:&#39;:&#39;.join(x)</code>即将前后叠加,用<code>:</code>连接<br><code>t2.groupby([&#39;user_id&#39;,&#39;coupon_id&#39;])[&#39;date_received&#39;].agg(lambda x:&#39;:&#39;.join(x)).reset_index()</code>意思是将数据集先按照user_id’,’coupon_id排序，然后对date_received进行用:连接一起来</p>
-<p>例如，输入：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">df = pd.DataFrame(&#123;<span class="string">'A'</span> : [<span class="string">'foo'</span>, <span class="string">'bar'</span>, <span class="string">'foo'</span>, <span class="string">'bar'</span>,</div><div class="line">                            <span class="string">'foo'</span>, <span class="string">'bar'</span>, <span class="string">'foo'</span>, <span class="string">'foo'</span>],</div><div class="line">                            <span class="string">'B'</span> : [<span class="string">'one'</span>, <span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>,</div><div class="line">                             <span class="string">'two'</span>, <span class="string">'two'</span>, <span class="string">'one'</span>, <span class="string">'three'</span>],</div><div class="line">                            <span class="string">'C'</span> : np.random.randn(<span class="number">8</span>),</div><div class="line">                            <span class="string">'D'</span> : np.random.randn(<span class="number">8</span>)&#125;)</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>i</th>
-<th style="text-align:right">A</th>
-<th style="text-align:right">B</th>
-<th style="text-align:right">C</th>
-<th style="text-align:right">D</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td style="text-align:right">foo</td>
-<td style="text-align:right">one</td>
-<td style="text-align:right">0.754147</td>
-<td style="text-align:right">0.912176</td>
-</tr>
-<tr>
-<td>1</td>
-<td style="text-align:right">bar</td>
-<td style="text-align:right">one</td>
-<td style="text-align:right">1.414635</td>
-<td style="text-align:right">-0.760638</td>
-</tr>
-<tr>
-<td>2</td>
-<td style="text-align:right">foo</td>
-<td style="text-align:right">two</td>
-<td style="text-align:right">-0.142930</td>
-<td style="text-align:right">-1.290766</td>
-</tr>
-<tr>
-<td>3</td>
-<td style="text-align:right">bar</td>
-<td style="text-align:right">three</td>
-<td style="text-align:right">1.196999</td>
-<td style="text-align:right">1.647513</td>
-</tr>
-<tr>
-<td>4</td>
-<td style="text-align:right">foo</td>
-<td style="text-align:right">two</td>
-<td style="text-align:right">-0.261663</td>
-<td style="text-align:right">1.284779</td>
-</tr>
-<tr>
-<td>5</td>
-<td style="text-align:right">bar</td>
-<td style="text-align:right">two</td>
-<td style="text-align:right">1.622070</td>
-<td style="text-align:right">1.685648</td>
-</tr>
-<tr>
-<td>6</td>
-<td style="text-align:right">foo</td>
-<td style="text-align:right">one</td>
-<td style="text-align:right">1.478855</td>
-<td style="text-align:right">-0.229636</td>
-</tr>
-</tbody>
-</table>
-<pre><code>df3 = df.groupby([&apos;A&apos;])[&apos;B&apos;].agg(lambda x:&apos;:&apos;.join(x)).reset_index()
-</code></pre><p>输出：</p>
-<table>
-<thead>
-<tr>
-<th>i</th>
-<th style="text-align:right">A</th>
-<th style="text-align:right">B</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td style="text-align:right">bar</td>
-<td style="text-align:right"><code>one:three:two</code></td>
-</tr>
-<tr>
-<td>1</td>
-<td style="text-align:right">foo</td>
-<td style="text-align:right"><code>one:two:two:one:three</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="pandas的merge的how参数">6.3. pandas的merge的how参数</h2><p>原代码出现了<code>t3 = pd.merge(t3,t2,on=[&#39;user_id&#39;,&#39;coupon_id&#39;],how=&#39;left&#39;)</code></p>
-<p>how参数主要决定了哪一个keys会被包含在结果表中。它的值有四种可能性：<code>left,right,outer,inner</code>。我们主要看<code>left和right</code></p>
-<p>how=’left’:遍历left表，找与right一样的，依次放入行。 如果没有，则设为NAN</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-34-44.png" alt=""> </p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-33-13.png" alt=""> </p>
-<p>因此<code>t3 = pd.merge(t3,t2,on=[&#39;user_id&#39;,&#39;coupon_id&#39;],how=&#39;left&#39;)</code>的意思是：</p>
-<p>根据t3合并t2的user_id’,’coupon_id</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/o2o优惠券使用预测/">o2o优惠券使用预测</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/08/O2O优惠券预测——对第一名的思路源码分析（一）/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/08/O2O优惠券预测——对第一名的思路源码分析（一）/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/06/梯度提升决策树 AdaBoost DecisonTree/" title="梯度提升决策树 AdaBoost DecisonTree" itemprop="url">梯度提升决策树 AdaBoost DecisonTree</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="jiayi797" target="_blank" itemprop="author">jiayi797</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-06T11:28:33.000Z" itemprop="datePublished"> 发表于 2017-03-06</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>上一节中介绍了《随机森林算法》，该算法使用bagging的方式作出一些决策树来，同时在决策树的学习过程中加入了更多的随机因素。该模型可以自动做到验证过程同时还可以进行特征选择。 </p>
-<p>本节，我们结合<code>AdaBoost+决策树</code>算法。</p>
-<h1 id="AdaBoost决策树算法引入">1. AdaBoost决策树算法引入</h1><p>在AdaBoost中每一轮迭代，都会给数据更新一个权重，利用这个权重，我们学习得到一个g，在这里我们得到一个决策树，最终利用线性组合的方式得到多个决策树组成的G。</p>
-<p>=======================================<br><strong>AdaBoost-DTree(DD)</strong><br>对于t=1,2,…,T，循环执行：</p>
-<ul>
-<li>更新数据的权重$u(t)$；</li>
-<li>通过决策树算法$DTree(D,u(t))$得到$g_t$；</li>
-<li>计算$g_t$的投票权重$α_t$。</li>
-</ul>
-<p>返回$G=LinearHypo({(g_t,α_t)})$。</p>
-<p>========================================</p>
-<p><strong>问题</strong>：如何要在决策树中，加入权重<code>ut</code></p>
-<p><strong>解决方案</strong>有两种：</p>
-<ul>
-<li>一种是通过算法加权，在计算Ein的地方嵌入权重计算，比如AdaBoost采用的最小化加权误差；</li>
-<li>另一种方法是将算法当成黑盒不变更，通过数据集加权，根据权重在bootstrap时“复制”数据，也就是加权的重采样。</li>
-</ul>
-<p>AdaBoost决策树通常用后一种，即：$AdaBoost+sampling∝u^{(t)}+DTree(D_t) $</p>
-<h1 id="加权的决策树算法-Weighted-Decision-Tree-Algorithm">2. 加权的决策树算法(Weighted Decision Tree Algorithm)</h1><p> 之前含有权重的算法中，我们在误差估计中加入了权重<code>u</code>：</p>
-<p> <img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-46-47.png" alt=""> </p>
-<p>为了对决策树中加入权重，且不改变原算法的健壮性，我们设法对输入的<code>数据</code>进行<code>权重加成</code>。而权重等效于数据的重复次数。根据这种方式得到一组新的数据，那么这组新的数据中的比例大概就是和权重的比例呈正比的，也就是说它能够表达权重对于数据的意义。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-14.png" alt=""> </p>
-<p>在AdaBoost-DTree中，为了简单起见，我们不去改变AdaBoost的框架，也不去修改决策树的内部细节，而只是通过基于权重的训练数据的采样来实现。</p>
-<p>即如下图所示的：AdaBoost提升决策树=AdaBoost提升+关于权重u的数据抽样+决策树</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-50.png" alt=""> </p>
-<h2 id="弱决策树算法">2.1. 弱决策树算法</h2><p>在AdaBoost算法中，我们<strong>通过错误率<code>εt</code>来计算单个的g的权重αt</strong>，那么如果我们使用决策树作为g的时候，g是一个完全长成的树，该树对整个数据集进行细致的切分导致Ein=0，那么这使得εt=0，但计算得到的权重αt会变成无限大。</p>
-<p>其意义是，如果使用一个能力很强的树作为g的话，那么该算法会赋予该树无限大的权重或票数，最终得到了一棵“独裁”的树（因为AdaBoost的哲学意义是庶民政治，就是集中多方的意见，及时有的意见可能是错误的），违背了AdaBoost的宗旨。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-59-58.png" alt=""> </p>
-<p>上面的问题出在使用了所有的数据和让树完全长成这两方面。针对这两个问题，我们要通过<code>剪枝</code>和<code>部分训练数据</code>得到一个弱一点的树。<br>所以实际上，AdaBoost-DTree是通过sampling的方式得到部分训练数据，通过剪枝的方式限制树的高度，得到弱一点的决策树。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-19-02.png" alt=""> </p>
-<p>下面介绍最弱的决策树。</p>
-<h2 id="决策桩，AdaBoost-Stump">2.2. 决策桩，AdaBoost-Stump</h2><p>什么样是树才是弱决策树呢？<br>我们这里限制这棵树只有一层（即它仅基于单个特征来做决策），即决策桩(Decision Stump)。这样我们需要让CART树的不纯度(impurity)尽可能低，学习一个决策桩。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-21-14.png" alt=""> </p>
-<p>所以，使用决策桩作为弱分类器的AdaBoost称为AdaBoost-Stump，它是一种特殊的AdaBoost-DTree。</p>
-<h2 id="决策桩的实现">2.3. 决策桩的实现</h2><p>本节主要参考《机器学习实战》p120</p>
-<h3 id="实验数据adaboost-py">2.3.1. 实验数据adaboost.py</h3><pre><code>from numpy import *
-def loadSimpData():
-    dataMat = matrix([[1.,2.1],[2.,1.1],[1.3,1.],[1.,1.],[2.,1.]])
-    classLabels = [1.0,1.0,-1.0,-1.0,1.0]
-    return dataMat,classLabels
-</code></pre><h3 id="二分类的决策桩实现stump-py">2.3.2. 二分类的决策桩实现stump.py</h3><p>先导入数据</p>
-<pre><code>import adaboost
-dataMat,classLabels = adaboost.loadSimpData()
-</code></pre><p>建立一个<code>buidStump()</code>函数，根据数据集，建立最佳单层决策树（只需要选择一个最好的特征即可）</p>
-<pre><code>def buildStump(dataArr,classLabels,D):
-    dataMatrix = mat(dataArr)
-    labelMat = mat(classLabels).T # T是做转置
-</code></pre><p><code>dataMatrix</code>形式为<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-16-16-29-28.png" alt=""><br><code>labelMat</code>形式为<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-16-16-29-39.png" alt=""> </p>
-<p>先令一些变量，之后解释。</p>
-<pre><code>m,n = shape(dataMatrix)
-numSteps = 10.0#步长
-bestStup = {}#最佳桩
-bestClasEst = mat(zeros((m,1)))#最佳分类est
-minError = inf
-</code></pre><p>接下来需要对每个特征计算出一个阈值<code>threshVal</code>，根据阈值二分类。</p>
-<pre><code>for i in range(n): # 遍历特征个数
-    #为了确定threshVal，我们从本特征下的最小值到最大值分10 step进行依次测试
-    rangeMin = dataMatrix[:,i].min();rangeMax = dataMatrix[:,i].max();
-    stepSize = (rangeMax - rangeMin)/numSteps
-    #下面对每个threshVal可能的值进行依次测试
-    for j in range(-1,int(numSteps)+1):
-        #然后应该开始比较大于阈值和小于阈值怎么怎么滴，为了增加代码的复用性，此处用一个循环来在大于和小于之间切换不等式
-        for inequal in [&apos;lt&apos;,&apos;gt&apos;]:#lt=小于等于，gt=大于
-            threshVal = (rangeMin + float(j)*stepSize)
-            # 开始测试这个特征下这个阈值的二分类器好不好用
-            predictedVals = stumpClassify(dataMatrix,i,threshVal,inequal)
-            #计算本次分类的err
-            errArr = mat(ones((m,1)))
-            errArr[predictedVals==labelMat]=0
-            #基于权重向量D计算权重
-            weightedError = D.T*errArr
-            if weightedError &lt; minError :
-                minError = weightedError
-                bestClasEst = predictedVals.copy()
-                bestStump[&apos;dim&apos;] = i
-                bestStump[&apos;thresh&apos;] = threshVal
-                bestStump[&apos;ineq&apos;] = inequal
-</code></pre><p>最后，返回最佳的决策桩，和误差</p>
-<pre><code>return bestStump,minError,bestClasEst
-</code></pre><h1 id="求解AdaBoost决策树">3. 求解AdaBoost决策树</h1><h2 id="AdaBoost的权重与投票分数的关系">3.1. AdaBoost的权重与投票分数的关系</h2><p>回顾AdaBoost算法：</p>
-<p>从权重<code>ut</code>，通过<code>◆t</code>对<code>u(t+1)</code>进行修正，而两个公式可以合成为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-35-34.png" alt=""> </p>
-<p>如下图，接着我们将<code>u(t+1)</code>展开(表达为<code>u(1)乘以一坨</code>)，最终可以变成连加；<br>我们发现图中橘色部分<code>∑αt·gt(xn)</code>是G(x)的分数！它现在出现在Adaboost的权重表达式中；<br>我们称橘色<code>∑αt·gt(xn)</code>为<strong>投票分数(voting score)</strong>：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-38-40.png" alt=""> </p>
-<p><strong>结论</strong>：AdaBoost里面每一个数据的权重，和<code>exp(-yn( 投票分数 on xn))</code>呈正比。即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-41-04.png" alt=""> </p>
-<h2 id="投票分数-Voting-Score-和间隔-Margin-的关系">3.2. 投票分数(Voting Score)和间隔(Margin)的关系</h2><p>线性混合(linear blending)等价于将假设看做是特征转换的线性模型：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-13-20.png" alt=""> </p>
-<p>其中<code>αt·gt(xn)</code>如果换作是<code>wT·φ(xn)</code>可能就更清楚了，这与下面给出的在SVM中的margin表达式对比，我们可以明白投票分数<code>∑αt·gt(xn)</code>的物理意义，即可以看做是没有正规化的边界(margin)。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-20-39.png" alt=""> </p>
-<p>所以，<code>yn·(voting score)</code>是有符号的、没有正规化的边界距离，从这个角度来说，我们希望<code>yn·(voting score)</code>越大越好，因为这样的泛化能力越强。于是，<code>exp(-yn·(voting score))</code>越小越好，那么<code>un(T+1)</code>越小越好。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-21-01.png" alt=""> </p>
-<p><strong>结论</strong>：AdaBoost在迭代过程中，是让<code>∑un(t)</code>越来越小的过程，在这个过程中，逐渐达到SVM中最大分类间隔的效果。</p>
-<h2 id="AdaBoost误差函数">3.3. AdaBoost误差函数</h2><p>上面解释到了，AdaBoost在迭代学习的过程，就是希望让<code>∑un(t)</code>越来越小的过程，那么我们<strong>新的目标</strong>就是最佳化权重和<code>∑un(T+1)</code>：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-58-44.png" alt=""> </p>
-<p>我们可以画出<code>0/1错误</code>和<code>AdaBoost误差函数err(s,y) = exp(-ys)</code>的函数曲线，我们发现AdaBoost的误差函数（称为exponential error measure）实际上也是0/1错误函数的上限函数，于是，<strong>我们可以通过最小化该函数来起到最佳化的效果</strong>。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-59-15.png" alt=""> </p>
-<h2 id="AdaBoost误差函数的梯度下降求解">3.4. AdaBoost误差函数的梯度下降求解</h2><p>本节目的————最小化AdaBoost的误差函数<code>Ein</code>：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-58-44.png" alt=""> </p>
-<p>这个任务比较麻烦，因为是Σ套着exp再套着Σ，因此需要一些前人的智慧了。</p>
-<p>我们可以将<code>Ein</code>函数在所在点的附近做泰勒展开，我们就可以发现在该点的附近可以被梯度所描述，我们希望求一个最好的方向（最大梯度相反的方向），然后在该方向上走一小步，这样我们就可以做到比现在的函数效果好一点点，依次进行梯度下降，最终达到最小化误差函数的效果。</p>
-<p>原始的梯度下降法：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-02-45.png" alt=""> </p>
-<p>为了模仿梯度下降的方法，假设前面已经AdaBoost完t-1轮了，现在要求的是一个函数gt(x)（或者称为h(x)）。</p>
-<p>在第t轮，我们沿着函数h(x)的方向走$η$的步长，可以使得目标函数迅速往min的方向走。如下：现在我们把<code>函数gt</code>当做向量，希望去找到这个<code>gt</code>（这里函数方向gt和上面介绍的最大梯度的方向向量没有什么差别，只是表示方式有所不同而已）。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-03-24.png" alt=""> </p>
-<p>我们解释一下上面的公式：</p>
-<ul>
-<li>(1、2行)由于前面已经执行完了<code>t-1</code>轮，因此可以把式子化简一下，把一些项目合并成<code>ut</code>的函数形式</li>
-<li>(3行左) 将<code>exp(-y·η·h(xn))</code>在原点xn=0点的泰勒展开，进一步化简得到得到<code>(1-yn·η·h(xn))</code>；（这里为什么要用0这个位置的taylor展开呢，可以理解成h(x)只是沿着原来的Σ1,t-1(alphat*g’(xn)这个函数，挪动的了一小步；这一小步，就意味着变化很小，变化很小甚至接近0，因此就可以在0点taylor展开。不晓得这种理解是否正确，意会吧）</li>
-<li>(3行右) 然后拆成两部分<code>∑un(t)</code>和<code>η·∑un(t)·yn·h(xn)</code>，第一部分是Ein，第二部分就是要最小化的目标。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-07.png" alt=""> </li>
-</ul>
-<p>到此，我们利用前人的智慧已经把目标函数给大大简化了，下面需要要求的东西有俩：</p>
-<p>1）<code>h(x)</code>是啥？</p>
-<p>2）<code>$η$</code>是啥？</p>
-<h3 id="求h-x">3.4.1. 求h(x)</h3><p>我们对<code>∑un(t)·yn·h(xn)</code>整理一下，对于二元分类情形，我们把<code>yn</code>和<code>h(xn)</code>是否同号进行分别讨论：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-29.png" alt=""> </p>
-<p>上面的公式中，我们特意将<code>∑un(t)·yn·h(xn)</code>拆成<code>-∑un(t)</code>和<code>Ein(h)</code>的形式，这里最小化<code>Ein</code>对应于AdaBoost中的A（弱学习算法），好的弱学习算法就是对应于梯度下降的函数方向。</p>
-<p><strong>结论</strong>：在AdaBoost的过程中，算法A就是good gt了！</p>
-<h3 id="求最佳化步长-η">3.4.2. 求最佳化步长$η$</h3><p>我们要最小化Eada，需要找到好的函数方向gt，但是得打这个gt的代价有些大，梯度下降的过程中，每走一小步，就需要计算得到一个gt。如果转换一下思路，我们现在已经确定了好的gt，我们希望快速找到梯度下降的最低点，那么我们需要找到一个合适的最大步长η。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-39.png" alt=""> </p>
-<p>我们这里使用贪心算法来得到最大步长η，称为steepest decent for optimization。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-54.png" alt=""> </p>
-<p>让Eada对η求偏微分，得到最陡时候的ηt，我们发现这时ηt等于AdaBoost的αt。所以在AdaBoost中αt是在偷偷地做最佳化的工作。</p>
-<p>核心在于EADA是怎么变成可对$η$求导的形式的：</p>
-<p>EADA = u1t<em>exp(-$η$) + u2t</em>exp($η$)…</p>
-<p>EADA1 = u1t<em>exp(-$η$) + ut2t</em>0 … （EADA1只考虑exp(-$η$)的项，其余的补上0）</p>
-<p>EADA2 = u1t<em>0 + u2t </em> exp($η$) …（EADA2只考虑exp(+$η$)的项，其余的补上0）</p>
-<p>则，EADA = EADA1 + EADA1 = (Σunt) <em> ( (1-epson)exp(-$η$) + epson</em>exp($η$) )</p>
-<p>随后的求导步骤就是很自然的了，因此就验证了之前的结论，$η$t = sqrt( (1-epsont)/epsont) )就是最优的。前一次课直接给出了这个结论，并没有说为什么，这次算是给出了一个相对理论些的推导。</p>
-<p><strong>结论</strong>：通过求解<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-25-13.png" alt=""><br>，我们得到最佳的<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-25-32.png" alt=""> </p>
-<h3 id="小结">3.4.3. 小结</h3><p>在第二小节中，我们从另外一个角度介绍了AdaBoost算法，它其实是steepest gradient decent。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-06-19.png" alt=""> </p>
-<p>上面的式子很清楚了，我们将AdaBoost的误差函数看做是指数误差函数，AdaBoost就是在这个函数上一步一步做最佳化，每一步求得一个h，并将该h当做是gt，决定这个gt上面要走多长的距离ηt，最终得到这个gt的票数αt。</p>
-<h1 id="AdaBoost决策树总结">4. AdaBoost决策树总结</h1><ol>
-<li>AdaBoost本次的u(t+1)与<code>exp(-yn( 投票分数 on xn))</code>成正比</li>
-<li>AdaBoost在迭代过程中，是让<code>∑un(t)</code>越来越小的过程，在这个过程中，逐渐达到SVM中最大分类间隔的效果</li>
-<li>上目标与最小化误差函数<code>err(s,y) = exp(-ys)</code>等价</li>
-<li>要使得<code>err(s,y)</code>最小，就需要求得<code>h(x)</code>和<code>η</code></li>
-</ol>
-<h1 id="参考文献">5. 参考文献</h1><ol>
-<li><a href="http://qianjiye.de/2015/01/gradient-boosted-decision-tree" target="_blank" rel="external">梯度提升决策树</a></li>
-<li><a href="http://www.cnblogs.com/xbf9xbf/p/4706150.html" target="_blank" rel="external">【Gradient Boosted Decision Tree】林轩田机器学习技术</a></li>
-<li>《机器学习实战》</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/06/梯度提升决策树 AdaBoost DecisonTree/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/03/06/梯度提升决策树 AdaBoost DecisonTree/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -1781,7 +1082,7 @@ minError = inf
 		  
 		
 		  
-			<li><a href="/categories/中间件/" title="中间件">中间件<sup>2</sup></a></li>
+			<li><a href="/categories/中间件/" title="中间件">中间件<sup>5</sup></a></li>
 		  
 		
 		  
@@ -1789,7 +1090,7 @@ minError = inf
 		  
 		
 		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>7</sup></a></li>
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>8</sup></a></li>
 		  
 		
 		  
@@ -1814,7 +1115,11 @@ minError = inf
 			
 		
 			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+				<li><a href="/tags/OpenMessaging/" title="OpenMessaging">OpenMessaging<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
 			
 		
 			
@@ -1822,7 +1127,11 @@ minError = inf
 			
 		
 			
-				<li><a href="/tags/OpenMessaging/" title="OpenMessaging">OpenMessaging<sup>1</sup></a></li>
+				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/openMessaging/" title="openMessaging">openMessaging<sup>1</sup></a></li>
 			
 		
 			
@@ -1830,11 +1139,7 @@ minError = inf
 			
 		
 			
-				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/快速幂取模/" title="快速幂取模">快速幂取模<sup>1</sup></a></li>
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
 			
 		
 			
@@ -1846,15 +1151,15 @@ minError = inf
 			
 		
 			
-				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/算法/" title="算法">算法<sup>1</sup></a></li>
+				<li><a href="/tags/测试/" title="测试">测试<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQL/" title="SQL">SQL<sup>1</sup></a></li>
 			
 		
 		</ul>
