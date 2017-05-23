@@ -271,6 +271,182 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/16/java学习笔记(2)-继承/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/16/java学习笔记(2)-继承/" itemprop="url">java学习笔记(2)-继承</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-16T10:58:32+08:00">
+                2017-03-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="super关键字">1. super关键字</h1><h2 id="子类override-覆盖-父类的函数">1.1. 子类override(覆盖)父类的函数</h2><p>override时，使用<code>super</code>调用父类的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//超类，员工</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> salary;<span class="comment">//薪水</span></div><div class="line">    <span class="keyword">private</span> Date hireDay;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> salary;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//经理</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manage</span> <span class="keyword">extends</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> bonus;<span class="comment">//奖金</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span>&#123;<span class="comment">//对原来的getSalary进行override</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.bonus + <span class="keyword">super</span>.getSalary();<span class="comment">//super调用父类的getSalary()方法</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="super在构造器中的应用">1.2. super在构造器中的应用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String n, <span class="keyword">double</span> s, <span class="keyword">int</span> year, <span class="keyword">int</span> mouth, <span class="keyword">int</span> day)</span></span>&#123;</div><div class="line">    <span class="keyword">super</span>(n,s,year,mouth,day);<span class="comment">//调用超类Employee中对应参数的构造器</span></div><div class="line">    bonus = <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="多态">2. 多态</h1><p>一个对象变量可以指示多种实际类型的现象————多态（polymorphism）<br>在运行时自动选择调用那个方法的现象————动态绑定（dynamic binding）</p>
+<p>例如：</p>
+<pre><code>Employee e = new Employee();
+e = new Manage(); // is ok
+</code></pre><p>此时，对象变量<code>e</code>也可以引用<code>Manager</code>的对象。</p>
+<pre><code>Manage boss = new Manage(...);
+Employee[] staff = new Employee();
+</code></pre><h1 id="调用对象方法的执行过程">3. 调用对象方法的执行过程</h1><ol>
+<li>编译器查看对象的声明类型和方法名。假设调用<code>x.f(param)</code>，且隐式参数x声明为C类的对象。编译器一一列举所有C类中名为f的方法和其超类中访问属性为public且名为f的方法。</li>
+<li>编译器查看调用方法时提供的参数类型。这个过程叫做<strong>重载解析</strong>（overloading resolution）</li>
+<li>如果是private方法、static方法、final方法或者构造器，那么编译器会准确地知道应该调用哪个方法（编译器可以在编译阶段就完成绑定），这种调用方式叫<strong>静态绑定</strong>(static binding)。与此对应的是，调用的方法依赖于隐式参数的实际类型（编译器在编译阶段不知道要调用哪个方法，直到运行时才能确定），并在运行时实现<strong>动态绑定</strong>。有一个很好的例子解释这两个概念——<a href="http://blog.csdn.net/lingzhm/article/details/44116091" target="_blank" rel="external">lingzhm-动态绑定</a></li>
+<li>程序运行时，若是动态绑定调用方法，那就先从本类中寻找，否则从超类中寻找。（每个类都有一个方法表method table）</li>
+</ol>
+<h1 id="阻止继承：final类和方法">4. 阻止继承：final类和方法</h1><p>不允许扩展（被继承）的类被称为final类。</p>
+<p>例如下例子中的Executive类就不能有子类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Executive</span> <span class="keyword">extends</span> <span class="title">Manager</span></span>&#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>类中的方法也可以final,那么子类就不能覆盖这个方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">getName</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="抽象类，abstract">5. 抽象类，abstract</h1><p>用于表示某种很抽象的、上层的、更通用的类。例如图中的<code>Person</code>类。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-13-10-25-16.png" alt=""> </p>
+<ul>
+<li>一般来说，包含一个或多个抽象方法的类本身必须被声明为抽象的。</li>
+<li>抽象类<strong>不能</strong>被实例化！</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="keyword">private</span> String name;<span class="comment">//人类共有的属性,是具体的属性</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String n)</span></span>&#123;<span class="comment">//具体的方法</span></div><div class="line">        name=n;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;<span class="comment">//抽象方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>可以定义抽象类的对象变量，但只能引用非抽象子类的对象：</p>
+<p>  Person p = new Student(“Vince Vu”,”Economics”);</p>
+</li>
+</ul>
+<p>照着书上写了abstract的<a href="https://github.com/jiayi797/Java/tree/master/abstactClasses" target="_blank" rel="external">demo</a></p>
+<p>输出为：</p>
+<pre><code>Harry Hacker,an employee with a salary of 50000.00
+Maria Morris,a student majoring in computer science
+</code></pre><h1 id="受保护访问，Protected">6. 受保护访问，Protected</h1><p>若超类的某个域被声明为protected,那么子类就可以直接访问这个protected域。</p>
+<ul>
+<li>private-仅本类可见</li>
+<li>public-所有类可见</li>
+<li>protected-对本包和所有子类可见</li>
+<li>默认-对本包可见</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/15/GBDT/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2612,145 +2788,6 @@ minError = inf
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/04/boosting（混合模型）和bagging/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/04/boosting（混合模型）和bagging/" itemprop="url">boosting（混合模型）和bagging（装袋）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-04T17:00:58+08:00">
-                2017-03-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。<a href="http://blog.jasonding.top/2015/06/10/Machine%20Learning/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E3%80%91%E6%B7%B7%E5%90%88%E5%92%8C%E8%A3%85%E8%A2%8B/" target="_blank" rel="external">混合和装袋</a></p>
-<h1 id="bagging">1. bagging</h1><p>bagging——基于数据随机重抽样的分类器构建方法。</p>
-<h1 id="boosting">2. boosting</h1><p>新的分类器根据已训练出的分类器的性能来进行训练；<br>分类结果基于所有分类器的加权求和得到。</p>
-<h1 id="bagging和boosting区别">3. bagging和boosting区别</h1><p>Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。</p>
-<p>Boosting 则是迭代算法，每一次迭代都根据上一次迭代的预测结果对样本进行加权，所以随着迭代不断进行，误差会越来越小，所以模型的 bias 会不断降低。这种算法无法并行，例子比如 Adaptive Boosting.</p>
-<p>作者：匿名用户<br>链接：<a href="https://www.zhihu.com/question/26760839/answer/33963551" target="_blank" rel="external">https://www.zhihu.com/question/26760839/answer/33963551</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2800,7 +2837,7 @@ minError = inf
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

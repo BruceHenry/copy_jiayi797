@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Buffer," />
 
 
 
@@ -90,17 +90,19 @@
 
 
 
-<meta name="description" content="火光摇曳 美团点评技术团队">
-<meta name="keywords">
+<meta name="description" content="引言 说到缓冲区，不得不提Java NIO。 Java NIO(New IO)是一个可以替代标准Java IO API的IO API（从Java 1.4开始)，Java NIO提供了与标准IO不同的IO工作方式。 Java NIO: Channels and Buffers（通道和缓冲区） 1. 什么是缓冲区Buffer定义 代码的角度来讲（可以查看JDK中Buffer、ByteBuffer、Do">
+<meta name="keywords" content="Buffer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="转化率预估资料">
-<meta property="og:url" content="http://yoursite.com/child/2017/05/16/转化率预估资料/index.html">
+<meta property="og:title" content="java-Buffer">
+<meta property="og:url" content="http://yoursite.com/child/2017/05/22/java-Buffer/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="火光摇曳 美团点评技术团队">
-<meta property="og:updated_time" content="2017-05-16T05:38:17.476Z">
+<meta property="og:description" content="引言 说到缓冲区，不得不提Java NIO。 Java NIO(New IO)是一个可以替代标准Java IO API的IO API（从Java 1.4开始)，Java NIO提供了与标准IO不同的IO工作方式。 Java NIO: Channels and Buffers（通道和缓冲区） 1. 什么是缓冲区Buffer定义 代码的角度来讲（可以查看JDK中Buffer、ByteBuffer、Do">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-05-22-20-31-24.png">
+<meta property="og:updated_time" content="2017-05-22T12:41:17.295Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="转化率预估资料">
-<meta name="twitter:description" content="火光摇曳 美团点评技术团队">
+<meta name="twitter:title" content="java-Buffer">
+<meta name="twitter:description" content="引言 说到缓冲区，不得不提Java NIO。 Java NIO(New IO)是一个可以替代标准Java IO API的IO API（从Java 1.4开始)，Java NIO提供了与标准IO不同的IO工作方式。 Java NIO: Channels and Buffers（通道和缓冲区） 1. 什么是缓冲区Buffer定义 代码的角度来讲（可以查看JDK中Buffer、ByteBuffer、Do">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-05-22-20-31-24.png">
 
 
 
@@ -128,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/2017/05/16/转化率预估资料/"/>
+  <link rel="canonical" href="http://yoursite.com/child/2017/05/22/java-Buffer/"/>
 
 
 
 
 
-  <title>转化率预估资料 | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>java-Buffer | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -274,7 +276,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/16/转化率预估资料/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/22/java-Buffer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -291,7 +293,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">转化率预估资料</h1>
+          <h1 class="post-title" itemprop="name headline">java-Buffer</h1>
         
 
         <div class="post-meta">
@@ -303,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T13:36:42+08:00">
-                2017-05-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-22T20:17:39+08:00">
+                2017-05-22
               </time>
             
 
@@ -326,8 +328,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -360,9 +362,44 @@
       
 
       
-        <ol>
-<li><a href="http://www.flickering.cn/category/ads/" target="_blank" rel="external">火光摇曳</a></li>
-<li><a href="http://tech.meituan.com/tag/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" target="_blank" rel="external">美团点评技术团队</a></li>
+        <p><strong>引言</strong></p>
+<p>说到缓冲区，不得不提Java NIO。</p>
+<p>Java NIO(New IO)是一个可以替代标准Java IO API的IO API（从Java 1.4开始)，Java NIO提供了与标准IO不同的IO工作方式。</p>
+<p>Java NIO: Channels and Buffers（通道和缓冲区）</p>
+<h1 id="什么是缓冲区">1. 什么是缓冲区</h1><p><strong>Buffer定义</strong></p>
+<p>代码的角度来讲（可以查看JDK中Buffer、ByteBuffer、DoubleBuffer等的源码），Buffer类内部其实就是一个基本数据类型的数组，以及对这个缓冲数组的各种操作；</p>
+<p>常见的缓冲区如ByteBuffer、IntBuffer、DoubleBuffer…内部对应的数组依次是byte、int、double…</p>
+<p><strong>Buffer与通道的关系</strong></p>
+<p>标准的IO基于字节流和字符流进行操作的，而NIO是基于通道（Channel）和缓冲区（Buffer）进行操作，数据总是<em>从通道读取到缓冲区中</em>，或者<em>从缓冲区写入到通道中</em>。</p>
+<p><strong>继承结构</strong></p>
+<p>以ByteBuffer为例：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-05-22-20-31-24.png" alt=""> </p>
+<p>Buffer是顶层抽象类，ByteBuffer继承Buffer，也是抽象类，ByteBuffer最常见的两个具体实现类如下：</p>
+<p>DirectByteBuffer（JVM堆外部、通过unsafe.allocateMemory实现）、HeapByteBuffer（JVM堆）</p>
+<p><strong>缓冲区用途</strong></p>
+<p>写，然后读出</p>
+<h1 id="缓冲区的四个属性">2. 缓冲区的四个属性</h1><ul>
+<li><p>容量(capacity)<br>capacity指的是缓冲区能够容纳元素的最大数量，这个值在缓冲区创建时被设定，而且不能够改变，如下，我们创建了一个最大容量为10的字节缓冲区；</p>
+<pre><code>ByteBuffer bf = ByteBuffer.allocate(10);
+</code></pre></li>
+<li><p>上界（limit）<br>limit指的是缓冲区中第一个不能读写的元素的数组下标索引，也可以认为是缓冲区中实际元素的数量；</p>
+</li>
+<li><p>位置（position）<br>position指的是下一个要被读写的元素的数组下标索引，该值会随get()和put()的调用自动更新；</p>
+</li>
+<li><p>标记（mark）<br>一个备忘位置，调用mark()方法的话，mark值将存储当前position的值，等下次调用reset()方法时，会设定position的值为之前的标记值；</p>
+</li>
+<li><p>四个属性值之间的关系<br>根据以上四个属性的定义，我们可以总结出它们之间的关系如下：<br>0 &lt;= mark &lt;= position &lt;= limit &lt;= capacity</p>
+</li>
+</ul>
+<h1 id="缓冲区调用一般步骤">3. 缓冲区调用一般步骤</h1><ol>
+<li>写入数据到 Buffer</li>
+<li>调用flip()方法</li>
+<li>从 Buffer 中get()数据</li>
+<li>调用clear()方法或者compact()方法</li>
+</ol>
+<h1 id="参考文献">4. 参考文献</h1><ol>
+<li><a href="http://www.cnblogs.com/chenpi/p/6475510.html" target="_blank" rel="external">Java NIO中的缓冲区Buffer（一）缓冲区基础</a></li>
+<li>[Java编程思想2]</li>
 </ol>
 
       
@@ -391,6 +428,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Buffer/" rel="tag"># Buffer</a>
+          
+        </div>
+      
 
       
         
@@ -400,18 +443,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/17/RocketMQ简介/" rel="next" title="RocketMQ简介">
-                <i class="fa fa-chevron-left"></i> RocketMQ简介
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/14/阿里中间件初赛-李健胜解决方案/" rel="prev" title="阿里中间件初赛-李健胜解决方案">
-                阿里中间件初赛-李健胜解决方案 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/21/内存映射文件/" rel="prev" title="内存映射文件">
+                内存映射文件 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -459,8 +498,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -522,6 +570,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是缓冲区"><span class="nav-text">1. 什么是缓冲区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓冲区的四个属性"><span class="nav-text">2. 缓冲区的四个属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓冲区调用一般步骤"><span class="nav-text">3. 缓冲区调用一般步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">4. 参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

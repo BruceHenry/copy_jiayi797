@@ -271,6 +271,178 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/22/java-Buffer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/22/java-Buffer/" itemprop="url">java-Buffer</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-22T20:17:39+08:00">
+                2017-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>引言</strong></p>
+<p>说到缓冲区，不得不提Java NIO。</p>
+<p>Java NIO(New IO)是一个可以替代标准Java IO API的IO API（从Java 1.4开始)，Java NIO提供了与标准IO不同的IO工作方式。</p>
+<p>Java NIO: Channels and Buffers（通道和缓冲区）</p>
+<h1 id="什么是缓冲区">1. 什么是缓冲区</h1><p><strong>Buffer定义</strong></p>
+<p>代码的角度来讲（可以查看JDK中Buffer、ByteBuffer、DoubleBuffer等的源码），Buffer类内部其实就是一个基本数据类型的数组，以及对这个缓冲数组的各种操作；</p>
+<p>常见的缓冲区如ByteBuffer、IntBuffer、DoubleBuffer…内部对应的数组依次是byte、int、double…</p>
+<p><strong>Buffer与通道的关系</strong></p>
+<p>标准的IO基于字节流和字符流进行操作的，而NIO是基于通道（Channel）和缓冲区（Buffer）进行操作，数据总是<em>从通道读取到缓冲区中</em>，或者<em>从缓冲区写入到通道中</em>。</p>
+<p><strong>继承结构</strong></p>
+<p>以ByteBuffer为例：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-05-22-20-31-24.png" alt=""> </p>
+<p>Buffer是顶层抽象类，ByteBuffer继承Buffer，也是抽象类，ByteBuffer最常见的两个具体实现类如下：</p>
+<p>DirectByteBuffer（JVM堆外部、通过unsafe.allocateMemory实现）、HeapByteBuffer（JVM堆）</p>
+<p><strong>缓冲区用途</strong></p>
+<p>写，然后读出</p>
+<h1 id="缓冲区的四个属性">2. 缓冲区的四个属性</h1><ul>
+<li><p>容量(capacity)<br>capacity指的是缓冲区能够容纳元素的最大数量，这个值在缓冲区创建时被设定，而且不能够改变，如下，我们创建了一个最大容量为10的字节缓冲区；</p>
+<pre><code>ByteBuffer bf = ByteBuffer.allocate(10);
+</code></pre></li>
+<li><p>上界（limit）<br>limit指的是缓冲区中第一个不能读写的元素的数组下标索引，也可以认为是缓冲区中实际元素的数量；</p>
+</li>
+<li><p>位置（position）<br>position指的是下一个要被读写的元素的数组下标索引，该值会随get()和put()的调用自动更新；</p>
+</li>
+<li><p>标记（mark）<br>一个备忘位置，调用mark()方法的话，mark值将存储当前position的值，等下次调用reset()方法时，会设定position的值为之前的标记值；</p>
+</li>
+<li><p>四个属性值之间的关系<br>根据以上四个属性的定义，我们可以总结出它们之间的关系如下：<br>0 &lt;= mark &lt;= position &lt;= limit &lt;= capacity</p>
+</li>
+</ul>
+<h1 id="缓冲区调用一般步骤">3. 缓冲区调用一般步骤</h1><ol>
+<li>写入数据到 Buffer</li>
+<li>调用flip()方法</li>
+<li>从 Buffer 中get()数据</li>
+<li>调用clear()方法或者compact()方法</li>
+</ol>
+<h1 id="参考文献">4. 参考文献</h1><ol>
+<li><a href="http://www.cnblogs.com/chenpi/p/6475510.html" target="_blank" rel="external">Java NIO中的缓冲区Buffer（一）缓冲区基础</a></li>
+<li>[Java编程思想2]</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/21/内存映射文件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -361,18 +533,25 @@
       
         
           
-            <p>内存映射文件：利用虚拟内存实现将文件“映射”到内存中。这样这个文件就可以当做是一个内存数组一样的访问，这比传统的文件操作要快得多。</p>
+            <p>内存映射文件：利用虚拟内存实现将文件“映射”到内存中。文件对应于内存中的一个字节数组，对文件的操作变为对这个字节数组的操作，而字节数组的操作直接映射到文件上。这样这个文件就可以当做是一个内存数组一样的访问，这比传统的文件操作要快得多。</p>
 <p>映射：<strong>硬盘上文件</strong>的位置与进程<strong>逻辑地址空间</strong>中一块大小相同的区域之间的一一对应</p>
-<h1 id="java使用内存映射">1. java使用内存映射</h1><p><strong>步骤：</strong></p>
-<ul>
+<p>不过，这种映射是操作系统提供的一种假象，文件一般不会马上加载到内存，操作系统只是记录下了这回事，当实际发生读写时，才会按需加载。</p>
+<p>这种按需加载的方式，使得内存映射文件可以方便处理非常大的文件，内存放不下整个文件也不要紧，操作系统会自动进行处理，将需要的内容读到内存，将修改的内容保存到硬盘，将不再使用的内存释放。</p>
+<p>内存映射文件也有局限性，比如，它不太适合处理小文件，它是按页分配内存的，对于小文件，会浪费空间，另外，映射文件要消耗一定的操作系统资源，初始化比较慢。</p>
+<h1 id="java使用内存映射">1. java使用内存映射</h1><h2 id="步骤">1.1. 步骤</h2><ul>
 <li>引入java.nio包</li>
 <li><p>从文件中获得一个通道(channel)。</p>
  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FileChannel channel = FileChanne.open(path,options)</div></pre></td></tr></table></figure>
 </li>
-<li><p>通过调用FileChannel类的map方法从这个通道中获得一个ByteBuffer。其中，映射文件区域与映射模式支持三种方式：</p>
-<h2 id="–-FileChannel-MapMode-READ-ONLY-缓冲区只读">1.1. – FileChannel.MapMode.READ_ONLY:缓冲区只读</h2><p>FileChannel.MapMode.READ_WRITE：可读写。任何缓冲区的修改都会写回文件（非立即）<br>– FileChannel.MapMode.PRIVATE：缓冲区可写，但修改不会传播到文件中</p>
+<li><p>通过调用FileChannel类的map方法从这个通道中获得一个ByteBuffer,它代表内存中的字节数组。其中，映射文件区域与映射模式支持三种方式：</p>
+<h2 id="–-FileChannel-MapMode-READ-ONLY-缓冲区只读">1.2. – FileChannel.MapMode.READ_ONLY:缓冲区只读</h2><p>FileChannel.MapMode.READ_WRITE：可读写。任何缓冲区的修改都会写回文件（非立即）<br>– FileChannel.MapMode.PRIVATE：缓冲区可写，但修改不会传播到文件中</p>
 </li>
 </ul>
+<p>映射完成后，文件就可以关闭了，后续对文件的读写可以通过MappedByteBuffer。</p>
+<p>例：以读写模式映射文件”abc.dat”，代码可以为：</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">RandomAccessFile file = <span class="keyword">new</span> RandomAccessFile(<span class="string">"abc.dat"</span>,<span class="string">"rw"</span>);</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">    MappedByteBuffer buf = file.getChannel().map(MapMode.READ_WRITE, <span class="number">0</span>, file.length());</div><div class="line">    <span class="comment">//使用buf...</span></div><div class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">    e.printStackTrace();</div><div class="line">&#125;<span class="keyword">finally</span>&#123;</div><div class="line">    file.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p>##　</p>
+<h1 id="参考文献">2. 参考文献</h1><p>1.<a href="https://juejin.im/post/58626ac361ff4b006cf14faf" target="_blank" rel="external">计算机程序的思维逻辑 (61) - 内存映射文件及其应用 - 实现一个简单的消息队列</a></p>
 
           
         
@@ -1770,150 +1949,6 @@ run thread_name_2    4
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/04/python——os操作/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/04/python——os操作/" itemprop="url">python——os模块</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-04T16:06:29+08:00">
-                2017-05-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="os模块">1. os模块</h1><p>os模块的作用：</p>
-<p>　　os，语义为操作系统，所以肯定就是操作系统相关的功能了，可以处理文件和目录这些我们日常手动需要做的操作，就比如说：显示当前目录下所有文件/删除某个文件/获取文件大小……</p>
-<p>　　另外，os模块不受平台限制，也就是说：当我们要在linux中显示当前命令时就要用到pwd命令，而Windows中cmd命令行下就要用到这个，额…我擦，我还真不知道，（甭管怎么着，肯定不是pwd），这时候我们使用python中os模块的os.path.abspath(name)功能，甭管是linux或者Windows都可以获取当前的绝对路径。</p>
-<h1 id="文件夹操作">2. 文件夹操作</h1><h2 id="检验文件夹是否存在">2.1. 检验文件夹是否存在</h2><pre><code>os.path.exists(directory)
-</code></pre><h2 id="创建文件夹">2.2. 创建文件夹</h2><pre><code>os.makedirs(directory)
-</code></pre><p>实例：<br>检验文件夹是否存在，若不存在，则创建之</p>
-<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_dir</span><span class="params">(directory)</span>:</span></div><div class="line">    flag=os.path.exists(directory)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> flag:</div><div class="line">        os.makedirs(directory)</div></pre></td></tr></table></figure>
-</code></pre><h2 id="遍历指定目录名，显示目录下所有文件">2.3. 遍历指定目录名，显示目录下所有文件</h2><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pathDir =  os.listdir(filepath)</div><div class="line">    <span class="keyword">for</span> allDir <span class="keyword">in</span> pathDir:</div><div class="line">        <span class="keyword">print</span> allDir</div></pre></td></tr></table></figure>
-</code></pre><h1 id="参考文献">3. 参考文献</h1><ol>
-<li><a href="http://www.cnblogs.com/MnCu8261/p/5483657.html" target="_blank" rel="external">python基础之模块之os模块</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1963,7 +1998,7 @@ run thread_name_2    4
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

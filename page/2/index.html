@@ -271,6 +271,150 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/04/python——os操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/04/python——os操作/" itemprop="url">python——os模块</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-04T16:06:29+08:00">
+                2017-05-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="os模块">1. os模块</h1><p>os模块的作用：</p>
+<p>　　os，语义为操作系统，所以肯定就是操作系统相关的功能了，可以处理文件和目录这些我们日常手动需要做的操作，就比如说：显示当前目录下所有文件/删除某个文件/获取文件大小……</p>
+<p>　　另外，os模块不受平台限制，也就是说：当我们要在linux中显示当前命令时就要用到pwd命令，而Windows中cmd命令行下就要用到这个，额…我擦，我还真不知道，（甭管怎么着，肯定不是pwd），这时候我们使用python中os模块的os.path.abspath(name)功能，甭管是linux或者Windows都可以获取当前的绝对路径。</p>
+<h1 id="文件夹操作">2. 文件夹操作</h1><h2 id="检验文件夹是否存在">2.1. 检验文件夹是否存在</h2><pre><code>os.path.exists(directory)
+</code></pre><h2 id="创建文件夹">2.2. 创建文件夹</h2><pre><code>os.makedirs(directory)
+</code></pre><p>实例：<br>检验文件夹是否存在，若不存在，则创建之</p>
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_dir</span><span class="params">(directory)</span>:</span></div><div class="line">    flag=os.path.exists(directory)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> flag:</div><div class="line">        os.makedirs(directory)</div></pre></td></tr></table></figure>
+</code></pre><h2 id="遍历指定目录名，显示目录下所有文件">2.3. 遍历指定目录名，显示目录下所有文件</h2><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pathDir =  os.listdir(filepath)</div><div class="line">    <span class="keyword">for</span> allDir <span class="keyword">in</span> pathDir:</div><div class="line">        <span class="keyword">print</span> allDir</div></pre></td></tr></table></figure>
+</code></pre><h1 id="参考文献">3. 参考文献</h1><ol>
+<li><a href="http://www.cnblogs.com/MnCu8261/p/5483657.html" target="_blank" rel="external">python基础之模块之os模块</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/04/java学习笔记-3-Object/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -409,7 +553,21 @@
 <p><strong>完美的equals</strong>：</p>
 <pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span></span>&#123;</div><div class="line">    <span class="comment">//检测this与otherObject是否引用同一对象</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>==otherObject)<span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    <span class="comment">//检测otherObject是否为null</span></div><div class="line">    <span class="keyword">if</span>(otherObject == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="comment">//比较this与Object是否属于同一个类，有以下两种方案：</span></div><div class="line">    <span class="comment">//如果equals的语义在每个子类中都有改变，就用getClass:</span></div><div class="line">    <span class="keyword">if</span>(getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="comment">//如果所有子类都有统一equals语义，则用instanceof检测：</span></div><div class="line">    <span class="keyword">if</span>(!(otherObject <span class="keyword">instanceof</span> ClassName)) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="comment">//将otherObject转换为相应的类类型</span></div><div class="line">    ClassName other = (ClassName) otherObject</div><div class="line">    <span class="comment">//对所需要的域进行比较</span></div><div class="line">    <span class="keyword">return</span> field1 == other.field1 </div><div class="line">        &amp;&amp; field2 == other.field2</div><div class="line">        &amp;&amp; Objects.equals(field3,other field3)</div><div class="line">        &amp;&amp; ...;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </code></pre><p><strong>注意</strong>：如果在子类中重新定义<code>equals</code>，则要在其中包含调用<code>super.equals(other)</code></p>
-<h1 id="hashCode方法">3. hashCode方法</h1>
+<h1 id="hashCode方法">3. hashCode方法</h1><p>hashCode : 散列码</p>
+<p>使用：</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> hash = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; lenth() ; i++ )&#123;</div><div class="line">    hash = <span class="number">31</span> * hash + charAt(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p><strong>注意</strong></p>
+<ul>
+<li>每个对象都有一个<em>默认的散列码</em>，值为对象的<em>存储地址</em></li>
+<li>字符串的散列码是由内容导出的，因此<code>s</code>和<code>t</code>有相同hashcode</li>
+<li>如果重新定义了equals方法，就必须重新定义hashCode方法，且通过equal测试的两个对象的hashCode应该也是相等的，以便用户可以将对象插入到散列表中</li>
+<li>hashCode方法应该返回一个整型数值，并使得不同对象的hashCode更均匀。</li>
+</ul>
+<p>例如：</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">7</span> * name.hashCode()</div><div class="line">            + <span class="number">11</span> * <span class="keyword">new</span> Double(salary).hashCode()</div><div class="line">            + <span class="number">13</span> * hireDay.hashCode();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p>更方便的方法：</p>
+<pre><code><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">    public int hashCode()&#123;</div><div class="line">        return Objects.hash(name,salary,hireDay);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"># toString方法</div><div class="line"></div><div class="line">用途：返回表示对象值的字符串</div><div class="line"></div><div class="line">例如：</div><div class="line"></div><div class="line">    ```Java</div><div class="line">    public String toString()&#123;</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</code></pre>
           
         
       
@@ -1876,167 +2034,6 @@ int main()
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/31/QR分解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/31/QR分解/" itemprop="url">QR分解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T12:02:39+08:00">
-                2017-03-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数学/" itemprop="url" rel="index">
-                    <span itemprop="name">数学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="QR分解">1. QR分解</h1><p><strong>引理</strong>：</p>
-<ol>
-<li>对于任意的$A\in C^{n\times n}$,若存在$n$阶正交矩阵$Q$和$n$阶上三角矩阵$R$，使得$A=QR$，则称$QR$为$A$的$QR$分解。</li>
-<li>若$A\in C^{n\times n}$可逆，则存在正交矩阵$Q$和正对角元的上三角矩阵$R$，使得$A=QR$，且表示式唯一。</li>
-</ol>
-<p>备注：正交矩阵：$A^{-1}=A^T$<br><strong>QR分解定理</strong>：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-04.png" alt=""><br>，则A有QR分解：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-23.png" alt=""><br>Q是m<em>m的正交矩阵<br>R是n</em>n的有非负对角元的上三角阵</p>
-<p>当m=n，且A非奇异时，上述分解唯一。</p>
-<p><strong>计算QR分解的方法</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-28-42.png" alt=""> </p>
-<p>备注：<br>计算A(j:m,j:n)=(I(m-j+1)-bvvT)A(j:m,j:n)时，<br>I(m-j+1)-bvvT可以表示为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-01-21-24-25.png" alt=""> </p>
-<p><strong>QR分解的存储方法</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-01-21-54-20.png" alt=""> </p>
-<p><strong>用QR分解解线性方程组</strong><br>$Ax=b$<br>$QRx=b$<br>$Rx=Q^{-1}b$<br>$x=R^{-1}Q^{-1}b$<br>$x=R^{-1}Q^Tb$</p>
-<h1 id="householder方法">2. householder方法</h1><p>利用Householder变换逐步将A化为上三角矩阵。</p>
-<p>使用Gauss变换将矩阵化为上三角的理论依据————对于一个给定的向量x，可构造一个初等下三角阵L，使得$Lx=ae_1$，其中$e_1$是I的第一列，a是实数。（I是单位矩阵）</p>
-<p>householder变换目的：<br>求一个初等正交矩阵，使其具有矩阵L的功能。</p>
-<p>使得：<br>可以通过一系列初等正交变换来完成矩阵的上三角化任务。</p>
-<p><strong>Householder变换</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-03-16.png" alt=""> </p>
-<p>其中：<br>I是单位矩阵<br>w是实的单位列向量（单位正交矩阵），$ww^T=I$</p>
-<p>HouseHolder变换可以将一个向量映射到一个超平面上。 </p>
-<p><strong>Householder变换的性质</strong></p>
-<ol>
-<li>对称性。$H^T=H$</li>
-<li>正交性。$H^TH=I$</li>
-<li>对合性。$H^2=I$</li>
-<li>反射性(householder变换的物理意义)：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-09-23.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-10-12.png" alt=""> </li>
-</ol>
-<p><strong>Householder变换的用途</strong></p>
-<p>它能如Gauss变换一样，可以通过适当选取单位向量w，把一个给定向量的若干指定的分量变为零。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-12-23.png" alt=""><br>由以上定理可知，对于任意的x，都可以构造出Householder矩阵H，使得Hx的后n-1个分量为零。</p>
-<p><strong>Householder变换方法</strong><br>计算某一行向量的houser变换：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-15.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-37.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-58.png" alt=""> </p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2086,7 +2083,7 @@ int main()
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

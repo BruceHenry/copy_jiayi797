@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/child/2017/05/04/java学习笔记-3-Object/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="1. Object特性 所有类的超类 可以引用任何对象  2. equals方法Object类中的equals方法判断两对象是否有相同的引用 2.1. equals的重写在实际coding中，一般我们都会对equals方法进行重写，例:  对于超类Employee：  12345678910111213141516171819202122class Employee&amp;#123;    ...">
-<meta property="og:updated_time" content="2017-05-06T13:53:39.636Z">
+<meta property="og:updated_time" content="2017-05-22T11:13:52.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java学习笔记(3)-Object">
 <meta name="twitter:description" content="1. Object特性 所有类的超类 可以引用任何对象  2. equals方法Object类中的equals方法判断两对象是否有相同的引用 2.1. equals的重写在实际coding中，一般我们都会对equals方法进行重写，例:  对于超类Employee：  12345678910111213141516171819202122class Employee&amp;#123;    ...">
@@ -408,7 +408,21 @@
 <p><strong>完美的equals</strong>：</p>
 <pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span></span>&#123;</div><div class="line">    <span class="comment">//检测this与otherObject是否引用同一对象</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>==otherObject)<span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    <span class="comment">//检测otherObject是否为null</span></div><div class="line">    <span class="keyword">if</span>(otherObject == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="comment">//比较this与Object是否属于同一个类，有以下两种方案：</span></div><div class="line">    <span class="comment">//如果equals的语义在每个子类中都有改变，就用getClass:</span></div><div class="line">    <span class="keyword">if</span>(getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="comment">//如果所有子类都有统一equals语义，则用instanceof检测：</span></div><div class="line">    <span class="keyword">if</span>(!(otherObject <span class="keyword">instanceof</span> ClassName)) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="comment">//将otherObject转换为相应的类类型</span></div><div class="line">    ClassName other = (ClassName) otherObject</div><div class="line">    <span class="comment">//对所需要的域进行比较</span></div><div class="line">    <span class="keyword">return</span> field1 == other.field1 </div><div class="line">        &amp;&amp; field2 == other.field2</div><div class="line">        &amp;&amp; Objects.equals(field3,other field3)</div><div class="line">        &amp;&amp; ...;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </code></pre><p><strong>注意</strong>：如果在子类中重新定义<code>equals</code>，则要在其中包含调用<code>super.equals(other)</code></p>
-<h1 id="hashCode方法">3. hashCode方法</h1>
+<h1 id="hashCode方法">3. hashCode方法</h1><p>hashCode : 散列码</p>
+<p>使用：</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> hash = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; lenth() ; i++ )&#123;</div><div class="line">    hash = <span class="number">31</span> * hash + charAt(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p><strong>注意</strong></p>
+<ul>
+<li>每个对象都有一个<em>默认的散列码</em>，值为对象的<em>存储地址</em></li>
+<li>字符串的散列码是由内容导出的，因此<code>s</code>和<code>t</code>有相同hashcode</li>
+<li>如果重新定义了equals方法，就必须重新定义hashCode方法，且通过equal测试的两个对象的hashCode应该也是相等的，以便用户可以将对象插入到散列表中</li>
+<li>hashCode方法应该返回一个整型数值，并使得不同对象的hashCode更均匀。</li>
+</ul>
+<p>例如：</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">7</span> * name.hashCode()</div><div class="line">            + <span class="number">11</span> * <span class="keyword">new</span> Double(salary).hashCode()</div><div class="line">            + <span class="number">13</span> * hireDay.hashCode();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p>更方便的方法：</p>
+<pre><code><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">    public int hashCode()&#123;</div><div class="line">        return Objects.hash(name,salary,hireDay);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"># toString方法</div><div class="line"></div><div class="line">用途：返回表示对象值的字符串</div><div class="line"></div><div class="line">例如：</div><div class="line"></div><div class="line">    ```Java</div><div class="line">    public String toString()&#123;</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</code></pre>
       
     </div>
 
@@ -528,7 +542,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

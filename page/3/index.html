@@ -271,6 +271,167 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/31/QR分解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/31/QR分解/" itemprop="url">QR分解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T12:02:39+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数学/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="QR分解">1. QR分解</h1><p><strong>引理</strong>：</p>
+<ol>
+<li>对于任意的$A\in C^{n\times n}$,若存在$n$阶正交矩阵$Q$和$n$阶上三角矩阵$R$，使得$A=QR$，则称$QR$为$A$的$QR$分解。</li>
+<li>若$A\in C^{n\times n}$可逆，则存在正交矩阵$Q$和正对角元的上三角矩阵$R$，使得$A=QR$，且表示式唯一。</li>
+</ol>
+<p>备注：正交矩阵：$A^{-1}=A^T$<br><strong>QR分解定理</strong>：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-04.png" alt=""><br>，则A有QR分解：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-12-06-23.png" alt=""><br>Q是m<em>m的正交矩阵<br>R是n</em>n的有非负对角元的上三角阵</p>
+<p>当m=n，且A非奇异时，上述分解唯一。</p>
+<p><strong>计算QR分解的方法</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-28-42.png" alt=""> </p>
+<p>备注：<br>计算A(j:m,j:n)=(I(m-j+1)-bvvT)A(j:m,j:n)时，<br>I(m-j+1)-bvvT可以表示为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-01-21-24-25.png" alt=""> </p>
+<p><strong>QR分解的存储方法</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-01-21-54-20.png" alt=""> </p>
+<p><strong>用QR分解解线性方程组</strong><br>$Ax=b$<br>$QRx=b$<br>$Rx=Q^{-1}b$<br>$x=R^{-1}Q^{-1}b$<br>$x=R^{-1}Q^Tb$</p>
+<h1 id="householder方法">2. householder方法</h1><p>利用Householder变换逐步将A化为上三角矩阵。</p>
+<p>使用Gauss变换将矩阵化为上三角的理论依据————对于一个给定的向量x，可构造一个初等下三角阵L，使得$Lx=ae_1$，其中$e_1$是I的第一列，a是实数。（I是单位矩阵）</p>
+<p>householder变换目的：<br>求一个初等正交矩阵，使其具有矩阵L的功能。</p>
+<p>使得：<br>可以通过一系列初等正交变换来完成矩阵的上三角化任务。</p>
+<p><strong>Householder变换</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-03-16.png" alt=""> </p>
+<p>其中：<br>I是单位矩阵<br>w是实的单位列向量（单位正交矩阵），$ww^T=I$</p>
+<p>HouseHolder变换可以将一个向量映射到一个超平面上。 </p>
+<p><strong>Householder变换的性质</strong></p>
+<ol>
+<li>对称性。$H^T=H$</li>
+<li>正交性。$H^TH=I$</li>
+<li>对合性。$H^2=I$</li>
+<li>反射性(householder变换的物理意义)：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-09-23.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-10-12.png" alt=""> </li>
+</ol>
+<p><strong>Householder变换的用途</strong></p>
+<p>它能如Gauss变换一样，可以通过适当选取单位向量w，把一个给定向量的若干指定的分量变为零。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-12-23.png" alt=""><br>由以上定理可知，对于任意的x，都可以构造出Householder矩阵H，使得Hx的后n-1个分量为零。</p>
+<p><strong>Householder变换方法</strong><br>计算某一行向量的houser变换：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-15.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-37.png" alt=""><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-22-24-58.png" alt=""> </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/30/求线代方程的解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2154,182 +2315,6 @@ public class Main {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/16/java学习笔记(2)-继承/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/16/java学习笔记(2)-继承/" itemprop="url">java学习笔记(2)-继承</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-16T10:58:32+08:00">
-                2017-03-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="super关键字">1. super关键字</h1><h2 id="子类override-覆盖-父类的函数">1.1. 子类override(覆盖)父类的函数</h2><p>override时，使用<code>super</code>调用父类的方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//超类，员工</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> salary;<span class="comment">//薪水</span></div><div class="line">    <span class="keyword">private</span> Date hireDay;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> salary;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//经理</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manage</span> <span class="keyword">extends</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> bonus;<span class="comment">//奖金</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span>&#123;<span class="comment">//对原来的getSalary进行override</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.bonus + <span class="keyword">super</span>.getSalary();<span class="comment">//super调用父类的getSalary()方法</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="super在构造器中的应用">1.2. super在构造器中的应用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String n, <span class="keyword">double</span> s, <span class="keyword">int</span> year, <span class="keyword">int</span> mouth, <span class="keyword">int</span> day)</span></span>&#123;</div><div class="line">    <span class="keyword">super</span>(n,s,year,mouth,day);<span class="comment">//调用超类Employee中对应参数的构造器</span></div><div class="line">    bonus = <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="多态">2. 多态</h1><p>一个对象变量可以指示多种实际类型的现象————多态（polymorphism）<br>在运行时自动选择调用那个方法的现象————动态绑定（dynamic binding）</p>
-<p>例如：</p>
-<pre><code>Employee e = new Employee();
-e = new Manage(); // is ok
-</code></pre><p>此时，对象变量<code>e</code>也可以引用<code>Manager</code>的对象。</p>
-<pre><code>Manage boss = new Manage(...);
-Employee[] staff = new Employee();
-</code></pre><h1 id="调用对象方法的执行过程">3. 调用对象方法的执行过程</h1><ol>
-<li>编译器查看对象的声明类型和方法名。假设调用<code>x.f(param)</code>，且隐式参数x声明为C类的对象。编译器一一列举所有C类中名为f的方法和其超类中访问属性为public且名为f的方法。</li>
-<li>编译器查看调用方法时提供的参数类型。这个过程叫做<strong>重载解析</strong>（overloading resolution）</li>
-<li>如果是private方法、static方法、final方法或者构造器，那么编译器会准确地知道应该调用哪个方法（编译器可以在编译阶段就完成绑定），这种调用方式叫<strong>静态绑定</strong>(static binding)。与此对应的是，调用的方法依赖于隐式参数的实际类型（编译器在编译阶段不知道要调用哪个方法，直到运行时才能确定），并在运行时实现<strong>动态绑定</strong>。有一个很好的例子解释这两个概念——<a href="http://blog.csdn.net/lingzhm/article/details/44116091" target="_blank" rel="external">lingzhm-动态绑定</a></li>
-<li>程序运行时，若是动态绑定调用方法，那就先从本类中寻找，否则从超类中寻找。（每个类都有一个方法表method table）</li>
-</ol>
-<h1 id="阻止继承：final类和方法">4. 阻止继承：final类和方法</h1><p>不允许扩展（被继承）的类被称为final类。</p>
-<p>例如下例子中的Executive类就不能有子类。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Executive</span> <span class="keyword">extends</span> <span class="title">Manager</span></span>&#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>类中的方法也可以final,那么子类就不能覆盖这个方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">getName</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="抽象类，abstract">5. 抽象类，abstract</h1><p>用于表示某种很抽象的、上层的、更通用的类。例如图中的<code>Person</code>类。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-13-10-25-16.png" alt=""> </p>
-<ul>
-<li>一般来说，包含一个或多个抽象方法的类本身必须被声明为抽象的。</li>
-<li>抽象类<strong>不能</strong>被实例化！</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="keyword">private</span> String name;<span class="comment">//人类共有的属性,是具体的属性</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String n)</span></span>&#123;<span class="comment">//具体的方法</span></div><div class="line">        name=n;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;<span class="comment">//抽象方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>可以定义抽象类的对象变量，但只能引用非抽象子类的对象：</p>
-<p>  Person p = new Student(“Vince Vu”,”Economics”);</p>
-</li>
-</ul>
-<p>照着书上写了abstract的<a href="https://github.com/jiayi797/Java/tree/master/abstactClasses" target="_blank" rel="external">demo</a></p>
-<p>输出为：</p>
-<pre><code>Harry Hacker,an employee with a salary of 50000.00
-Maria Morris,a student majoring in computer science
-</code></pre><h1 id="受保护访问，Protected">6. 受保护访问，Protected</h1><p>若超类的某个域被声明为protected,那么子类就可以直接访问这个protected域。</p>
-<ul>
-<li>private-仅本类可见</li>
-<li>public-所有类可见</li>
-<li>protected-对本包和所有子类可见</li>
-<li>默认-对本包可见</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2379,7 +2364,7 @@ Maria Morris,a student majoring in computer science
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
