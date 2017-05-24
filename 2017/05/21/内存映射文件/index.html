@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/child/2017/05/21/内存映射文件/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="内存映射文件：利用虚拟内存实现将文件“映射”到内存中。文件对应于内存中的一个字节数组，对文件的操作变为对这个字节数组的操作，而字节数组的操作直接映射到文件上。这样这个文件就可以当做是一个内存数组一样的访问，这比传统的文件操作要快得多。 映射：硬盘上文件的位置与进程逻辑地址空间中一块大小相同的区域之间的一一对应 不过，这种映射是操作系统提供的一种假象，文件一般不会马上加载到内存，操作系统只是记录下了">
-<meta property="og:updated_time" content="2017-05-21T09:15:25.651Z">
+<meta property="og:updated_time" content="2017-05-23T09:12:49.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内存映射文件">
 <meta name="twitter:description" content="内存映射文件：利用虚拟内存实现将文件“映射”到内存中。文件对应于内存中的一个字节数组，对文件的操作变为对这个字节数组的操作，而字节数组的操作直接映射到文件上。这样这个文件就可以当做是一个内存数组一样的访问，这比传统的文件操作要快得多。 映射：硬盘上文件的位置与进程逻辑地址空间中一块大小相同的区域之间的一一对应 不过，这种映射是操作系统提供的一种假象，文件一般不会马上加载到内存，操作系统只是记录下了">
@@ -378,7 +378,7 @@
 <p>例：以读写模式映射文件”abc.dat”，代码可以为：</p>
 <pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">RandomAccessFile file = <span class="keyword">new</span> RandomAccessFile(<span class="string">"abc.dat"</span>,<span class="string">"rw"</span>);</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">    MappedByteBuffer buf = file.getChannel().map(MapMode.READ_WRITE, <span class="number">0</span>, file.length());</div><div class="line">    <span class="comment">//使用buf...</span></div><div class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">    e.printStackTrace();</div><div class="line">&#125;<span class="keyword">finally</span>&#123;</div><div class="line">    file.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </code></pre><p>##　</p>
-<h1 id="参考文献">2. 参考文献</h1><p>1.<a href="https://juejin.im/post/58626ac361ff4b006cf14faf" target="_blank" rel="external">计算机程序的思维逻辑 (61) - 内存映射文件及其应用 - 实现一个简单的消息队列</a></p>
+<h1 id="参考文献">2. 参考文献</h1><p>1.<a href="https://juejin.im/post/58626ac361ff4b006cf14faf" target="_blank" rel="external">计算机程序的思维逻辑 (61) - 内存映射文件及其应用 - 实现一个简单的消息队列</a><br>2.<a href="http://blog.csdn.net/king_is_everyone/article/details/28096583" target="_blank" rel="external">java流的性能优化2-内存映射文件</a></p>
 
       
     </div>
@@ -505,7 +505,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -527,7 +527,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
