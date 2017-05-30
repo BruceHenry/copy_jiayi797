@@ -97,10 +97,13 @@
 <meta property="og:url" content="http://yoursite.com/child/2017/05/24/特征选择/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="特征选择：很重要 tip:冗余特征(redundant feature)：  本特征能被其它特征中推演出来。它不一定有坏处，但也不一定有好处。例如：考虑立方体对象，若已有特征“长”、“宽”，则“底面积”是冗余特征。 冗余特征在很多时候不起作用，会增加学习过程的负担。 但如果学习目标是估算立方体体积，则“底面积”特征会对学习更好。  结论：如果某冗余特征恰好对应完成学习任务所需的“中间概念”，则该冗">
-<meta property="og:updated_time" content="2017-05-24T07:18:23.673Z">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-05-30-18-21-29.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-05-30-18-24-26.png">
+<meta property="og:updated_time" content="2017-05-30T14:40:52.779Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="特征选择">
 <meta name="twitter:description" content="特征选择：很重要 tip:冗余特征(redundant feature)：  本特征能被其它特征中推演出来。它不一定有坏处，但也不一定有好处。例如：考虑立方体对象，若已有特征“长”、“宽”，则“底面积”是冗余特征。 冗余特征在很多时候不起作用，会增加学习过程的负担。 但如果学习目标是估算立方体体积，则“底面积”特征会对学习更好。  结论：如果某冗余特征恰好对应完成学习任务所需的“中间概念”，则该冗">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-05-30-18-21-29.png">
 
 
 
@@ -406,7 +409,31 @@
 <h1 id="包裹式选择">3. 包裹式选择</h1><p>概念：把最终将要使用的学习器的性能作为特征子集的评价准则</p>
 <p>特点：需要多次训练学习器</p>
 <p>===来日填坑===</p>
-<h1 id="嵌入式选择与L1正则化">4. 嵌入式选择与L1正则化</h1>
+<h1 id="嵌入式选择与L1正则化">4. 嵌入式选择与L1正则化</h1><p>概念：将特征选择过程与学习器训练过程融为一体，两者在同一个优化过程中完成</p>
+<p>给定数据集$D={(x_1,y_1),(x_2,y_2),…(x_m,y_m)}$,其中$x\in R^d,y\in R$.</p>
+<p>考虑最简单的线性回归，以平方误差为损失函数，则优化目标为：</p>
+<p>$$min_w\sum_{i=1}^m(y_i-w^Tx_i)^2$$</p>
+<p>当样本特征很多，而样本数较少时，上式很容易陷入过拟合。解决方案，正则化项。</p>
+<p>$L_2$范数正则化（“岭回归”(redge regression)）：</p>
+<p>$$min_w\sum_{i=1}^m(y_i-w^Tx_i)^2+\lambda ||w||_2^2$$</p>
+<p>$L_1$范数正则化：</p>
+<p>$$min_w\sum_{i=1}^m(y_i-w^Tx_i)^2+\lambda ||w||_1$$</p>
+<p>区别：$L_2$比$L_1$更容易获得“稀疏”(sparse)解，即它求得的$w$会有更少的非零分量。<br>（这里一定要看一下西瓜书-253页的解释）</p>
+<h2 id="正则化的理解">4.1. 正则化的理解</h2><p>以以下的拟合为例：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-05-30-18-21-29.png" alt=""> </p>
+<p>在图二中，明显是因为高次项的系数$\theta_3,\theta_4$过大造成的。</p>
+<p>因此我们加入正则化项：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-05-30-18-24-26.png" alt=""> </p>
+<p>即给目标函数加一点东西。</p>
+<p>现在，如果我们要最小化这个函数，那么为了最小化这个新的代价函数，我们要让$θ3$和$θ4$尽可能小。因为，如果你在原有代价函数的基础上加上1000乘以$θ3$这一项，那么这个新的代价函数将变得很大，<strong>所以，当我们最小化这个新的代价函数时，我们将使$θ3$的值接近于0，同样$θ4$的值也接近于0，</strong>就像我们忽略了这两个值一样。如果我们做到这一点（$θ3$和$θ4$接近0），那么我们将得到一个近似的二次函数。</p>
+<p>更一般地：</p>
+<p>$L_2$范数正则化：</p>
+<p>$$min_w\sum_{i=1}^m(y_i-w^Tx_i)^2+\lambda ||w||_2^2 $$<br>$$= min_w\sum_{i=1}^m(y_i-w^Tx_i)^2+\lambda\sqrt{\sum_{n=1}^nw_i^2}$$</p>
+<p>(其中,m是数据个数，n是特征维度)<br>因此在正则化里，我们要做的事情，就是把减小我们的代价函数（例子中是线性回归的代价函数）所有的参数值，因为我们并不知道是哪一个或哪几个要去缩小。</p>
+<p>因此，我们需要修改代价函数，在这后面添加一项，就像我们在方括号里的这项。当我们添加一个额外的正则化项的时候，我们收缩了每个参数。</p>
+<p>$$ min_w\frac{1}{2m}[\sum_{i=1}^m(y_i-w^Tx_i)^2+\lambda\sqrt{\sum_{n=1}^nw_i^2}]$$</p>
+<h1 id="参考文献">5. 参考文献</h1><ol>
+<li><a href="http://www.cnblogs.com/jianxinzhou/p/4083921.html" target="_blank" rel="external">机器学习之正则化（Regularization）</a></li>
+</ol>
+
       
     </div>
 
@@ -585,7 +612,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#子集搜索与评价"><span class="nav-text">1. 子集搜索与评价</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题一，如何评价结果获取下一个候选特征子集？"><span class="nav-text">1.1. 问题一，如何评价结果获取下一个候选特征子集？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题二，如何评价候选特征子集？"><span class="nav-text">1.2. 问题二，如何评价候选特征子集？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">1.3. 总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#过滤式选择-filter"><span class="nav-text">2. 过滤式选择(filter)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#包裹式选择"><span class="nav-text">3. 包裹式选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#嵌入式选择与L1正则化"><span class="nav-text">4. 嵌入式选择与L1正则化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#子集搜索与评价"><span class="nav-text">1. 子集搜索与评价</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题一，如何评价结果获取下一个候选特征子集？"><span class="nav-text">1.1. 问题一，如何评价结果获取下一个候选特征子集？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题二，如何评价候选特征子集？"><span class="nav-text">1.2. 问题二，如何评价候选特征子集？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">1.3. 总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#过滤式选择-filter"><span class="nav-text">2. 过滤式选择(filter)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#包裹式选择"><span class="nav-text">3. 包裹式选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#嵌入式选择与L1正则化"><span class="nav-text">4. 嵌入式选择与L1正则化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则化的理解"><span class="nav-text">4.1. 正则化的理解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">5. 参考文献</span></a></li></ol></div>
             
 
           </div>
