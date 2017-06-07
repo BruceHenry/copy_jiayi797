@@ -271,6 +271,256 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/06/07/Tencent_CVR预估初赛思路总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/07/Tencent_CVR预估初赛思路总结/" itemprop="url">Tencent_CVR预估初赛思路总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-07T15:17:49+08:00">
+                2017-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>“这一段奔波太过匆忙，有时来不及回头张望。”</p>
+<p>Tencent“人工寻找trick”大赛初赛今天结束了。最终初赛线上logloss为0.099104，排名为64名。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-15-22-48.png" alt=""> </p>
+<p>虽然与前排大神的分相差甚远，虽结果不那么如人意，也是对这个领域入了个门。</p>
+<h1 id="赛题">1. 赛题</h1><p>详细赛题见<a href="http://algo.tpai.qq.com/home/information/index.html" target="_blank" rel="external">官方网站</a></p>
+<p><strong>已知</strong>：17-30天移动APP的广告、用户的转化情况，及相关上下文。<br><strong>预测</strong>：第31天指定用户和对应广告的转化率。</p>
+<p><strong>评估方式</strong>：<br>$$logloss=-\frac{1}{N}\sum_{i=1}^N(y_ilog(p_i)+(1-y_i)log(1-p_i))$$</p>
+<p>其中，</p>
+<ul>
+<li>N是测试样本总数</li>
+<li>$y_i$是二值变量，取值为0或1，表示第i个样本的label</li>
+<li>$p_i$是模型预测第i个样本label为1的概率</li>
+</ul>
+<p>总之，就是预测的越准越好（这不废话么2333）</p>
+<h1 id="主要流程">2. 主要流程</h1><p>这是Kaggle上数据挖掘比赛的黄金流程图：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-15-44-01.png" alt=""> </p>
+<p>其实对于这个比赛的初赛而言，线上是容易过拟合的。因为线上只有一个集，可反复提交多次来使得线上得分很高，但实际上模型是有些过拟合的。不过这不是重点。</p>
+<p>接下来一步步做说明</p>
+<h1 id="数据分析与清洗">3. 数据分析与清洗</h1><p>训练集train.csv没有大问题，我注意的只是后几天的一些数据没有回流的问题。</p>
+<p>值得注意的是，本次竞赛的训练数据提供的截止第31天0点的广告日志，因此，对于最后几天的训练数据，也就是说后五天部分用户实际上是转化了，但广告主还没有来得及将这条转化汇报给广告系统，导致数据集中的label被误标记为了0（实际上是1）。（如果我还没有描述清楚，这里具体可以看官网赛题FAQ.1）</p>
+<p>这里我采取了一种很暴力的方法，即去掉每个广告主最后一次回流之后的数据。</p>
+<p>通过分析我们发现，其实有近一半的广告主还是尽职尽责的，直到30号23点还在反馈回流。只有有一部分广告主在30号下班后，或29号下班后就不回流了。所以我们将这些广告主最后一次回流之后的数据都删除（其实这些都是负样本），这样就在一定程度上减少了不准的负样本。</p>
+<p>这样筛去了大概有3万条，也不算多。</p>
+<h1 id="特征工程">4. 特征工程</h1><p>一开始的时候我们采用了很多基本特征，即各种ID（AppID,UserID,creativeID,pisitionID等）的onehot编码，又对单特征进行了一定的统计。后来看了大神“为情所困的少年”的分享，才反应过来其实无论是onehot还是对ID单维度的统计特征，其实都是对于一个特征的一种表达，从一定意义上是重复的。我个人感觉onehot之后的稀疏特征更适合于线性模型，如LR；而统计量的连续特征更适合于树模型，如GBDT。</p>
+<p>回头来看，其实特征工程需要根据模型预先选择方向。李沐说过，模型是使用离散特征还是连续特征，其实是一个“海量离散特征+简单模型” 同 “少量连续特征+复杂模型”的权衡。既可以离散化用线性模型，也可以用连续特征加深度学习。就看是喜欢折腾特征还是折腾模型了。通常来说，前者容易，而且可以n个人一起并行做，有成功经验；后者目前看很赞，能走多远还须拭目以待。</p>
+<p>就此题来说，有两个方向：</p>
+<h2 id="海量离散特征-简单模型">4.1. 海量离散特征+简单模型</h2><p>如果我们懒得分析数据（初期我们就是这样），并且有还不错的设备（自以为64G内存很有优势），我们可以直接选择这个方向。</p>
+<p>初期的时候，我们是选择的这条路。<br>当时只有简单的ID类特征，以及ID类特征的交叉组合，将这些特征onehot之后输入了LR模型。</p>
+<p>关于特征组合，我在后面会介绍到。</p>
+<p>做完特征和特征组合，将它onehot之后输入模型就可以了。</p>
+<p>对于LR这种线性模型来说，它更适合于onehot类型的特征，首先它对于稀疏高维特征处理是无压力的，其次离散化后的特征对异常数据有很强的鲁棒性，这些在参考文献2<a href="http://blog.csdn.net/yang090510118/article/details/39478033" target="_blank" rel="external">逻辑回归LR的特征为什么要先离散化</a>中可以看到。</p>
+<p>但由于ID类特征非常多，例如本题的UserID有好几百万个。这时就会带来维度灾难问题，见参考文献4<a href="https://zhuanlan.zhihu.com/p/26945814" target="_blank" rel="external">机器学习中的维度灾难</a>。不仅如此，这时基本上也就被设备问题限制死了。这很烦。于是我们就换模型了。</p>
+<h2 id="少量连续特征-复杂模型">4.2. 少量连续特征+复杂模型</h2><p>这是我们暂定的一个方案，就是采用少量、但表现很不错的组合特征统计量，以及一些手工提取的特征（如用户历史安装次数、APP历史被安装次数），这些特征主要来源于群内“为情所困”大神分享的一张表。</p>
+<p>模型我们采用的是GBDT，直接使用了陈天奇大牛的xgboost框架。模型我暂时还没有很认真地研究，只是熟悉了一些参数，为决赛做了一些准备。</p>
+<h1 id="特征组合">5. 特征组合</h1><p>特征组合真是我遇到的一个大难题。</p>
+<h2 id="怎么表达组合特征？">5.1. 怎么表达组合特征？</h2><p>说到特征组合，从统计的角度解释，基本特征仅仅是真实特征分布在低维空间的映射，不足以描述真实分布，加入组合特征是为了在更高维空间拟合真实分布，使得预测更准确。<br>组合特征我现在用过的有以下两种方式：</p>
+<p><strong>对离散ID进行hash生成新特征</strong></p>
+<p>在初期用LR的时候，我们采用的方式是hash。即对两个ID做hash运算，得到一个新特征。这是一个很巧妙的方法。例如下面这个表，我们做哈希：</p>
+<p>$$age\times 10 + gendar$$</p>
+<p>得到第三列：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">age</th>
+<th style="text-align:center">gendar</th>
+<th style="text-align:center">hash</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">21</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">32</td>
+</tr>
+</tbody>
+</table>
+<p>第三列的的特征的取值有两位，十位是age,个位是gendar。新特征是一种新的交叉特征的体现。</p>
+<p><strong>对组合进行统计生成新特征</strong></p>
+<p>像之前“为情所困”大神说过的那样，其实无论onehot还是统计特征，其实都是对于一个特征的一种表达。因为后期我们采用了GBDT，因此我们弃用了之前的hash组合方式，而选用统计量（即点击量、转化量和转化率）。这样就在一个维度上表达了这两个特征的组合，而且非常便于计算。</p>
+<h2 id="选谁做特征组合？">5.2. 选谁做特征组合？</h2><p>需要注意的是，特征组合也不是随便从原来的特征里摘出来两列就做组合。这种随意地对特征堆叠其实会增加模型的负担，而且这些其实就像是“随机数一般的，毫无作用的特征”，可能会使得效果变差。</p>
+<p>究竟对谁做组合，这也是一直困扰我们的问题。以下是我搜集到的几种方案：</p>
+<p><strong>迭代选取方式</strong></p>
+<p>Jerrylin大神曾经说过，可以先对一个组合做groupby分析，看看转化率的分布。可是我遇到了一个瓶颈——大多数特征的转化率分布都是不均匀的，组合起来就更不均匀了。不知道大神是怎么解决的，也许是计算这个分布的方差？【这是个问题，等来日解决，我再回来填坑】<br>大神刚才回我了，他说他是按照gbdt给的一个评分，选取评分较高的几个进行组合，然后再次输入模型进行迭代筛选。<br>在此我要再次偷偷感谢一下这位大神。要是没有他，我可能还会在二百名外挣扎。</p>
+<p><strong>穷举后用卡方检验筛特征</strong></p>
+<p>参考文献<a href="http://202.197.191.206:8080/30/text/chapter04/4_8.htm" target="_blank" rel="external">描述量选择及特征的组合优化</a>提到，由于任何非穷举的算法都不能确保所得结果是最优的，因此要得最优解，就必需采用穷举法，只是在搜索技术上采用一些技巧，使计算量有可能降低。</p>
+<p>我的学长“酱紫”对此有一种建议就是直接对所有基本特征进行遍历两两组合，然后用卡方检验筛出来一些比较好的特征。这种方式很简单，大多数工作只需要交给模型来完成。</p>
+<p><strong>循环特征消减和特征重要性评级</strong></p>
+<p>参考文献<a href="http://www.jianshu.com/p/8f6f94f1d275" target="_blank" rel="external">scikit-learn系列之特征选择</a>中提到，在scikit-learn中有两种特征选择的方法，一种叫做循环特征消减(Recursive Feature Elimination)和特征重要性评级 (feature importance ranking)。</p>
+<ul>
+<li>循环特征消减：其实就是循环地移除变量和建立模型，通过模型的准确率来评估变量对模型的贡献。这种方式很暴力，但也很准确。但是问题是我们没有那么多的时间来等待模型训练这么多次。</li>
+<li>特征重要性评级：“组合决策树算法”（例如Random Forest or Extra Trees）可以计算每一个属性的重要性。重要性的值可以帮助我们选择出重要的特征。</li>
+</ul>
+<p><strong>用GBDT筛特征</strong></p>
+<p><em>主要思想</em>：<br>GBDT每棵树的路径直接作为LR输入特征使用。</p>
+<p><em>原理</em>：<br>用已有特征训练GBDT模型，然后利用GBDT模型学习到的树来构造新特征，最后把这些新特征加入原有特征一起训练模型。构造的新特征向量是取值0/1的，向量的每个元素对应于GBDT模型中树的叶子结点。当一个样本点通过某棵树最终落在这棵树的一个叶子结点上，那么在新特征向量中这个叶子结点对应的元素值为1，而这棵树的其他叶子结点对应的元素值为0。新特征向量的长度等于GBDT模型里所有树包含的叶子结点数之和。</p>
+<p>【这里其实不太懂，一会问问张思遥】</p>
+<p><em>步骤</em>：</p>
+<ol>
+<li>首先要切分数据集，一部分用于训练GBDT，另一部分使用训练好的GBDT模型</li>
+<li>GBDT模型的apply方法生成x在GBDT每个树中的index，然后通过onehot编码做成特征。</li>
+<li>新的特征输入到分类（如LR）模型中训练分类器。</li>
+</ol>
+<p><em>实现</em>：<br>参考文献<a href="http://blog.csdn.net/shine19930820/article/details/71713680" target="_blank" rel="external">GBDT原理及利用GBDT构造新的特征-Python实现</a>的末尾有一个调用GBDT训练模型构建树，调用<a href="http://blog.csdn.net/shine19930820/article/details/71713680" target="_blank" rel="external">apply()</a>方法得到特征，然后将特征通过one-hot编码后作为新的模型输入LR进行训练。<a href="http://scikit-learn.org/stable/auto_examples/ensemble/plot_feature_transformation.html#example-ensemble-plot-feature-transformation-py" target="_blank" rel="external">feature trainsformation with ensembles of tree官方文档</a></p>
+<h1 id="训练集构造">6. 训练集构造</h1><p>训练集特征做不好，就很容易造成泄露。这是我试过的两种方式：</p>
+<ol>
+<li>用滑动窗口，即每天的前七天的统计（统计指统计转化量、点击量、转化率，下同）来作为第本天的特征。并拿30号来做线下测试集。<br>如下图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-49-53.png" alt=""><br>经测试我们发现，即使我们去掉了30号的部分负样本，还是有一些问题的。因此我们将时间区间改了一下：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-53-21.png" alt=""><br>这样做出于两种目的：一是尽量做到了线上线下统一，二是不让模型学习30号的样本数据，防止一些错误样本被模型学到。</li>
+<li>用第一周统计，第二周做交叉验证并训练模型。如下图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-59-59.png" alt=""> </li>
+</ol>
+<p>相信很多人都用的是这两种其中的一种。我是一个对自己极度不自信的人，来来回回换了好几次。最终觉得第1种方式很稳定，线上线下较统一。第二种方式特征更新较快，模型更准确，但带来的问题就是线上线下不太统一。</p>
+<h1 id="模型训练和验证">7. 模型训练和验证</h1><p>至此特征工程已经完毕，开始训练。</p>
+<p>训练其实没什么好说的，只要注意一下别过拟合就可以。</p>
+<h1 id="总结">8. 总结</h1><p>平时在学习的过程中，过于注重理论的推导，只是在一遍遍地看那些公式。但没有切身实践过，感受不到模型真正的威力和缺憾。通过这次比赛，还是收获比较多的。注意到了平时学习过程中自以为不重要的、很容易被忽略的细节。</p>
+<p>在初赛中，我们其实并没有注重模型的调参等，而是一直在做特征工程。其实我初期也不知道究竟该怎么办。但JerryLin大神用他的言行教会我，特征决定了结果的上限，而模型只是在不断地逼近这个上限而已。只有得到了好的特征，才会拿到好的模型。</p>
+<p>做了这么久的特征工程，最大的感想就是，只有认认真真、踏踏实实分析数据，才能得到好的特征。过度依赖算法在工业上是不可靠的。</p>
+<p>越来越发现务实基础的必要性。比如LR中为什么要采用正则化项，为什么GBDT能有筛特征的功效，为什么树模型容易过拟合，为什么为什么……这些为什么直接决定了在遇到问题的时候能不能独立解决。而不能像我现在一样，分分钟心态爆炸，宛如一只无头的苍蝇。</p>
+<p>还有就是，写代码一定要认认真真地写。不能直接把别人的直接粘过来用，这样是极其不负责的，也非常容易出错。在比赛的过程中，我的xgboost预测的代码是直接粘贴的O2O优惠券使用预测的冠军的代码，但他那个的目标是auc，因此他将结果映射到了（0,1）区间上。这句话让我白白浪费了很久很久的时间去试特征，结果发现线上线下不统一，整个人直接崩溃。</p>
+<p>希望自己在未来的日子里，能将周志华老师的《机器学习》和李航老师的《统计学习方法》这两本书吃透，而不是像现在这样，狗熊掰棒子。</p>
+<p>失败乃成功之母。</p>
+<p>天行健，君子以自强不息。</p>
+<h1 id="参考文献">9. 参考文献</h1><ol>
+<li><a href="https://zhuanlan.zhihu.com/p/26820998" target="_blank" rel="external">Kaggle 数据挖掘比赛经验分享</a></li>
+<li><a href="http://blog.csdn.net/yang090510118/article/details/39478033" target="_blank" rel="external">逻辑回归LR的特征为什么要先离散化</a></li>
+<li><a href="http://breezedeus.github.io/2014/11/20/breezedeus-feature-hashing.html" target="_blank" rel="external">特征哈希（Feature Hashing）</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/26945814" target="_blank" rel="external">机器学习中的维度灾难</a></li>
+<li><a href="http://blog.jasonding.top/2015/11/12/Feature%20Engineering/%E3%80%90%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E3%80%91%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%E4%B8%8E%E7%89%B9%E5%BE%81%E5%AD%A6%E4%B9%A0/" target="_blank" rel="external">【特征工程】特征选择与特征学习</a></li>
+<li><a href="http://202.197.191.206:8080/30/text/chapter04/4_8.htm" target="_blank" rel="external">描述量选择及特征的组合优化</a></li>
+<li><a href="http://www.jianshu.com/p/8f6f94f1d275" target="_blank" rel="external">scikit-learn系列之特征选择</a></li>
+<li><a href="http://blog.csdn.net/shine19930820/article/details/71713680" target="_blank" rel="external">GBDT原理及利用GBDT构造新的特征-Python实现</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/24/特征选择/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1834,174 +2084,6 @@ run thread_name_2    4
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/11/OpenMessaging简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/11/OpenMessaging简介/" itemprop="url">OpenMessaging简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-11T22:58:55+08:00">
-                2017-05-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>OpenMessaging的主要关系如下图所示：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-05-12-16-24-52.png" alt=""> </p>
-<p>其中，各部分的内容和关系见下述。</p>
-<h1 id="Namespace">1. Namespace</h1><p>Namespace就像一个cgroup namespace,是用来创建一个有安全保障的独立的空间。每个namespace都有自己的producer,consumer,topic,queue等等。OpenMessaging用 ​<strong>MessagingAccessPoint</strong>​（消息访问点）来访问/读/写指定namespace的<strong>​资源</strong>​。</p>
-<h1 id="Producer">2. Producer</h1><p>Openmessaging定义了两种Producer:<strong>​Producer</strong>​和 <strong>​SequenceProducer</strong>​</p>
-<ul>
-<li><strong>​Producer</strong>​:提供各种send方法，用来将一个消息送往指定的destination,<strong>Topic</strong>或者<strong>Queue</strong>。支持三种方式：同步、异步、单向(oneway)</li>
-<li><strong>SequenceProducer</strong>:重点在于速度，且支持批处理。能发送多个数据并一次提交。</li>
-</ul>
-<h1 id="Consumer">3. Consumer</h1><p>Openmessaging定义了两种Consumer::<strong>PullConsumer</strong>、<strong>PushConsumer</strong>和<strong>StreamConsumer</strong>.每种Consumer仅支持来自于<strong>Queue</strong>的consume消息。</p>
-<ul>
-<li><strong>PullConsumer</strong>:从指定队列中pulls消息。支持“submit the consume<br>result by acknowledgement at any time”。每个PullConsumer仅能从固定的队列中pull消息。</li>
-<li><strong>PushConsumer</strong>:可从多个队列中接收消息，且这个消息是由MOM server push上去的。PushConsumer可依附于多个独立的、具有不同的MessageListener的队列，并且可以随时通过<strong>ReceivedMessageContext</strong>提交结果。</li>
-<li><strong>StreamingConsumer</strong>:一种崭新的consumer类型，是一种面向流的consumer,面向留信息的一体化信息系统。</li>
-</ul>
-<h1 id="Topic-Queue-and-Routing">4. Topic Queue and Routing</h1><p>这三个概念非常相近。虽然Topic和Queue有不同的用途，但它们总让人迷惑。</p>
-<h2 id="Topic">4.1. Topic</h2><p>Topic是原始信息的载体，用来holding消息。消息的分发方式和有序性是没有定义的。</p>
-<h2 id="Routing">4.2. Routing</h2><p>Topic中的消息是原始的，是待处理的，一般不易引起consumers的注意。总之，Topic中的数据是producer-orented（导向）的，而不是consumer-oriented。</p>
-<p>因此Routing负责加工Topic中的原始消息，并routing去Queue中。每个Routing有一个<strong>操作管线（operator pipeline）</strong>，包含着一系列的操作。消息会通过操作管线从Topic流向Queue。</p>
-<p><strong>操作（operator）</strong>是用来处理在Routing流通的消息的。有很多操作，例如expression operator, deduplicator operator, joiner operator, filter operator, rpc<br>operator等等。</p>
-<h2 id="Queue-队列">4.3. Queue(队列)</h2><p>现在消息已经被routed到Queue中了。现在消息就可以被consumers使用了。</p>
-<p>需要注意的是，一个Queue可能会被分为几部分，消息可能通过MessageHeader#SHARDING_KEY被routed到某个特殊的部分中。</p>
-<h2 id="Topic与Queue比较">4.4. Topic与Queue比较</h2><ul>
-<li>都是消息的载体</li>
-<li>Topic是preducer-oriented的，而Queue是consumer-oriented的</li>
-<li>Topic中的消息来自于Producer,而Queue中的消息来自于Topic或者Producer</li>
-<li>Queue包含几个部分，而Topic形状未定义</li>
-<li>在大多数情况下，Queue是Topic的一个子集</li>
-<li>Queue的创建、销毁都很容易，且与producer无关</li>
-</ul>
-<h1 id="参考文献">5. 参考文献</h1><ol>
-<li><a href="openmessaging.github.io">原始文档</a></li>
-<li><a href="https://github.com/pugwoo/c/blob/master/linux_ipc/shm/shmqueue.h" target="_blank" rel="external">pugwoo用c写的</a></li>
-<li><a href="https://github.com/openmessaging/openmessaging" target="_blank" rel="external">原始文档扒的API</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2051,7 +2133,7 @@ run thread_name_2    4
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2073,7 +2155,7 @@ run thread_name_2    4
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
