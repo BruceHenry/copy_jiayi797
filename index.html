@@ -271,6 +271,204 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/06/08/微软讲座-2-互联网搜索中的大数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/08/微软讲座-2-互联网搜索中的大数据/" itemprop="url">微软讲座-2-互联网搜索中的大数据</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T13:08:49+08:00">
+                2017-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文是《 微软亚洲研究院大数据系列讲座》第二讲的笔记。</p>
+<h1 id="大规模超文本网络搜索引擎的解析">1. 大规模超文本网络搜索引擎的解析</h1><p>切入点：(论文)Google Architiecture(Logical View,1998)</p>
+<p>谷歌框架：爬取-&gt;索引-&gt;关键字搜索</p>
+<p>关键点：PageRank。用anchor text描述文档目标，利用文档之间的链接来对文档的重要性排序。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-08-13-13-29.png" alt=""> </p>
+<h2 id="搜索引擎的数据结构">1.1. 搜索引擎的数据结构</h2><p>目的：保存海量页面</p>
+<p><strong>文件存储</strong><br>方法：大文件设计为虚拟文件<br>结构：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-08-13-16-25.png" alt=""><br>同步码：页面数据长度的开始<br>页面长度：指定读取多少字节和压缩包<br>压缩包：ID，编码信息,URL等<br><strong>文件索引</strong></p>
+<ol>
+<li>根据ID</li>
+<li>根据URL</li>
+</ol>
+<p>词典：保存在内存中<br>单词、哈希表、指针等</p>
+<p>索引：</p>
+<ol>
+<li>正索引</li>
+<li>倒排索引</li>
+</ol>
+<p><strong>命中</strong></p>
+<p>记录命中信息、位置。以便在排序中利用命中来计算不同关键字之间的相关性。</p>
+<p>分类：</p>
+<ol>
+<li>普通命中</li>
+<li>特殊命中</li>
+</ol>
+<h2 id="爬虫">1.2. 爬虫</h2><p>提高效率方式：</p>
+<ol>
+<li>分布式方式</li>
+<li>域名服务器</li>
+</ol>
+<h2 id="索引">1.3. 索引</h2><p>建索引、排序</p>
+<h2 id="搜索过程">1.4. 搜索过程</h2><ol>
+<li>搜索引擎解析查询请求，将单词转化为单词ID</li>
+<li>对短桶中的每个单词都转到文档列表的开始，并获得所有文档列表。</li>
+<li>搜索引擎对每个查询请求计算文档排序，根据排序返回</li>
+</ol>
+<h1 id="搜索引擎如何实现每秒数千次的查询">2. 搜索引擎如何实现每秒数千次的查询</h1><p>步骤：</p>
+<p>用户输入查群-&gt;域名服务负载均衡-&gt;将HTTP请求分配到一个集群（考虑物理距离、可用性）</p>
+<p>细节：</p>
+<p>分配到某个集群后</p>
+<ol>
+<li>先查缓存（最近被查询过的）</li>
+<li>如果缓存没有，再去找</li>
+</ol>
+<h1 id="探寻搜索的多个维度">3. 探寻搜索的多个维度</h1><p>将查询维度定义为一组条目，每个条目描述或总结了一个查询的一个方面。</p>
+<p>DQminner：可以从查询结果中再次挖掘</p>
+<p>例：搜索手表，返回5个维度：</p>
+<ol>
+<li>手表品牌</li>
+<li>手表分类</li>
+<li>颜色</li>
+<li>等等</li>
+</ol>
+<p>利用搜索引擎、文本挖掘技术理解一个查询请求。</p>
+<p>汇总相关请求信息-&gt;为用户提供直接答案</p>
+<p>发现一个结论：</p>
+<ol>
+<li>查询请求的重要性由结果列表形式出现；</li>
+<li>重要性会在排序靠前的搜索中出现多次</li>
+</ol>
+<p>为了发现搜索请求的维度，我们设计了四个模块：</p>
+<ol>
+<li>列表提取<br>从搜索结果中提取列表</li>
+<li>列表加权<br>给权重，排序</li>
+<li>列表集群<br>聚类实现维度分类</li>
+<li>维度和项目排序</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/06/07/Tencent_CVR预估初赛思路总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -457,7 +655,7 @@
 <li>用滑动窗口，即每天的前七天的统计（统计指统计转化量、点击量、转化率，下同）来作为第本天的特征。并拿30号来做线下测试集。<br>如下图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-49-53.png" alt=""><br>经测试我们发现，即使我们去掉了30号的部分负样本，还是有一些问题的。因此我们将时间区间改了一下：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-53-21.png" alt=""><br>这样做出于两种目的：一是尽量做到了线上线下统一，二是不让模型学习30号的样本数据，防止一些错误样本被模型学到。</li>
 <li>用第一周统计，第二周做交叉验证并训练模型。如下图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-59-59.png" alt=""> </li>
 </ol>
-<p>相信很多人都用的是这两种其中的一种。我是一个对自己极度不自信的人，来来回回换了好几次。最终觉得第1种方式很稳定，线上线下较统一。第二种方式特征更新较快，模型更准确，但带来的问题就是线上线下不太统一。</p>
+<p>相信很多人都用的是这两种其中的一种。我是一个对自己极度不自信的人，来来回回换了好几次。最终觉得第2种方式很稳定，线上线下较统一。第1种方式特征更新较快，模型更准确，但带来的问题就是线上线下不太统一。</p>
 <h1 id="模型训练和验证">7. 模型训练和验证</h1><p>至此特征工程已经完毕，开始训练。</p>
 <p>训练其实没什么好说的，只要注意一下别过拟合就可以。</p>
 <h1 id="总结">8. 总结</h1><p>平时在学习的过程中，过于注重理论的推导，只是在一遍遍地看那些公式。但没有切身实践过，感受不到模型真正的威力和缺憾。通过这次比赛，还是收获比较多的。注意到了平时学习过程中自以为不重要的、很容易被忽略的细节。</p>
@@ -1889,201 +2087,6 @@ messageStore.putMessage(topic或queue, message);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/12/多线程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/12/多线程/" itemprop="url">多线程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-12T13:51:34+08:00">
-                2017-05-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>线程(thread)</strong>：每个任务称为一个线程<br><strong>线程和进程区别</strong>：</p>
-<ol>
-<li>每个进程有自己独立的变量，而线程则共享数据。</li>
-<li>线程是进程的执行单元</li>
-<li>线程是进程的组成部分。一个进程可以有多个线程，一个线程必须有一个父进程。</li>
-<li>线程可以拥有自己的堆栈、自己的程序计数器和自己的局部变量，但不拥有系统资源（与父进程其它线程共享该进程则资源）</li>
-</ol>
-<h1 id="线程的创建">1. 线程的创建</h1><p>有以下两种方法：</p>
-<ol>
-<li>通过继承Thread来创建线程</li>
-<li>通过实现Runnable接口创建线程</li>
-</ol>
-<h2 id="通过继承Thread来创建线程">1.1. 通过继承Thread来创建线程</h2><p>要点：通过继承<code>Thread</code>类创建并启动多线程<br>步骤：</p>
-<ol>
-<li>定义Thread类的子类，并重写<code>run()</code>方法（线程执行体）</li>
-<li>创建<code>Thread</code>子类的实例(创建线程对象)</li>
-<li><p>调用<code>start()</code>（启用该线程）</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"run\t"</span>+getName()+<span class="string">"\t"</span>);<span class="comment">//getName()返回thread name</span></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="keyword">new</span> FirstThread().start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>以上代码输出：</p>
-<pre><code>run  Thread-0
-</code></pre><p><strong>一个有意思的现象</strong></p>
-<p>运行如下代码时：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"run\t"</span>+getName()+<span class="string">"\t"</span>);<span class="comment">//getName()返回thread name</span></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="comment">//调用currentThread()获取当前线程</span></div><div class="line">        System.out.println(<span class="string">"currentThread : "</span>+Thread.currentThread().getName());</div><div class="line">        <span class="keyword">new</span> FirstThread().start();</div><div class="line">        System.out.println(<span class="string">"currentThread : "</span>+Thread.currentThread().getName());</div><div class="line">        <span class="keyword">new</span> FirstThread().start();</div><div class="line">        System.out.println(<span class="string">"currentThread : "</span>+Thread.currentThread().getName());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><p>按照以前的理解，应该是：</p>
-<pre><code>currentThread : main
-run Thread-0 
-currentThread : main 
-run Thread-1    
-currentThread : main
-</code></pre><p>实际输出：（也有可能是其它顺序）</p>
-<pre><code>currentThread : main
-currentThread : main
-run Thread-0    
-run Thread-1    
-currentThread : main
-</code></pre><p>新发现：其实<code>start</code>一个线程的时候，<code>main</code>线程在继续运行。<code>main</code>线程不会等<code>start</code>完事儿之后再运行下一句！</p>
-<h2 id="通过实现Runnable接口创建线程">1.2. 通过实现Runnable接口创建线程</h2><pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"run\t"</span>+Thread.currentThread().getName()+<span class="string">"\t"</span>);<span class="comment">//getName()返回thread name</span></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        SecondThread st = <span class="keyword">new</span> SecondThread();</div><div class="line">        <span class="keyword">new</span> Thread(st,<span class="string">"new_thread_1"</span>).start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><p>区别：<br>需要通过<code>Thread.currentThread().getName()</code>来获取getName()<br>main不同</p>
-<p><strong>多线程共享变量</strong></p>
-<p>以下是一个多线程共享变量<code>i</code>的情况：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> i;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">while</span>(i&lt;<span class="number">5</span>)&#123;</div><div class="line">            System.out.println(<span class="string">"run\t"</span>+Thread.currentThread().getName()+<span class="string">"\t"</span>+i);<span class="comment">//getName()返回thread name</span></div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        SecondThread st = <span class="keyword">new</span> SecondThread();</div><div class="line">        <span class="keyword">new</span> Thread(st,<span class="string">"thread_name_1"</span>).start();</div><div class="line">        <span class="keyword">new</span> Thread(st,<span class="string">"thread_name_2"</span>).start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><p>两次运行结果：</p>
-<pre><code>run thread_name_1    0
-run thread_name_1    1
-run thread_name_1    2
-run thread_name_1    3
-run thread_name_2    3
-run thread_name_1    4
-
-run thread_name_1    0
-run thread_name_2    0
-run thread_name_1    1
-run thread_name_2    2
-run thread_name_1    3
-run thread_name_2    4
-</code></pre><p><strong>发现</strong>：</p>
-<ol>
-<li>两个线程共有变量<code>i</code></li>
-<li>线程间抢占资源</li>
-</ol>
-<h2 id="使用Callable和Future创建线程">1.3. 使用Callable和Future创建线程</h2>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2133,7 +2136,7 @@ run thread_name_2    4
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-count">53</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2144,7 +2147,7 @@ run thread_name_2    4
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2155,7 +2158,7 @@ run thread_name_2    4
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

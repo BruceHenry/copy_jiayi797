@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="分类," />
+  <meta name="keywords" content="微软讲座," />
 
 
 
@@ -90,32 +90,20 @@
 
 
 
-<meta name="description" content="1. SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。 #线性可分SVM 1.0.0.0.1. 概念复习 参考文献输入空间：输入所有可能的取值的集合 特征向量：每个具体的输入 特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。 输出空间：输出所有可能的取值的集合 1.0.0.0.2. 线性可分">
-<meta name="keywords" content="分类">
+<meta name="description" content="本文是《 微软亚洲研究院大数据系列讲座》第二讲的笔记。 1. 大规模超文本网络搜索引擎的解析切入点：(论文)Google Architiecture(Logical View,1998) 谷歌框架：爬取-&amp;gt;索引-&amp;gt;关键字搜索 关键点：PageRank。用anchor text描述文档目标，利用文档之间的链接来对文档的重要性排序。  1.1. 搜索引擎的数据结构目的：保存海量页面 文件存">
+<meta name="keywords" content="微软讲座">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SVM（一） 线性可分">
-<meta property="og:url" content="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/index.html">
+<meta property="og:title" content="微软讲座-2-互联网搜索中的大数据">
+<meta property="og:url" content="http://yoursite.com/child/2017/06/08/微软讲座-2-互联网搜索中的大数据/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="1. SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。 #线性可分SVM 1.0.0.0.1. 概念复习 参考文献输入空间：输入所有可能的取值的集合 特征向量：每个具体的输入 特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。 输出空间：输出所有可能的取值的集合 1.0.0.0.2. 线性可分">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-14-56-13.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-22-00.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-07-16.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-15-32.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-18-42.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-19-57.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-29-24.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-31-16.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-33-31.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-15-06-02.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-03.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-26.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-47.png">
-<meta property="og:updated_time" content="2017-05-24T06:32:49.449Z">
+<meta property="og:description" content="本文是《 微软亚洲研究院大数据系列讲座》第二讲的笔记。 1. 大规模超文本网络搜索引擎的解析切入点：(论文)Google Architiecture(Logical View,1998) 谷歌框架：爬取-&amp;gt;索引-&amp;gt;关键字搜索 关键点：PageRank。用anchor text描述文档目标，利用文档之间的链接来对文档的重要性排序。  1.1. 搜索引擎的数据结构目的：保存海量页面 文件存">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-08-13-13-29.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-08-13-16-25.png">
+<meta property="og:updated_time" content="2017-06-08T05:53:57.858Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SVM（一） 线性可分">
-<meta name="twitter:description" content="1. SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。 #线性可分SVM 1.0.0.0.1. 概念复习 参考文献输入空间：输入所有可能的取值的集合 特征向量：每个具体的输入 特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。 输出空间：输出所有可能的取值的集合 1.0.0.0.2. 线性可分">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png">
+<meta name="twitter:title" content="微软讲座-2-互联网搜索中的大数据">
+<meta name="twitter:description" content="本文是《 微软亚洲研究院大数据系列讲座》第二讲的笔记。 1. 大规模超文本网络搜索引擎的解析切入点：(论文)Google Architiecture(Logical View,1998) 谷歌框架：爬取-&amp;gt;索引-&amp;gt;关键字搜索 关键点：PageRank。用anchor text描述文档目标，利用文档之间的链接来对文档的重要性排序。  1.1. 搜索引擎的数据结构目的：保存海量页面 文件存">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-08-13-13-29.png">
 
 
 
@@ -143,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/"/>
+  <link rel="canonical" href="http://yoursite.com/child/2017/06/08/微软讲座-2-互联网搜索中的大数据/"/>
 
 
 
 
 
-  <title>SVM（一） 线性可分 | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>微软讲座-2-互联网搜索中的大数据 | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -289,7 +277,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/06/08/微软讲座-2-互联网搜索中的大数据/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -306,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SVM（一） 线性可分</h1>
+          <h1 class="post-title" itemprop="name headline">微软讲座-2-互联网搜索中的大数据</h1>
         
 
         <div class="post-meta">
@@ -318,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-03T11:05:48+08:00">
-                2017-03-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T13:08:49+08:00">
+                2017-06-08
               </time>
             
 
@@ -341,8 +329,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
                   </a>
                 </span>
 
@@ -375,65 +363,71 @@
       
 
       
-        <h1 id="SVM简介">1. SVM简介</h1><p>SVM - Support Vector Machines, 支持向量机。是二分类模型。</p>
-<p>#线性可分SVM</p>
-<h5 id="概念复习-参考文献">1.0.0.0.1. 概念复习 参考文献</h5><p><em>输入空间</em>：输入所有可能的取值的集合</p>
-<p><em>特征向量</em>：每个具体的输入</p>
-<p><em>特征空间</em>：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。</p>
-<p><em>输出空间</em>：输出所有可能的取值的集合</p>
-<h5 id="线性可分SVM学习目标">1.0.0.0.2. 线性可分SVM学习目标</h5><p>在特征空间找到一个分离超平面 <code>wx+b=0</code> </p>
-<h5 id="SVM与PLA区别">1.0.0.0.3. SVM与PLA区别</h5><p>PLA:误分类最小策略，求得分离超平面。解不唯一。<br>线性可分SVM:间隔最大化，求得分离超平面。解唯一。</p>
-<h5 id="函数间隔和几何间隔">1.0.0.0.4. 函数间隔和几何间隔</h5><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png" alt=""> </p>
-<ul>
-<li>一个点距离分离超平面的远近<code>|wx+b|</code> 是 分类预测的<strong>确信程度</strong>。例如将A分为0的确信度很高，而将C分为0的确信度较低</li>
-<li><code>wx+b</code>与<code>y</code>的符号一致，则分类正确</li>
-<li><strong>函数间隔</strong>：<code>y(wx+b)</code>，表示分类的正确性及确信度</li>
-<li><strong>超平面的函数间隔*</strong>：<code>min{y(wx+b)}</code></li>
-<li><strong>几何间隔</strong>：规范化<code>||w||=1</code>，即为$y(\frac{w}{||w||}\cdot x + \frac{b}{||w||})$，使得间隔固定。（因为w和b成比例增加时，超平面不会改变，但函数间隔会变大）</li>
-</ul>
-<p>#SVM基本算法</p>
-<h2 id="标准问题">1.1. 标准问题</h2><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-14-56-13.png" alt=""> </p>
-<h2 id="算法的推导">1.2. 算法的推导</h2><ul>
-<li>一开始的目标是：<br>– 目标：求得一个x，使得margin最大<br>– 条件：<br>— 每个点都被正确分类（<code>b</code>被塞入了<code>w</code>矩阵里）<br>— magin是最近的点的距离<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-22-00.png" alt=""> </li>
-</ul>
-<ul>
-<li><p>从距离的理解入手，如图所示<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-07-16.png" alt=""> </p>
-</li>
-<li><p><code>w</code>的理解<br>– 灰色是分割平面<br>– $x’$和$x’’$是平面上的两个点，则它俩满足$w^T X’ = -b$，$w^T x’’ = -b$<br>– 两式相减，得到 $w^T(x’’ - x’)=0$<br>– 则<strong><code>w</code>垂直于平面</strong>，即w是平面的法向量<br>– 那么dist是向量$x’ x’’$在<code>w</code>上的投影</p>
-</li>
-</ul>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-15-32.png" alt=""> </p>
-<ul>
-<li><p>而<code>y(wx+b)&gt;0</code>，则距离可以表示为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-18-42.png" alt=""> </p>
-</li>
-<li><p>因此，新的算法目标为<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-19-57.png" alt=""> </p>
-</li>
-<li><p>归一化条件：<code>margin=y(wx+b)=1</code>,得到新目标<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-29-24.png" alt=""> </p>
-</li>
-<li><p>对目标进行放缩，方便解<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-31-16.png" alt=""> </p>
-</li>
-<li><p>再将最大化变为最小化，也拿走||w||的根号<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-33-31.png" alt=""> </p>
-</li>
-</ul>
-<h5 id="支持向量">1.2.0.0.1. 支持向量</h5><ul>
-<li>在线性可分的情况下，训练数据集的样本点中与分离超平面距离最近的样本点的实例，叫做<strong>支持向量</strong>（support vector）</li>
-<li>支持向量是使得约束条件等号成立的点</li>
-<li>决定分离超平面时，只有支持向量起作用，而其他点不起作用</li>
-<li>在H1，H2上的点就是支撑向量（很少，但很重要的点）</li>
-</ul>
-<h5 id="间隔-margin">1.2.0.0.2. 间隔 margin</h5><p>H1，H2之间，$margin=\frac{2}{||w||}$</p>
-<h5 id="间隔边界">1.2.0.0.3. 间隔边界</h5><p>H1，H2<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-15-06-02.png" alt=""> </p>
-<h2 id="标准问题的求解">1.3. 标准问题的求解</h2><ul>
-<li>目标是二次的，条件是线性的</li>
-<li><p>则这是一个二次规划问题，有固定的解</p>
-</li>
-<li><p>我们的标准问题：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-03.png" alt=""> </p>
-</li>
-<li><p>标准二次规划问题：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-26.png" alt=""> </p>
-</li>
-<li><p>系数代入：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-47.png" alt=""> </p>
-</li>
-</ul>
+        <p>本文是《 微软亚洲研究院大数据系列讲座》第二讲的笔记。</p>
+<h1 id="大规模超文本网络搜索引擎的解析">1. 大规模超文本网络搜索引擎的解析</h1><p>切入点：(论文)Google Architiecture(Logical View,1998)</p>
+<p>谷歌框架：爬取-&gt;索引-&gt;关键字搜索</p>
+<p>关键点：PageRank。用anchor text描述文档目标，利用文档之间的链接来对文档的重要性排序。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-08-13-13-29.png" alt=""> </p>
+<h2 id="搜索引擎的数据结构">1.1. 搜索引擎的数据结构</h2><p>目的：保存海量页面</p>
+<p><strong>文件存储</strong><br>方法：大文件设计为虚拟文件<br>结构：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-08-13-16-25.png" alt=""><br>同步码：页面数据长度的开始<br>页面长度：指定读取多少字节和压缩包<br>压缩包：ID，编码信息,URL等<br><strong>文件索引</strong></p>
+<ol>
+<li>根据ID</li>
+<li>根据URL</li>
+</ol>
+<p>词典：保存在内存中<br>单词、哈希表、指针等</p>
+<p>索引：</p>
+<ol>
+<li>正索引</li>
+<li>倒排索引</li>
+</ol>
+<p><strong>命中</strong></p>
+<p>记录命中信息、位置。以便在排序中利用命中来计算不同关键字之间的相关性。</p>
+<p>分类：</p>
+<ol>
+<li>普通命中</li>
+<li>特殊命中</li>
+</ol>
+<h2 id="爬虫">1.2. 爬虫</h2><p>提高效率方式：</p>
+<ol>
+<li>分布式方式</li>
+<li>域名服务器</li>
+</ol>
+<h2 id="索引">1.3. 索引</h2><p>建索引、排序</p>
+<h2 id="搜索过程">1.4. 搜索过程</h2><ol>
+<li>搜索引擎解析查询请求，将单词转化为单词ID</li>
+<li>对短桶中的每个单词都转到文档列表的开始，并获得所有文档列表。</li>
+<li>搜索引擎对每个查询请求计算文档排序，根据排序返回</li>
+</ol>
+<h1 id="搜索引擎如何实现每秒数千次的查询">2. 搜索引擎如何实现每秒数千次的查询</h1><p>步骤：</p>
+<p>用户输入查群-&gt;域名服务负载均衡-&gt;将HTTP请求分配到一个集群（考虑物理距离、可用性）</p>
+<p>细节：</p>
+<p>分配到某个集群后</p>
+<ol>
+<li>先查缓存（最近被查询过的）</li>
+<li>如果缓存没有，再去找</li>
+</ol>
+<h1 id="探寻搜索的多个维度">3. 探寻搜索的多个维度</h1><p>将查询维度定义为一组条目，每个条目描述或总结了一个查询的一个方面。</p>
+<p>DQminner：可以从查询结果中再次挖掘</p>
+<p>例：搜索手表，返回5个维度：</p>
+<ol>
+<li>手表品牌</li>
+<li>手表分类</li>
+<li>颜色</li>
+<li>等等</li>
+</ol>
+<p>利用搜索引擎、文本挖掘技术理解一个查询请求。</p>
+<p>汇总相关请求信息-&gt;为用户提供直接答案</p>
+<p>发现一个结论：</p>
+<ol>
+<li>查询请求的重要性由结果列表形式出现；</li>
+<li>重要性会在排序靠前的搜索中出现多次</li>
+</ol>
+<p>为了发现搜索请求的维度，我们设计了四个模块：</p>
+<ol>
+<li>列表提取<br>从搜索结果中提取列表</li>
+<li>列表加权<br>给权重，排序</li>
+<li>列表集群<br>聚类实现维度分类</li>
+<li>维度和项目排序</li>
+</ol>
 
       
     </div>
@@ -463,7 +457,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/分类/" rel="tag"># 分类</a>
+            <a href="/tags/微软讲座/" rel="tag"># 微软讲座</a>
           
         </div>
       
@@ -476,18 +470,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/03/O2O优惠券预测——思路总结/" rel="next" title="O2O优惠券预测——思路总结">
-                <i class="fa fa-chevron-left"></i> O2O优惠券预测——思路总结
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/02/逻辑回归（Logistic-regression）/" rel="prev" title="逻辑回归（Logistic regression）">
-                逻辑回归（Logistic regression） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/07/Tencent_CVR预估初赛思路总结/" rel="prev" title="Tencent_CVR预估初赛思路总结">
+                Tencent_CVR预估初赛思路总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -617,7 +607,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM简介"><span class="nav-text">1. SVM简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念复习-参考文献"><span class="nav-text">1.0.0.0.1. 概念复习 参考文献</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线性可分SVM学习目标"><span class="nav-text">1.0.0.0.2. 线性可分SVM学习目标</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SVM与PLA区别"><span class="nav-text">1.0.0.0.3. SVM与PLA区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#函数间隔和几何间隔"><span class="nav-text">1.0.0.0.4. 函数间隔和几何间隔</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准问题"><span class="nav-text">1.1. 标准问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的推导"><span class="nav-text">1.2. 算法的推导</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#支持向量"><span class="nav-text">1.2.0.0.1. 支持向量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#间隔-margin"><span class="nav-text">1.2.0.0.2. 间隔 margin</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#间隔边界"><span class="nav-text">1.2.0.0.3. 间隔边界</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准问题的求解"><span class="nav-text">1.3. 标准问题的求解</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大规模超文本网络搜索引擎的解析"><span class="nav-text">1. 大规模超文本网络搜索引擎的解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索引擎的数据结构"><span class="nav-text">1.1. 搜索引擎的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爬虫"><span class="nav-text">1.2. 爬虫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引"><span class="nav-text">1.3. 索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索过程"><span class="nav-text">1.4. 搜索过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搜索引擎如何实现每秒数千次的查询"><span class="nav-text">2. 搜索引擎如何实现每秒数千次的查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#探寻搜索的多个维度"><span class="nav-text">3. 探寻搜索的多个维度</span></a></li></ol></div>
             
 
           </div>

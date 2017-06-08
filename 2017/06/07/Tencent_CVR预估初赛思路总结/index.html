@@ -102,7 +102,7 @@
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-49-53.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-53-21.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-59-59.png">
-<meta property="og:updated_time" content="2017-06-07T14:39:19.925Z">
+<meta property="og:updated_time" content="2017-06-08T02:39:02.481Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tencent_CVR预估初赛思路总结">
 <meta name="twitter:description" content="“这一段奔波太过匆忙，有时来不及回头张望。” Tencent“人工寻找trick”大赛初赛今天结束了。最终初赛线上logloss为0.099104，排名为64名。  虽然与前排大神的分相差甚远，虽结果不那么如人意，也是对这个领域入了个门。 1. 赛题详细赛题见官方网站 已知：17-30天移动APP的广告、用户的转化情况，及相关上下文。预测：第31天指定用户和对应广告的转化率。 评估方式：$$log">
@@ -462,7 +462,7 @@
 <li>用滑动窗口，即每天的前七天的统计（统计指统计转化量、点击量、转化率，下同）来作为第本天的特征。并拿30号来做线下测试集。<br>如下图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-49-53.png" alt=""><br>经测试我们发现，即使我们去掉了30号的部分负样本，还是有一些问题的。因此我们将时间区间改了一下：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-53-21.png" alt=""><br>这样做出于两种目的：一是尽量做到了线上线下统一，二是不让模型学习30号的样本数据，防止一些错误样本被模型学到。</li>
 <li>用第一周统计，第二周做交叉验证并训练模型。如下图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-59-59.png" alt=""> </li>
 </ol>
-<p>相信很多人都用的是这两种其中的一种。我是一个对自己极度不自信的人，来来回回换了好几次。最终觉得第1种方式很稳定，线上线下较统一。第二种方式特征更新较快，模型更准确，但带来的问题就是线上线下不太统一。</p>
+<p>相信很多人都用的是这两种其中的一种。我是一个对自己极度不自信的人，来来回回换了好几次。最终觉得第2种方式很稳定，线上线下较统一。第1种方式特征更新较快，模型更准确，但带来的问题就是线上线下不太统一。</p>
 <h1 id="模型训练和验证">7. 模型训练和验证</h1><p>至此特征工程已经完毕，开始训练。</p>
 <p>训练其实没什么好说的，只要注意一下别过拟合就可以。</p>
 <h1 id="总结">8. 总结</h1><p>平时在学习的过程中，过于注重理论的推导，只是在一遍遍地看那些公式。但没有切身实践过，感受不到模型真正的威力和缺憾。通过这次比赛，还是收获比较多的。注意到了平时学习过程中自以为不重要的、很容易被忽略的细节。</p>
@@ -524,6 +524,10 @@
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/08/微软讲座-2-互联网搜索中的大数据/" rel="next" title="微软讲座-2-互联网搜索中的大数据">
+                <i class="fa fa-chevron-left"></i> 微软讲座-2-互联网搜索中的大数据
+              </a>
             
           </div>
 
@@ -605,7 +609,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-count">53</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -616,7 +620,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -627,7 +631,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
