@@ -426,9 +426,14 @@
 <li>$q$是在欠采样之后，模型预测出来的概率。</li>
 <li>$p$是修正后的概率。</li>
 </ul>
-<h2 id="小trick">2.4. 小trick</h2><p>如果在已知样本中，正样本的概率$p$,那么：</p>
-<p>$$p’(1)=\frac{n’(1)}{n’(1)+n’(0)}=\frac{n(1)}{n(1)+n(0)\times w}$$</p>
-<p>$$=\frac{1}{1+\frac{n(0)\times w}{n(1)}}=\frac{1}{1+\frac{p(0)\times w}{p(1)}}$$<br>$$=\frac{p(1)}{p(1)+p(0)\times w}=\frac{p}{p+(1-p)\times w}$$</p>
+<p>当w=1时，变换其实为：</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/10/593c0b680d2b7.png" alt=""> </p>
+<p>上面是y1=q(不做变换)，下面是本变换y2。</p>
+<p>而如果我们将y3=y1-y2绘出：<br><img src="https://ooo.0o0.ooo/2017/06/10/593c0bc5aa670.png" alt=""> </p>
+<p>我们发现，概率大的压缩的小。<br>因为你负样本采样了之后，就是会预测的比实际的高一点，所以要给它压下去。</p>
+<p>附上matlab代码：<br>    q=0.001:0.01:1;<br>    y1=1./(1+(1./q-1)./0.1);<br>    y2 = q;<br>    plot(q,y1);<br>    hold on;<br>    plot(q,y2);<br>    hold on;<br>    y3 = y2-y1;<br>    plot(q,y3)</p>
+<h2 id="小trick（有错，删掉）">2.4. 小trick（有错，删掉）</h2><p>如果在已知样本中，正样本的概率$p$,那么：</p>
+<p>$$p’(1)=\frac{n’(1)}{n’(1)+n’(0)}=\frac{n(1)}{n(1)+n(0)\times w}$$<br>$$=\frac{1}{1+\frac{n(0)\times w}{n(1)}}=\frac{1}{1+\frac{p(0)\times w}{p(1)}}$$<br>$$=\frac{p(1)}{p(1)+p(0)\times w}=\frac{p}{p+(1-p)\times w}$$</p>
 <p>而因为：<br>$$p(1|x)=p’(1|x)\frac{p}{p’}$$</p>
 <p>代入得：</p>
 <p>$$p(1|x)=p’(1|x)\frac{p}{\frac{p}{p+(1-p)\times w}}$$<br>$$=p’(1|x)(p+(1-p)\times w)$$</p>
@@ -1027,6 +1032,7 @@
 <li><a href="http://202.197.191.206:8080/30/text/chapter04/4_8.htm" target="_blank" rel="external">描述量选择及特征的组合优化</a></li>
 <li><a href="http://www.jianshu.com/p/8f6f94f1d275" target="_blank" rel="external">scikit-learn系列之特征选择</a></li>
 <li><a href="http://blog.csdn.net/shine19930820/article/details/71713680" target="_blank" rel="external">GBDT原理及利用GBDT构造新的特征-Python实现</a></li>
+<li><a href="http://www.bigbear2017.com/blog/2016/11/02/facebook-ctr-paper/" target="_blank" rel="external">很好的文献资料Facebook CTR Paper</a></li>
 </ol>
 
           

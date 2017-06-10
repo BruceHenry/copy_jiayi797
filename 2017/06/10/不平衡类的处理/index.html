@@ -97,10 +97,13 @@
 <meta property="og:url" content="http://yoursite.com/child/2017/06/10/不平衡类的处理/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="最近在做比赛，发现在工业上，很多分类问题的标签分布都是不平衡的。如参考文献标签倾斜修正方法记要所属，比如用分类器去判断x光片中的癌症，这是一个二元分类问题，由于癌症的比例是非常小的，比如0.001。那么，将这些样本放到大多数分类模型中训练，模型的表现会非常相似，将所有数据都预测为没有癌症，因为这样也可以得到99.999%的准确率。 1. 常见的解决办法参考文献解决真实世界问题：如何在不平衡类上使用">
-<meta property="og:updated_time" content="2017-06-10T12:28:11.658Z">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/10/593c0b680d2b7.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/10/593c0bc5aa670.png">
+<meta property="og:updated_time" content="2017-06-10T15:11:41.953Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="不平衡类的处理">
 <meta name="twitter:description" content="最近在做比赛，发现在工业上，很多分类问题的标签分布都是不平衡的。如参考文献标签倾斜修正方法记要所属，比如用分类器去判断x光片中的癌症，这是一个二元分类问题，由于癌症的比例是非常小的，比如0.001。那么，将这些样本放到大多数分类模型中训练，模型的表现会非常相似，将所有数据都预测为没有癌症，因为这样也可以得到99.999%的准确率。 1. 常见的解决办法参考文献解决真实世界问题：如何在不平衡类上使用">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/06/10/593c0b680d2b7.png">
 
 
 
@@ -425,9 +428,14 @@
 <li>$q$是在欠采样之后，模型预测出来的概率。</li>
 <li>$p$是修正后的概率。</li>
 </ul>
-<h2 id="小trick">2.4. 小trick</h2><p>如果在已知样本中，正样本的概率$p$,那么：</p>
-<p>$$p’(1)=\frac{n’(1)}{n’(1)+n’(0)}=\frac{n(1)}{n(1)+n(0)\times w}$$</p>
-<p>$$=\frac{1}{1+\frac{n(0)\times w}{n(1)}}=\frac{1}{1+\frac{p(0)\times w}{p(1)}}$$<br>$$=\frac{p(1)}{p(1)+p(0)\times w}=\frac{p}{p+(1-p)\times w}$$</p>
+<p>当w=1时，变换其实为：</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/10/593c0b680d2b7.png" alt=""> </p>
+<p>上面是y1=q(不做变换)，下面是本变换y2。</p>
+<p>而如果我们将y3=y1-y2绘出：<br><img src="https://ooo.0o0.ooo/2017/06/10/593c0bc5aa670.png" alt=""> </p>
+<p>我们发现，概率大的压缩的小。<br>因为你负样本采样了之后，就是会预测的比实际的高一点，所以要给它压下去。</p>
+<p>附上matlab代码：<br>    q=0.001:0.01:1;<br>    y1=1./(1+(1./q-1)./0.1);<br>    y2 = q;<br>    plot(q,y1);<br>    hold on;<br>    plot(q,y2);<br>    hold on;<br>    y3 = y2-y1;<br>    plot(q,y3)</p>
+<h2 id="小trick（有错，删掉）">2.4. 小trick（有错，删掉）</h2><p>如果在已知样本中，正样本的概率$p$,那么：</p>
+<p>$$p’(1)=\frac{n’(1)}{n’(1)+n’(0)}=\frac{n(1)}{n(1)+n(0)\times w}$$<br>$$=\frac{1}{1+\frac{n(0)\times w}{n(1)}}=\frac{1}{1+\frac{p(0)\times w}{p(1)}}$$<br>$$=\frac{p(1)}{p(1)+p(0)\times w}=\frac{p}{p+(1-p)\times w}$$</p>
 <p>而因为：<br>$$p(1|x)=p’(1|x)\frac{p}{p’}$$</p>
 <p>代入得：</p>
 <p>$$p(1|x)=p’(1|x)\frac{p}{\frac{p}{p+(1-p)\times w}}$$<br>$$=p’(1|x)(p+(1-p)\times w)$$</p>
@@ -613,7 +621,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的解决办法"><span class="nav-text">1. 常见的解决办法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一种标签倾斜修正方法"><span class="nav-text">2. 一种标签倾斜修正方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#先验概率、后验概率"><span class="nav-text">2.1. 先验概率、后验概率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签倾斜修正"><span class="nav-text">2.2. 标签倾斜修正</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-text">2.3. 结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小trick"><span class="nav-text">2.4. 小trick</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">3. 参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的解决办法"><span class="nav-text">1. 常见的解决办法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一种标签倾斜修正方法"><span class="nav-text">2. 一种标签倾斜修正方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#先验概率、后验概率"><span class="nav-text">2.1. 先验概率、后验概率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签倾斜修正"><span class="nav-text">2.2. 标签倾斜修正</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-text">2.3. 结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小trick（有错，删掉）"><span class="nav-text">2.4. 小trick（有错，删掉）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">3. 参考文献</span></a></li></ol></div>
             
 
           </div>
