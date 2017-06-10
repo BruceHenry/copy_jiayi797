@@ -102,7 +102,7 @@
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-49-53.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-53-21.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-59-59.png">
-<meta property="og:updated_time" content="2017-06-08T02:39:02.481Z">
+<meta property="og:updated_time" content="2017-06-08T12:49:58.966Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tencent_CVR预估初赛思路总结">
 <meta name="twitter:description" content="“这一段奔波太过匆忙，有时来不及回头张望。” Tencent“人工寻找trick”大赛初赛今天结束了。最终初赛线上logloss为0.099104，排名为64名。  虽然与前排大神的分相差甚远，虽结果不那么如人意，也是对这个领域入了个门。 1. 赛题详细赛题见官方网站 已知：17-30天移动APP的广告、用户的转化情况，及相关上下文。预测：第31天指定用户和对应广告的转化率。 评估方式：$$log">
@@ -437,6 +437,8 @@
 <p>究竟对谁做组合，这也是一直困扰我们的问题。以下是我搜集到的几种方案：</p>
 <p><strong>迭代选取方式</strong></p>
 <p>Jerrylin大神曾经说过，可以先对一个组合做groupby分析，看看转化率的分布。可是我遇到了一个瓶颈——大多数特征的转化率分布都是不均匀的，组合起来就更不均匀了。不知道大神是怎么解决的，也许是计算这个分布的方差？【这是个问题，等来日解决，我再回来填坑】<br>大神刚才回我了，他说他是按照gbdt给的一个评分，选取评分较高的几个进行组合，然后再次输入模型进行迭代筛选。<br>在此我要再次偷偷感谢一下这位大神。要是没有他，我可能还会在二百名外挣扎。</p>
+<p>刚才风，飞扬。。大神告诉我，其实xgb给的评分也是只能作为一个参考，因为不一定组合之后给会更高。</p>
+<p>忆『凌』殇大神说，构造的特征很可能相关性很高，然后这两个特征的重要性肯定都不低。但是因为相关性高反而会影响性能。这个相关性可以计算这两个特征的相关系数corrcoef来得到。</p>
 <p><strong>穷举后用卡方检验筛特征</strong></p>
 <p>参考文献<a href="http://202.197.191.206:8080/30/text/chapter04/4_8.htm" target="_blank" rel="external">描述量选择及特征的组合优化</a>提到，由于任何非穷举的算法都不能确保所得结果是最优的，因此要得最优解，就必需采用穷举法，只是在搜索技术上采用一些技巧，使计算量有可能降低。</p>
 <p>我的学长“酱紫”对此有一种建议就是直接对所有基本特征进行遍历两两组合，然后用卡方检验筛出来一些比较好的特征。这种方式很简单，大多数工作只需要交给模型来完成。</p>
@@ -609,7 +611,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-count">55</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -271,6 +271,348 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/06/10/不平衡类的处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/10/不平衡类的处理/" itemprop="url">不平衡类的处理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-10T15:26:36+08:00">
+                2017-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近在做比赛，发现在工业上，很多分类问题的标签分布都是不平衡的。如参考文献<a href="http://bourneli.github.io/machine-learning/prml/2016/12/19/compensating-for-class-priors.html" target="_blank" rel="external">标签倾斜修正方法记要</a>所属，比如用分类器去判断x光片中的癌症，这是一个二元分类问题，由于癌症的比例是非常小的，比如0.001。那么，将这些样本放到大多数分类模型中训练，模型的表现会非常相似，将所有数据都预测为没有癌症，因为这样也可以得到99.999%的准确率。</p>
+<h1 id="常见的解决办法">1. 常见的解决办法</h1><p>参考文献<a href="https://www.jiqizhixin.com/articles/1dd8da6e-ae24-4fc5-ab90-ee39020bc5ff" target="_blank" rel="external">解决真实世界问题：如何在不平衡类上使用机器学习？</a>说，从不平衡数据中学习，是一项已被研究了 20 年之久的问题。它曾是许多论文、研讨会、特别议程的主题（一项最近的调查就有大约 220 个引用）。人们尝试了许多方法，但结果各不相同，所以至今没有得到明晰的答案。当数据科学家们第一次遇到这个问题，他们往往会问：「如果我的数据是不平衡的，我该怎么做？」而这一问题是没有固定答案的，就像你问「哪个学习算法是最好的」一样：<strong>答案取决于数据。</strong></p>
+<p>一般来说，有下面几种方法：</p>
+<ul>
+<li><p>什么也不做</p>
+</li>
+<li><p>通过某些方法使得数据更加平衡：</p>
+</li>
+<li><ul>
+<li>对少数类进行过采样</li>
+</ul>
+</li>
+<li><ul>
+<li>对多数类进行欠采样</li>
+</ul>
+</li>
+<li><ul>
+<li>合成新的少数类</li>
+</ul>
+</li>
+<li><ul>
+<li>舍弃所有少数类，切换成一个异常检测框架。</li>
+</ul>
+</li>
+<li><p>在算法层面之上（或之后）：</p>
+</li>
+<li><ul>
+<li>调整类的权重（错误分类成本）</li>
+</ul>
+</li>
+<li><ul>
+<li>调整决策阈值</li>
+</ul>
+</li>
+<li><ul>
+<li>使已有的算法对少数类更加敏感</li>
+</ul>
+</li>
+<li><ul>
+<li>构造一个在不平衡数据上表现更好的全新算法。</li>
+</ul>
+</li>
+</ul>
+<h1 id="一种标签倾斜修正方法">2. 一种标签倾斜修正方法</h1><p>参考文献<a href="">Practical Lessons from Predicting Clicks on Ads at<br>Facebook</a>6.3指出，欠采样可以加快训练速度，提升模型表现。需要注意的是，就算数据被欠采样，其实也可以通过在欠采样空间中对预测结果进行修正。例如，在采样之前CTR只有0.1%，那么我们对负样本欠采样0.01，那么CTR就会变为10%。为了修正结果，使得CTR恢复到0.1%,我们可以通过公式：<br>$$q=\frac{p}{p+(1-p)/w}$$<br>其中，$p$是欠采样空间下预测的概率，<br>$w$是对负样本的采样率。</p>
+<p>在这里我决定先复习一下先验概率、后验概率</p>
+<h2 id="先验概率、后验概率">2.1. 先验概率、后验概率</h2><p><strong>先验概率</strong>是指事件尚未发生，对该事件发生的概率的估计，是在缺乏某个事情的情况下描述一个变量。<br>先验概率可以通过已知的关于事件本身的先验知识得到，蒙特卡洛方法也可以用于计算先验概率。<br><strong>后验概率</strong>是指在事件已经发生的条件下，求该事件发生原因是由某个因素引起的可能性的大小，是考虑一个事件之后的条件概率。<br>后验概率可以基于 贝叶斯定理，通过先验概率乘以似然度，再归一化得到。具体来说，贝叶斯公式：<br>$$P(h|D)=\frac{P(D|h)P(h)}{p(D)}$$<br>其中，$P(h)$为$h$的先验概率，$P(h|D)$为$h$的后验概率。<br>通常，事件A在事件B（发生）的条件下的概率，与事件B在事件A（发生）的条件下的概率是不一样的；然而，这两者是有确定的关系的，贝叶斯定理就是这种关系的陈述。贝叶斯公式的一个用途在于通过已知的三个概率函数推出第四个。</p>
+<h2 id="标签倾斜修正">2.2. 标签倾斜修正</h2><p>参考文献<a href="http://bourneli.github.io/machine-learning/prml/2016/12/19/compensating-for-class-priors.html" target="_blank" rel="external">标签倾斜修正方法记要</a>通过理论推导来验证这个结论。<br>上参考文献作者提到，PRML的1.5.4节中介绍了一种标签倾斜修正的方法。</p>
+<p>首先，你的模型必须是一个软分类器，即预测值为0到1之间的概率。假设输入向量x，预测标签$C_k$，那么可以用条件概率表示，即计算$p(C_k|x)$的概率。根据贝叶斯公式，条件概率可以如下变化：<br>$$p(C_k|x)=\frac{p(x|C_k)p(C_k)}{p(x)}$$</p>
+<p>上面是没有做重采样时，得到概率。当做重采样时，只是改变了标签$C_k$的先验概率$p(C_k)$，即将$p’(C_k)$，（其实就是标签$C_k$的先验分布而已）。而$p(x)$是条件$x$发生的概率，不会变化。$p(x|C_k)$是后验概率，也不会变化。【问题，为什么不变？】</p>
+<p>因为是对负样本进行了抽样，假设对负样本抽样比例为$w$，抽样后：</p>
+<p>$$n’(0)=n(0)\times w,n’(1)=n(1)$$</p>
+<p>易知：<br>$$p(1)=\frac{n(1)}{n(1)+n(0)}=\frac{n’(1)}{n’(1)+n’(0)/ w}$$<br>$$=\frac{p’}{p’+(1-p’)/w}$$<br>其中，$n(C_k)$表示$C_k$的个数</p>
+<p>我们推导出了先验概率$p’(C_k)$与$p(C_k)$的关系。那么，如果我们想修正$p(C_k|x)$，则：</p>
+<p>$$p(1|x) = \frac{p(x|1)p(1)}{p(x)} = \frac{p(x|1)p’(1)p(1)}{p(x)p’(1)}$$<br>$$=p’(1|x)\frac{p(1)}{p’(1)}=p’(1|x)\frac{p}{p’}$$</p>
+<p>而由之前的推导我们可知$p=\frac{p’}{p’+(1-p’)/w}$，代入得：<br>$$p(1|x)=p’(1|x)\frac{p}{p’}=p’(1|x)\frac{\frac{p’}{p’+(1-p’)/w}}{p’}$$<br>$$=p’(1|x)\frac{1}{p’+(1-p’)/w}$$</p>
+<p>需要注意的是，$p’(1|x)$是预测出来的概率，$p’$是抽样之后正样本的比例，而在我们的问题中，$p’$是未知的，因此我们假设$p’\approx p’(1|x)$，并记$q=p’(1|x)$则以上公式变为：</p>
+<p>$$p(1|x)=\frac{q}{q+(1-q)/w}$$</p>
+<h2 id="结论">2.3. 结论</h2><p>在欠采样中，假设对负样本采样率为$w$，则直接将结果按照如下公式修正即可：</p>
+<p>$$p=\frac{q}{q+(1-q)/w}$$</p>
+<p>其中：</p>
+<ul>
+<li>$q$是在欠采样之后，模型预测出来的概率。</li>
+<li>$p$是修正后的概率。</li>
+</ul>
+<h1 id="参考文献">3. 参考文献</h1><ol>
+<li><a href="http://bourneli.github.io/machine-learning/prml/2016/12/19/compensating-for-class-priors.html" target="_blank" rel="external">标签倾斜修正方法记要</a></li>
+<li><a href="https://www.jiqizhixin.com/articles/1dd8da6e-ae24-4fc5-ab90-ee39020bc5ff" target="_blank" rel="external">解决真实世界问题：如何在不平衡类上使用机器学习？</a></li>
+<li><a href="https://mqshen.gitbooks.io/prml/content/" target="_blank" rel="external">PRML(《模式识别和机器学习》)翻译</a></li>
+<li><a href="http://bourneli.github.io/ml/2017/05/25/gdbt-lr-facebook-paper.html?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">GBDT特征转换+LR总结</a></li>
+<li><a href="http://sighingnow.github.io/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/prior_posterior_probability_and_estimation.html" target="_blank" rel="external">先验和后验概率以及估计</a></li>
+<li><a href="">Practical Lessons from Predicting Clicks on Ads at<br>Facebook</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/06/08/微软讲座3-社会计算中的大数据研究/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/08/微软讲座3-社会计算中的大数据研究/" itemprop="url">微软讲座3-社会计算中的大数据研究</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T14:29:23+08:00">
+                2017-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="用户移动规律的理解">1. 用户移动规律的理解</h1><p><a href="">Reconstructing indivdual mobility from smart card transactions</a></p>
+<p>一般，在数据与目标之间会有一定的差距。</p>
+<p>用北京市公交卡数据</p>
+<p>【今日很烦躁，不想看了】</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/06/08/微软讲座-2-互联网搜索中的大数据/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -630,6 +972,8 @@
 <p>究竟对谁做组合，这也是一直困扰我们的问题。以下是我搜集到的几种方案：</p>
 <p><strong>迭代选取方式</strong></p>
 <p>Jerrylin大神曾经说过，可以先对一个组合做groupby分析，看看转化率的分布。可是我遇到了一个瓶颈——大多数特征的转化率分布都是不均匀的，组合起来就更不均匀了。不知道大神是怎么解决的，也许是计算这个分布的方差？【这是个问题，等来日解决，我再回来填坑】<br>大神刚才回我了，他说他是按照gbdt给的一个评分，选取评分较高的几个进行组合，然后再次输入模型进行迭代筛选。<br>在此我要再次偷偷感谢一下这位大神。要是没有他，我可能还会在二百名外挣扎。</p>
+<p>刚才风，飞扬。。大神告诉我，其实xgb给的评分也是只能作为一个参考，因为不一定组合之后给会更高。</p>
+<p>忆『凌』殇大神说，构造的特征很可能相关性很高，然后这两个特征的重要性肯定都不低。但是因为相关性高反而会影响性能。这个相关性可以计算这两个特征的相关系数corrcoef来得到。</p>
 <p><strong>穷举后用卡方检验筛特征</strong></p>
 <p>参考文献<a href="http://202.197.191.206:8080/30/text/chapter04/4_8.htm" target="_blank" rel="external">描述量选择及特征的组合优化</a>提到，由于任何非穷举的算法都不能确保所得结果是最优的，因此要得最优解，就必需采用穷举法，只是在搜索技术上采用一些技巧，使计算量有可能降低。</p>
 <p>我的学长“酱紫”对此有一种建议就是直接对所有基本特征进行遍历两两组合，然后用卡方检验筛出来一些比较好的特征。这种方式很简单，大多数工作只需要交给模型来完成。</p>
@@ -1757,336 +2101,6 @@ messageStore.putMessage(topic或queue, message);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/14/阿里中间件初赛-李健胜解决方案/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/14/阿里中间件初赛-李健胜解决方案/" itemprop="url">阿里中间件初赛-李健胜解决方案</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-14T14:19:14+08:00">
-                2017-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="参考资料">1. 参考资料</h1><ol>
-<li><a href="http://blog.jesonlee.me/19/" target="_blank" rel="external">李健胜，阿里中间件大赛初赛解题思路</a></li>
-<li><a href="https://github.com/Jesonlee1997/open-message" target="_blank" rel="external">1对应的代码</a></li>
-</ol>
-<h1 id="题目要求">2. 题目要求</h1><p><strong>主角</strong>：消息中间件<br><strong>目的</strong>：实现消息中间件的推拉模式。即生产者制造消息，使用消息队列储存消息，消费者从消息队列拉取消息。<br><strong>要点</strong>：持久化的消息队列</p>
-<h2 id="Producer需要实现">2.1. Producer需要实现</h2><ul>
-<li><p>创建一个消息，给消息指定Topic（可以由多个Consumer消费）<br><code>BytesMessage createBytesMessageToTopic(String topic, byte[] body);</code></p>
-</li>
-<li><p>创建一个消息，给消息指定Queue（只能由一个Consumer消费）<br><code>BytesMessage createBytesMessageToQueue(String queue, byte[] body);</code></p>
-</li>
-<li><p>发送消息，message中应当包含目的地（Queue，Topic只能选其一），对于发往同一个Topic和Queue的message顺序要保持一致。<br><code>void send(Message message);</code></p>
-</li>
-</ul>
-<h2 id="PullConsumer需要实现">2.2. PullConsumer需要实现</h2><ul>
-<li>绑定到一个Queue，并订阅topics，即从这些topic和Queue读取消息。<br><code>void attachQueue(String queueName, Collection topics);</code></li>
-<li>规范要求实现阻塞的接口，由properties来设置阻塞时间，但本赛题不需要用到该特性， 请实现一个非阻塞(也即阻塞时间为0)调用, 也即没有消息则返回null<br><code>Message poll();</code></li>
-</ul>
-<h2 id="测试流程">2.3. 测试流程</h2><ul>
-<li>创建<code>Topic</code>，创建<code>Queue</code> 创建<code>Producer</code>，多个<code>Producer</code>创建指定<code>Topic</code>和指定<code>Queue</code>的Message，调用<code>send</code>方法发送</li>
-<li>将数据保存到磁盘中</li>
-<li><code>kill Producer</code>进程，另取进程进行消费<br>创建<code>PullConsumer</code>线程进行消费，一个<code>Consumer</code>对应一个线程，<code>Consumer</code>连接到一个<code>Queue</code>，可以订阅多个<code>Topic</code>。 </li>
-<li>不断的调用poll拉取队列的消息，直到完全读完，读取的消息要相对有序。</li>
-</ul>
-<p>补充：<br>一个<code>Producer</code>对应一个线程，线程先创建对应的Message，再将Message 发送到对应的队列或<code>topic</code>中，实际情况中会有多个<code>Producer</code>。 一个<code>Consumer</code>对应一个<code>Queue</code>，多个<code>Consumer</code>同时从队列中拉取消息。</p>
-<h2 id="技术难点">2.4. 技术难点</h2><ol>
-<li>大量的消息产生 </li>
-<li>并发写 </li>
-<li>并发读 </li>
-<li>序列化&amp;反序列化</li>
-</ol>
-<ol>
-<li>大量消息<br>首先根据题目描述，Produce过程会运行5分钟，这个过程中多线程进行消息的发送，然后再考虑将消息持久化。我用自己的程序测试了一下，（不是典型值，只作为参考，在文章的最后我会贴上我的一系列测试结果），多线程发送一亿条消息的时间为27s，而这一亿条消息占据磁盘的大小为将近4G！可以想象在5分钟内会产生多少的消息量，如何将消息存储，如何读取消息都将成为一个非常棘手的问题。</li>
-<li>并发写<br>并发写的问题也非常显而易见。我们一般情况下为了实现消息队列会选择使用一个List或数组来存储Producer产生的消息。这就引发了一个问题，怎样保证向同一个队列中发送消息的线程不产生竞争条件。</li>
-<li>并发读<br>最麻烦的一个部分，每个线程都需要读取磁盘上的消息内容，每个线程读取的位置又不尽相同，消息数又那么多不可能全部加载到内存中，这个问题曾让我伤透了脑筋，直到我遇到了mmap(后面详细介绍)。</li>
-<li>序列化和反序列化的问题<br>大赛刚开始时，我写了一个使用Java自身序列化来实现持久化的版本，这个版本的缺点非常显而易见，就是慢，而这个缺点又是极为致命的。我意识到我需要自己定制一个序列化协议来将消息转化为字节数组，再通过其他方式（如FileOutputStream）写入磁盘，同时再使用这个协议将其从磁盘中恢复。</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/13/OpenMessaging源码阅读1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/13/OpenMessaging源码阅读1/" itemprop="url">OpenMessaging源码阅读1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-13T15:29:31+08:00">
-                2017-05-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>考虑到自己记性实在太差，还是好好记笔记吧。<br>本节主要看以下几个接口：</p>
-<ul>
-<li>Meaasage</li>
-<li>Producer</li>
-<li>PullConsumer</li>
-</ul>
-<h1 id="Message-java">1. Message.java</h1><p>Message接口是所有OMS消息中的根接口。最常用的消息就是BytesMessage。</p>
-<p><strong>标准Message</strong><br>大多消息导向（message-oriented）的中间件（MOM）产品更趋向于将消息认做轻实体，这个轻实体包含一个header和一个body：</p>
-<ul>
-<li>header:包含用来路由和识别的信息域；</li>
-<li>body:包含将会被发送的应用信息；</li>
-</ul>
-<p><strong>本Message</strong><br>本消息是一个仅包含与具体消息对象相关的property(财产)的轻量级实体。主要包含以下几个方面：</p>
-<ul>
-<li>Header:所有消息都有同样的header域。header域的值用来给客户端(clients)和提供商（providers）唯一标示消息，以及路由消息。</li>
-<li>Properties(财产，特性)：每个消息都有一个消息自有的部分，这部分用来提供“应用定义(application-defined)”的property(财产)值。这一部分为支持“应用定义”消息的过滤提供了很有效的机制。</li>
-</ul>
-<p><strong>源码解读</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Message</span> </span>&#123;</div><div class="line">     <span class="comment">/*headers()返回Message对象的header域，返回值类型是keyValue。*/</span></div><div class="line">    <span class="function">KeyValue <span class="title">headers</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/*properties()返回消息自有的property域。返回值类型是keyValue。*/</span></div><div class="line">    <span class="function">KeyValue <span class="title">properties</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">     <span class="comment">/*putHeaders(String key, int value)将输入(String key, int value)全部传入header*/</span></div><div class="line">    <span class="comment">/*参数key:headers的关键字*/</span></div><div class="line">    <span class="comment">/*参数values:与key对应的值*/</span></div><div class="line">    <span class="function">Message <span class="title">putHeaders</span><span class="params">(String key, <span class="keyword">int</span> value)</span></span>;</div><div class="line">    <span class="function">Message <span class="title">putHeaders</span><span class="params">(String key, <span class="keyword">long</span> value)</span></span>;</div><div class="line">    <span class="function">Message <span class="title">putHeaders</span><span class="params">(String key, <span class="keyword">double</span> value)</span></span>;</div><div class="line">    <span class="function">Message <span class="title">putHeaders</span><span class="params">(String key, String value)</span></span>;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/*将key和value全部存入header*/</span></div><div class="line">    <span class="comment">/*参数key:headers的关键字*/</span></div><div class="line">    <span class="comment">/*参数values:与key对应的值*/</span></div><div class="line">    <span class="function">Message <span class="title">putProperties</span><span class="params">(String key, <span class="keyword">int</span> value)</span></span>;</div><div class="line">    <span class="function">Message <span class="title">putProperties</span><span class="params">(String key, <span class="keyword">long</span> value)</span></span>;</div><div class="line">    <span class="function">Message <span class="title">putProperties</span><span class="params">(String key, <span class="keyword">double</span> value)</span></span>;</div><div class="line">    <span class="function">Message <span class="title">putProperties</span><span class="params">(String key, String value)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="Producer-java">2. Producer.java</h1><p>Producer是一个用来发送消息的简单对象，它是<code>MessagingAccessPoint</code>的一个具体实现。<br><strong>创建Producer对象</strong>：<br><code>Producer</code>的具体实例是通过<code>MessagingAccessPoint#createProducer()</code>方法创建的。<br>这个方法提供了多种定点发送消息的方式，其中，目的地可以是<code>MessageHeader#TOPIC</code>或<code>MessageHeader#QUEUE</code>。</p>
-<p><strong>Producer#send(Message)</strong><br>同步定点发送消息方法。<br>当发送请求完成时，线程将会关闭(block)。</p>
-<p><strong>Producer#sendAsync(Message)</strong><br>异步定点发送消息方法。<br>当发送请求完成时，线程不会很快关闭，而会立即返回一个<code>Promise</code>作为发送结果。</p>
-<p><strong>Producer#sendOneway(Message)</strong><br>one way定点发送消息方法。<br>当发送请求完成时，线程不会很快关闭，而是立即返回。线程发起者不关心发送结果，同时server也对返回值没有责任。</p>
-<p><strong>源码解读</strong></p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Producer</span> <span class="keyword">extends</span> <span class="title">MessageFactory</span>, <span class="title">ServiceLifecycle</span> </span>&#123;</div><div class="line">     <span class="comment">/*返回本实例的properties*/</span></div><div class="line">     <span class="comment">/*返回值的变化不会反应在Producer本身上，并且这个变化可以用ResourceManager#setProducerProperties(String, KeyValue)来修改。（Changes to the return &#123;@code KeyValue&#125; are not reflected in physical &#123;@code Producer&#125;,and use &#123;@link ResourceManager#setProducerProperties(String, KeyValue)&#125; to modify.）*/</span></div><div class="line">    <span class="function">KeyValue <span class="title">properties</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/*同步定点发送message方法*/</span></div><div class="line">    <span class="comment">/*发送目的地应该预置在MessageHeader中。当然其它类型的header域也可以*/</span></div><div class="line">    <span class="comment">/*异常OMSRuntimeException：当由于内部原因发送失败时*/</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">send</span><span class="params">(Message message)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">send</span><span class="params">(Message message, KeyValue properties)</span></span>;<span class="comment">/*properties是属性值*/</span></div><div class="line"></div><div class="line">    <span class="comment">/*异步定点发送消息方法*/</span></div><div class="line">    <span class="comment">/*返回值是Promise类型。同时，登记过的PromiseListener将会被通知*/</span></div><div class="line">    <span class="function">Promise&lt;Void&gt; <span class="title">sendAsync</span><span class="params">(Message message)</span></span>;</div><div class="line">    <span class="function">Promise&lt;Void&gt; <span class="title">sendAsync</span><span class="params">(Message message, KeyValue properties)</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/*oneway定点发送消息方法*/</span></div><div class="line">    <span class="comment">/*无返回值，也没有thrown。因为oneway发送不在乎发送结果*/</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sendOneway</span><span class="params">(Message message)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sendOneway</span><span class="params">(Message message, KeyValue properties)</span></span>;</div><div class="line"></div><div class="line">    <span class="function">BatchToPartition <span class="title">createBatchToPartition</span><span class="params">(String partitionName)</span></span>;</div><div class="line"></div><div class="line">    <span class="function">BatchToPartition <span class="title">createBatchToPartition</span><span class="params">(String partitionName, KeyValue properties)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><h1 id="PullConsumer-java">3. PullConsumer.java</h1><p><code>PullConsumer</code>对象能从特定的队列中poll消息。而且支持通过‘ack’方式提交消费结果。</p>
-<p><strong>源码分析</strong></p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PullConsumer</span> </span>&#123;</div><div class="line">    <span class="comment">/*返回本PullConsumer实例的properties*/</span></div><div class="line">    <span class="comment">/* Changes to the return &#123;@code KeyValue&#125; are not reflected in physical &#123;@code PullConsumer&#125;,and use &#123;@link ResourceManager#setConsumerProperties(String, KeyValue)&#125; to modify.*/</span></div><div class="line">    <span class="function">KeyValue <span class="title">properties</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 规范要求实现阻塞的接口，由properties来设置阻塞时间，但本赛题不需要用到该特性，请实现一个非阻塞(也即阻塞时间为0)调用, 也即没有消息则返回null</div><div class="line">     */</div><div class="line"></div><div class="line">    <span class="comment">/*抽取下一条为本pullconsumer生产的消息*/</span></div><div class="line">    <span class="comment">/*除非一条消息被产生了，或者本pullConsumer被关闭了，本调用会一直block*/</span></div><div class="line">    <span class="comment">/*返回为本PullConsumer生产的下一条消息；当本PullConsumer被同时关闭时返回null*/</span></div><div class="line">    <span class="comment">/*当本PullConsumer由于一些内部原因而抽取下一条消息失败时，throw OMSRuntimeException*/</span></div><div class="line">    <span class="function">Message <span class="title">poll</span><span class="params">()</span></span>;</div><div class="line">    <span class="function">Message <span class="title">poll</span><span class="params">(<span class="keyword">final</span> KeyValue properties)</span></span>;<span class="comment">/*properties是一些参数*/</span></div><div class="line"></div><div class="line">    <span class="comment">/*用消息id回确认指定的已消费的消息*/</span></div><div class="line">    <span class="comment">/*若某消息已被接收，但还未被回确认，那它可能会被重新投递*/</span></div><div class="line">    <span class="comment">/*有OMSRuntimeException*/</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">ack</span><span class="params">(String messageId)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">ack</span><span class="params">(String messageId, <span class="keyword">final</span> KeyValue properties)</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/* 绑定到一个Queue，并订阅topics，即从这些topic读取消息*/</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">attachQueue</span><span class="params">(String queueName, Collection&lt;String&gt; topics)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2136,7 +2150,7 @@ messageStore.putMessage(topic或queue, message);
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-count">55</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

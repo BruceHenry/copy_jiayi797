@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="分类," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -90,32 +90,17 @@
 
 
 
-<meta name="description" content="1. SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。 #线性可分SVM 1.0.0.0.1. 概念复习 参考文献输入空间：输入所有可能的取值的集合 特征向量：每个具体的输入 特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。 输出空间：输出所有可能的取值的集合 1.0.0.0.2. 线性可分">
-<meta name="keywords" content="分类">
+<meta name="description" content="最近在做比赛，发现在工业上，很多分类问题的标签分布都是不平衡的。如参考文献标签倾斜修正方法记要所属，比如用分类器去判断x光片中的癌症，这是一个二元分类问题，由于癌症的比例是非常小的，比如0.001。那么，将这些样本放到大多数分类模型中训练，模型的表现会非常相似，将所有数据都预测为没有癌症，因为这样也可以得到99.999%的准确率。 1. 常见的解决办法参考文献解决真实世界问题：如何在不平衡类上使用">
+<meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SVM（一） 线性可分">
-<meta property="og:url" content="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/index.html">
+<meta property="og:title" content="不平衡类的处理">
+<meta property="og:url" content="http://yoursite.com/child/2017/06/10/不平衡类的处理/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="1. SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。 #线性可分SVM 1.0.0.0.1. 概念复习 参考文献输入空间：输入所有可能的取值的集合 特征向量：每个具体的输入 特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。 输出空间：输出所有可能的取值的集合 1.0.0.0.2. 线性可分">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-14-56-13.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-22-00.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-07-16.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-15-32.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-18-42.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-19-57.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-29-24.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-31-16.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-33-31.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-15-06-02.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-03.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-26.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-47.png">
-<meta property="og:updated_time" content="2017-05-24T06:32:49.449Z">
+<meta property="og:description" content="最近在做比赛，发现在工业上，很多分类问题的标签分布都是不平衡的。如参考文献标签倾斜修正方法记要所属，比如用分类器去判断x光片中的癌症，这是一个二元分类问题，由于癌症的比例是非常小的，比如0.001。那么，将这些样本放到大多数分类模型中训练，模型的表现会非常相似，将所有数据都预测为没有癌症，因为这样也可以得到99.999%的准确率。 1. 常见的解决办法参考文献解决真实世界问题：如何在不平衡类上使用">
+<meta property="og:updated_time" content="2017-06-10T10:07:18.393Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SVM（一） 线性可分">
-<meta name="twitter:description" content="1. SVM简介SVM - Support Vector Machines, 支持向量机。是二分类模型。 #线性可分SVM 1.0.0.0.1. 概念复习 参考文献输入空间：输入所有可能的取值的集合 特征向量：每个具体的输入 特征空间：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。 输出空间：输出所有可能的取值的集合 1.0.0.0.2. 线性可分">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png">
+<meta name="twitter:title" content="不平衡类的处理">
+<meta name="twitter:description" content="最近在做比赛，发现在工业上，很多分类问题的标签分布都是不平衡的。如参考文献标签倾斜修正方法记要所属，比如用分类器去判断x光片中的癌症，这是一个二元分类问题，由于癌症的比例是非常小的，比如0.001。那么，将这些样本放到大多数分类模型中训练，模型的表现会非常相似，将所有数据都预测为没有癌症，因为这样也可以得到99.999%的准确率。 1. 常见的解决办法参考文献解决真实世界问题：如何在不平衡类上使用">
 
 
 
@@ -143,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/"/>
+  <link rel="canonical" href="http://yoursite.com/child/2017/06/10/不平衡类的处理/"/>
 
 
 
 
 
-  <title>SVM（一） 线性可分 | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>不平衡类的处理 | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -289,7 +274,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/03/SVM（一） 线性可分/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/06/10/不平衡类的处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -306,7 +291,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SVM（一） 线性可分</h1>
+          <h1 class="post-title" itemprop="name headline">不平衡类的处理</h1>
         
 
         <div class="post-meta">
@@ -318,8 +303,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-03T11:05:48+08:00">
-                2017-03-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-10T15:26:36+08:00">
+                2017-06-10
               </time>
             
 
@@ -375,65 +360,78 @@
       
 
       
-        <h1 id="SVM简介">1. SVM简介</h1><p>SVM - Support Vector Machines, 支持向量机。是二分类模型。</p>
-<p>#线性可分SVM</p>
-<h5 id="概念复习-参考文献">1.0.0.0.1. 概念复习 参考文献</h5><p><em>输入空间</em>：输入所有可能的取值的集合</p>
-<p><em>特征向量</em>：每个具体的输入</p>
-<p><em>特征空间</em>：所有特征向量存在的空间。特征空间可以是输入空间，也可以由输入空间映射得到。模型定义在特征空间上。</p>
-<p><em>输出空间</em>：输出所有可能的取值的集合</p>
-<h5 id="线性可分SVM学习目标">1.0.0.0.2. 线性可分SVM学习目标</h5><p>在特征空间找到一个分离超平面 <code>wx+b=0</code> </p>
-<h5 id="SVM与PLA区别">1.0.0.0.3. SVM与PLA区别</h5><p>PLA:误分类最小策略，求得分离超平面。解不唯一。<br>线性可分SVM:间隔最大化，求得分离超平面。解唯一。</p>
-<h5 id="函数间隔和几何间隔">1.0.0.0.4. 函数间隔和几何间隔</h5><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-13-44-02.png" alt=""> </p>
+        <p>最近在做比赛，发现在工业上，很多分类问题的标签分布都是不平衡的。如参考文献<a href="http://bourneli.github.io/machine-learning/prml/2016/12/19/compensating-for-class-priors.html" target="_blank" rel="external">标签倾斜修正方法记要</a>所属，比如用分类器去判断x光片中的癌症，这是一个二元分类问题，由于癌症的比例是非常小的，比如0.001。那么，将这些样本放到大多数分类模型中训练，模型的表现会非常相似，将所有数据都预测为没有癌症，因为这样也可以得到99.999%的准确率。</p>
+<h1 id="常见的解决办法">1. 常见的解决办法</h1><p>参考文献<a href="https://www.jiqizhixin.com/articles/1dd8da6e-ae24-4fc5-ab90-ee39020bc5ff" target="_blank" rel="external">解决真实世界问题：如何在不平衡类上使用机器学习？</a>说，从不平衡数据中学习，是一项已被研究了 20 年之久的问题。它曾是许多论文、研讨会、特别议程的主题（一项最近的调查就有大约 220 个引用）。人们尝试了许多方法，但结果各不相同，所以至今没有得到明晰的答案。当数据科学家们第一次遇到这个问题，他们往往会问：「如果我的数据是不平衡的，我该怎么做？」而这一问题是没有固定答案的，就像你问「哪个学习算法是最好的」一样：<strong>答案取决于数据。</strong></p>
+<p>一般来说，有下面几种方法：</p>
 <ul>
-<li>一个点距离分离超平面的远近<code>|wx+b|</code> 是 分类预测的<strong>确信程度</strong>。例如将A分为0的确信度很高，而将C分为0的确信度较低</li>
-<li><code>wx+b</code>与<code>y</code>的符号一致，则分类正确</li>
-<li><strong>函数间隔</strong>：<code>y(wx+b)</code>，表示分类的正确性及确信度</li>
-<li><strong>超平面的函数间隔*</strong>：<code>min{y(wx+b)}</code></li>
-<li><strong>几何间隔</strong>：规范化<code>||w||=1</code>，即为$y(\frac{w}{||w||}\cdot x + \frac{b}{||w||})$，使得间隔固定。（因为w和b成比例增加时，超平面不会改变，但函数间隔会变大）</li>
+<li><p>什么也不做</p>
+</li>
+<li><p>通过某些方法使得数据更加平衡：</p>
+</li>
+<li><ul>
+<li>对少数类进行过采样</li>
 </ul>
-<p>#SVM基本算法</p>
-<h2 id="标准问题">1.1. 标准问题</h2><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-14-56-13.png" alt=""> </p>
-<h2 id="算法的推导">1.2. 算法的推导</h2><ul>
-<li>一开始的目标是：<br>– 目标：求得一个x，使得margin最大<br>– 条件：<br>— 每个点都被正确分类（<code>b</code>被塞入了<code>w</code>矩阵里）<br>— magin是最近的点的距离<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-22-00.png" alt=""> </li>
+</li>
+<li><ul>
+<li>对多数类进行欠采样</li>
 </ul>
+</li>
+<li><ul>
+<li>合成新的少数类</li>
+</ul>
+</li>
+<li><ul>
+<li>舍弃所有少数类，切换成一个异常检测框架。</li>
+</ul>
+</li>
+<li><p>在算法层面之上（或之后）：</p>
+</li>
+<li><ul>
+<li>调整类的权重（错误分类成本）</li>
+</ul>
+</li>
+<li><ul>
+<li>调整决策阈值</li>
+</ul>
+</li>
+<li><ul>
+<li>使已有的算法对少数类更加敏感</li>
+</ul>
+</li>
+<li><ul>
+<li>构造一个在不平衡数据上表现更好的全新算法。</li>
+</ul>
+</li>
+</ul>
+<h1 id="一种标签倾斜修正方法">2. 一种标签倾斜修正方法</h1><p>参考文献<a href="">Practical Lessons from Predicting Clicks on Ads at<br>Facebook</a>6.3指出，欠采样可以加快训练速度，提升模型表现。需要注意的是，就算数据被欠采样，其实也可以通过在欠采样空间中对预测结果进行修正。例如，在采样之前CTR只有0.1%，那么我们对负样本欠采样0.01，那么CTR就会变为10%。为了修正结果，使得CTR恢复到0.1%,我们可以通过公式：<br>$$q=\frac{p}{p+(1-p)/w}$$<br>其中，$p$是欠采样空间下预测的概率，<br>$w$是对负样本的采样率。</p>
+<p>在这里我决定先复习一下先验概率、后验概率</p>
+<h2 id="先验概率、后验概率">2.1. 先验概率、后验概率</h2><p><strong>先验概率</strong>是指事件尚未发生，对该事件发生的概率的估计，是在缺乏某个事情的情况下描述一个变量。<br>先验概率可以通过已知的关于事件本身的先验知识得到，蒙特卡洛方法也可以用于计算先验概率。<br><strong>后验概率</strong>是指在事件已经发生的条件下，求该事件发生原因是由某个因素引起的可能性的大小，是考虑一个事件之后的条件概率。<br>后验概率可以基于 贝叶斯定理，通过先验概率乘以似然度，再归一化得到。具体来说，贝叶斯公式：<br>$$P(h|D)=\frac{P(D|h)P(h)}{p(D)}$$<br>其中，$P(h)$为$h$的先验概率，$P(h|D)$为$h$的后验概率。<br>通常，事件A在事件B（发生）的条件下的概率，与事件B在事件A（发生）的条件下的概率是不一样的；然而，这两者是有确定的关系的，贝叶斯定理就是这种关系的陈述。贝叶斯公式的一个用途在于通过已知的三个概率函数推出第四个。</p>
+<h2 id="标签倾斜修正">2.2. 标签倾斜修正</h2><p>参考文献<a href="http://bourneli.github.io/machine-learning/prml/2016/12/19/compensating-for-class-priors.html" target="_blank" rel="external">标签倾斜修正方法记要</a>通过理论推导来验证这个结论。<br>上参考文献作者提到，PRML的1.5.4节中介绍了一种标签倾斜修正的方法。</p>
+<p>首先，你的模型必须是一个软分类器，即预测值为0到1之间的概率。假设输入向量x，预测标签$C_k$，那么可以用条件概率表示，即计算$p(C_k|x)$的概率。根据贝叶斯公式，条件概率可以如下变化：<br>$$p(C_k|x)=\frac{p(x|C_k)p(C_k)}{p(x)}$$</p>
+<p>上面是没有做重采样时，得到概率。当做重采样时，只是改变了标签$C_k$的先验概率$p(C_k)$，即将$p’(C_k)$，（其实就是标签$C_k$的先验分布而已）。而$p(x)$是条件$x$发生的概率，不会变化。$p(x|C_k)$是后验概率，也不会变化。【问题，为什么不变？】</p>
+<p>因为是对负样本进行了抽样，假设对负样本抽样比例为$w$，抽样后：</p>
+<p>$$n’(0)=n(0)\times w,n’(1)=n(1)$$</p>
+<p>易知：<br>$$p(1)=\frac{n(1)}{n(1)+n(0)}=\frac{n’(1)}{n’(1)+n’(0)/ w}$$<br>$$=\frac{p’}{p’+(1-p’)/w}$$<br>其中，$n(C_k)$表示$C_k$的个数</p>
+<p>我们推导出了先验概率$p’(C_k)$与$p(C_k)$的关系。那么，如果我们想修正$p(C_k|x)$，则：</p>
+<p>$$p(1|x) = \frac{p(x|1)p(1)}{p(x)} = \frac{p(x|1)p’(1)p(1)}{p(x)p’(1)}$$<br>$$=p’(1|x)\frac{p(1)}{p’(1)}=p’(1|x)\frac{p}{p’}$$</p>
+<p>而由之前的推导我们可知$p=\frac{p’}{p’+(1-p’)/w}$，代入得：<br>$$p(1|x)=p’(1|x)\frac{p}{p’}=p’(1|x)\frac{\frac{p’}{p’+(1-p’)/w}}{p’}$$<br>$$=p’(1|x)\frac{1}{p’+(1-p’)/w}$$</p>
+<p>需要注意的是，$p’(1|x)$是预测出来的概率，$p’$是抽样之后正样本的比例，而在我们的问题中，$p’$是未知的，因此我们假设$p’\approx p’(1|x)$，并记$q=p’(1|x)$则以上公式变为：</p>
+<p>$$p(1|x)=\frac{q}{q+(1-q)/w}$$</p>
+<h2 id="结论">2.3. 结论</h2><p>在欠采样中，假设对负样本采样率为$w$，则直接将结果按照如下公式修正即可：</p>
+<p>$$p=\frac{q}{q+(1-q)/w}$$</p>
+<p>其中：</p>
 <ul>
-<li><p>从距离的理解入手，如图所示<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-07-16.png" alt=""> </p>
-</li>
-<li><p><code>w</code>的理解<br>– 灰色是分割平面<br>– $x’$和$x’’$是平面上的两个点，则它俩满足$w^T X’ = -b$，$w^T x’’ = -b$<br>– 两式相减，得到 $w^T(x’’ - x’)=0$<br>– 则<strong><code>w</code>垂直于平面</strong>，即w是平面的法向量<br>– 那么dist是向量$x’ x’’$在<code>w</code>上的投影</p>
-</li>
+<li>$q$是在欠采样之后，模型预测出来的概率。</li>
+<li>$p$是修正后的概率。</li>
 </ul>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-15-32.png" alt=""> </p>
-<ul>
-<li><p>而<code>y(wx+b)&gt;0</code>，则距离可以表示为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-18-42.png" alt=""> </p>
-</li>
-<li><p>因此，新的算法目标为<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-19-57.png" alt=""> </p>
-</li>
-<li><p>归一化条件：<code>margin=y(wx+b)=1</code>,得到新目标<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-29-24.png" alt=""> </p>
-</li>
-<li><p>对目标进行放缩，方便解<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-31-16.png" alt=""> </p>
-</li>
-<li><p>再将最大化变为最小化，也拿走||w||的根号<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-33-31.png" alt=""> </p>
-</li>
-</ul>
-<h5 id="支持向量">1.2.0.0.1. 支持向量</h5><ul>
-<li>在线性可分的情况下，训练数据集的样本点中与分离超平面距离最近的样本点的实例，叫做<strong>支持向量</strong>（support vector）</li>
-<li>支持向量是使得约束条件等号成立的点</li>
-<li>决定分离超平面时，只有支持向量起作用，而其他点不起作用</li>
-<li>在H1，H2上的点就是支撑向量（很少，但很重要的点）</li>
-</ul>
-<h5 id="间隔-margin">1.2.0.0.2. 间隔 margin</h5><p>H1，H2之间，$margin=\frac{2}{||w||}$</p>
-<h5 id="间隔边界">1.2.0.0.3. 间隔边界</h5><p>H1，H2<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-03-15-06-02.png" alt=""> </p>
-<h2 id="标准问题的求解">1.3. 标准问题的求解</h2><ul>
-<li>目标是二次的，条件是线性的</li>
-<li><p>则这是一个二次规划问题，有固定的解</p>
-</li>
-<li><p>我们的标准问题：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-03.png" alt=""> </p>
-</li>
-<li><p>标准二次规划问题：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-26.png" alt=""> </p>
-</li>
-<li><p>系数代入：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-04-16-47-47.png" alt=""> </p>
-</li>
-</ul>
+<h1 id="参考文献">3. 参考文献</h1><ol>
+<li><a href="http://bourneli.github.io/machine-learning/prml/2016/12/19/compensating-for-class-priors.html" target="_blank" rel="external">标签倾斜修正方法记要</a></li>
+<li><a href="https://www.jiqizhixin.com/articles/1dd8da6e-ae24-4fc5-ab90-ee39020bc5ff" target="_blank" rel="external">解决真实世界问题：如何在不平衡类上使用机器学习？</a></li>
+<li><a href="https://mqshen.gitbooks.io/prml/content/" target="_blank" rel="external">PRML(《模式识别和机器学习》)翻译</a></li>
+<li><a href="http://bourneli.github.io/ml/2017/05/25/gdbt-lr-facebook-paper.html?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">GBDT特征转换+LR总结</a></li>
+<li><a href="http://sighingnow.github.io/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/prior_posterior_probability_and_estimation.html" target="_blank" rel="external">先验和后验概率以及估计</a></li>
+<li><a href="">Practical Lessons from Predicting Clicks on Ads at<br>Facebook</a></li>
+</ol>
 
       
     </div>
@@ -461,12 +459,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/分类/" rel="tag"># 分类</a>
-          
-        </div>
-      
 
       
         
@@ -476,18 +468,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/03/O2O优惠券预测——思路总结/" rel="next" title="O2O优惠券预测——思路总结">
-                <i class="fa fa-chevron-left"></i> O2O优惠券预测——思路总结
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/02/逻辑回归（Logistic-regression）/" rel="prev" title="逻辑回归（Logistic regression）">
-                逻辑回归（Logistic regression） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/08/微软讲座3-社会计算中的大数据研究/" rel="prev" title="微软讲座3-社会计算中的大数据研究">
+                微软讲座3-社会计算中的大数据研究 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -617,7 +605,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM简介"><span class="nav-text">1. SVM简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念复习-参考文献"><span class="nav-text">1.0.0.0.1. 概念复习 参考文献</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线性可分SVM学习目标"><span class="nav-text">1.0.0.0.2. 线性可分SVM学习目标</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SVM与PLA区别"><span class="nav-text">1.0.0.0.3. SVM与PLA区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#函数间隔和几何间隔"><span class="nav-text">1.0.0.0.4. 函数间隔和几何间隔</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准问题"><span class="nav-text">1.1. 标准问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的推导"><span class="nav-text">1.2. 算法的推导</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#支持向量"><span class="nav-text">1.2.0.0.1. 支持向量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#间隔-margin"><span class="nav-text">1.2.0.0.2. 间隔 margin</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#间隔边界"><span class="nav-text">1.2.0.0.3. 间隔边界</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准问题的求解"><span class="nav-text">1.3. 标准问题的求解</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的解决办法"><span class="nav-text">1. 常见的解决办法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一种标签倾斜修正方法"><span class="nav-text">2. 一种标签倾斜修正方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#先验概率、后验概率"><span class="nav-text">2.1. 先验概率、后验概率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签倾斜修正"><span class="nav-text">2.2. 标签倾斜修正</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-text">2.3. 结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">3. 参考文献</span></a></li></ol></div>
             
 
           </div>
