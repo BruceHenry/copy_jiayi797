@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/child/2017/04/14/linux常见命令/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="1. IO1.1. linux/windows互传需要安装：yum install -y lrzsz 从Windows上传文件[root@localhost src]# rz从Linux下载文件sz nginx-1.6.2.tar.gz 1.2. linux互传 从服务器下载文件 scp username@servername:/path/filename /tmp/local_destinati">
-<meta property="og:updated_time" content="2017-05-06T12:36:58.465Z">
+<meta property="og:updated_time" content="2017-06-15T10:03:02.906Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux常见命令">
 <meta name="twitter:description" content="1. IO1.1. linux/windows互传需要安装：yum install -y lrzsz 从Windows上传文件[root@localhost src]# rz从Linux下载文件sz nginx-1.6.2.tar.gz 1.2. linux互传 从服务器下载文件 scp username@servername:/path/filename /tmp/local_destinati">
@@ -383,7 +383,8 @@ unzip &quot;*.zip&quot;
 <p>中文无法输入问题解决<a href="http://www.jianshu.com/p/bf05fb3a4709" target="_blank" rel="external">解决Ubuntu下Sublime Text 3无法输入中文</a><br><a href="http://www.brightempty.com/?p=91" target="_blank" rel="external">装python包</a></p>
 <h1 id="nohup">8. nohup</h1><pre><code>nohup command &gt; nohup.out &amp;
 </code></pre><p>nohup相关：<br>将nohup后面的<code>command</code>设置成后台运行，并且将标准输出的日志重定向至文件nohup.out。<br>查看运行状态：jobs<br>查看日志内容：tail -f nohup.out (ctrl + c 退出查看)<br>查看进程信息：<br>ps -ef |grep java<br>ps -ef | grep rm<br>停止运行 kill %n<br>很好的参考文献：<a href="http://blog.sina.com.cn/s/blog_90546d6f0101en9y.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_90546d6f0101en9y.html</a></p>
-
+<h1 id="更改某个目录的权限">9. 更改某个目录的权限</h1><pre><code>chown -R -v ubuntu:ubuntu info
+</code></pre>
       
     </div>
 
@@ -503,7 +504,7 @@ unzip &quot;*.zip&quot;
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-count">56</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -525,7 +526,7 @@ unzip &quot;*.zip&quot;
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -560,7 +561,7 @@ unzip &quot;*.zip&quot;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO"><span class="nav-text">1. IO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-windows互传"><span class="nav-text">1.1. linux/windows互传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux互传"><span class="nav-text">1.2. linux互传</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件夹"><span class="nav-text">2. 文件夹</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#杂絮"><span class="nav-text">3. 杂絮</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解压"><span class="nav-text">4. 解压</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#批量解压-zip"><span class="nav-text">4.1. 批量解压.zip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量解压-tar-gz"><span class="nav-text">4.2. 批量解压.tar.gz</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vim"><span class="nav-text">5. vim</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VNC-tiger"><span class="nav-text">6. VNC-tiger</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用sublime搭建简单的python"><span class="nav-text">7. 用sublime搭建简单的python</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nohup"><span class="nav-text">8. nohup</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO"><span class="nav-text">1. IO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-windows互传"><span class="nav-text">1.1. linux/windows互传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux互传"><span class="nav-text">1.2. linux互传</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件夹"><span class="nav-text">2. 文件夹</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#杂絮"><span class="nav-text">3. 杂絮</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解压"><span class="nav-text">4. 解压</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#批量解压-zip"><span class="nav-text">4.1. 批量解压.zip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量解压-tar-gz"><span class="nav-text">4.2. 批量解压.tar.gz</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vim"><span class="nav-text">5. vim</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VNC-tiger"><span class="nav-text">6. VNC-tiger</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用sublime搭建简单的python"><span class="nav-text">7. 用sublime搭建简单的python</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nohup"><span class="nav-text">8. nohup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更改某个目录的权限"><span class="nav-text">9. 更改某个目录的权限</span></a></li></ol></div>
             
 
           </div>

@@ -271,6 +271,420 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/07/09/简单搜索引擎的实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/09/简单搜索引擎的实现/" itemprop="url">简单搜索引擎的实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T22:04:23+08:00">
+                2017-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/瞎折腾/" itemprop="url" rel="index">
+                    <span itemprop="name">瞎折腾</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这是很久以前的IRIE的期末大作业。现在贴在自己的博客上。</p>
+<p>实验要求：</p>
+<ol>
+<li>用爬虫采集特定网站的信息；</li>
+<li>设计实现信息检索与提取系统，对采集的信息进行检索提取；</li>
+<li>结合webpy与html实现界面展示。</li>
+</ol>
+<h1 id="相关知识">1. 相关知识</h1><h2 id="爬虫">1.1. 爬虫</h2><p>网络爬虫是捜索引擎抓取系统中重要的组成部分，其主要目的是将互联网上的网页下载到本地形成一个文件或互联网内容的镜像备份。流程如下：<br>a.  从给定的入口网址把第一个网页下载下来<br>b.  从第一个网页中提取出所有新的网页地址，放入下载列表中<br>c.  按下载列表中的地址，下载所有新的网页<br>d.  从所有新的网页中找出没有下载过的网页地址，更新下载列表<br>e.  重复3、4两步，直到更新后的下载列表为空表时停止<br>其实就是简化成下面的步骤：<br>a.  按下载列表进行下载<br>b.  更新下载列表<br>c.  循环操作a，b，直到列表为空结束<br>在本次作业中我们使用python编码实现爬虫的功能，其中用到的python组件有：<br>urllib2：用于获取URLs（Uniform Resource Locators）的组件，以urlopen函数的形式提供一个非常简单的接口，具有利用不同协议获取URLs的能力，同时提供了一个比较复杂的接口来处理一般情况，如：基础验证，cookies代理和其他。通过handlers和openers的对象提供。urllib2支持获取不同格式的URLs并利用它们相关网络协议（例如FTP，HTTP）进行获取。<br>BeautifulSoup：是python的一个库，最主要的功能是从网页抓取数据。它提供简单的、python式的函数用来处理导航、搜索、修改分析树等功能。可以通过解析文档为用户提供需要抓取的数据。在bs4库中导入。<br>Htmlparser：是一个开源项目，提供了线性和嵌套两种方式来解析网页，主要用于 html 网页的转换（Transformation）以及网页内容的抽取（Extraction）。HtmlParser 有如下一些易于使用的特性：过滤器（Filters），访问者模式（Visitors），处理自定义标签以及易于使用的 JavaBeans。<br>selenium ：是一个模拟浏览器，进行web的自动化测试的工具，它提供一组API可以与真实的浏览器内核交互。用于抓取js动态生成的页面。</p>
+<h2 id="信息检索系统模型">1.2. 信息检索系统模型</h2><p>信息检索系统的模型主要有布尔模型、向量模型和概率模型。其中布尔模型<br>是最早的IR模型，也是应用最广泛的模型，目前仍然应用于商业系统中，布尔模型查询简单但不支持部分匹配，很难控制被检索的文档数量；向量模型（VSM：Vector Space Model）是Salton在上世纪60年代提出的，成功应用于SMART（System for the Manipulation and Retrieval of Text）文本检索系统，其基于关键词，并根据关键词的出现频率计算相似度，向量模型中术语权重的算法提高了检索的性能，部分匹配的策略使得检索的结果文档集更接近用户的检索需求，同时可以根据结果文档对于查询串的相关度使用Cosine Ranking等公式对结果文档进行排序。<br>在本次作业中信息检索系统采用向量模型，根据相似度返回结果。</p>
+<h2 id="结巴（Jieba）分词">1.3. 结巴（Jieba）分词</h2><p>结巴（jieba）是一个可以对一段中文进行分词的插件，支持精确模式、全模式及搜索引擎模式三种分词模式，可以适应不同需求。其基本实现原理有：（1）基于Trie树结构实现高效的词图扫描，生成句子中汉字所有可能成词情况所构成的有向无环图（DAG）；（2）采用了动态规划查找最大概率路径, 找出基于词频的最大切分组合；（3）对于未登录词，采用了基于汉字成词能力的HMM模型，使用了Viterbi算法。</p>
+<h2 id="基于webpy界面设计网页">1.4. 基于webpy界面设计网页</h2><p>webpy 是一个轻量级Python web框架，可以快速的完成简单的web页面。在本次实验中使用webpy建立搜索网页，web.py 的模板语言叫做 Templetor，它能负责将 python 的强大功能传递给模板系统。本实验中使用template与html编写网页。</p>
+<h1 id="系统设计">2. 系统设计</h1><p>本次实验中信息检索与提取系统的整体设计流程如下图所示。主要包括抓取信息、分词、建立索引、建立向量模型、计算比较相似度、返回结果这六个过程，此外，我们基于webpy建立了搜索的网页界面，使查询过程更加简洁明了。下面具体介绍相应的模块。<br><img src="https://ooo.0o0.ooo/2017/07/09/596238be1b600.png" alt=""> </p>
+<p><strong>抓取信息</strong></p>
+<p>使用python编写爬虫程序抓取新浪网（<a href="http://news.sina.com.cn/）" target="_blank" rel="external">http://news.sina.com.cn/）</a><br>上的新闻，使用urllib2获取网页源代码，使用beautifulsoup和htmlparser解析网页获取网页中的新闻（标题、关键字、内容、日期），用selenium获取js动态生成的数据(评论数)。解析过的与未解析的链接分开标记。经过一段时间的抓取，共获得3000多条新闻信息，保存为txt文件，具体格式如下：<br><img src="https://ooo.0o0.ooo/2017/07/09/596238dc23fb4.png" alt=""><br>每条新闻包括标题、关键字、时间、网址、评论数（热度）等信息。</p>
+<p><strong>分词</strong><br>导入jieba分词模块，首先按是否为汉字、数字、英文字符及标点<br>符号对新闻内容进行梳理，去除掉信息缺失的数据，然后用jieba分词对title及description内容进行分词，得到如下txt文件；<br><img src="https://ooo.0o0.ooo/2017/07/09/596239055fe8a.png" alt=""><br><strong>建立索引</strong><br>对于所有的词，按照其在全部新闻中出现的情况建立倒排索引，将每个词与相应的新闻序号建立联系。<br><strong>建立向量模型</strong><br>结合建立的倒排索引表，计算每个新闻条目的向量，其中权重采用tf-idf算法生成，构建向量模型。<br><img src="https://ooo.0o0.ooo/2017/07/09/5962392041016.png" alt=""><br><strong>查询返回结果</strong><br>根据在query中输入的关键词与向量模型进行数量积计算相似度，根据相似度的大小将检索到的新闻按序列出。如：query中输入“南海，菲律宾”，得到的检索结果如下：<br><img src="https://ooo.0o0.ooo/2017/07/09/5962393a9743b.png" alt=""><br><strong>前后端实现</strong><br>基于webpy界面设计搜索网页，建立交互的界面。在之前系统设计的基<br>础上，在webpy框架下，利用templates模板语言将后台结果与前端界面进行交互，并在服务器端使用GET和POST函数与客户端web交互并传递参数传递参数，将搜索新闻在网页上呈现出来。其主要步骤为：（1）客户端发送get请求，触发服务端get()函数，调用index.html网页，返回给客户端。（2）客户端发送搜索关键字并通过post方式给服务端，触发服务端post()函数，post()函数将收到的关键字传入之前设计的搜索系统中，得到返回值新闻条目。（3）通过webpy传递给result.html，得到html网页后发给客户端。<br><img src="https://ooo.0o0.ooo/2017/07/09/5962395e27566.png" alt=""> </p>
+<h1 id="最终效果">3. 最终效果</h1><p>校内网网址：<a href="http://10.108.112.154:8080/" target="_blank" rel="external">http://10.108.112.154:8080/</a><br>例如想要查询与“习近平”“南海”相关的新闻，按下图输入，关键词之间要有空格。<br><img src="https://ooo.0o0.ooo/2017/07/09/5962397f56a5b.png" alt=""><br>点击search之后的网页界面如下，将我们之前抓取的与“习近平”及“南海”有关的新闻链接按照相似度大小排列，同时列出相应的时间、内容及热度。<br><img src="https://ooo.0o0.ooo/2017/07/09/59623992a4464.png" alt=""><br>如果输入的关键词并不在之前建立的索引中，则会出现如下界面：<br><img src="https://ooo.0o0.ooo/2017/07/09/596239a2c7fc9.png" alt=""> </p>
+<h1 id="遇到的问题及解决方法">4. 遇到的问题及解决方法</h1><p>•   对Python语言不熟悉、甚至0基础：<br>阅读相关书籍，掌握for循环，try\except异常处理，list  dict 等基本数据结构的操作及语法，文件读写操作，数学运算等，快速上手。<br>•   Python程序运行打印之后不输出：<br>import sys<br>reload(sys)<br>sys.setdefaultencoding(‘utf-8’)<br>•   获取网页速度慢：<br>if response.info().get(‘Content-Encoding’) == ‘gzip’:<br>    buf = StringIO(response.read())<br>    f = gzip.GzipFile(fileobj=buf)<br>下载压缩的网页，速度更快<br>•   获取网页异常时，程序中断，导致不能源源不断地爬取到需要的网页：<br>利用try/except处理异常。<br>try:<br>    …<br>except urllib2.HTTPError as e:  # 处理HTTP异常<br>    …<br>except urllib2.URLError as e:#处理URL异常<br>   …<br>except:#处理全部类型异常，使程序不中断<br>•   beautifulsoup解析网页内容不全，无法获取新闻网页中关于评论数目的信息：<br>查看网页源代码发现评论数是js动态生成的，beautifulsoup不能用于获取动态生成的数据，经查阅网上资料，返现selenium包可以用于解析网页中js动态生成的数据，我们首先获取新闻id，访问新浪新闻评论链接，找到其中评论数据。<br>commenturl = ‘<a href="http://comment5.news.sina.com.cn/comment/skin/default.html?channel=gn&amp;newsid=comos-" target="_blank" rel="external">http://comment5.news.sina.com.cn/comment/skin/default.html?channel=gn&amp;newsid=comos-</a>‘ + newsid<br>driver = webdriver.PhantomJS()<br>driver.set_page_load_timeout(30)#设置延时<br>driver.get(commenturl)#获取网页<br>comment = driver.find_element_by_class_name(‘f_red’).text#获取元素<br>•   selenium运行报错：<br>需要添加环境变量，将PhantomJS文件所在文件夹添加到$PATH文件下：sudo vi /etc/paths<br>•   搜索时建立索引过程耗费时间<br>预先建立好索引，存储在内存中，搜索时直接利用已经建立好的索引进行搜索。<br>•   为每条新闻数据、query建立向量并存储速度慢、由于字典集合很大，导致向量稀疏、耗费资源，另外进行向量乘法运算计算相似度时产生不必要的浪费：<br>仅为每条新闻数据建立字典，存储包含的词和tf-idf权重值，计算query和每一个新闻条目的相似度时，只需要对query中包含的关键词在新闻条目中的权值进行运算即可（因为其它位都是0），简化运算。<br>•   新闻条目数量庞大，query与新闻的匹配计算量大、效率低：<br>给定query时，我们先访问query中关键词在索引中的倒排列表，只对其中的新闻与query进行相似度计算、排序、返回最终结果，极大程度上过滤掉与query不相关的新闻条目。<br>•   字典创建无序，不能按创建顺序输出结果：<br>利用OrderedDict有序字典，能够记录下字典的创建顺序，有序输出结果dict= collections.OrderedDict()<br>•   搜索结果优化：搜索返回的结果题目中不包含关键词：<br>对在新闻题目中出现的关键词增加权重，使得题目与关键词匹配度越高的新闻排名越靠前，符合真实需求。<br>•   webpy不能直接调用Python中的函数：<br>在webpy模板首行定义一个变量$def with (posts) 在Python中计算后利用将参数传入，可以是任意类型。<br>•   webpy使用template时，路径设置：<br>render = web.template.render(‘templates/‘)<br>打开render下的index.html：<br>render.index() </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/07/09/转化率预估之贝叶斯平滑/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/09/转化率预估之贝叶斯平滑/" itemprop="url">转化率预估之贝叶斯平滑</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T20:11:32+08:00">
+                2017-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="问题描述">1. 问题描述</h1><p>在做比赛的过程中，我们发现了有转化率这个指标在大量数据下是有效的。理想情况下，例如某个广告点击量是10000次，转化量是100次，那转化率就是1%。但有时，例如某个广告点击量是2次，转化量是1次，这样算来转化率为50%。但此时这个指标在数学上是无效的。因为大数定律告诉我们，在试验不变的条件下，重复试验多次，随机事件的频率近似于它的概率。后者点击量只有2次，不满足“重复试验多次”的条件。</p>
+<p>那么如何解决这个问题呢？</p>
+<p><strong>整体思路</strong>：用估计值来模拟实际CVR。</p>
+<h1 id="解决方案">2. 解决方案</h1><p>实际上，广告妆化率是随着时间迁移和用户喜好变化而变化的。因此我们可以利用先验知识来持续性地调整CVR。<a href="https://zhuanlan.zhihu.com/p/21724759" target="_blank" rel="external">计算广告训练与平滑思想</a>给出了一个很好的解决方案：贝叶斯平滑。</p>
+<p>考虑到时序序列模型，我们把从第一天到第n天的所有先验知识汇总到第n天的结果，并以此来对第n+1天的CTR进行平滑。在广告平滑上，没有什么方法比贝叶斯平滑能够更好的利用先验知识了，而帮助贝叶斯平滑方法实现目标的就是Beta分布。Beta分布的强大之处在于，通过改变其中的两个参数α和β，你可以让Beta分布的图形变成任意形状，而且在加入先验知识前后，通过贝叶斯变换，对CTR的预估都可以表示为Beta分布。</p>
+<p>Beta分布中参数α和β的本质含义，即：α表示点击数，β表示曝光数。因为贝叶斯平滑的具体公式就是：</p>
+<p>$$SmoothCTR = \frac{(α + CurrentC - 1)}{( α + β + CurrentI -2)}$$</p>
+<p>能不能直接把历史点击和历史曝光分别赋值给α和β来进行计算呢？显然不行，因为这么做就会犯之前我们提到的那些问题，比如不同日期的曝光、点击权重应该不一样。所以基础的贝叶斯平滑是不能解决我们刚才提到的问题的，我们需要深入研究Beta分布的特性，用一种新的方法通过先验知识求解α和β，从而计算SmoothCTR。</p>
+<p>Beta分布除了两个显性的重要参数α和β外，还有两个相对隐形但同样重要的参数，平均值和中位数，通过平均值和众数可以唯一确定α和β的值，它们的数学关系如下：</p>
+<p>$$均值=\frac{\alpha}{\alpha+\beta}$$<br>$$众数=\frac{\alpha-1}{\alpha+\beta-2}$$</p>
+<p>因此，如果我们确定了平均值和中位数，那么α和β的值也就确定了（根据均值和中位数求解α和β的过程请读者自行推导），所以可以试着从平均值和中位数入手分析。让我们来看看beta分布的密度函数：<br><img src="https://ooo.0o0.ooo/2017/07/09/596235ef428c7.png" alt=""> </p>
+<p><strong>思路</strong></p>
+<p>把广告在某一次点击中是否被转化看做一个伯努利试验（每次发生都独立，且概率不变），我们重复进行多次这样的试验可以得到一个CVR估计。</p>
+<h1 id="参考文献">3. 参考文献</h1><ol>
+<li><a href="https://zhuanlan.zhihu.com/p/21724759" target="_blank" rel="external">计算广告训练与平滑思想</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/06/21/word-embedding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/21/word-embedding/" itemprop="url">word embedding</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-21T16:01:35+08:00">
+                2017-06-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><a href="https://zhuanlan.zhihu.com/p/24339183" target="_blank" rel="external">DNN论文分享 - Item2vec: Neural Item Embedding for Collaborative Filtering</a></li>
+<li><a href="https://view.inews.qq.com/a/20170428A07XNU00" target="_blank" rel="external">达观数据推荐算法实现：协同过滤之item embedding</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/06/10/不平衡类的处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -426,7 +840,7 @@
 <li>$q$是在欠采样之后，模型预测出来的概率。</li>
 <li>$p$是修正后的概率。</li>
 </ul>
-<p>当w=1时，变换其实为：</p>
+<p>当w=0.1时，变换其实为：</p>
 <p><img src="https://ooo.0o0.ooo/2017/06/10/593c0b680d2b7.png" alt=""> </p>
 <p>上面是y1=q(不做变换)，下面是本变换y2。</p>
 <p>而如果我们将y3=y1-y2绘出：<br><img src="https://ooo.0o0.ooo/2017/06/10/593c0bc5aa670.png" alt=""> </p>
@@ -445,341 +859,6 @@
 <li><a href="http://bourneli.github.io/ml/2017/05/25/gdbt-lr-facebook-paper.html?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">GBDT特征转换+LR总结</a></li>
 <li><a href="http://sighingnow.github.io/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/prior_posterior_probability_and_estimation.html" target="_blank" rel="external">先验和后验概率以及估计</a></li>
 <li><a href="">Practical Lessons from Predicting Clicks on Ads at<br>Facebook</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/06/08/微软讲座3-社会计算中的大数据研究/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/08/微软讲座3-社会计算中的大数据研究/" itemprop="url">微软讲座3-社会计算中的大数据研究</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T14:29:23+08:00">
-                2017-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="用户移动规律的理解">1. 用户移动规律的理解</h1><p><a href="">Reconstructing indivdual mobility from smart card transactions</a></p>
-<p>一般，在数据与目标之间会有一定的差距。</p>
-<p>用北京市公交卡数据</p>
-<p>【今日很烦躁，不想看了】</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/06/08/微软讲座-2-互联网搜索中的大数据/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/08/微软讲座-2-互联网搜索中的大数据/" itemprop="url">微软讲座-2-互联网搜索中的大数据</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T13:08:49+08:00">
-                2017-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本文是《 微软亚洲研究院大数据系列讲座》第二讲的笔记。</p>
-<h1 id="大规模超文本网络搜索引擎的解析">1. 大规模超文本网络搜索引擎的解析</h1><p>切入点：(论文)Google Architiecture(Logical View,1998)</p>
-<p>谷歌框架：爬取-&gt;索引-&gt;关键字搜索</p>
-<p>关键点：PageRank。用anchor text描述文档目标，利用文档之间的链接来对文档的重要性排序。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-08-13-13-29.png" alt=""> </p>
-<h2 id="搜索引擎的数据结构">1.1. 搜索引擎的数据结构</h2><p>目的：保存海量页面</p>
-<p><strong>文件存储</strong><br>方法：大文件设计为虚拟文件<br>结构：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-08-13-16-25.png" alt=""><br>同步码：页面数据长度的开始<br>页面长度：指定读取多少字节和压缩包<br>压缩包：ID，编码信息,URL等<br><strong>文件索引</strong></p>
-<ol>
-<li>根据ID</li>
-<li>根据URL</li>
-</ol>
-<p>词典：保存在内存中<br>单词、哈希表、指针等</p>
-<p>索引：</p>
-<ol>
-<li>正索引</li>
-<li>倒排索引</li>
-</ol>
-<p><strong>命中</strong></p>
-<p>记录命中信息、位置。以便在排序中利用命中来计算不同关键字之间的相关性。</p>
-<p>分类：</p>
-<ol>
-<li>普通命中</li>
-<li>特殊命中</li>
-</ol>
-<h2 id="爬虫">1.2. 爬虫</h2><p>提高效率方式：</p>
-<ol>
-<li>分布式方式</li>
-<li>域名服务器</li>
-</ol>
-<h2 id="索引">1.3. 索引</h2><p>建索引、排序</p>
-<h2 id="搜索过程">1.4. 搜索过程</h2><ol>
-<li>搜索引擎解析查询请求，将单词转化为单词ID</li>
-<li>对短桶中的每个单词都转到文档列表的开始，并获得所有文档列表。</li>
-<li>搜索引擎对每个查询请求计算文档排序，根据排序返回</li>
-</ol>
-<h1 id="搜索引擎如何实现每秒数千次的查询">2. 搜索引擎如何实现每秒数千次的查询</h1><p>步骤：</p>
-<p>用户输入查群-&gt;域名服务负载均衡-&gt;将HTTP请求分配到一个集群（考虑物理距离、可用性）</p>
-<p>细节：</p>
-<p>分配到某个集群后</p>
-<ol>
-<li>先查缓存（最近被查询过的）</li>
-<li>如果缓存没有，再去找</li>
-</ol>
-<h1 id="探寻搜索的多个维度">3. 探寻搜索的多个维度</h1><p>将查询维度定义为一组条目，每个条目描述或总结了一个查询的一个方面。</p>
-<p>DQminner：可以从查询结果中再次挖掘</p>
-<p>例：搜索手表，返回5个维度：</p>
-<ol>
-<li>手表品牌</li>
-<li>手表分类</li>
-<li>颜色</li>
-<li>等等</li>
-</ol>
-<p>利用搜索引擎、文本挖掘技术理解一个查询请求。</p>
-<p>汇总相关请求信息-&gt;为用户提供直接答案</p>
-<p>发现一个结论：</p>
-<ol>
-<li>查询请求的重要性由结果列表形式出现；</li>
-<li>重要性会在排序靠前的搜索中出现多次</li>
-</ol>
-<p>为了发现搜索请求的维度，我们设计了四个模块：</p>
-<ol>
-<li>列表提取<br>从搜索结果中提取列表</li>
-<li>列表加权<br>给权重，排序</li>
-<li>列表集群<br>聚类实现维度分类</li>
-<li>维度和项目排序</li>
 </ol>
 
           
@@ -1978,143 +2057,6 @@ messageStore.putMessage(topic或queue, message);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/16/转化率预估资料/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/16/转化率预估资料/" itemprop="url">转化率预估资料</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T13:36:42+08:00">
-                2017-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li><a href="http://www.flickering.cn/category/ads/" target="_blank" rel="external">火光摇曳</a></li>
-<li><a href="http://tech.meituan.com/tag/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" target="_blank" rel="external">美团点评技术团队</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2164,7 +2106,7 @@ messageStore.putMessage(topic或queue, message);
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-count">56</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2186,7 +2128,7 @@ messageStore.putMessage(topic或queue, message);
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
