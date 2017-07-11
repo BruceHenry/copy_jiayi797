@@ -1,0 +1,771 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="爬虫," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="这是很久以前的IRIE的期末大作业。现在贴在自己的博客上。 实验要求：  用爬虫采集特定网站的信息； 设计实现信息检索与提取系统，对采集的信息进行检索提取； 结合webpy与html实现界面展示。  1. 相关知识1.1. 爬虫网络爬虫是捜索引擎抓取系统中重要的组成部分，其主要目的是将互联网上的网页下载到本地形成一个文件或互联网内容的镜像备份。流程如下：a.  从给定的入口网址把第一个网页下载下来">
+<meta name="keywords" content="爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单搜索引擎的实现">
+<meta property="og:url" content="http://yoursite.com/child/2017/07/09/Python-简单搜索引擎的实现/index.html">
+<meta property="og:site_name" content="jiayi797的专栏">
+<meta property="og:description" content="这是很久以前的IRIE的期末大作业。现在贴在自己的博客上。 实验要求：  用爬虫采集特定网站的信息； 设计实现信息检索与提取系统，对采集的信息进行检索提取； 结合webpy与html实现界面展示。  1. 相关知识1.1. 爬虫网络爬虫是捜索引擎抓取系统中重要的组成部分，其主要目的是将互联网上的网页下载到本地形成一个文件或互联网内容的镜像备份。流程如下：a.  从给定的入口网址把第一个网页下载下来">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/09/596238be1b600.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/09/596238dc23fb4.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/09/596239055fe8a.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/09/5962392041016.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/09/5962393a9743b.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/09/5962395e27566.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/09/5962397f56a5b.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/09/59623992a4464.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/09/596239a2c7fc9.png">
+<meta property="og:updated_time" content="2017-07-11T07:58:58.726Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简单搜索引擎的实现">
+<meta name="twitter:description" content="这是很久以前的IRIE的期末大作业。现在贴在自己的博客上。 实验要求：  用爬虫采集特定网站的信息； 设计实现信息检索与提取系统，对采集的信息进行检索提取； 结合webpy与html实现界面展示。  1. 相关知识1.1. 爬虫网络爬虫是捜索引擎抓取系统中重要的组成部分，其主要目的是将互联网上的网页下载到本地形成一个文件或互联网内容的镜像备份。流程如下：a.  从给定的入口网址把第一个网页下载下来">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/07/09/596238be1b600.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/child/2017/07/09/Python-简单搜索引擎的实现/"/>
+
+
+
+
+
+  <title>简单搜索引擎的实现 | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">jiayi797的专栏</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/07/09/Python-简单搜索引擎的实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">简单搜索引擎的实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T22:04:23+08:00">
+                2017-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这是很久以前的IRIE的期末大作业。现在贴在自己的博客上。</p>
+<p>实验要求：</p>
+<ol>
+<li>用爬虫采集特定网站的信息；</li>
+<li>设计实现信息检索与提取系统，对采集的信息进行检索提取；</li>
+<li>结合webpy与html实现界面展示。</li>
+</ol>
+<h1 id="相关知识">1. 相关知识</h1><h2 id="爬虫">1.1. 爬虫</h2><p>网络爬虫是捜索引擎抓取系统中重要的组成部分，其主要目的是将互联网上的网页下载到本地形成一个文件或互联网内容的镜像备份。流程如下：<br>a.  从给定的入口网址把第一个网页下载下来<br>b.  从第一个网页中提取出所有新的网页地址，放入下载列表中<br>c.  按下载列表中的地址，下载所有新的网页<br>d.  从所有新的网页中找出没有下载过的网页地址，更新下载列表<br>e.  重复3、4两步，直到更新后的下载列表为空表时停止<br>其实就是简化成下面的步骤：<br>a.  按下载列表进行下载<br>b.  更新下载列表<br>c.  循环操作a，b，直到列表为空结束<br>在本次作业中我们使用python编码实现爬虫的功能，其中用到的python组件有：<br>urllib2：用于获取URLs（Uniform Resource Locators）的组件，以urlopen函数的形式提供一个非常简单的接口，具有利用不同协议获取URLs的能力，同时提供了一个比较复杂的接口来处理一般情况，如：基础验证，cookies代理和其他。通过handlers和openers的对象提供。urllib2支持获取不同格式的URLs并利用它们相关网络协议（例如FTP，HTTP）进行获取。<br>BeautifulSoup：是python的一个库，最主要的功能是从网页抓取数据。它提供简单的、python式的函数用来处理导航、搜索、修改分析树等功能。可以通过解析文档为用户提供需要抓取的数据。在bs4库中导入。<br>Htmlparser：是一个开源项目，提供了线性和嵌套两种方式来解析网页，主要用于 html 网页的转换（Transformation）以及网页内容的抽取（Extraction）。HtmlParser 有如下一些易于使用的特性：过滤器（Filters），访问者模式（Visitors），处理自定义标签以及易于使用的 JavaBeans。<br>selenium ：是一个模拟浏览器，进行web的自动化测试的工具，它提供一组API可以与真实的浏览器内核交互。用于抓取js动态生成的页面。</p>
+<h2 id="信息检索系统模型">1.2. 信息检索系统模型</h2><p>信息检索系统的模型主要有布尔模型、向量模型和概率模型。其中布尔模型<br>是最早的IR模型，也是应用最广泛的模型，目前仍然应用于商业系统中，布尔模型查询简单但不支持部分匹配，很难控制被检索的文档数量；向量模型（VSM：Vector Space Model）是Salton在上世纪60年代提出的，成功应用于SMART（System for the Manipulation and Retrieval of Text）文本检索系统，其基于关键词，并根据关键词的出现频率计算相似度，向量模型中术语权重的算法提高了检索的性能，部分匹配的策略使得检索的结果文档集更接近用户的检索需求，同时可以根据结果文档对于查询串的相关度使用Cosine Ranking等公式对结果文档进行排序。<br>在本次作业中信息检索系统采用向量模型，根据相似度返回结果。</p>
+<h2 id="结巴（Jieba）分词">1.3. 结巴（Jieba）分词</h2><p>结巴（jieba）是一个可以对一段中文进行分词的插件，支持精确模式、全模式及搜索引擎模式三种分词模式，可以适应不同需求。其基本实现原理有：（1）基于Trie树结构实现高效的词图扫描，生成句子中汉字所有可能成词情况所构成的有向无环图（DAG）；（2）采用了动态规划查找最大概率路径, 找出基于词频的最大切分组合；（3）对于未登录词，采用了基于汉字成词能力的HMM模型，使用了Viterbi算法。</p>
+<h2 id="基于webpy界面设计网页">1.4. 基于webpy界面设计网页</h2><p>webpy 是一个轻量级Python web框架，可以快速的完成简单的web页面。在本次实验中使用webpy建立搜索网页，web.py 的模板语言叫做 Templetor，它能负责将 python 的强大功能传递给模板系统。本实验中使用template与html编写网页。</p>
+<h1 id="系统设计">2. 系统设计</h1><p>本次实验中信息检索与提取系统的整体设计流程如下图所示。主要包括抓取信息、分词、建立索引、建立向量模型、计算比较相似度、返回结果这六个过程，此外，我们基于webpy建立了搜索的网页界面，使查询过程更加简洁明了。下面具体介绍相应的模块。<br><img src="https://ooo.0o0.ooo/2017/07/09/596238be1b600.png" alt=""> </p>
+<p><strong>抓取信息</strong></p>
+<p>使用python编写爬虫程序抓取新浪网（<a href="http://news.sina.com.cn/）" target="_blank" rel="external">http://news.sina.com.cn/）</a><br>上的新闻，使用urllib2获取网页源代码，使用beautifulsoup和htmlparser解析网页获取网页中的新闻（标题、关键字、内容、日期），用selenium获取js动态生成的数据(评论数)。解析过的与未解析的链接分开标记。经过一段时间的抓取，共获得3000多条新闻信息，保存为txt文件，具体格式如下：<br><img src="https://ooo.0o0.ooo/2017/07/09/596238dc23fb4.png" alt=""><br>每条新闻包括标题、关键字、时间、网址、评论数（热度）等信息。</p>
+<p><strong>分词</strong><br>导入jieba分词模块，首先按是否为汉字、数字、英文字符及标点<br>符号对新闻内容进行梳理，去除掉信息缺失的数据，然后用jieba分词对title及description内容进行分词，得到如下txt文件；<br><img src="https://ooo.0o0.ooo/2017/07/09/596239055fe8a.png" alt=""><br><strong>建立索引</strong><br>对于所有的词，按照其在全部新闻中出现的情况建立倒排索引，将每个词与相应的新闻序号建立联系。<br><strong>建立向量模型</strong><br>结合建立的倒排索引表，计算每个新闻条目的向量，其中权重采用tf-idf算法生成，构建向量模型。<br><img src="https://ooo.0o0.ooo/2017/07/09/5962392041016.png" alt=""><br><strong>查询返回结果</strong><br>根据在query中输入的关键词与向量模型进行数量积计算相似度，根据相似度的大小将检索到的新闻按序列出。如：query中输入“南海，菲律宾”，得到的检索结果如下：<br><img src="https://ooo.0o0.ooo/2017/07/09/5962393a9743b.png" alt=""><br><strong>前后端实现</strong><br>基于webpy界面设计搜索网页，建立交互的界面。在之前系统设计的基<br>础上，在webpy框架下，利用templates模板语言将后台结果与前端界面进行交互，并在服务器端使用GET和POST函数与客户端web交互并传递参数传递参数，将搜索新闻在网页上呈现出来。其主要步骤为：（1）客户端发送get请求，触发服务端get()函数，调用index.html网页，返回给客户端。（2）客户端发送搜索关键字并通过post方式给服务端，触发服务端post()函数，post()函数将收到的关键字传入之前设计的搜索系统中，得到返回值新闻条目。（3）通过webpy传递给result.html，得到html网页后发给客户端。<br><img src="https://ooo.0o0.ooo/2017/07/09/5962395e27566.png" alt=""> </p>
+<h1 id="最终效果">3. 最终效果</h1><p>校内网网址：<a href="http://10.108.112.154:8080/" target="_blank" rel="external">http://10.108.112.154:8080/</a><br>例如想要查询与“习近平”“南海”相关的新闻，按下图输入，关键词之间要有空格。<br><img src="https://ooo.0o0.ooo/2017/07/09/5962397f56a5b.png" alt=""><br>点击search之后的网页界面如下，将我们之前抓取的与“习近平”及“南海”有关的新闻链接按照相似度大小排列，同时列出相应的时间、内容及热度。<br><img src="https://ooo.0o0.ooo/2017/07/09/59623992a4464.png" alt=""><br>如果输入的关键词并不在之前建立的索引中，则会出现如下界面：<br><img src="https://ooo.0o0.ooo/2017/07/09/596239a2c7fc9.png" alt=""> </p>
+<h1 id="遇到的问题及解决方法">4. 遇到的问题及解决方法</h1><p>•   对Python语言不熟悉、甚至0基础：<br>阅读相关书籍，掌握for循环，try\except异常处理，list  dict 等基本数据结构的操作及语法，文件读写操作，数学运算等，快速上手。<br>•   Python程序运行打印之后不输出：<br>import sys<br>reload(sys)<br>sys.setdefaultencoding(‘utf-8’)<br>•   获取网页速度慢：<br>if response.info().get(‘Content-Encoding’) == ‘gzip’:<br>    buf = StringIO(response.read())<br>    f = gzip.GzipFile(fileobj=buf)<br>下载压缩的网页，速度更快<br>•   获取网页异常时，程序中断，导致不能源源不断地爬取到需要的网页：<br>利用try/except处理异常。<br>try:<br>    …<br>except urllib2.HTTPError as e:  # 处理HTTP异常<br>    …<br>except urllib2.URLError as e:#处理URL异常<br>   …<br>except:#处理全部类型异常，使程序不中断<br>•   beautifulsoup解析网页内容不全，无法获取新闻网页中关于评论数目的信息：<br>查看网页源代码发现评论数是js动态生成的，beautifulsoup不能用于获取动态生成的数据，经查阅网上资料，返现selenium包可以用于解析网页中js动态生成的数据，我们首先获取新闻id，访问新浪新闻评论链接，找到其中评论数据。<br>commenturl = ‘<a href="http://comment5.news.sina.com.cn/comment/skin/default.html?channel=gn&amp;newsid=comos-" target="_blank" rel="external">http://comment5.news.sina.com.cn/comment/skin/default.html?channel=gn&amp;newsid=comos-</a>‘ + newsid<br>driver = webdriver.PhantomJS()<br>driver.set_page_load_timeout(30)#设置延时<br>driver.get(commenturl)#获取网页<br>comment = driver.find_element_by_class_name(‘f_red’).text#获取元素<br>•   selenium运行报错：<br>需要添加环境变量，将PhantomJS文件所在文件夹添加到$PATH文件下：sudo vi /etc/paths<br>•   搜索时建立索引过程耗费时间<br>预先建立好索引，存储在内存中，搜索时直接利用已经建立好的索引进行搜索。<br>•   为每条新闻数据、query建立向量并存储速度慢、由于字典集合很大，导致向量稀疏、耗费资源，另外进行向量乘法运算计算相似度时产生不必要的浪费：<br>仅为每条新闻数据建立字典，存储包含的词和tf-idf权重值，计算query和每一个新闻条目的相似度时，只需要对query中包含的关键词在新闻条目中的权值进行运算即可（因为其它位都是0），简化运算。<br>•   新闻条目数量庞大，query与新闻的匹配计算量大、效率低：<br>给定query时，我们先访问query中关键词在索引中的倒排列表，只对其中的新闻与query进行相似度计算、排序、返回最终结果，极大程度上过滤掉与query不相关的新闻条目。<br>•   字典创建无序，不能按创建顺序输出结果：<br>利用OrderedDict有序字典，能够记录下字典的创建顺序，有序输出结果dict= collections.OrderedDict()<br>•   搜索结果优化：搜索返回的结果题目中不包含关键词：<br>对在新闻题目中出现的关键词增加权重，使得题目与关键词匹配度越高的新闻排名越靠前，符合真实需求。<br>•   webpy不能直接调用Python中的函数：<br>在webpy模板首行定义一个变量$def with (posts) 在Python中计算后利用将参数传入，可以是任意类型。<br>•   webpy使用template时，路径设置：<br>render = web.template.render(‘templates/‘)<br>打开render下的index.html：<br>render.index() </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/10/数学-矩阵相关知识复习/" rel="next" title="矩阵相关知识复习">
+                <i class="fa fa-chevron-left"></i> 矩阵相关知识复习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/09/机器学习实践-转化率预估之贝叶斯平滑/" rel="prev" title="转化率预估之贝叶斯平滑">
+                转化率预估之贝叶斯平滑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="jiayi797" />
+          <p class="site-author-name" itemprop="name">jiayi797</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#相关知识"><span class="nav-text">1. 相关知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#爬虫"><span class="nav-text">1.1. 爬虫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息检索系统模型"><span class="nav-text">1.2. 信息检索系统模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结巴（Jieba）分词"><span class="nav-text">1.3. 结巴（Jieba）分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于webpy界面设计网页"><span class="nav-text">1.4. 基于webpy界面设计网页</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#系统设计"><span class="nav-text">2. 系统设计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最终效果"><span class="nav-text">3. 最终效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#遇到的问题及解决方法"><span class="nav-text">4. 遇到的问题及解决方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jiayi797</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,963 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="矩阵分解," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1. LU分解条件如果n阶方阵A的各阶顺序主子式 ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU 其中k阶顺序主子式指  2. LU分解方法由于L存在可逆矩阵L’，即LL’=E则L’A=LL’U=U因此得出一般的分解方法：通过对(A,E)做初等行变换得到(U,L’),再由L’得到L. 其中：  L是单位下三角矩阵（对角线上的系数都为1的下三">
+<meta name="keywords" content="矩阵分解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="求线代方程的解">
+<meta property="og:url" content="http://yoursite.com/child/2017/03/30/数学-求线代方程的解/index.html">
+<meta property="og:site_name" content="jiayi797的专栏">
+<meta property="og:description" content="1. LU分解条件如果n阶方阵A的各阶顺序主子式 ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU 其中k阶顺序主子式指  2. LU分解方法由于L存在可逆矩阵L’，即LL’=E则L’A=LL’U=U因此得出一般的分解方法：通过对(A,E)做初等行变换得到(U,L’),再由L’得到L. 其中：  L是单位下三角矩阵（对角线上的系数都为1的下三">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-34-31.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-36-08.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-30-16-20-29.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-30-16-31-08.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-11-02-01.png">
+<meta property="og:updated_time" content="2017-07-11T07:24:37.733Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="求线代方程的解">
+<meta name="twitter:description" content="1. LU分解条件如果n阶方阵A的各阶顺序主子式 ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU 其中k阶顺序主子式指  2. LU分解方法由于L存在可逆矩阵L’，即LL’=E则L’A=LL’U=U因此得出一般的分解方法：通过对(A,E)做初等行变换得到(U,L’),再由L’得到L. 其中：  L是单位下三角矩阵（对角线上的系数都为1的下三">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-34-31.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/child/2017/03/30/数学-求线代方程的解/"/>
+
+
+
+
+
+  <title>求线代方程的解 | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">jiayi797的专栏</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/30/数学-求线代方程的解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">求线代方程的解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-30T14:48:21+08:00">
+                2017-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数学/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="LU分解条件">1. LU分解条件</h1><p>如果n阶方阵A的各阶顺序主子式<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-34-31.png" alt=""> ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU</p>
+<p>其中k阶顺序主子式指<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-36-08.png" alt=""> </p>
+<h1 id="LU分解方法">2. LU分解方法</h1><p>由于L存在可逆矩阵L’，即LL’=E<br>则L’A=LL’U=U<br>因此得出一般的分解方法：<br>通过对(A,E)做初等行变换得到(U,L’),再由L’得到L.</p>
+<p>其中：</p>
+<ol>
+<li>L是单位下三角矩阵（对角线上的系数都为1的下三角矩阵）；L’也是单位上三角矩阵；</li>
+<li>U是非奇异上三角矩阵；</li>
+</ol>
+<h1 id="求解方法">3. 求解方法</h1><p>对于一般的线性方程组：<br>$$Ax=b$$<br>如果我们能将A分解成$A=LU$,即一个下三角阵和一个上三角阵U的乘积，那原方程组的解x便可由下面两步得到：</p>
+<ol>
+<li>用前代法解$Ly=b$的y；<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-16-20-29.png" alt=""> </li>
+<li>用回代法解$Ux=y$的x.<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-16-31-08.png" alt=""> </li>
+</ol>
+<p>对于列主元消去法，求线性方程组$Ax=b$的计算过程可以按照以下步骤进行：</p>
+<ol>
+<li>求A的列主元LU分解$PA=LU$</li>
+<li>解下三角形方程组$Ly=Pb$</li>
+<li>解上三角形方程组$Ux=y$</li>
+</ol>
+<h1 id="实现">4. 实现</h1><p>前代法：<br>需要注意的是，回代法在计算的过程中需要考虑到主元位置序列，并同时对b进行调整。</p>
+<pre><code>double * forwardSub(double *lu,int n,double *b,int *p){
+    //double *y=new double[n];
+    double temp;
+      //按qivot对b行变换，与LU匹配
+      for(int i=0; i&lt;n-1; i++)  
+      {
+            temp = b[p[i]];
+            b[p[i]] = b[i];
+            b[i]=temp;
+      }
+    for(int i=0; i&lt;n; i++)
+            for(int j=0; j&lt;i; j++)
+                b[i]=b[i]-lu[n*i+j]*b[j];
+    b[n-1]=b[n-1];
+    return b;
+}
+</code></pre><p>回代法：<br>由于U是上三角矩阵，所以要从x[n-1]开始计算。</p>
+<pre><code>double * backSub(double *b,double *lu,int n){
+     for(int i=n-1; i&gt;=0; i--)
+      {
+            for(int j=n-1; j&gt;i; j--)
+                b[i]=b[i]-lu[n*i+j]*b[j];
+            b[i]=b[i]/lu[n*i+i];
+      }
+    return b;
+}
+</code></pre><p>计算：</p>
+<pre><code>bool guass(double *lu,int *p,double*b,int n){
+    double * y = forwardSub(lu,n,b,p);
+    double * x = backSub(y,lu,n);
+    std::cout&lt;&lt;endl&lt;&lt;&quot;the sulution is ; &quot;&lt;&lt;endl;
+    for(int i=0;i&lt;n;i++){
+        std::cout&lt;&lt;x[i]&lt;&lt;&quot;\t&quot;;
+    }
+    std::cout&lt;&lt;endl;
+}
+</code></pre><p>输出：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-11-02-01.png" alt=""> </p>
+<p>代码：</p>
+<pre><code>#include &lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstdlib&gt;
+#include&lt;iomanip&gt;
+#define LIM -100000000
+using namespace std;
+double *luReult;
+void printmat(double *mat,int n,string s){
+    std::cout&lt;&lt;endl&lt;&lt;endl&lt;&lt;s&lt;&lt;endl;
+    for(int i=0;i&lt;n;i++){
+        for(int j=0;j&lt;n;j++){
+            printf(&quot;%.5f\t&quot;,mat[i*n+j]);
+        }
+        std::cout&lt;&lt;endl;
+    }
+}
+void printarr(int *mat,int n,string s){
+    std::cout&lt;&lt;endl&lt;&lt;endl&lt;&lt;s&lt;&lt;endl;
+    for(int i=0;i&lt;n;i++){
+        std::cout&lt;&lt;mat[i]&lt;&lt;&quot;\t&quot;;
+        //printf(&quot;%s\t&quot;,mat[i]);
+    }
+}
+int findMainNumber(double *a,int n,int r){
+    float maxa=-99999;
+    int maxaIdx=-1;
+    //printmat(a,n,&quot;a is now :&quot;);
+    for(int i=r;i&lt;n;i++){
+        if(a[i*n+r]&gt;maxa){
+            maxa=a[i*n+r];
+            maxaIdx=i;
+        }
+    }
+    return maxaIdx;
+}
+void exchange(double *a,int n,int e,int r){
+    float temp=0;
+    for(int i=0;i&lt;n;i++){
+        temp = a[r*n+i];
+        a[r*n+i]=a[e*n+i];
+        a[e*n+i]=temp;
+    }
+}
+bool lu(double* a, int* pivot, int n)//矩阵LU分解
+{
+      for(int k=0;k&lt;n;k++){
+        //寻找第k列的主元
+        int p = findMainNumber(a,n,k);
+        exchange(a,n,p,k);//交换k行和p行
+        pivot[k]=p;//记录置换矩阵p
+        if(a[k*n+k]!=0){
+                for(int i=k+1;i&lt;n;i++){//部分下三角L
+                    a[i*n+k]=a[i*n+k]/a[k*n+k];
+                }
+                for(int i=k+1;i&lt;n;i++){//计算上三角U
+                    for(int j=k+1;j&lt;n;j++){
+                        a[i*n+j]=a[i*n+j]-a[i*n+k]*a[k*n+j];
+                    }
+                }
+        }else{
+            return true;//矩阵奇异
+        }
+      }
+      /*
+      //计算下三角L
+      double temp=0;
+       for(int i=0; i&lt;n-2; i++)//i行k列
+            for(int k=i+1; k&lt;n-1;k++)
+            {
+                    temp=a[n*pivot[k] + i];
+                    a[n*pivot[k] + i]=a[k*n + i];
+                    a[k*n + i]=temp;
+            }
+        */
+      luReult=a;
+      printmat(a,n,&quot;lu&quot;);
+      return false ;
+}
+double radio(int a,int b){
+    return (double)(a)/(double)(b);
+}
+void buildHilbert(double *a,double *b,int n){
+    for(int r=0;r&lt;n;r++){
+        for(int j=0;j&lt;n;j++){
+            a[r*n+j]=radio(1,j+r+1);
+            b[r]=b[r]+a[r*n+j];
+        }
+    }
+}
+void exchangeb(double *b,int n,int r,int e){
+    double temp=0;
+    temp=b[e];
+    b[e]=b[r];
+    b[r]=temp;
+    /*r(int i=0;i&lt;n;i++){
+        temp=b[r*n+i];
+        b[r*n+i]=b[e*n+i];
+        b[e*n+i]=temp;
+    }*/
+}
+double * forwardSub(double *lu,int n,double *b,int *p){
+    //double *y=new double[n];
+    double temp;
+      //按qivot对b行变换，与LU匹配
+      for(int i=0; i&lt;n-1; i++)
+      {
+            temp = b[p[i]];
+            b[p[i]] = b[i];
+            b[i]=temp;
+      }
+    for(int i=0; i&lt;n; i++)
+            for(int j=0; j&lt;i; j++)
+                b[i]=b[i]-lu[n*i+j]*b[j];
+    b[n-1]=b[n-1];
+    return b;
+}
+
+double * backSub(double *b,double *lu,int n){
+     for(int i=n-1; i&gt;=0; i--)
+      {
+            for(int j=n-1; j&gt;i; j--)
+                b[i]=b[i]-lu[n*i+j]*b[j];
+            b[i]=b[i]/lu[n*i+i];
+      }
+    return b;
+}
+
+bool guass(double *lu,int *p,double*b,int n){
+    double * y = forwardSub(lu,n,b,p);
+    double * x = backSub(y,lu,n);
+    std::cout&lt;&lt;endl&lt;&lt;&quot;the sulution is ; &quot;&lt;&lt;endl;
+    for(int i=0;i&lt;n;i++){
+        std::cout&lt;&lt;x[i]&lt;&lt;&quot;\t&quot;;
+    }
+    std::cout&lt;&lt;endl;
+}
+int main()
+{
+    int n=6;//矩阵是n*n的
+    double *b=new double[n];
+    double *a=new double[n*n];
+    /*double input[n*n]={0.001,1.00,1.00,2.00};
+    a=input;
+    double inputb[n]={1.00,3.00};
+    b=inputb;*/
+    buildHilbert(a,b,n);
+    printmat(a,n,&quot;a:&quot;);
+    int *pivot=new int[n*n];
+    luReult=new double[n*n];
+    lu(a,pivot,n);
+    printarr(pivot,n,&quot;p:&quot;);
+     guass(luReult,pivot,b,n);
+    //cout &lt;&lt; &quot;Hello world!&quot; &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/矩阵分解/" rel="tag"># 矩阵分解</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/31/数学-QR分解/" rel="next" title="QR分解">
+                <i class="fa fa-chevron-left"></i> QR分解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/29/数学-矩阵LU分解/" rel="prev" title="矩阵LU分解及其实现">
+                矩阵LU分解及其实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="jiayi797" />
+          <p class="site-author-name" itemprop="name">jiayi797</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LU分解条件"><span class="nav-text">1. LU分解条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LU分解方法"><span class="nav-text">2. LU分解方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#求解方法"><span class="nav-text">3. 求解方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-text">4. 实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jiayi797</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
