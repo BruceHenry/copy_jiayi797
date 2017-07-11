@@ -361,79 +361,18 @@
       
         
           
-            <h1 id="producer操作">1. producer操作</h1><p>tips:以下涉及到的代码是关键步骤代码。</p>
-<ol>
-<li><p>====================构造n个<strong>Topic</strong>和n个<strong>Queue</strong>====================</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">String topic1 = <span class="string">"TOPIC1"</span>; <span class="comment">//实际测试时大概会有100个Topic左右</span></div><div class="line">String queue2 = <span class="string">"QUEUE2"</span>; <span class="comment">//实际测试时，queue数目与消费线程数目相同</span></div><div class="line">List&lt;Message&gt; messagesForTopic1 = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">1024</span>);</div><div class="line">List&lt;Message&gt; messagesForQueue1 = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">1024</span>);</div></pre></td></tr></table></figure>
-</li>
-<li><p>====================向Topic和Queue中<strong>create</strong>数据====================</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">messagesForTopic1.add(producer.createBytesMessageToTopic(topic1,  (topic1 + i).getBytes()));</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<ul>
-<li>调用<code>producer</code>的<code>producer.createBytesMessageToTopic()</code>方法来创建<code>BytesMessage</code></li>
-<li>将上一步产生的标准消息扔进messagesForTopic1中，即调用了每个<code>messagesForTopic1.add()</code>来向这个<code>Topic</code>中添加消息</li>
-</ul>
-<p>需要注意的是：</p>
-<ul>
-<li>messageFactory,而createBytesMessageToTopic()正是通过messageFactory.createBytesMessageToTopic(topic, body);来创建消息；</li>
-<li>messageFactory.createBytesMessageToTopic(topic, body);仅仅只是将消息的body和header放入了一个defaultBytesMessage类型的消息中，并返回</li>
-<li>每个producer对应一个messageStore<br><strong>总结：这一步将producer产生的数据放入消息列表messagesForTopic/Queue中</strong></li>
-</ul>
-<p>3.====================<strong>send</strong>数据====================</p>
-<p>方式：</p>
-<pre><code>producer.send(messagesForTopic1.get(i));
-</code></pre><p>然后<code>send()</code>内部是：</p>
-<pre><code>String topic = message.headers().getString(MessageHeader.TOPIC);
-messageStore.putMessage(topic或queue, message);
-</code></pre><p>需要注意的是：</p>
-<ul>
-<li>每个producer有一个messageStore，通过调用它的putMessage()来进行发送消息（将消息存储在硬盘中）</li>
-<li>MessageStore类有一个成员变量<code>Map &lt;String, ArrayList&lt;Message&gt;&gt; messageBuckets</code>用来装消息，其中键是topic或queue的名字，值是new ArrayList&lt;&gt;(1024)(这里有一点疑问？)</li>
-</ul>
-<p>而putMessage：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">putMessage</span><span class="params">(String bucket, Message message)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!messageBuckets.containsKey(bucket)) &#123;</div><div class="line">        messageBuckets.put(bucket, <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">1024</span>));</div><div class="line">    &#125;</div><div class="line">    ArrayList&lt;Message&gt; bucketList = messageBuckets.get(bucket);</div><div class="line">    bucketList.add(message);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><ul>
-<li>如果本messageStore的messageBuckets没有本bucket(Topic或Queue)，则将这个buket加入到messageBuckets中,并使得其键值为new ArrayList&lt;&gt;(1024)</li>
-<li>从本messageBuckets拿出(get)本bucket，放入消息列表bucketList中</li>
-<li>再将本message加入消息列表bucketList</li>
-</ul>
-<p><strong>总结：将Topic或Queue放入MessageStore的messageBuckets中，将消息体放入bMessageStore的ucketList中</strong></p>
-<h1 id="consumer操作">2. consumer操作</h1><ol>
-<li>====================进行消息订阅<strong>attach</strong>====================</li>
-</ol>
-<p>操作：</p>
-<pre><code>consumer1.attachQueue(queue1, Collections.singletonList(topic1));
-</code></pre><p>备注：</p>
-<ul>
-<li>singletonList(T) 方法用于返回一个只包含指定对象的不可变列表</li>
-</ul>
-<p>然后DefaultPullConsumer的attachQueue如下：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">attachQueue</span><span class="params">(String queueName, Collection&lt;String&gt; topics)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (queue != <span class="keyword">null</span> &amp;&amp; !queue.equals(queueName)) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ClientOMSException(<span class="string">"You have alreadly attached to a queue "</span> + queue);</div><div class="line">    &#125;</div><div class="line">    queue = queueName;</div><div class="line">    buckets.add(queueName);</div><div class="line">    buckets.addAll(topics);</div><div class="line">    bucketList.clear();</div><div class="line">    bucketList.addAll(buckets);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><ul>
-<li>buckets是DefaultPullConsumer的一个成员变量：private Set<string> buckets = new HashSet&lt;&gt;();</string></li>
-<li>bucketList是DefaultPullConsumer的一个成员变量：private List<string> bucketList = new ArrayList&lt;&gt;();</string></li>
-<li>将本queue以及其下的所有topic都加入到buckets中</li>
-<li>将bukets都加入到bucketList中</li>
-</ul>
-<p>2.====================进行消息拉取<strong>pull</strong>====================</p>
-<p>操作：</p>
-<p>Message message = consumer1.poll();</p>
-<p>其中，poll为：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> Message <span class="title">poll</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (buckets.size() == <span class="number">0</span> || queue == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//use Round Robin</span></div><div class="line">    <span class="keyword">int</span> checkNum = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span> (++checkNum &lt;= bucketList.size()) &#123;</div><div class="line">        String bucket = bucketList.get((++lastIndex) % (bucketList.size()));</div><div class="line">        Message message = messageStore.pullMessage(queue, bucket);</div><div class="line">        <span class="keyword">if</span> (message != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span> message;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><ul>
-<li>遍历每个bucketList（bucketList装的是本consumer订阅的topics以及对应的queue）</li>
-<li>对遍历到的每个bucket，从messageStore拉取消息</li>
-</ul>
-<p>而 messageStore.pullMessage为：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> Message <span class="title">pullMessage</span><span class="params">(String queue, String bucket)</span> </span>&#123;</div><div class="line">    ArrayList&lt;Message&gt; bucketList = messageBuckets.get(bucket);</div><div class="line">    <span class="keyword">if</span> (bucketList == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    HashMap&lt;String, Integer&gt; offsetMap = queueOffsets.get(queue);</div><div class="line">    <span class="keyword">if</span> (offsetMap == <span class="keyword">null</span>) &#123;</div><div class="line">        offsetMap = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">        queueOffsets.put(queue, offsetMap);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> offset = offsetMap.getOrDefault(bucket, <span class="number">0</span>);</div><div class="line">    <span class="keyword">if</span> (offset &gt;= bucketList.size()) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    Message message = bucketList.get(offset);</div><div class="line">    offsetMap.put(bucket, ++offset);</div><div class="line">    <span class="keyword">return</span> message;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><ul>
-<li>先从messageStore的messageBuckets中get到本bucket的bucketList</li>
-<li>将这个consumer绑定的queue放入本messageStore的queueOffsets中</li>
-<li>然后我就有点疑惑了？？</li>
-</ul>
+          1. producer操作tips:以下涉及到的代码是关键步骤代码。
 
-          
+====================构造n个Topic和n个Queue====================
+ 1234String topic1 = "TOPIC1"; //实际测试时大概会有100个Topic左右String queue2 = "QUEUE2"; //实际测试时，queue数目与消费线程数目相同List&lt;Message&gt; messagesForTopic1 = new ArrayList&lt;&gt;(1024);List&lt;Message&gt; messagesForQueu
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/19/OpenMessaging源码阅读2-demo/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -565,54 +504,26 @@ messageStore.putMessage(topic或queue, message);
       
         
           
-            <p>RocketMQ:分布式开放消息系统</p>
-<h1 id="消息中间件需要解决哪些问题？">1. 消息中间件需要解决哪些问题？</h1><h2 id="发布订阅（Publish-Subscribe）">1.1. 发布订阅（Publish/Subscribe）</h2><p>发布订阅是消息中间件的最基本功能，也是相对于传统RPC通信而言。在此不再详述。</p>
-<h2 id="消息优先级（Message-Priority）">1.2. 消息优先级（Message Priority）</h2><p>两种方式：</p>
-<ol>
-<li>严格优先级，例如0-65535。开销大，精准，但可能没有必要。</li>
-<li>档位优先级。高、中、低，或其他。每个优先级可以用不同的topic表示，发消息时，指定不同的topic来表示优先级。精确性低。</li>
-</ol>
-<h2 id="消息有序性（Message-Order）">1.3. 消息有序性（Message Order）</h2><ol>
-<li>一个订单的发出的消息顺序不能变</li>
-<li>订单之间是可以并行消费</li>
-</ol>
-<h2 id="消息过滤（Message-Filter）">1.4. 消息过滤（Message Filter）</h2><h3 id="消息协商器（Broker端）消息过滤">1.4.1. 消息协商器（Broker端）消息过滤</h3><p>在Broker中，按照Consumer的要求做过滤</p>
-<ol>
-<li>优点是减少了对于Consumer无用消息的网络传输。</li>
-<li>缺点是增加了Broker的负担，实现相对复杂。</li>
-</ol>
-<p>淘宝Notify支持多种过滤方式：<br>包含直接按照消息类型过滤，灵活的语法表达式过滤，几乎可以满足最苛刻的过滤需求。</p>
-<p>淘宝RocketMQ支持按照简单的Message Tag过滤，也支持按照Message Header、body进行过滤。</p>
-<p>CORBA Notification规范中也支持灵活的语法表达式过滤。</p>
-<h3 id="Consumer端消息过滤">1.4.2. Consumer端消息过滤</h3><p>这种过滤方式可由应用完全自定义实现，但是缺点是很多无用的消息要传输到Consumer端。</p>
-<h3 id="消息持久化（Message-Persistence）">1.4.3. 消息持久化（Message Persistence）</h3><p>持久化（Persistence）：即把数据（如内存中的对象）保存到可永久保存的存储设备中（如磁盘）。持久化的主要应用是将内存中的对象存储在数据库中，或者存储在磁盘文件中、XML数据文件中等等。</p>
-<p>消息中间件通常采用的几种持久化方式：</p>
-<ol>
-<li>持久化到数据库，例如Mysql。</li>
-<li>持久化到KV存储，例如levelDB、伯克利DB等KV存储系统。</li>
-<li>文件记录形式持久化，例如Kafka，RocketMQ</li>
-<li>对内存数据做一个持久化镜像，例如beanstalkd，VisiNotify</li>
-<li>(1)、(2)、(3)三种持久化方式都具有将内存队列Buffer进行扩展的能力，(4)只是一个内存的镜像，作用是当Broker挂掉重启后仍然能将之前内存的数据恢复出来。</li>
-</ol>
-<p>JMS与CORBA Notification规范没有明确说明如何持久化，但是持久化部分的性能直接决定了整个消息中间件的性能。</p>
-<p>RocketMQ充分利用Linux文件系统内存cache来提高性能。</p>
-<h3 id="消息可靠性（Message-Reliablity）">1.4.4. 消息可靠性（Message Reliablity）</h3><p>响消息可靠性的几种情况：</p>
-<ol>
-<li>Broker正常关闭</li>
-<li>Broker异常Crash</li>
-<li>OS Crash</li>
-<li>机器掉电，但是能立即恢复供电情况。</li>
-<li>机器无法开机（可能是cpu、主板、内存等关键设备损坏）</li>
-<li>磁盘设备损坏</li>
-</ol>
-<p>(1)、(2)、(3)、(4)四种情况都属于硬件资源可立即恢复情况，RocketMQ在这四种情况下能保证消息不丢，或者丢失少量数据（依赖刷盘方式是同步还是异步）。</p>
-<p>(5)、(6)属于单点故障，且无法恢复，一旦发生，在此单点上的消息全部丢失。RocketMQ在这两种情况下，通过异步复制，可保证99%的消息不丢，但是仍然会有极少量的消息可能丢失。通过同步双写技术可以完全避免单点，同步双写势必会影响性能，适合对消息可靠性要求极高的场合，例如与Money相关的应用。</p>
-<p>RocketMQ从3.0版本开始支持同步双写。</p>
-<h1 id="参考文献">2. 参考文献</h1><ol>
-<li><a href="http://jm.taobao.org/2017/01/12/rocketmq-quick-start-in-10-minutes/" target="_blank" rel="external">十分钟入门RocketMQ</a></li>
-</ol>
+          RocketMQ:分布式开放消息系统
+1. 消息中间件需要解决哪些问题？1.1. 发布订阅（Publish/Subscribe）发布订阅是消息中间件的最基本功能，也是相对于传统RPC通信而言。在此不再详述。
+1.2. 消息优先级（Message Priority）两种方式：
 
-          
+严格优先级，例如0-65535。开销大，精准，但可能没有必要。
+档位优先级。高、中、低，或其他。每个优先级可以用不同的topic表示，发消息时，指定不同的topic来表示优先级。精确性低。
+
+1.3. 消息有序性（Message Order）
+一个订单的发出的消息顺序不能变
+订单之间是可以并行消费
+
+1.4. 消息过滤（
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/17/RocketMQ简介/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -744,12 +655,19 @@ messageStore.putMessage(topic或queue, message);
       
         
           
-            <ol>
-<li><a href="http://www.flickering.cn/category/ads/" target="_blank" rel="external">火光摇曳</a></li>
-<li><a href="http://tech.meituan.com/tag/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" target="_blank" rel="external">美团点评技术团队</a></li>
-</ol>
+          
+火光摇曳
+美团点评技术团队
+
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/16/转化率预估资料/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -881,44 +799,23 @@ messageStore.putMessage(topic或queue, message);
       
         
           
-            <h1 id="参考资料">1. 参考资料</h1><ol>
-<li><a href="http://blog.jesonlee.me/19/" target="_blank" rel="external">李健胜，阿里中间件大赛初赛解题思路</a></li>
-<li><a href="https://github.com/Jesonlee1997/open-message" target="_blank" rel="external">1对应的代码</a></li>
-</ol>
-<h1 id="题目要求">2. 题目要求</h1><p><strong>主角</strong>：消息中间件<br><strong>目的</strong>：实现消息中间件的推拉模式。即生产者制造消息，使用消息队列储存消息，消费者从消息队列拉取消息。<br><strong>要点</strong>：持久化的消息队列</p>
-<h2 id="Producer需要实现">2.1. Producer需要实现</h2><ul>
-<li><p>创建一个消息，给消息指定Topic（可以由多个Consumer消费）<br><code>BytesMessage createBytesMessageToTopic(String topic, byte[] body);</code></p>
-</li>
-<li><p>创建一个消息，给消息指定Queue（只能由一个Consumer消费）<br><code>BytesMessage createBytesMessageToQueue(String queue, byte[] body);</code></p>
-</li>
-<li><p>发送消息，message中应当包含目的地（Queue，Topic只能选其一），对于发往同一个Topic和Queue的message顺序要保持一致。<br><code>void send(Message message);</code></p>
-</li>
-</ul>
-<h2 id="PullConsumer需要实现">2.2. PullConsumer需要实现</h2><ul>
-<li>绑定到一个Queue，并订阅topics，即从这些topic和Queue读取消息。<br><code>void attachQueue(String queueName, Collection topics);</code></li>
-<li>规范要求实现阻塞的接口，由properties来设置阻塞时间，但本赛题不需要用到该特性， 请实现一个非阻塞(也即阻塞时间为0)调用, 也即没有消息则返回null<br><code>Message poll();</code></li>
-</ul>
-<h2 id="测试流程">2.3. 测试流程</h2><ul>
-<li>创建<code>Topic</code>，创建<code>Queue</code> 创建<code>Producer</code>，多个<code>Producer</code>创建指定<code>Topic</code>和指定<code>Queue</code>的Message，调用<code>send</code>方法发送</li>
-<li>将数据保存到磁盘中</li>
-<li><code>kill Producer</code>进程，另取进程进行消费<br>创建<code>PullConsumer</code>线程进行消费，一个<code>Consumer</code>对应一个线程，<code>Consumer</code>连接到一个<code>Queue</code>，可以订阅多个<code>Topic</code>。 </li>
-<li>不断的调用poll拉取队列的消息，直到完全读完，读取的消息要相对有序。</li>
-</ul>
-<p>补充：<br>一个<code>Producer</code>对应一个线程，线程先创建对应的Message，再将Message 发送到对应的队列或<code>topic</code>中，实际情况中会有多个<code>Producer</code>。 一个<code>Consumer</code>对应一个<code>Queue</code>，多个<code>Consumer</code>同时从队列中拉取消息。</p>
-<h2 id="技术难点">2.4. 技术难点</h2><ol>
-<li>大量的消息产生 </li>
-<li>并发写 </li>
-<li>并发读 </li>
-<li>序列化&amp;反序列化</li>
-</ol>
-<ol>
-<li>大量消息<br>首先根据题目描述，Produce过程会运行5分钟，这个过程中多线程进行消息的发送，然后再考虑将消息持久化。我用自己的程序测试了一下，（不是典型值，只作为参考，在文章的最后我会贴上我的一系列测试结果），多线程发送一亿条消息的时间为27s，而这一亿条消息占据磁盘的大小为将近4G！可以想象在5分钟内会产生多少的消息量，如何将消息存储，如何读取消息都将成为一个非常棘手的问题。</li>
-<li>并发写<br>并发写的问题也非常显而易见。我们一般情况下为了实现消息队列会选择使用一个List或数组来存储Producer产生的消息。这就引发了一个问题，怎样保证向同一个队列中发送消息的线程不产生竞争条件。</li>
-<li>并发读<br>最麻烦的一个部分，每个线程都需要读取磁盘上的消息内容，每个线程读取的位置又不尽相同，消息数又那么多不可能全部加载到内存中，这个问题曾让我伤透了脑筋，直到我遇到了mmap(后面详细介绍)。</li>
-<li>序列化和反序列化的问题<br>大赛刚开始时，我写了一个使用Java自身序列化来实现持久化的版本，这个版本的缺点非常显而易见，就是慢，而这个缺点又是极为致命的。我意识到我需要自己定制一个序列化协议来将消息转化为字节数组，再通过其他方式（如FileOutputStream）写入磁盘，同时再使用这个协议将其从磁盘中恢复。</li>
-</ol>
+          1. 参考资料
+李健胜，阿里中间件大赛初赛解题思路
+1对应的代码
 
-          
+2. 题目要求主角：消息中间件目的：实现消息中间件的推拉模式。即生产者制造消息，使用消息队列储存消息，消费者从消息队列拉取消息。要点：持久化的消息队列
+2.1. Producer需要实现
+创建一个消息，给消息指定Topic（可以由多个Consumer消费）BytesMessage createBytesMessageToTopic(String topic, byte[] body);
+
+创建一个消息，给消息指定Queue（只能由一个Consumer消费）BytesMessage createBytesMessageToQue
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/14/阿里中间件初赛-李健胜解决方案/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1050,36 +947,27 @@ messageStore.putMessage(topic或queue, message);
       
         
           
-            <p>考虑到自己记性实在太差，还是好好记笔记吧。<br>本节主要看以下几个接口：</p>
-<ul>
-<li>Meaasage</li>
-<li>Producer</li>
-<li>PullConsumer</li>
-</ul>
-<h1 id="Message-java">1. Message.java</h1><p>Message接口是所有OMS消息中的根接口。最常用的消息就是BytesMessage。</p>
-<p><strong>标准Message</strong><br>大多消息导向（message-oriented）的中间件（MOM）产品更趋向于将消息认做轻实体，这个轻实体包含一个header和一个body：</p>
-<ul>
-<li>header:包含用来路由和识别的信息域；</li>
-<li>body:包含将会被发送的应用信息；</li>
-</ul>
-<p><strong>本Message</strong><br>本消息是一个仅包含与具体消息对象相关的property(财产)的轻量级实体。主要包含以下几个方面：</p>
-<ul>
-<li>Header:所有消息都有同样的header域。header域的值用来给客户端(clients)和提供商（providers）唯一标示消息，以及路由消息。</li>
-<li>Properties(财产，特性)：每个消息都有一个消息自有的部分，这部分用来提供“应用定义(application-defined)”的property(财产)值。这一部分为支持“应用定义”消息的过滤提供了很有效的机制。</li>
-</ul>
-<p><strong>源码解读</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Message</span> </span>&#123;</div><div class="line">     <span class="comment">/*headers()返回Message对象的header域，返回值类型是keyValue。*/</span></div><div class="line">    <span class="function">KeyValue <span class="title">headers</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/*properties()返回消息自有的property域。返回值类型是keyValue。*/</span></div><div class="line">    <span class="function">KeyValue <span class="title">properties</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">     <span class="comment">/*putHeaders(String key, int value)将输入(String key, int value)全部传入header*/</span></div><div class="line">    <span class="comment">/*参数key:headers的关键字*/</span></div><div class="line">    <span class="comment">/*参数values:与key对应的值*/</span></div><div class="line">    <span class="function">Message <span class="title">putHeaders</span><span class="params">(String key, <span class="keyword">int</span> value)</span></span>;</div><div class="line">    <span class="function">Message <span class="title">putHeaders</span><span class="params">(String key, <span class="keyword">long</span> value)</span></span>;</div><div class="line">    <span class="function">Message <span class="title">putHeaders</span><span class="params">(String key, <span class="keyword">double</span> value)</span></span>;</div><div class="line">    <span class="function">Message <span class="title">putHeaders</span><span class="params">(String key, String value)</span></span>;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/*将key和value全部存入header*/</span></div><div class="line">    <span class="comment">/*参数key:headers的关键字*/</span></div><div class="line">    <span class="comment">/*参数values:与key对应的值*/</span></div><div class="line">    <span class="function">Message <span class="title">putProperties</span><span class="params">(String key, <span class="keyword">int</span> value)</span></span>;</div><div class="line">    <span class="function">Message <span class="title">putProperties</span><span class="params">(String key, <span class="keyword">long</span> value)</span></span>;</div><div class="line">    <span class="function">Message <span class="title">putProperties</span><span class="params">(String key, <span class="keyword">double</span> value)</span></span>;</div><div class="line">    <span class="function">Message <span class="title">putProperties</span><span class="params">(String key, String value)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="Producer-java">2. Producer.java</h1><p>Producer是一个用来发送消息的简单对象，它是<code>MessagingAccessPoint</code>的一个具体实现。<br><strong>创建Producer对象</strong>：<br><code>Producer</code>的具体实例是通过<code>MessagingAccessPoint#createProducer()</code>方法创建的。<br>这个方法提供了多种定点发送消息的方式，其中，目的地可以是<code>MessageHeader#TOPIC</code>或<code>MessageHeader#QUEUE</code>。</p>
-<p><strong>Producer#send(Message)</strong><br>同步定点发送消息方法。<br>当发送请求完成时，线程将会关闭(block)。</p>
-<p><strong>Producer#sendAsync(Message)</strong><br>异步定点发送消息方法。<br>当发送请求完成时，线程不会很快关闭，而会立即返回一个<code>Promise</code>作为发送结果。</p>
-<p><strong>Producer#sendOneway(Message)</strong><br>one way定点发送消息方法。<br>当发送请求完成时，线程不会很快关闭，而是立即返回。线程发起者不关心发送结果，同时server也对返回值没有责任。</p>
-<p><strong>源码解读</strong></p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Producer</span> <span class="keyword">extends</span> <span class="title">MessageFactory</span>, <span class="title">ServiceLifecycle</span> </span>&#123;</div><div class="line">     <span class="comment">/*返回本实例的properties*/</span></div><div class="line">     <span class="comment">/*返回值的变化不会反应在Producer本身上，并且这个变化可以用ResourceManager#setProducerProperties(String, KeyValue)来修改。（Changes to the return &#123;@code KeyValue&#125; are not reflected in physical &#123;@code Producer&#125;,and use &#123;@link ResourceManager#setProducerProperties(String, KeyValue)&#125; to modify.）*/</span></div><div class="line">    <span class="function">KeyValue <span class="title">properties</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/*同步定点发送message方法*/</span></div><div class="line">    <span class="comment">/*发送目的地应该预置在MessageHeader中。当然其它类型的header域也可以*/</span></div><div class="line">    <span class="comment">/*异常OMSRuntimeException：当由于内部原因发送失败时*/</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">send</span><span class="params">(Message message)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">send</span><span class="params">(Message message, KeyValue properties)</span></span>;<span class="comment">/*properties是属性值*/</span></div><div class="line"></div><div class="line">    <span class="comment">/*异步定点发送消息方法*/</span></div><div class="line">    <span class="comment">/*返回值是Promise类型。同时，登记过的PromiseListener将会被通知*/</span></div><div class="line">    <span class="function">Promise&lt;Void&gt; <span class="title">sendAsync</span><span class="params">(Message message)</span></span>;</div><div class="line">    <span class="function">Promise&lt;Void&gt; <span class="title">sendAsync</span><span class="params">(Message message, KeyValue properties)</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/*oneway定点发送消息方法*/</span></div><div class="line">    <span class="comment">/*无返回值，也没有thrown。因为oneway发送不在乎发送结果*/</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sendOneway</span><span class="params">(Message message)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sendOneway</span><span class="params">(Message message, KeyValue properties)</span></span>;</div><div class="line"></div><div class="line">    <span class="function">BatchToPartition <span class="title">createBatchToPartition</span><span class="params">(String partitionName)</span></span>;</div><div class="line"></div><div class="line">    <span class="function">BatchToPartition <span class="title">createBatchToPartition</span><span class="params">(String partitionName, KeyValue properties)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><h1 id="PullConsumer-java">3. PullConsumer.java</h1><p><code>PullConsumer</code>对象能从特定的队列中poll消息。而且支持通过‘ack’方式提交消费结果。</p>
-<p><strong>源码分析</strong></p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PullConsumer</span> </span>&#123;</div><div class="line">    <span class="comment">/*返回本PullConsumer实例的properties*/</span></div><div class="line">    <span class="comment">/* Changes to the return &#123;@code KeyValue&#125; are not reflected in physical &#123;@code PullConsumer&#125;,and use &#123;@link ResourceManager#setConsumerProperties(String, KeyValue)&#125; to modify.*/</span></div><div class="line">    <span class="function">KeyValue <span class="title">properties</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 规范要求实现阻塞的接口，由properties来设置阻塞时间，但本赛题不需要用到该特性，请实现一个非阻塞(也即阻塞时间为0)调用, 也即没有消息则返回null</div><div class="line">     */</div><div class="line"></div><div class="line">    <span class="comment">/*抽取下一条为本pullconsumer生产的消息*/</span></div><div class="line">    <span class="comment">/*除非一条消息被产生了，或者本pullConsumer被关闭了，本调用会一直block*/</span></div><div class="line">    <span class="comment">/*返回为本PullConsumer生产的下一条消息；当本PullConsumer被同时关闭时返回null*/</span></div><div class="line">    <span class="comment">/*当本PullConsumer由于一些内部原因而抽取下一条消息失败时，throw OMSRuntimeException*/</span></div><div class="line">    <span class="function">Message <span class="title">poll</span><span class="params">()</span></span>;</div><div class="line">    <span class="function">Message <span class="title">poll</span><span class="params">(<span class="keyword">final</span> KeyValue properties)</span></span>;<span class="comment">/*properties是一些参数*/</span></div><div class="line"></div><div class="line">    <span class="comment">/*用消息id回确认指定的已消费的消息*/</span></div><div class="line">    <span class="comment">/*若某消息已被接收，但还未被回确认，那它可能会被重新投递*/</span></div><div class="line">    <span class="comment">/*有OMSRuntimeException*/</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">ack</span><span class="params">(String messageId)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">ack</span><span class="params">(String messageId, <span class="keyword">final</span> KeyValue properties)</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/* 绑定到一个Queue，并订阅topics，即从这些topic读取消息*/</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">attachQueue</span><span class="params">(String queueName, Collection&lt;String&gt; topics)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre>
-          
+          考虑到自己记性实在太差，还是好好记笔记吧。本节主要看以下几个接口：
+
+Meaasage
+Producer
+PullConsumer
+
+1. Message.javaMessage接口是所有OMS消息中的根接口。最常用的消息就是BytesMessage。
+标准Message大多消息导向（message-oriented）的中间件（MOM）产品更趋向于将消息认做轻实体，这个轻实体包含一个header和一个body：
+
+header:包含用来路由和识别的信息域；
+body:包含将会被发送的应用信息；
+
+本Message本消息是一个仅包含与具体消息对象相关的property(财产)的轻量级实体。主要包
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/13/OpenMessaging源码阅读1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1211,70 +1099,30 @@ messageStore.putMessage(topic或queue, message);
       
         
           
-            <p><strong>线程(thread)</strong>：每个任务称为一个线程<br><strong>线程和进程区别</strong>：</p>
-<ol>
-<li>每个进程有自己独立的变量，而线程则共享数据。</li>
-<li>线程是进程的执行单元</li>
-<li>线程是进程的组成部分。一个进程可以有多个线程，一个线程必须有一个父进程。</li>
-<li>线程可以拥有自己的堆栈、自己的程序计数器和自己的局部变量，但不拥有系统资源（与父进程其它线程共享该进程则资源）</li>
-</ol>
-<h1 id="线程的创建">1. 线程的创建</h1><p>有以下两种方法：</p>
-<ol>
-<li>通过继承Thread来创建线程</li>
-<li>通过实现Runnable接口创建线程</li>
-</ol>
-<h2 id="通过继承Thread来创建线程">1.1. 通过继承Thread来创建线程</h2><p>要点：通过继承<code>Thread</code>类创建并启动多线程<br>步骤：</p>
-<ol>
-<li>定义Thread类的子类，并重写<code>run()</code>方法（线程执行体）</li>
-<li>创建<code>Thread</code>子类的实例(创建线程对象)</li>
-<li><p>调用<code>start()</code>（启用该线程）</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"run\t"</span>+getName()+<span class="string">"\t"</span>);<span class="comment">//getName()返回thread name</span></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="keyword">new</span> FirstThread().start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>以上代码输出：</p>
-<pre><code>run  Thread-0
-</code></pre><p><strong>一个有意思的现象</strong></p>
-<p>运行如下代码时：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"run\t"</span>+getName()+<span class="string">"\t"</span>);<span class="comment">//getName()返回thread name</span></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="comment">//调用currentThread()获取当前线程</span></div><div class="line">        System.out.println(<span class="string">"currentThread : "</span>+Thread.currentThread().getName());</div><div class="line">        <span class="keyword">new</span> FirstThread().start();</div><div class="line">        System.out.println(<span class="string">"currentThread : "</span>+Thread.currentThread().getName());</div><div class="line">        <span class="keyword">new</span> FirstThread().start();</div><div class="line">        System.out.println(<span class="string">"currentThread : "</span>+Thread.currentThread().getName());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><p>按照以前的理解，应该是：</p>
-<pre><code>currentThread : main
-run Thread-0 
-currentThread : main 
-run Thread-1    
-currentThread : main
-</code></pre><p>实际输出：（也有可能是其它顺序）</p>
-<pre><code>currentThread : main
-currentThread : main
-run Thread-0    
-run Thread-1    
-currentThread : main
-</code></pre><p>新发现：其实<code>start</code>一个线程的时候，<code>main</code>线程在继续运行。<code>main</code>线程不会等<code>start</code>完事儿之后再运行下一句！</p>
-<h2 id="通过实现Runnable接口创建线程">1.2. 通过实现Runnable接口创建线程</h2><pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"run\t"</span>+Thread.currentThread().getName()+<span class="string">"\t"</span>);<span class="comment">//getName()返回thread name</span></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        SecondThread st = <span class="keyword">new</span> SecondThread();</div><div class="line">        <span class="keyword">new</span> Thread(st,<span class="string">"new_thread_1"</span>).start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><p>区别：<br>需要通过<code>Thread.currentThread().getName()</code>来获取getName()<br>main不同</p>
-<p><strong>多线程共享变量</strong></p>
-<p>以下是一个多线程共享变量<code>i</code>的情况：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecondThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> i;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">while</span>(i&lt;<span class="number">5</span>)&#123;</div><div class="line">            System.out.println(<span class="string">"run\t"</span>+Thread.currentThread().getName()+<span class="string">"\t"</span>+i);<span class="comment">//getName()返回thread name</span></div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        SecondThread st = <span class="keyword">new</span> SecondThread();</div><div class="line">        <span class="keyword">new</span> Thread(st,<span class="string">"thread_name_1"</span>).start();</div><div class="line">        <span class="keyword">new</span> Thread(st,<span class="string">"thread_name_2"</span>).start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><p>两次运行结果：</p>
-<pre><code>run thread_name_1    0
-run thread_name_1    1
-run thread_name_1    2
-run thread_name_1    3
-run thread_name_2    3
-run thread_name_1    4
+          线程(thread)：每个任务称为一个线程线程和进程区别：
 
-run thread_name_1    0
-run thread_name_2    0
-run thread_name_1    1
-run thread_name_2    2
-run thread_name_1    3
-run thread_name_2    4
-</code></pre><p><strong>发现</strong>：</p>
-<ol>
-<li>两个线程共有变量<code>i</code></li>
-<li>线程间抢占资源</li>
-</ol>
-<h2 id="使用Callable和Future创建线程">1.3. 使用Callable和Future创建线程</h2>
-          
+每个进程有自己独立的变量，而线程则共享数据。
+线程是进程的执行单元
+线程是进程的组成部分。一个进程可以有多个线程，一个线程必须有一个父进程。
+线程可以拥有自己的堆栈、自己的程序计数器和自己的局部变量，但不拥有系统资源（与父进程其它线程共享该进程则资源）
+
+1. 线程的创建有以下两种方法：
+
+通过继承Thread来创建线程
+通过实现Runnable接口创建线程
+
+1.1. 通过继承Thread来创建线程要点：通过继承Thread类创建并启动多线程步骤：
+
+定义Thread类的子类，并重写run()方法（线程执行体）
+创建Thread子
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/12/多线程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1406,43 +1254,21 @@ run thread_name_2    4
       
         
           
-            <p>OpenMessaging的主要关系如下图所示：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-05-12-16-24-52.png" alt=""> </p>
-<p>其中，各部分的内容和关系见下述。</p>
-<h1 id="Namespace">1. Namespace</h1><p>Namespace就像一个cgroup namespace,是用来创建一个有安全保障的独立的空间。每个namespace都有自己的producer,consumer,topic,queue等等。OpenMessaging用 ​<strong>MessagingAccessPoint</strong>​（消息访问点）来访问/读/写指定namespace的<strong>​资源</strong>​。</p>
-<h1 id="Producer">2. Producer</h1><p>Openmessaging定义了两种Producer:<strong>​Producer</strong>​和 <strong>​SequenceProducer</strong>​</p>
-<ul>
-<li><strong>​Producer</strong>​:提供各种send方法，用来将一个消息送往指定的destination,<strong>Topic</strong>或者<strong>Queue</strong>。支持三种方式：同步、异步、单向(oneway)</li>
-<li><strong>SequenceProducer</strong>:重点在于速度，且支持批处理。能发送多个数据并一次提交。</li>
-</ul>
-<h1 id="Consumer">3. Consumer</h1><p>Openmessaging定义了两种Consumer::<strong>PullConsumer</strong>、<strong>PushConsumer</strong>和<strong>StreamConsumer</strong>.每种Consumer仅支持来自于<strong>Queue</strong>的consume消息。</p>
-<ul>
-<li><strong>PullConsumer</strong>:从指定队列中pulls消息。支持“submit the consume<br>result by acknowledgement at any time”。每个PullConsumer仅能从固定的队列中pull消息。</li>
-<li><strong>PushConsumer</strong>:可从多个队列中接收消息，且这个消息是由MOM server push上去的。PushConsumer可依附于多个独立的、具有不同的MessageListener的队列，并且可以随时通过<strong>ReceivedMessageContext</strong>提交结果。</li>
-<li><strong>StreamingConsumer</strong>:一种崭新的consumer类型，是一种面向流的consumer,面向留信息的一体化信息系统。</li>
-</ul>
-<h1 id="Topic-Queue-and-Routing">4. Topic Queue and Routing</h1><p>这三个概念非常相近。虽然Topic和Queue有不同的用途，但它们总让人迷惑。</p>
-<h2 id="Topic">4.1. Topic</h2><p>Topic是原始信息的载体，用来holding消息。消息的分发方式和有序性是没有定义的。</p>
-<h2 id="Routing">4.2. Routing</h2><p>Topic中的消息是原始的，是待处理的，一般不易引起consumers的注意。总之，Topic中的数据是producer-orented（导向）的，而不是consumer-oriented。</p>
-<p>因此Routing负责加工Topic中的原始消息，并routing去Queue中。每个Routing有一个<strong>操作管线（operator pipeline）</strong>，包含着一系列的操作。消息会通过操作管线从Topic流向Queue。</p>
-<p><strong>操作（operator）</strong>是用来处理在Routing流通的消息的。有很多操作，例如expression operator, deduplicator operator, joiner operator, filter operator, rpc<br>operator等等。</p>
-<h2 id="Queue-队列">4.3. Queue(队列)</h2><p>现在消息已经被routed到Queue中了。现在消息就可以被consumers使用了。</p>
-<p>需要注意的是，一个Queue可能会被分为几部分，消息可能通过MessageHeader#SHARDING_KEY被routed到某个特殊的部分中。</p>
-<h2 id="Topic与Queue比较">4.4. Topic与Queue比较</h2><ul>
-<li>都是消息的载体</li>
-<li>Topic是preducer-oriented的，而Queue是consumer-oriented的</li>
-<li>Topic中的消息来自于Producer,而Queue中的消息来自于Topic或者Producer</li>
-<li>Queue包含几个部分，而Topic形状未定义</li>
-<li>在大多数情况下，Queue是Topic的一个子集</li>
-<li>Queue的创建、销毁都很容易，且与producer无关</li>
-</ul>
-<h1 id="参考文献">5. 参考文献</h1><ol>
-<li><a href="openmessaging.github.io">原始文档</a></li>
-<li><a href="https://github.com/pugwoo/c/blob/master/linux_ipc/shm/shmqueue.h" target="_blank" rel="external">pugwoo用c写的</a></li>
-<li><a href="https://github.com/openmessaging/openmessaging" target="_blank" rel="external">原始文档扒的API</a></li>
-</ol>
+          OpenMessaging的主要关系如下图所示：
+ 
+其中，各部分的内容和关系见下述。
+1. NamespaceNamespace就像一个cgroup namespace,是用来创建一个有安全保障的独立的空间。每个namespace都有自己的producer,consumer,topic,queue等等。OpenMessaging用 ​MessagingAccessPoint​（消息访问点）来访问/读/写指定namespace的​资源​。
+2. ProducerOpenmessaging定义了两种Producer:​Producer​和 ​SequenceProducer​
 
-          
+​Produce
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/11/OpenMessaging简介/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1574,25 +1400,18 @@ run thread_name_2    4
       
         
           
-            <h1 id="中间件概念">1. 中间件概念</h1><p><strong>中间件</strong>：处于操作系统和应用程序之间的软件。</p>
-<p>中间件简单解释，可以理解为面向信息系统交互，集成过程中的通用部分的集合，屏蔽了底层的通讯，交互，连接等复杂又通用化的功能，以产品的形式提供出来，系统在交互时，直接采用中间件进行连接和交互即可，避免了大量的代码开发和人工成本。</p>
-<p>其实，理论上来讲，中间件所提供的功能通过代码编写都可以实现，只不过开发的周期和需要考虑的问题太多，逐渐的，这些部分，以中间件产品的形式进行了替代。</p>
-<p>比如常见的消息中间件，即系统之间的通讯与交互的专用通道，类似于邮局，系统只需要把传输的消息交给中间件，由中间件负责传递，并保证传输过程中的各类问题，如网络问题，协议问题，两端的开发接口问题等均由消息中间件屏蔽了，出现了网络故障时，消息中间件会负责缓存消息，以避免信息丢失。相当于你想给美国发一个邮包，只需要把邮包交给邮局，填写地址和收件人，至于运送过程中的一系列问题你都不需要关心了。</p>
-<h1 id="中间件分类">2. 中间件分类</h1><ol>
-<li>消息中间件（MOM：Message-Oriented Middleware）</li>
-<li>数据中间件（Database Middleware）</li>
-<li>远程过程调用中间件（RPC：Remote Process Call）</li>
-<li>对象请求代理中间件（ORB：Object Request Broker）</li>
-<li>事务处理中间件（TP Monitor：Transaction Process Monitor）</li>
-<li>J2EE中间件</li>
-</ol>
-<h1 id="Open-Messaging">3. Open-Messaging</h1><p>是一个建立行业内的指引和消息的协议（charter）。它的streaming规范提供了一个可用于电子商务、物联网和大数据的基础框架。它的主要目标是建立一个在分布式异构环境中面向云、简单、灵活和独立于语言的环境。协议的一致性似的它可以跨平台开发异构消息应用程序。</p>
-<p><strong>域结构</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-05-11-17-16-52.png" alt=""> </p>
-<h1 id="消息中间件-Message-Queue">4. 消息中间件 Message Queue</h1><p>Message Queue是一种应用程序对应用程序的通信方法。程序之间通过在消息中发送数据进行通信，而不是通过直接调用彼此来通信，直接调用通常是用于诸如远程过程调用的技术。排队指的是应用程序通过队列来通信。队列的使用除去了接收和发送应用程序同时执行的要求。</p>
-<p>提及消息中间件的时候，还会涉及生产者和消费者两个概念。消息中间件是负责接收来自生产者的消息，并存储并转发给对应的消费者，生产者可以按 topic 发布各样消息，消费者也可以按 topic 订阅各样消息。生产者只管往消息队列里推送消息，不用等待消费者的回应；消费者只管从消息队列中取出数据并处理，可用可靠性等问题都交由消息中间件来负责。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-05-12-15-43-09.png" alt=""><br>生产者和消费者通常有两种对应关系，一个生产者对应一个消费者，以及一个生产者对应多个消费者。</p>
-<h1 id="参考文献">5. 参考文献</h1><p>1.<a href="https://www.zhihu.com/question/19730582/answer/16390709" target="_blank" rel="external">知乎FireJones的回答</a><br>2.<a href="http://wiki.jikexueyuan.com/project/redis/middleware.html" target="_blank" rel="external">极客学院，消息中间件</a></p>
-
-          
+          1. 中间件概念中间件：处于操作系统和应用程序之间的软件。
+中间件简单解释，可以理解为面向信息系统交互，集成过程中的通用部分的集合，屏蔽了底层的通讯，交互，连接等复杂又通用化的功能，以产品的形式提供出来，系统在交互时，直接采用中间件进行连接和交互即可，避免了大量的代码开发和人工成本。
+其实，理论上来讲，中间件所提供的功能通过代码编写都可以实现，只不过开发的周期和需要考虑的问题太多，逐渐的，这些部分，以中间件产品的形式进行了替代。
+比如常见的消息中间件，即系统之间的通讯与交互的专用通道，类似于邮局，系统只需要把传输的消息交给中间件，由中间件负责传递，并保证传输过程中的各类问题，如网络问题，协议问
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/11/中间件入门/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1724,19 +1543,18 @@ run thread_name_2    4
       
         
           
-            <h1 id="os模块">1. os模块</h1><p>os模块的作用：</p>
-<p>　　os，语义为操作系统，所以肯定就是操作系统相关的功能了，可以处理文件和目录这些我们日常手动需要做的操作，就比如说：显示当前目录下所有文件/删除某个文件/获取文件大小……</p>
-<p>　　另外，os模块不受平台限制，也就是说：当我们要在linux中显示当前命令时就要用到pwd命令，而Windows中cmd命令行下就要用到这个，额…我擦，我还真不知道，（甭管怎么着，肯定不是pwd），这时候我们使用python中os模块的os.path.abspath(name)功能，甭管是linux或者Windows都可以获取当前的绝对路径。</p>
-<h1 id="文件夹操作">2. 文件夹操作</h1><h2 id="检验文件夹是否存在">2.1. 检验文件夹是否存在</h2><pre><code>os.path.exists(directory)
-</code></pre><h2 id="创建文件夹">2.2. 创建文件夹</h2><pre><code>os.makedirs(directory)
-</code></pre><p>实例：<br>检验文件夹是否存在，若不存在，则创建之</p>
-<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_dir</span><span class="params">(directory)</span>:</span></div><div class="line">    flag=os.path.exists(directory)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> flag:</div><div class="line">        os.makedirs(directory)</div></pre></td></tr></table></figure>
-</code></pre><h2 id="遍历指定目录名，显示目录下所有文件">2.3. 遍历指定目录名，显示目录下所有文件</h2><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pathDir =  os.listdir(filepath)</div><div class="line">    <span class="keyword">for</span> allDir <span class="keyword">in</span> pathDir:</div><div class="line">        <span class="keyword">print</span> allDir</div></pre></td></tr></table></figure>
-</code></pre><h1 id="参考文献">3. 参考文献</h1><ol>
-<li><a href="http://www.cnblogs.com/MnCu8261/p/5483657.html" target="_blank" rel="external">python基础之模块之os模块</a></li>
-</ol>
-
-          
+          1. os模块os模块的作用：
+　　os，语义为操作系统，所以肯定就是操作系统相关的功能了，可以处理文件和目录这些我们日常手动需要做的操作，就比如说：显示当前目录下所有文件/删除某个文件/获取文件大小……
+　　另外，os模块不受平台限制，也就是说：当我们要在linux中显示当前命令时就要用到pwd命令，而Windows中cmd命令行下就要用到这个，额…我擦，我还真不知道，（甭管怎么着，肯定不是pwd），这时候我们使用python中os模块的os.path.abspath(name)功能，甭管是linux或者Windows都可以获取当前的绝对路径。
+2. 文件夹操作2.1. 检验文件夹是否存在o
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/04/python——os操作/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1868,70 +1686,23 @@ run thread_name_2    4
       
         
           
-            <h1 id="Object特性">1. Object特性</h1><ul>
-<li>所有类的超类</li>
-<li>可以引用任何对象</li>
-</ul>
-<h1 id="equals方法">2. equals方法</h1><p><code>Object</code>类中的<code>equals</code>方法判断两对象是否有相同的<strong>引用</strong></p>
-<h2 id="equals的重写">2.1. equals的重写</h2><p>在实际coding中，一般我们都会对<code>equals</code>方法进行重写，例:</p>
-<ol>
-<li><p>对于超类<code>Employee</code>：</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span></span>&#123;</div><div class="line">        <span class="comment">//如果otherObject与this是同一个引用</span></div><div class="line">        <span class="keyword">if</span>(<span class="keyword">this</span> == therObject) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line"></div><div class="line">        <span class="comment">//如果therObject为空</span></div><div class="line">        <span class="keyword">if</span>(therObject == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line"></div><div class="line">        <span class="comment">//如果类型不同</span></div><div class="line">        <span class="keyword">if</span>(getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line"></div><div class="line">        <span class="comment">//现在我们已经确认了otherObject是一个非空的Employee对象</span></div><div class="line">        <span class="comment">//为了比较实例域，我们将otherObject转换为Employee类型</span></div><div class="line">        Employee other = (Employee) otherObject</div><div class="line"></div><div class="line">        <span class="comment">//检测实例域是否相等</span></div><div class="line">        <span class="keyword">return</span> name.equals(other.name)</div><div class="line">            &amp;&amp; salary == other.salary</div><div class="line">            &amp;&amp; hireDay.equals(other.hireDay);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p> 为了防止<code>this.name</code>或<code>this.hireDay</code>可能为<code>null</code>的情况，将最后一句改为：</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> Obejcts.equals(name,other.name)</div><div class="line">    &amp;&amp; salary == other.salary</div><div class="line">    &amp;&amp; Objects.equals(hireDay,other.hireDay);</div></pre></td></tr></table></figure>
-<p> <strong><code>Obejcts.equals(a,b)</code>运行过程</strong>：</p>
-<ul>
-<li>如果<code>a</code>和<code>b</code>都为<code>null</code>，则返回true</li>
-<li>如果其中一个为<code>null</code>，返回false</li>
-<li>如果都不为<code>null</code>，则调用<code>a.equals(b)</code></li>
-</ul>
-</li>
-<li><p>对于<code>Employee</code>的子类<code>Manager</code></p>
-</li>
-</ol>
-<p>在子类中定义<code>euqals</code>方法时，要首先调用超类的euqals，然后比较子类中的实例域。</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span></span>&#123;</div><div class="line">        <span class="comment">//先调用超类的equals方法，检验this与otherObject是否属于同一class</span></div><div class="line">        <span class="keyword">if</span>(!<span class="keyword">super</span>.equals(otherObject)) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        Manager other = (Manager) otherObejct;</div><div class="line">        <span class="keyword">return</span> bonus == other.bonus</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><h2 id="equals方法的特性">2.2. equals方法的特性</h2><ul>
-<li>自反性：若<code>x!=null</code>,则<code>x.equals(x)</code>应返回<code>true</code></li>
-<li>对称性：<code>y.equals(x)</code>与<code>x.euqals(y)</code>应返回同样结果</li>
-<li>传递性：若<code>x.equals(y)</code>返回<code>true</code>,且<code>y.equals(z)</code>返回<code>true</code>，则<code>x.equals(z)</code>也必须返回<code>true</code></li>
-<li>一致性：若x与y的引用对象没有发生变化，则反复调用<code>x.equals(y)</code>应返回同样结果</li>
-<li>对任意非空引用x，则<code>x.equals(null)</code>应该返回false</li>
-</ul>
-<h2 id="相等测试">2.3. 相等测试</h2><p><strong>问题</strong><br>如果隐式（this）和显式（传入的）的参数不属于同一类，equals方法如何处理？</p>
-<p><strong>解决方法一</strong><br>在上例中，我们用到了<code>getClass()</code>：</p>
-<pre><code>//如果类型不同
-      if(getClass() != otherObject.getClass()) return false;
-</code></pre><p><strong>解决方法二</strong><br>有的程序员喜欢用<code>instanceof</code>检测：<br>(instanceof 运算符是用来在运行时指出对象是否是特定类的一个实例)</p>
-<pre><code>if(!(otherObeject instanceof Employee)) return false;
-</code></pre><p><strong>方法一存在的问题</strong><br>若<code>e</code>是一个<code>Employee</code>对象，<code>m</code>是一个<code>Manager</code>对象，且两者具有相同姓名、薪水和雇用日期。</p>
-<p>如果<code>Manager</code>没有重新实现<code>equals</code>方法，那么当<code>m1.equals(m2)</code>比较时，就会使用到<code>e.getClass() != m2.getClass()</code>来进行比较，显然结果返回<code>false</code>，因此这不是正确的比较。</p>
-<p><strong>方法二存在的问题</strong><br>那么对于<code>e.equals(m)</code>来说，<code>instanceof</code>返回<code>true</code>.（<code>Manager</code>是<code>Employee</code>的一个实例）<br>但对于<code>m.equals(e)</code>来说，<code>instanceof</code>返回<code>false</code></p>
-<p>！！！！！违反了对称性！</p>
-<p><strong>总结</strong></p>
-<ul>
-<li>如果子类拥有自己的相等概念，例如若两个<code>Manager</code>对象的姓名、薪水和雇用日期（父类Employee的域）均相等，而奖金（子类Manager的域）不相等，就认为两个<code>Manager</code>不相等。此时可以用<code>getClass</code>检测</li>
-<li>如果使用雇员ID(父类Employee的域)来作为相等检测标准，并这个标准适合所有的子类，就可以用<code>instanceof</code>检测，并将<code>Employee</code>的<code>equals</code>申明为<code>final</code></li>
-</ul>
-<p><strong>完美的equals</strong>：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span></span>&#123;</div><div class="line">    <span class="comment">//检测this与otherObject是否引用同一对象</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>==otherObject)<span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    <span class="comment">//检测otherObject是否为null</span></div><div class="line">    <span class="keyword">if</span>(otherObject == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="comment">//比较this与Object是否属于同一个类，有以下两种方案：</span></div><div class="line">    <span class="comment">//如果equals的语义在每个子类中都有改变，就用getClass:</span></div><div class="line">    <span class="keyword">if</span>(getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="comment">//如果所有子类都有统一equals语义，则用instanceof检测：</span></div><div class="line">    <span class="keyword">if</span>(!(otherObject <span class="keyword">instanceof</span> ClassName)) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="comment">//将otherObject转换为相应的类类型</span></div><div class="line">    ClassName other = (ClassName) otherObject</div><div class="line">    <span class="comment">//对所需要的域进行比较</span></div><div class="line">    <span class="keyword">return</span> field1 == other.field1 </div><div class="line">        &amp;&amp; field2 == other.field2</div><div class="line">        &amp;&amp; Objects.equals(field3,other field3)</div><div class="line">        &amp;&amp; ...;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><p><strong>注意</strong>：如果在子类中重新定义<code>equals</code>，则要在其中包含调用<code>super.equals(other)</code></p>
-<h1 id="hashCode方法">3. hashCode方法</h1><p>hashCode : 散列码</p>
-<p>使用：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> hash = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; lenth() ; i++ )&#123;</div><div class="line">    hash = <span class="number">31</span> * hash + charAt(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><p><strong>注意</strong></p>
-<ul>
-<li>每个对象都有一个<em>默认的散列码</em>，值为对象的<em>存储地址</em></li>
-<li>字符串的散列码是由内容导出的，因此<code>s</code>和<code>t</code>有相同hashcode</li>
-<li>如果重新定义了equals方法，就必须重新定义hashCode方法，且通过equal测试的两个对象的hashCode应该也是相等的，以便用户可以将对象插入到散列表中</li>
-<li>hashCode方法应该返回一个整型数值，并使得不同对象的hashCode更均匀。</li>
-</ul>
-<p>例如：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">7</span> * name.hashCode()</div><div class="line">            + <span class="number">11</span> * <span class="keyword">new</span> Double(salary).hashCode()</div><div class="line">            + <span class="number">13</span> * hireDay.hashCode();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><p>更方便的方法：</p>
-<pre><code><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">    public int hashCode()&#123;</div><div class="line">        return Objects.hash(name,salary,hireDay);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"># toString方法</div><div class="line"></div><div class="line">用途：返回表示对象值的字符串</div><div class="line"></div><div class="line">例如：</div><div class="line"></div><div class="line">    ```Java</div><div class="line">    public String toString()&#123;</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-</code></pre>
-          
+          1. Object特性
+所有类的超类
+可以引用任何对象
+
+2. equals方法Object类中的equals方法判断两对象是否有相同的引用
+2.1. equals的重写在实际coding中，一般我们都会对equals方法进行重写，例:
+
+对于超类Employee：
+ 12345678910111213141516171819202122class Employee&#123;    ...    public boolean equals(Object otherObject)&#123;        //如果otherObject与this是同一个引用        if(this ==
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/04/java学习笔记-3-Object/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

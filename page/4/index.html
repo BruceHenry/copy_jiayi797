@@ -361,198 +361,22 @@
       
         
           
-            <p>LU分解:可以将一个矩阵分解为一个<strong>单位下三角矩阵</strong>和一个<strong>上三角矩阵</strong>的<strong>乘积</strong>（有时是它们和一个置换矩阵的乘积）。LU分解主要应用在数值分析中，用来解线性方程、求反矩阵或计算行列式。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-31-33.png" alt=""> </p>
-<h1 id="LU分解条件">1. LU分解条件</h1><p>如果n阶方阵A的各阶顺序主子式<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-34-31.png" alt=""> ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU</p>
-<p>其中k阶顺序主子式指<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-36-08.png" alt=""> </p>
-<h1 id="LU分解方法">2. LU分解方法</h1><p>由于L存在可逆矩阵L’，即LL’=E<br>则L’A=LL’U=U<br>因此得出一般的分解方法：<br>通过对(A,E)做初等行变换得到(U,L’),再由L’得到L.</p>
-<p>其中：</p>
-<ol>
-<li>L是单位下三角矩阵（对角线上的系数都为1的下三角矩阵）；L’也是单位上三角矩阵；</li>
-<li>U是非奇异上三角矩阵；</li>
-</ol>
-<h1 id="直接消去法的矩阵解释">3. 直接消去法的矩阵解释</h1><p>计算过程如图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-13-15.png" alt=""> </p>
-<p><strong>目的</strong>：将[A|E]–&gt;[U|L]形式，其中U是上三角矩阵</p>
-<p><strong>过程</strong>：每轮将一列的下三角消为0，就相当于给A左乘一个下三角单位矩阵Lk（对角线为1，保证变换后对角线元素不变）。</p>
-<p><strong>第一轮消元</strong>：将第一列的下三角消为0，相当于对A1左乘矩阵L1，即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-54-39.png" alt=""><br>其中，<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-55-24.png" alt=""><br>我们注意到li1恰好使得第i行的第一列元素变为零，即ai1-li1*a11=0。</p>
-<p><strong>第二轮消元</strong>：将第二列的下三角消为0，对应于<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-57-24.png" alt=""> </p>
-<p><strong>第k轮消元</strong>:<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-57-48.png" alt=""><br>其中，<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-58-09.png" alt=""> </p>
-<p>把k轮消元相乘，即：<br><strong>整个消元过程为</strong>：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-59-09.png" alt=""> </p>
-<p><strong>总结</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-05-36.png" alt=""><br>初始（第一步）：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-00-46.png" alt=""> </p>
-<p>迭代第r步：<br>即<br>ur=f(u1,u2,…,u(r-1),l1,l2,…,l(r-1)),第r项由前r-1项计算得到<br>lr=g(u1,u2,…,u(r-1),l1,l2,…,l(r-1))<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-02-44.png" alt=""> </p>
-<p>计算顺序：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-10-36-28.png" alt=""> </p>
-<p>需要注意的是，我们在计算时需要判断本阶的顺序主子式是否为零。</p>
-<p><strong>代码实现</strong><br>备注：其中的piovt暂时没有卵用。</p>
-<p>输入矩阵：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-16-46.png" alt=""> </p>
-<pre><code>bool lu(double *a,int *pivot,int n){//矩阵是n*n的
-double test = det(a,r,n);//检验本阶顺序主子式是否为0
- if(test==0){
-    return true;
- }
-//数组a在内存中按行优先次序存放
-//pivot:输出参数
-//pivot[0,n)中存放主元的位置排列
-//成功时返回false，否则返回ture
-//int len = sizeof(a)/sizeof(a[0]);
-double *U,*L;
-U = new double[n*n];
-L = new double[n*n];
-set0(U,n);
-set0(L,n);
-//先算urj(固定r，计算完所有的urj)，再算ljr(固定i，计算完所有的ljr)
-for(int r=0;r&lt;n;r++){
-    //计算urj(固定r，计算完所有的urj)
-    //计算ljr(固定i，计算完所有的ljr)
-    for(int j=r;j&lt;n;j++){
-        double sum_lu1=0;
-        double sum_lu2=0;
-        for(int k=0;k&lt;r;k++){
-            sum_lu1 = sum_lu1+L[r*n+k]*U[k*n+j];
-            sum_lu2 = sum_lu2+L[j*n+k]*U[k*n+r];
-        }
-        U[r*n+j]=a[r*n+j]-sum_lu1;
-        if(j==r){
-            L[j*n+r]=1;
-        }else{
-            L[j*n+r]=a[j*n+r]-sum_lu2;
-            L[j*n+r]=L[j*n+r]/U[r*n+r];
-        }
-    }
-}
-return false;
-}
-</code></pre><p>结果：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-22-05.png" alt=""> </p>
-<p>不知道为什么，我的答案与网上的之前学长做过的这道题的答案统统不一样。仔细检查后还是查不出来。又用Matlab验证了一下LU分解，MATLAB跑的结果为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-39-25.png" alt=""><br>与我自己的L矩阵一致。决定还是相信自己。</p>
-<h1 id="列主元高斯消去法">4. 列主元高斯消去法</h1><p>主要思想是在每次计算第r行时，选取当前第r列下的最大的a[i,r]的所在的第i行作为主元，即将第i行与第r行交换，再进行计算。</p>
-<p>主要理论见参考文献-北邮理学院数值分析课件chapter5.</p>
-<p>代码：</p>
-<pre><code>#include &lt;iostream&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstdlib&gt;
-#include&lt;iomanip&gt;
-#define LIM -100000000
-using namespace std;
-double *luReult;
-void printmat(double *mat,int n,string s){
-    std::cout&lt;&lt;endl&lt;&lt;endl&lt;&lt;s&lt;&lt;endl;
-    for(int i=0;i&lt;n;i++){
-        for(int j=0;j&lt;n;j++){
-            printf(&quot;%.5f\t&quot;,mat[i*n+j]);
-        }
-        std::cout&lt;&lt;endl;
-    }
-}
-void printarr(int *mat,int n,string s){
-    std::cout&lt;&lt;endl&lt;&lt;endl&lt;&lt;s&lt;&lt;endl;
-    for(int i=0;i&lt;n;i++){
-        std::cout&lt;&lt;mat[i]&lt;&lt;&quot;\t&quot;;
-        //printf(&quot;%s\t&quot;,mat[i]);
-    }
-}
-int findMainNumber(double *a,int n,int r){
-    float maxa=-99999;
-    int maxaIdx=-1;
-    //printmat(a,n,&quot;a is now :&quot;);
-    for(int i=r;i&lt;n;i++){
-        if(a[i*n+r]&gt;maxa){
-            maxa=a[i*n+r];
-            maxaIdx=i;
-        }
-    }
-    return maxaIdx;
-}
-void exchange(double *a,int n,int e,int r){
-    float temp=0;
-    for(int i=0;i&lt;n;i++){
-        temp = a[r*n+i];
-        a[r*n+i]=a[e*n+i];
-        a[e*n+i]=temp;
-    }
-}
-bool lu(double* a, int* pivot, int n)//矩阵LU分解
-{
-      for(int k=0;k&lt;n;k++){
-        //寻找第k列的主元
-        int p = findMainNumber(a,n,k);
-        exchange(a,n,p,k);//交换k行和p行
-        pivot[k]=p;//记录置换矩阵p
-        if(a[k*n+k]!=0){
-                for(int i=k+1;i&lt;n;i++){//部分下三角L
-                    a[i*n+k]=a[i*n+k]/a[k*n+k];
-                }
-                for(int i=k+1;i&lt;n;i++){//计算上三角U
-                    for(int j=k+1;j&lt;n;j++){
-                        a[i*n+j]=a[i*n+j]-a[i*n+k]*a[k*n+j];
-                    }
-                }
-        }else{
-            return true;//矩阵奇异
-        }
-      }
-      /*
-      //计算下三角L
-      double temp=0;
-       for(int i=0; i&lt;n-2; i++)//i行k列
-            for(int k=i+1; k&lt;n-1;k++)
-            {
-                    temp=a[n*pivot[k] + i];
-                    a[n*pivot[k] + i]=a[k*n + i];
-                    a[k*n + i]=temp;
-            }
-        */
-      luReult=a;
-      printmat(a,n,&quot;lu&quot;);
-      return false ;
-}
-double radio(int a,int b){
-    return (double)(a)/(double)(b);
-}
-void buildHilbert(double *a,double *b,int n){
-    for(int r=0;r&lt;n;r++){
-        for(int j=0;j&lt;n;j++){
-            a[r*n+j]=radio(1,j+r+1);
-            b[r]=b[r]+a[r*n+j];
-        }
-    }
-}
-void exchangeb(double *b,int n,int r,int e){
-    double temp=0;
-    temp=b[e];
-    b[e]=b[r];
-    b[r]=temp;
-    /*r(int i=0;i&lt;n;i++){
-        temp=b[r*n+i];
-        b[r*n+i]=b[e*n+i];
-        b[e*n+i]=temp;
-    }*/
-}
+          LU分解:可以将一个矩阵分解为一个单位下三角矩阵和一个上三角矩阵的乘积（有时是它们和一个置换矩阵的乘积）。LU分解主要应用在数值分析中，用来解线性方程、求反矩阵或计算行列式。
+ 
+1. LU分解条件如果n阶方阵A的各阶顺序主子式 ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU
+其中k阶顺序主子式指 
+2. LU分解方法由于L存在可逆矩阵L’，即LL’=E则L’A=LL’U=U因此得出一般的分解方法：通过对(A,E)做初等行变换得到(U,L’),再由L’得到L.
+其中：
 
-int main()
-{
-    int n=6;//矩阵是n*n的
-    double *b=new double[n];
-    double *a=new double[n*n];
-    /*double input[n*n]={0.001,1.00,1.00,2.00};
-    a=input;
-    double inputb[n]={1.00,3.00};
-    b=inputb;*/
-    buildHilbert(a,b,n);
-    printmat(a,n,&quot;a:&quot;);
-    int *pivot=new int[n*n];
-    luReult=new double[n*n];
-    lu(a,pivot,n);
-    printarr(pivot,n,&quot;p:&quot;);
-    //cout &lt;&lt; &quot;Hello world!&quot; &lt;&lt; endl;
-    return 0;
-}
-</code></pre><p>输出：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-11-02-01.png" alt=""> </p>
-<h1 id="参考文献">5. 参考文献</h1><ol>
-<li><a href="https://ccjou.wordpress.com/2010/09/01/lu-%E5%88%86%E8%A7%A3/" target="_blank" rel="external">LU 分解</a></li>
-<li><a href="http://blog.csdn.net/u010945683/article/details/45803141" target="_blank" rel="external">矩阵分析——LU分解</a></li>
-</ol>
-
-          
+L是单位下三角矩阵（对角线上的系数都为1的下三角矩阵）；L’也是单
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/29/矩阵LU分解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -684,15 +508,22 @@ int main()
       
         
           
-            <p>最大流问题：给定流网络、源节点、汇点，找到值最大的一个流。</p>
-<h1 id="Ford-Fullkerson方法">1. Ford-Fullkerson方法</h1><p><strong>主要思想</strong>：循环增加流的值。</p>
-<h2 id="几个概念">1.1. 几个概念</h2><h3 id="残存网络-G-f">1.1.1. 残存网络$G_f$</h3><p>残存网络简单定义：</p>
-<pre><code>残存网络=网络容量Capacity-流量网络flow
-</code></pre><p>残存网络形式化定义：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-28-19-36-03.png" alt=""> </p>
-<p>说明：<br>第一项很好理解，就是=网络容量Capacity-流量网络flow</p>
+          最大流问题：给定流网络、源节点、汇点，找到值最大的一个流。
+1. Ford-Fullkerson方法主要思想：循环增加流的值。
+1.1. 几个概念1.1.1. 残存网络$G_f$残存网络简单定义：
+残存网络=网络容量Capacity-流量网络flow
+残存网络形式化定义：
+ 
+说明：第一项很好理解，就是=网络容量Capacity-流量网络flow
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/28/最大流/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -824,19 +655,15 @@ int main()
       
         
           
-            <h1 id="Description">1. Description</h1><p>Advanced Cargo Movement, Ltd. uses trucks of different types. Some trucks are used for vegetable delivery, other for furniture, or for bricks. The company has its own code describing each type of a truck. The code is simply a string of exactly seven lowercase letters (each letter on each position has a very special meaning but that is unimportant for this task). At the beginning of company’s history, just a single truck type was used but later other types were derived from it, then from the new types another types were derived, and so on. </p>
-<p>Movement:运动<br>trucks：卡车<br>exactly seven lowercase letters ：正好七个小写字母<br>derived：派生</p>
-<p>Today, ACM is rich enough to pay historians to study its history. One thing historians tried to find out is so called derivation plan – i.e. how the truck types were derived. They defined the distance of truck types as the number of positions with different letters in truck type codes. They also assumed that each truck type was derived from exactly one other truck type (except for the first truck type which was not derived from any other type). The quality of a derivation plan was then defined as<br><code>1/Σ(to,td)d(to,td)</code></p>
-<p>quality：质量</p>
-<p>where the sum goes over all pairs of types in the derivation plan such that to is the original type and td the type derived from it and d(to,td) is the distance of the types.<br>Since historians failed, you are to write a program to help them. Given the codes of truck types, your program should find the highest possible quality of a derivation plan. </p>
-<h1 id="Input">2. Input</h1><p>The input consists of several test cases. Each test case begins with a line containing the number of truck types, N, 2 &lt;= N &lt;= 2 000. Each of the following N lines of input contains one truck type code (a string of seven lowercase letters). You may assume that the codes uniquely describe the trucks, i.e., no two of these N lines are the same. The input is terminated with zero at the place of number of truck types.</p>
-<h1 id="Output">3. Output</h1><p>For each test case, your program should output the text “The highest possible quality is 1/Q.”, where 1/Q is the quality of the best derivation plan.<br>Sample Input</p>
-<p>4<br>aaaaaaa<br>baaaaaa<br>abaaaaa<br>aabaaaa<br>0</p>
-<h1 id="Sample-Output">4. Sample Output</h1><p>The highest possible quality is 1/3.</p>
-<h1 id="解决方案">5. 解决方案</h1><p>t:表示卡车的七个字母的字符串<br>d(t0,td)=t0和td两卡车的字符串不相同的个数</p>
-<p>每个卡车都是由另一个卡车派生而来。<br>现在给出n种不同型号的truck，问怎样使quality的值最小————即找到一条连接所有truck的最短路径</p>
-
-          
+          1. DescriptionAdvanced Cargo Movement, Ltd. uses trucks of different types. Some trucks are used for vegetable delivery, other for furniture, or for bricks. The company has its own code describing each type of a truck. The code is simply a string of exactly seven lowercase letters (each letter on ea
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/27/ACM-poj1789-TruckHistory/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -968,90 +795,22 @@ int main()
       
         
           
-            <p>带权图分为有向和无向，无向图的最短路径又叫做最小生成树，有prime算法和kruskal算法；有向图的最短路径算法有dijkstra算法和floyd算法。</p>
-<p>最小生成树问题：给定一个连通无向图，寻找一颗无环树，使得树上所有边权值之和最小。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-26-20-15-02.png" alt=""> </p>
-<h1 id="最小生成树的贪心策略的通用方法">1. 最小生成树的贪心策略的通用方法</h1><h2 id="问题描述">1.1. 问题描述</h2><p><strong>已知</strong>：连通无向图$G=(V,E)$，权重函数$w:E \rightarrow R$<br><strong>循环不变式</strong>：在每边循环之前，A是某颗最小生成树的一个子集。<br><strong>伪代码</strong></p>
-<pre><code>GENERIC-MST(G,w)
+          带权图分为有向和无向，无向图的最短路径又叫做最小生成树，有prime算法和kruskal算法；有向图的最短路径算法有dijkstra算法和floyd算法。
+最小生成树问题：给定一个连通无向图，寻找一颗无环树，使得树上所有边权值之和最小。
+ 
+1. 最小生成树的贪心策略的通用方法1.1. 问题描述已知：连通无向图$G=(V,E)$，权重函数$w:E \rightarrow R$循环不变式：在每边循环之前，A是某颗最小生成树的一个子集。伪代码
+GENERIC-MST(G,w)
 A={}
 while A does not form a spanning tree // 当A不是一个生成树时
-    find an edge(u,v) that is safe for A // 找到一条A的安全边
-    A = A ∪ {(u,v)}
-return A
-</code></pre><p>注：安全边是指加入A后，不会使得A违反循环不变式。即 A ∪ {(u,v)}也是某颗最小生成树的一个子集</p>
-<p><strong>问题</strong>：如何寻找安全边</p>
-<h2 id="求安全边">1.2. 求安全边</h2><p><strong>定理</strong>：设A是图G的某最小生成树的一个子集。设（S,V-S）是图G中尊重集合A的任意一个切割，又设(u,v)是横跨切割(S,V-S)的一条轻量级边，则边(u,v)对于集合A是安全的。</p>
-<p><strong>切割</strong>：图中的线<br><strong>切割尊重集合A</strong>：集合A中不存在横跨切割的边（如图a中的灰粗线构成的集合）<br><strong>轻量级边</strong>：横跨一个切割的所有边中权重最小的边（不唯一）。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-26-21-11-54.png" alt=""> </p>
-<h1 id="Kruskal和Prim关系">2. Kruskal和Prim关系</h1><table>
-<thead>
-<tr>
-<th>term</th>
-<th style="text-align:right">集合A</th>
-<th style="text-align:center">说明</th>
-<th style="text-align:center">共性</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Kruskal</td>
-<td style="text-align:right">森林</td>
-<td style="text-align:center">结点是原图结点，安全边是权重最小的连接两个不同分量的边</td>
-<td style="text-align:center">都是用具体的规则来确定安全边的方法</td>
-</tr>
-<tr>
-<td>Prim</td>
-<td style="text-align:right">树</td>
-<td style="text-align:center">安全边是连接A和A之外某个节点的边中权重最小的边</td>
-</tr>
-</tbody>
-</table>
-<h1 id="Kruskal算法">3. Kruskal算法</h1><p><strong>寻找安全边</strong>:在所有连接两个不同树的边里，找到权重最小的边(u,v)</p>
-<h2 id="伪代码">3.1. 伪代码</h2><pre><code>MST-KRUSKAL(G,w)
-A={}//A是森林
-for each vertex v∈G.V
-    MAKE-SET(v)//将集合A初始化为空集，并创建M颗子树，每棵树各含一个结点
-sort the edges of G.E into nondecreasing order by weight w //对边按照权重排序
-for each edge(u,v)∈G.E,taken in nondecreasing order by weight//按权重顺序遍历边
-    if FIND-SET(v)!=FIND-SET(u)//(u,v)不在一棵树
-        A= A ∪ {(u,v)}
-        UNION(u,v)
-return A
-</code></pre><h2 id="时间复杂度">3.2. 时间复杂度</h2><p>$O(ElgV)$</p>
-<h2 id="特点">3.3. 特点</h2><p>图的存贮结构采用边集数组,且权值相等的边在数组中排列次序可以是任意的.该方法对于边相对比较多的不是很实用,浪费时间.</p>
-<p>c++实现（写的很好，一定要看）:<a href="http://blog.csdn.net/niushuai666/article/details/6689285" target="_blank" rel="external">Kruskal算法</a></p>
-<h1 id="Prim算法">4. Prim算法</h1><p><strong>寻找安全边</strong>:A总是一颗树。从单一顶点开始，逐步扩大树中所含顶点的数目，直到遍及连通图的所有顶点。</p>
-<p>为了快速选择新边， 在算法执行的过程中，所有不在树A中的结点都存放在一个基于key属性的<code>最小优先队列Q</code>中。</p>
-<p><code>u.key</code> : 连接结点u和<strong>树</strong>中结点的所有边中最小边的权重。<br><code>u.π</code>：u在<strong>树</strong>中的父节点</p>
-<h2 id="描述">4.1. 描述</h2><p><strong>输入</strong>:连通图G,边权w,最小生成树的根节点r</p>
-<p><strong>初始化</strong>：Vnew = {x}，其中x为集合V中的任一节点（起始点），Enew = {}</p>
-<p><strong>循环</strong>：重复以下操作，直到$V_{new}=V$：</p>
-<ol>
-<li>在集合E中选取权值最小的边（u,v），其中u是集合Vnew中的元素，而v则是V中没有加入Vnew的顶点；</li>
-<li>将v加入Vnew中，将(u,v)加入Enew中；</li>
-</ol>
-<p><strong>输出</strong>：使用集合Vnew和Enew来描述所得到的最小生成树。</p>
-<p>图例：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-27-15-47-24.png" alt=""> </p>
-<h2 id="伪代码-1">4.2. 伪代码</h2><pre><code>MST-PRIM(G,w,r)//r是最小生成树的根节点
-for each u∈G.V
-    u.key=∞ 
-    u.π=NIL //u在树中的父节点
-r.key=0
-Q=G.V
-while Q!={}
-    u=EXTRACT-MIN(Q)//某条横跨切割(V-Q,Q)的一个轻量级边的端点
-    for each v∈G.Adj[u]//遍历u的邻接表
-    if v∈Q and w(u,v)&lt;v.key
-        v.π=u
-        v.key=w(u,v)
-</code></pre><h2 id="时间复杂度-1">4.3. 时间复杂度</h2><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-27-15-51-25.png" alt=""> </p>
-<p>通过邻接矩阵图表示的简易实现中，找到所有最小权边共需O（V2）的运行时间。使用简单的二叉堆与邻接表来表示的话，普里姆算法的运行时间则可缩减为O(E log V)，其中E为连通图的边数，V为顶点数。如果使用较为复杂的斐波那契堆，则可将运行时间进一步缩短为O(E + V log V)，这在连通图足够密集时（当E满足Ω（V log V）条件时），可较显著地提高运行速度</p>
-<h1 id="参考文献">5. 参考文献</h1><ol>
-<li><a href="https://zh.wikipedia.org/wiki/%E6%99%AE%E6%9E%97%E5%A7%86%E7%AE%97%E6%B3%95" target="_blank" rel="external">维基百科</a></li>
-</ol>
-
-          
+    
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/26/最小生成树算法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1183,30 +942,15 @@ while Q!={}
       
         
           
-            <h1 id="Description">1. Description</h1><p>Several currency exchange points are working in our city. Let us suppose that each point specializes in two particular currencies and performs exchange operations only with these currencies. There can be several points specializing in the same pair of currencies. Each point has its own exchange rates, exchange rate of A to B is the quantity of B you get for 1A. Also each exchange point has some commission, the sum you have to pay for your exchange operation. Commission is always collected in source currency.<br>For example, if you want to exchange 100 US Dollars into Russian Rubles at the exchange point, where the exchange rate is 29.75, and the commission is 0.39 you will get (100 - 0.39) * 29.75 = 2963.3975RUR.<br>You surely know that there are N different currencies you can deal with in our city. Let us assign unique integer number from 1 to N to each currency. Then each exchange point can be described with 6 numbers: integer A and B - numbers of currencies it exchanges, and real RAB, CAB, RBA and CBA - exchange rates and commissions when exchanging A to B and B to A respectively.<br>Nick has some money in currency S and wonders if he can somehow, after some exchange operations, increase his capital. Of course, he wants to have his money in currency S in the end. Help him to answer this difficult question. Nick must always have non-negative sum of money while making his operations. </p>
-<p> currency exchange points：货币兑换点<br> commission：佣金<br> assign ：分配</p>
-<p>每个货币兑换点只能互换两种货币。兑换点可重复。每个点都有自己的兑换率，A to B 的兑换率是指1个A能兑换的B的数量。</p>
-<p>兑换时收取一定的佣金，佣金是以来源货币来collect的。例如，如果你想将100dolars兑换成Russian Bules,  兑换点的兑换率是29.75，费用是0.39，，那么你会得到的钱是 (100 - 0.39) * 29.75 = 2963.3975RUR. </p>
-<p>假设每种兑换的点数量是1-N，那么每个兑换点可以由6个num来描述：</p>
-<p>interger A and B  兑换货币的序号<br>RAB A to B兑换率<br>CAB A to B 的佣金<br>RBA B to A 兑换率<br>CBA B to A 的佣金</p>
-<p>Nick有些S货币，他很好奇他能否通过货币兑换的方式对他的资金进行增值。最终他希望他拿到还是S货币。帮他解决这个问题。Nick在这个过程中不能借钱。</p>
-<h1 id="Input">2. Input</h1><p>The first line of the input contains four numbers: N - the number of currencies, M - the number of exchange points, S - the number of currency Nick has and V - the quantity of currency units he has. </p>
-<p>The following M lines contain 6 numbers each - the description of the corresponding exchange point - in specified above order. Numbers are separated by one or more spaces. </p>
-<p>1&lt;=S&lt;=N&lt;=100, 1&lt;=M&lt;=100, V is real number, 0&lt;=V&lt;=103. </p>
-<p>For each point exchange rates and commissions are real, given with at most two digits after the decimal point, 10-2&lt;=rate&lt;=102, 0&lt;=commission&lt;=102. </p>
-<p>Let us call some sequence of the exchange operations simple if no exchange point is used more than once in this sequence. You may assume that ratio of the numeric values of the sums at the end and at the beginning of any simple sequence of the exchange operations will be less than 104. </p>
-<p>corresponding：相应的</p>
-<p>第一行包含四个数字：<br>N 货币的种类<br>M 兑换点的数量<br>S Nick的货币的序号<br>V Nick拥有的钱</p>
-<p>接下来的M行，每行包含六个数字，描述相应的兑换点的属性。<br>数字由一个或多个空格隔开</p>
-<p>1&lt;=S&lt;=N&lt;=100, 1&lt;=M&lt;=100, V is real number, 0&lt;=V&lt;=103. </p>
-<p>每个兑换点的兑换率和手续费都是实数，至多精确到两位小数。</p>
-<p> 10-2&lt;=rate&lt;=102, 0&lt;=commission&lt;=102</p>
-<p>如果在操作序列中不适用多个兑换点，我们可以发起一些简单的兑换操作。你可以假设：（最后的总和/）</p>
-<h1 id="输出数据">3. 输出数据</h1><p>如果nick能够实现他的愿望，则输出YES，否则输出NO。</p>
-<h1 id="样例输入">4. 样例输入</h1><p>3 2 1 20.0<br>1 2 1.00 1.00 1.00 1.00<br>2 3 1.10 1.00 1.10 1.00</p>
-<h1 id="思路">5. 思路</h1><p>将货币看做点，每种兑换规则为边，两点的路径长度为兑换后的钱数。建图之后可以看出题意为求图中是否存在正环，用Bellman-Ford求最长路径，如果存在正环输出YES，不存在输出NO。</p>
-
-          
+          1. DescriptionSeveral currency exchange points are working in our city. Let us suppose that each point specializes in two particular currencies and performs exchange operations only with these currencies. There can be several points specializing in the same pair of currencies. Each point has its own
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/23/ACM-poj1860-CurrencyExchange/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1338,68 +1082,22 @@ while Q!={}
       
         
           
-            <p>单源最短路径问题：给定一个图 $G=(V,E)$ ，我们希望找到从给定源节点$s\in V$到每个节点$v \in V$的最短路径。</p>
-<p>先总结：</p>
-<p>Bellman-Ford算法：采用动态规划进行设计。<strong>待总结</strong>。简单，还能侦探含源节点的负权重回路。<br>Dijkstra算法：采用贪心算法范式进行设计。复杂度低，但要求权重非负。</p>
-<h1 id="最短路径树">1. 最短路径树</h1><p>一颗根节点为s的最短路径树是一个有向子图$G’=(V’,E’)$，这里$V’\in V$,$E’\in E$,满足：</p>
-<ol>
-<li>$V’$是图G中从源节点s可以到达的所有结点的集合；</li>
-<li>$G’$形成一颗根节点为s的树；</li>
-<li>对于所有结点$v\in V’$,图$G’$中从结点s到结点v的唯一简单路径是图G中从结点s到结点v的一条最短路径。</li>
-</ol>
-<h1 id="松弛操作">2. 松弛操作</h1><p>对每个节点v，我们维持一个属性v.d，记录s→v的最短路径估计</p>
-<p>松弛操作：比较s→u→v与s→v的d,然后进行更新。</p>
-<pre><code>RELEAX(u,v,w)
-    if v.d&gt;u.d+w(u,v)
-        v.d=u.d+w(u,v)
-        v.π=u
-</code></pre><h1 id="Bellman-Ford算法">3. Bellman-Ford算法</h1><p><strong>目标</strong>：解决单源最短路径问题<br><strong>条件</strong>：边权重可负<br><strong>输入</strong>：带权有向图$G=(V,E)$和权重函数$w:E→R$<br><strong>输出</strong>：布尔值，是否存在一个从源节点可以到达的负权重回路。若存在，则算法无解。</p>
-<p><strong>思路</strong>：Bellman-Ford通过对边进行松弛操作来渐进地降低从源节点s到每个节点v的最短路径估计值v.d，直到该估计值与实际的最短路径权重$δ(s,v)$相同为止。</p>
-<p>初始函数：</p>
-<pre><code>INITIALIZE-SINGLE-SOURCE(G,s)
-    for eahc vertex v∈G.V
-        v.d=∞
-        v.π=null
-    s.d=0
-</code></pre><p><strong>算法</strong>：</p>
-<pre><code>BELLMAN-FORD(G,w,s)
-    INITIALIZE-SINGLE-SOURCE(G,s)//对每个点v.d和v.π初始化
-    for i=1 to |G.V|-1 //对每个边处理V-1次
-        for each edge(u,v)∈G.E //遍历所有的边
-            RELAX(u,v,w)
-    for each edge(u,v)∈G.E
-        if v.d&gt;u.d+w(u,v)
-            return False
-        else
-            return True
-</code></pre><p><strong>复杂度</strong>：$O(VE)$</p>
-<p><strong>对每个边处理V-1的原因</strong>：设p是从s到v的最短路径，则p最多包含V-1条边。</p>
-<p>如下图所示的极限条件，v0-v5路径应该为<code>&lt;v0,v1,v2,v3,v4,v5&gt;</code></p>
-<p>原本v0-v5的路径是灰色的。<br>第一轮松弛后，v0-v5路径变为<code>&lt;v0,v1,v5&gt;</code>，即黑色的<br>同理，第二轮松弛后，v0-v5路径变为<code>&lt;v0,v1,v2,v5&gt;</code><br>因此要松弛V-1次才可以<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-17-07-49.png" alt=""> </p>
-<h1 id="Dijkstra算法">4. Dijkstra算法</h1><p><strong>条件</strong>：所有边的权重非负<br><strong>思想</strong>：由上述性质可知，如果存在一条从i到j的最短路径(Vi…..Vk,Vj)，Vk是Vj前面的一顶点。那么(Vi…Vk)也必定是从i到k的最短路径。为了求出最短路径，Dijkstra就提出了以最短路径长度递增，逐次生成最短路径的算法。即：每次找到离源点最近的一个顶点，然后以该顶点为中心进行扩展，最终得到源点到其余所有点的最短路径。</p>
-<p><strong>Dijkstra算法的关键</strong>：维持一组节点集合S，从s到该集合中的每个节点的最短路径已经被找到。算法重复从V-S中选择最短路径估计最小的节点u，将u加入结合S，然后对所有从u出发的边进行松弛。</p>
-<pre><code>DIJKSTRA(G,w,s)
-    INITIALIZE-SINGLE-SOURCE(G,s)//对v.d和v.π初始化
-    S={}
-    Q=G.V
-    while Q.length != 0
-        u = UXTRACT-MIN(Q)//从V-S中选出最短路径估计最小的节点u
-        S=S∪{u}
-        for each vertex v∈G.Adj[u]
-            RELAX(u,v,w)
-</code></pre><p><strong>算法解释</strong><br>二维数组 e 来存储顶点之间边的关系，初始值如下：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-23-08.png" alt=""> </p>
-<p>我们还需要用一个一维数组 dis 来存储 1 号顶点到其余各个顶点的初始路程，如下。<br>我们将此时 dis 数组中的值称为最短路的“估计值”<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-23-38.png" alt=""> </p>
-<p>图的关系如图所示，1是源点<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-22-41.png" alt=""> </p>
-<p>既然是求 1 号顶点到其余各个顶点的最短路程，那就先找一个离 1 号顶点最近的顶点。通过数组 dis 可知当前离 1 号顶点最近是 2 号顶点。当选择了 2 号顶点后，dis[2]的值就已经从“估计值”变为了“确定值”，即 1 号顶点到 2 号顶点的最短路程就是当前 dis[2]值。<br>原因：目前离 1 号顶点最近的是 2 号顶点，并且这个图所有的边都是正数，那么肯定不可能通过第三个顶点中转，使得 1 号顶点到 2 号顶点的路程进一步缩短了。因为 1 号顶点到其它顶点的路程肯定没有 1 号到 2 号顶点短，</p>
-<p>既然选了 2 号顶点，接下来再来看 2 号顶点有哪些出边呢。有 2-&gt;3 和 2-&gt;4 这两条边。先讨论通过 2-&gt;3 这条边能否让 1 号顶点到 3 号顶点的路程变短。也就是说现在来比较 dis[3]和 dis[2]+e[2][3]的大小。其中 dis[3]表示 1 号顶点到 3 号顶点的路程。dis[2]+e[2][3]中 dis[2]表示 1 号顶点到 2 号顶点的路程，e[2][3]表示 2-&gt;3 这条边。所以 dis[2]+e[2][3]就表示从 1 号顶点先到 2 号顶点，再通过 2-&gt;3 这条边，到达 3 号顶点的路程。</p>
-<p>我们发现 dis[3]=12，dis[2]+e[2][3]=1+9=10，dis[3]&gt;dis[2]+e[2][3]，因此 dis[3]要更新为 10。这个过程有个专业术语叫做“松弛”。即 1 号顶点到 3 号顶点的路程即 dis[3]，通过 2-&gt;3 这条边松弛成功。这便是 Dijkstra 算法的主要思想：通过“边”来松弛 1 号顶点到其余各个顶点的路程。</p>
-<p>同理通过 2-&gt;4（e[2][4]），可以将 dis[4]的值从 ∞ 松弛为 4（dis[4]初始为 ∞，dis[2]+e[2][4]=1+3=4，dis[4]&gt;dis[2]+e[2][4]，因此 dis[4]要更新为 4）。</p>
-<p>刚才我们对 2 号顶点所有的出边进行了松弛。松弛完毕之后 dis 数组为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-23-22-31-33.png" alt=""> </p>
-<p>以此类推，此处不再多加阐述。</p>
-<p>参考文献<a href="http://wiki.jikexueyuan.com/project/easy-learn-algorithm/dijkstra.html" target="_blank" rel="external">算法 7：Dijkstra 最短路算法</a></p>
-<h1 id="有向无环图的单源最短路径问题">5. 有向无环图的单源最短路径问题</h1><p>来日再填坑。</p>
+          单源最短路径问题：给定一个图 $G=(V,E)$ ，我们希望找到从给定源节点$s\in V$到每个节点$v \in V$的最短路径。
+先总结：
+Bellman-Ford算法：采用动态规划进行设计。待总结。简单，还能侦探含源节点的负权重回路。Dijkstra算法：采用贪心算法范式进行设计。复杂度低，但要求权重非负。
+1. 最短路径树一颗根节点为s的最短路径树是一个有向子图$G’=(V’,E’)$，这里$V’\in V$,$E’\in E$,满足：
 
-          
+$V’$是图G中从源节点s可以到达的所有结点的集合；
+$G’$形成一颗根节点为s的树；
+对于所有结点$v\in V’$,图$G’$中从结点s到结点v
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/23/单源最短路径问题/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1531,107 +1229,15 @@ while Q!={}
       
         
           
-            <h1 id="题目描述">1. 题目描述</h1><p>Assume the coasting is an infinite straight line. Land is in one side of coasting, sea in the other. Each small island is a point locating in the sea side. And any radar installation, locating on the coasting, can only cover d distance, so an island in the sea can be covered by a radius installation, if the distance between them is at most d. </p>
-<p>We use Cartesian coordinate system, defining the coasting is the x-axis. The sea side is above x-axis, and the land side below. Given the position of each island in the sea, and given the distance of the coverage of the radar installation, your task is to write a program to find the minimal number of radar installations to cover all the islands. Note that the position of an island is represented by its x-y coordinates. </p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-22-19-32-14.png" alt=""> </p>
-<p>coasting：滑行<br>infinite：无穷的<br>Cartesian coordinate system：笛卡尔坐标系</p>
-<p>已知：海岸线是x轴，以上是海，以下是陆地。雷达安装在海岸线上，覆盖半径是d。<br>目标：求能够覆盖所有岛屿的雷达安装数目。<br>需需要注意的是，海岛坐标在x-y坐标系中。</p>
-<h1 id="Input">2. Input</h1><p>The input consists of several test cases. The first line of each case contains two integers n (1&lt;=n&lt;=1000) and d, where n is the number of islands in the sea and d is the distance of coverage of the radar installation. This is followed by n lines each containing two integers representing the coordinate of the position of each island. Then a blank line follows to separate the cases. </p>
-<p>The input is terminated by a line containing pair of zeros </p>
-<p>输入一般包含好几组case测试数据。</p>
-<p>每个case的第一行是(n,d)<br>然后是n行岛屿坐标</p>
-<p>最后以（0,0）结尾</p>
-<h1 id="Output">3. Output</h1><p>For each test case output one line consisting of the test case number followed by the minimal number of radar installations needed. “-1” installation means no solution for that case.</p>
-<h1 id="思路">4. 思路</h1><p>这道题问的是怎样放雷达使其放的雷达数目最少而能够探测到所有的岛屿，这里需要转换为求每个岛屿的能放雷达的区间的问题:</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-22-21-06-38.png" alt=""> </p>
-<p>抽象问题:每个小岛都对应一个区域,这个区域内的雷达都能探测到这个小岛,把这N个区域求出来,问题现在就变成了,最少放置几个点,能使得每个区域内都至少有一个点.</p>
-<p>这道题目的关键之处就是把面的问题转换成线的问题，每一个座海岛在x轴上有一个区间，在这个区间里面的雷达都可以侦测到海岛，区间的范围即是[x-sqrt(dd – yy), x+sqrt(dd+yy)]，然后先以右端点为基进行从小到大排序，然后把第一个雷达默认放在最左端的xmax，接下来的点只要是xmin小于当前xmax就可以不用增加雷达，如果xmax == xmin的话也不用增加雷达。然后如果xmax &lt; xmin的话就加一个雷达，然后以xmin所属区间的xmax为基进行比较。</p>
-<h1 id="代码">5. 代码</h1><pre><code>import java.io.PrintWriter;
-
-import java.util.Arrays;
-import java.util.Scanner;
-public class Main {
-    static class Range implements Comparable&lt;Range&gt;{
-        double left,right;
-        public Range(double left,double right){
-            this.left = left;
-
-            this.right = right;
-        }
-        @Override
-
-        public int compareTo(Range range) {
-            if(range.left == left){
-                return ((Double)right).compareTo((Double)(range.right));
-            }else{
-                return ((Double)left).compareTo((Double)(range.left));
-            }
-        }
-
-        @Override
-        public String toString() {
-            return &quot;(&quot; + left + &quot;,&quot; + right + &quot;)&quot;;
-        }
-
-    }
-
-
-    public static void main(String[] args) {
-        Scanner scn = new Scanner(System.in);
-
-        PrintWriter out = new PrintWriter(System.out);
-        int n ,d,x,y,num;
-        double dx;
-        Range[] ranges;
-        int index = 0;
-        while(true){
-            num = 0;
-            n = scn.nextInt();
-            d = scn.nextInt();
-            if(n == 0){
-                break;
-            }
-            ranges = new Range[n];
-            for(int i = 0; i &lt; n; i++){
-                x = scn.nextInt();
-                y = scn.nextInt();
-                if(y &gt; d){
-                    num = -1;
-                }
-                dx = Math.sqrt(d*d - y*y);
-                ranges[i] = new Range(x - dx, x + dx);
-            }
-            Arrays.sort(ranges);//���
-            if(num != -1){
-                num = calute(ranges);
-            }
-            out.format(&quot;Case %d: %d\n&quot;,++index,num);
-        }
-        out.flush();
-
-    }
-
-    private static int calute(Range[] ranges) {
-        int num = 1;
-        int n = ranges.length;
-        Range preRange = ranges[0],range;
-        for(int i = 1; i &lt; n; i++){
-            range = ranges[i];
-            if(range.left &gt;= preRange.left &amp;&amp; range.left &lt;= preRange.right){
-                preRange.left = range.left;
-                if(range.right &lt; preRange.right){
-                    preRange.right = range.right;
-                }
-            }else{
-                num++;
-                preRange = range;
-            }
-        }
-        return num;
-    }
-}
-</code></pre>
-          
+          1. 题目描述Assume the coasting is an infinite straight line. Land is in one side of coasting, sea in the other. Each small island is a point locating in the sea side. And any radar installation, locating on the coasting, can only cover d distance, so an island in the sea can be covered by a radius insta
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/22/ACM-Radar-Installation/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1763,19 +1369,23 @@ public class Main {
       
         
           
-            <h1 id="numpy结构数组">1. numpy结构数组</h1><p>在c语言中，我们可以使用关键字struct定义结构类型。和c语言一样，numpy也可以创建结构定义，这样可以很方便的读取二进制的C语言结构数组，将其转换为numpy数组对象，假设我们定义的结构数组如下(C语言描述)：</p>
-<pre><code>struct Person{
+          1. numpy结构数组在c语言中，我们可以使用关键字struct定义结构类型。和c语言一样，numpy也可以创建结构定义，这样可以很方便的读取二进制的C语言结构数组，将其转换为numpy数组对象，假设我们定义的结构数组如下(C语言描述)：
+struct Person{
      char name[30];
      int    age;
      float weight; 
 };
-</code></pre><p>我们在python中可以自定义类型如下：</p>
-<pre><code>persontype = np.dtype({
-&apos;names&apos;:[&apos;name&apos;,&apos;age&apos;,&apos;weight&apos;],
-&apos;formats&apos;:[&apos;S30&apos;,&apos;i&apos;,&apos;f&apos;]},align = True)
-</code></pre><p>参考文献<a href="http://www.cnblogs.com/td15980891505/p/6083083.html" target="_blank" rel="external">numpy中结构数组</a></p>
-
-          
+我们在python中可以自定义类型如下：
+persontype = np.dtype({
+&apos;names&apos;:[&apos;name&apos;,&apos;age&apos;,&apos;w
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/21/numpy笔记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1907,51 +1517,16 @@ public class Main {
       
         
           
-            <h1 id="super关键字">1. super关键字</h1><h2 id="子类override-覆盖-父类的函数">1.1. 子类override(覆盖)父类的函数</h2><p>override时，使用<code>super</code>调用父类的方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//超类，员工</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> salary;<span class="comment">//薪水</span></div><div class="line">    <span class="keyword">private</span> Date hireDay;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> salary;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//经理</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manage</span> <span class="keyword">extends</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> bonus;<span class="comment">//奖金</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span>&#123;<span class="comment">//对原来的getSalary进行override</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.bonus + <span class="keyword">super</span>.getSalary();<span class="comment">//super调用父类的getSalary()方法</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="super在构造器中的应用">1.2. super在构造器中的应用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String n, <span class="keyword">double</span> s, <span class="keyword">int</span> year, <span class="keyword">int</span> mouth, <span class="keyword">int</span> day)</span></span>&#123;</div><div class="line">    <span class="keyword">super</span>(n,s,year,mouth,day);<span class="comment">//调用超类Employee中对应参数的构造器</span></div><div class="line">    bonus = <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="多态">2. 多态</h1><p>一个对象变量可以指示多种实际类型的现象————多态（polymorphism）<br>在运行时自动选择调用那个方法的现象————动态绑定（dynamic binding）</p>
-<p>例如：</p>
-<pre><code>Employee e = new Employee();
-e = new Manage(); // is ok
-</code></pre><p>此时，对象变量<code>e</code>也可以引用<code>Manager</code>的对象。</p>
-<pre><code>Manage boss = new Manage(...);
-Employee[] staff = new Employee();
-</code></pre><h1 id="调用对象方法的执行过程">3. 调用对象方法的执行过程</h1><ol>
-<li>编译器查看对象的声明类型和方法名。假设调用<code>x.f(param)</code>，且隐式参数x声明为C类的对象。编译器一一列举所有C类中名为f的方法和其超类中访问属性为public且名为f的方法。</li>
-<li>编译器查看调用方法时提供的参数类型。这个过程叫做<strong>重载解析</strong>（overloading resolution）</li>
-<li>如果是private方法、static方法、final方法或者构造器，那么编译器会准确地知道应该调用哪个方法（编译器可以在编译阶段就完成绑定），这种调用方式叫<strong>静态绑定</strong>(static binding)。与此对应的是，调用的方法依赖于隐式参数的实际类型（编译器在编译阶段不知道要调用哪个方法，直到运行时才能确定），并在运行时实现<strong>动态绑定</strong>。有一个很好的例子解释这两个概念——<a href="http://blog.csdn.net/lingzhm/article/details/44116091" target="_blank" rel="external">lingzhm-动态绑定</a></li>
-<li>程序运行时，若是动态绑定调用方法，那就先从本类中寻找，否则从超类中寻找。（每个类都有一个方法表method table）</li>
-</ol>
-<h1 id="阻止继承：final类和方法">4. 阻止继承：final类和方法</h1><p>不允许扩展（被继承）的类被称为final类。</p>
-<p>例如下例子中的Executive类就不能有子类。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Executive</span> <span class="keyword">extends</span> <span class="title">Manager</span></span>&#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>类中的方法也可以final,那么子类就不能覆盖这个方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">getName</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="抽象类，abstract">5. 抽象类，abstract</h1><p>用于表示某种很抽象的、上层的、更通用的类。例如图中的<code>Person</code>类。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-13-10-25-16.png" alt=""> </p>
-<ul>
-<li>一般来说，包含一个或多个抽象方法的类本身必须被声明为抽象的。</li>
-<li>抽象类<strong>不能</strong>被实例化！</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="keyword">private</span> String name;<span class="comment">//人类共有的属性,是具体的属性</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String n)</span></span>&#123;<span class="comment">//具体的方法</span></div><div class="line">        name=n;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;<span class="comment">//抽象方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>可以定义抽象类的对象变量，但只能引用非抽象子类的对象：</p>
-<p>  Person p = new Student(“Vince Vu”,”Economics”);</p>
-</li>
-</ul>
-<p>照着书上写了abstract的<a href="https://github.com/jiayi797/Java/tree/master/abstactClasses" target="_blank" rel="external">demo</a></p>
-<p>输出为：</p>
-<pre><code>Harry Hacker,an employee with a salary of 50000.00
-Maria Morris,a student majoring in computer science
-</code></pre><h1 id="受保护访问，Protected">6. 受保护访问，Protected</h1><p>若超类的某个域被声明为protected,那么子类就可以直接访问这个protected域。</p>
-<ul>
-<li>private-仅本类可见</li>
-<li>public-所有类可见</li>
-<li>protected-对本包和所有子类可见</li>
-<li>默认-对本包可见</li>
-</ul>
-
-          
+          1. super关键字1.1. 子类override(覆盖)父类的函数override时，使用super调用父类的方法。
+12345678910111213141516//超类，员工class Employee&#123;    private String name;    private double salary;//薪水    private Date hireDay;    public double getSalary()&#123;        return salary;    &#125;&#125;//经理class Manage extends Employee&#12
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/16/java学习笔记(2)-继承/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2083,43 +1658,28 @@ Maria Morris,a student majoring in computer science
       
         
           
-            <p>之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。<br>GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。</p>
-<h1 id="GBDT的误差函数">1. GBDT的误差函数</h1><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-49-01.png" alt=""> </p>
-<h1 id="目标">2. 目标</h1><ol>
-<li>求函数h(x)的形式</li>
-<li>求h(x)的步长η</li>
-</ol>
-<h1 id="回归问题求解目标">3. 回归问题求解目标</h1><p>对于回归（regression）问题，误差函数一般采用平方误差。即：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-55-15.png" alt=""> </p>
-<p>为了进一步求解，我们对上式进行taylor展开，即：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-58-42.png" alt=""> </p>
-<p>其中：</p>
-<ul>
-<li>左边一项$err(S_n,y_n)$是常量（因为$S_n$、$y_n$都已知）</li>
-<li>右边一项应该对s求导，并在sn这点取导数值（$error=(s-y)^2$求导之后得到$2(s-y)$）</li>
-</ul>
-<p>那么，上式等于：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-14-04-27.png" alt=""> </p>
-<h2 id="求h-x">3.1. 求h(x)</h2><p>为了让上式最小化，那么貌似$|h(x)|$无穷大即可实现，这不科学！于是我们要对$h(x)$的大小进行限制（类似归一化）————加入惩罚项$(h(x_n))^2$，即将上式变为：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-14-19-46.png" alt=""> </p>
-<p>而上式可变为：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-14-20-27.png" alt=""> </p>
-<p>其中的$(s_n-y_n)^2$是常数，记为constant</p>
-<p>那么新的目标就变为：用$x_n$和$y_n-s_n$做一个regression即可。即：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-14-27-31.png" alt=""> </p>
-<p>经过penalize一番折腾之后，h终于有个像模像样的形式了：即regression with residuals（残差）。</p>
-<h2 id="求步长η">3.2. 求步长η</h2><p>需要求得一个η，使得下式最小化：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-21-27.png" alt=""> </p>
-<p>为了方便计算，我们将平方内的项取负：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-22-55.png" alt=""> </p>
-<p>上式的$y_n-s_n$即residuals（残差）.这是一个单变量的线性回归问题，其中输入是用gt转换后的数据，输出是残差(residual)。</p>
-<h1 id="GBDT算法">4. GBDT算法</h1><p>输出：$\sum_t^T\alpha_t g_t(x)$，即一堆权重$\alpha_t$和一堆决策树$g_t(x)$<br>步骤：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-15-32-42.png" alt=""> </p>
-<p>1）利用C&amp;RT去学{x, yn-sn}，保留这一轮学出来的树gt(x)</p>
-<p>2）再求{gt(x), residual}线性回归，最小化目标函数求出来ita</p>
-<p>3）更新sn</p>
-<p>学习足够多次数后，返回组合的GBDT。</p>
+          之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。
+1. GBDT的误差函数 
+2. 目标
+求函数h(x)的形式
+求h(x)的步长η
 
-          
+3. 回归问题求解目标对于回归（regression）问题，误差函数一般采用平方误差。即：
+ 
+为了进一步求解，我们对上式进行taylor展开，即：
+ 
+其中：
+
+左边一项$err(S_n,y_n)$是常量（因为$S_n$、$y_n$都已知）
+右边一项应该对s求导，并在sn这点取导数值（$error=(s-y)^2$求导
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/15/GBDT/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
