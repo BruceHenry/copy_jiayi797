@@ -271,6 +271,443 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/07/10/SVD分解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/10/SVD分解/" itemprop="url">SVD分解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T13:08:20+08:00">
+                2017-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>简介</strong></p>
+<ul>
+<li>SVD(Singular Value Decomposition，奇异值分解)是对实数矩阵(甚至复数矩阵)的一种因式分解。</li>
+<li>任意的一个矩阵都可以做SVD分解。相比SVD分解，和SVD相近的特征值分解只能应用于方阵。</li>
+<li>SVD分解可用来解决非方阵不能计算逆矩阵的问题。</li>
+</ul>
+<h1 id="SVD定义">1. SVD定义</h1><p>设一个$m\times n$的矩阵$M$,它的SVD分解是：<br>$$M=UΣV^*$$<br>其中：</p>
+<ul>
+<li>$U$是一个$m\times m$的酉矩阵。(我的理解：酉矩阵是在复数空间上，类似正交矩阵的矩阵。它有很多不错的性质。可以在我上一篇博客里看到)</li>
+<li>$Σ$是$m\times n$的矩形对角矩阵，并且在对角线上的元素都是非负实数$σ_i$，称为$M$的奇异值</li>
+<li>$V^*$是一个$n\times n$的酉矩阵，也是$V$的共轭转置矩阵。</li>
+</ul>
+<h1 id="SVD的原理">2. SVD的原理</h1><p>首先，我们对正交矩阵进行一些回顾。</p>
+<p><strong>正交矩阵回顾</strong></p>
+<p>从上一节我们知道，正交矩阵对应的变换是不会改变向量长度的。即，对于向量$(a,b)$，正交矩阵$U$，变换后的向量$U(a,b)$的长度与$(a,b)$是相等的。这个正交变换只是对$(a,b)$做了旋转或者镜射等操作。</p>
+<h2 id="特征值分解——EVD">2.1. 特征值分解——EVD</h2><p>在讨论SVD之前，我们先讨论矩阵的特征值分解（EVD）。</p>
+<p>回顾特征值分解，特征值分解是把一个n阶实对称矩阵分解为下面的形式：<br>$$A=QΣQ^{-1}$$<br>其中：</p>
+<ul>
+<li>$Q$是这个矩阵$A$的特征向量组成的矩阵，是一个正交矩阵</li>
+<li>$Σ$是一个对角阵，每个对角线上的元素就是一个特征值</li>
+</ul>
+<p>此时假设有一个$x$向量，用$A$将这个向量$x$变换到$A$的列空间中，即：<br>$$Ax=QΣQ^{-1}x=QΣQ^Tx=QΣ(Q^Tx)$$</p>
+<ol>
+<li>首先进行$Q^Tx$操作。$Q$和$T^T$都是正交阵，那么$Q^T$对$x$的变换是正交变换，它将$x$用新的坐标系，这个坐标系就是$A$的所有正交的特征向量构成的坐标系。<br>我们如果将$x$用$A$的所有特征向量来表示的话，即表示为$x=a_1x_1+a_2x_2+…+a_mx_m$，则通过第一个变换，$(Q^Tx)=[a_1,a_2,…,a_m]’$,即<img src="https://ooo.0o0.ooo/2017/07/10/596382b7bdde7.png" alt=""> </li>
+<li>紧接着，在新的坐标系表示下，由中间那个对角矩阵对新的向量坐标换，其结果就是将向量往各个轴方向拉伸或压缩：<img src="https://ooo.0o0.ooo/2017/07/10/596382f4d62b4.png" alt=""><br>从上图可以看到，如果A不是满秩的话，那么就是说对角阵的对角线上元素存在0，这时候就会导致维度退化，这样就会使映射后的向量落入m维空间的子空间中。</li>
+<li>最后一个变换就是U对拉伸或压缩后的向量做变换，由于U和U’是互为逆矩阵，所以U变换是U’变换的逆变换。</li>
+</ol>
+<p>因此，从对称阵的分解对应的映射分解来分析一个矩阵的变换特点是非常直观的。假设对称阵特征值全为1那么显然它就是单位阵，如果对称阵的特征值有个别是0其他全是1，那么它就是一个正交投影矩阵，它将m维向量投影到它的列空间中。</p>
+<h2 id="奇异值分解–SVD">2.2. 奇异值分解–SVD</h2><p>上面的矩阵$A$要求必须是n阶实对称的。那么对于任意的$M\times N$矩阵，能否找到一个相似的变换呢？这就是SVD分解的精髓所在。</p>
+<p>在上面的特征值分解中，我们能找到一个变换$A$，将一组正交基映射到另一组正交基。</p>
+<ul>
+<li>我们假设存在$M \times N$的矩阵$A$。现在我们的目标是，在n维空间中找到一组正交基$${v_1,v_2,…,v_n}$$，使得经过A变换后还是正交的。</li>
+<li>那么$A$矩阵就将这组基映射为：$${Av_1,Av_2,…,Av_n}$$</li>
+<li>如果要使得它们两两正交，即：$$Av_i\cdot Av_j = (Av_i)^TAv_j=v_i^TA^TAv_j=0$$</li>
+<li>根据假设，存在$$v_i^Tv_j=v_i\cdot v_j = 0$$</li>
+<li>所以如果正交基v选择为A’A的特征向量的话，由于A’A是对称阵，v之间两两正交，那么$$v_i^TA^TAv_j=v_i^T\lambda _jv_j=0$$，这样就找到了正交基映射后还是正交基了。</li>
+<li>将映射后的正交基单位化，$$u_i = \frac{Av_i}{|Av_i|}=\frac{1}{\sqrt{\lambda_i}}Av_i$$<br>其中$u_i$是映射后的正交基，$v_i$是映射前的正交基。</li>
+<li>由此可得，$$Av_i=u_i\alpha_i(奇异值)=\sqrt{\lambda_i},0\leq i \leq k,k=Rank(A)$$</li>
+</ul>
+<p>这样我们就证明了，这个变换是存在的。</p>
+<p>接下来，我们将向量组${u_1,u_2,…,u_k}$扩充为$R^m$中的标准正交基$u_1,u_2,…,u_r,…,u_m$，则：<br>$$AV=A(v_1,v_2,…,v_n)=(Av_1,Av_2,…,Av_k,0,0,…,0)$$<br>而由之前的推导我们知道，$Av_i=u_i\alpha_i(奇异值)$，因此上式变为<br>$$AV=(u_1\alpha_1,u_2\alpha_2,…,u_k\alpha_k,0,0,…,0)=UΣ$$</p>
+<p>即：<br>$$A=UΣV^T$$</p>
+<p>这就<strong>表明</strong>任意的矩阵$A$是可以分解成三个矩阵。$V$表示了原始域的标准正交基，$U$表示经过$A$变换后的co-domain的标准正交基，$Σ$表示了$V$中的向量与$U$中相对应向量之间的关系。</p>
+<p>其中：</p>
+<ul>
+<li>$A是m\times n维度$</li>
+<li>$U叫左奇异向量，是m\times m维的正交矩阵$</li>
+<li>$Σ叫右奇异向量，是n\times n维的对角矩阵，但实际上只有左上角的k阶非零$,即:<img src="https://ooo.0o0.ooo/2017/07/10/5963960b257f5.png" alt=""> </li>
+</ul>
+<p>从大小上来看：<img src="https://ooo.0o0.ooo/2017/07/10/59639293b5bc5.png" alt=""> </p>
+<p>即：<img src="https://ooo.0o0.ooo/2017/07/10/59639634df34d.png" alt=""> </p>
+<h2 id="特征值分解与奇异值分解">2.3. 特征值分解与奇异值分解</h2><p>参考文献<a href="https://www.cnblogs.com/LeftNotEasy/archive/2011/01/19/svd-and-applications.html" target="_blank" rel="external">机器学习中的数学(5)-强大的矩阵奇异值分解(SVD)及其应用</a>提到，奇异值和特征值可以对应起来。</p>
+<h2 id="部分奇异值分解">2.4. 部分奇异值分解</h2><p>在很多情况下，前10%甚至1%的奇异值的和就占了全部的奇异值之和的99%以上了。也就是说，我们也可以用前r大的奇异值来近似描述矩阵，这里定义一下部分奇异值分解：<br>$$A_{m\times n}\approx U_{m\times r}Σ_{r_\times r}V^T_{r\times n}$$<br> r是一个远小于m、n的数，这样矩阵的乘法看起来像是下面的样子：<br><img src="https://ooo.0o0.ooo/2017/07/10/596398011f9e0.png" alt=""><br>右边的三个矩阵相乘的结果将会是一个接近于A的矩阵，在这儿，r越接近于n，则相乘的结果越接近于A。而这三个矩阵的面积之和（在存储观点来说，矩阵面积越小，存储量就越小）要远远小于原始的矩阵A，我们如果想要压缩空间来表示原矩阵A，我们存下这里的三个矩阵：U、Σ、V就好了。</p>
+<p><strong>小例子</strong></p>
+<p>接下来我们给出一个用python的SVD分解小例子。</p>
+<pre><code>&apos;&apos;&apos;Python
+#coding=utf-8
+# 首先做一些数据声明
+from sklearn.decomposition import TruncatedSVD
+from matplotlib import pyplot as plt
+from numpy import random
+import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
+import pandas as pd
+fig = plt.figure()
+ax = Axes3D(fig)
+ax=plt.subplot(111,projection=&apos;3d&apos;)
+ax.set_zlabel(&apos;Z&apos;) #坐标轴
+ax.set_ylabel(&apos;Y&apos;)
+ax.set_xlabel(&apos;X&apos;)
+X = np.arange(0, 4, 0.125) + 0.2 * random.randn(32)
+Y = np.arange(0, 4, 0.125) + 0.2 * random.randn(32)
+Z = np.arange(0, 4, 0.125) + 0.2 * random.randn(32)
+# 数据是3维×32维
+data = [[x, y, z] for x, y, z in zip(X, Y, Z)]
+
+
+# 分解，n_components是主元素个数，也就是维度
+svd = TruncatedSVD(n_components=2, algorithm=&quot;arpack&quot;, n_iter=1000)
+transformed_data = svd.fit_transform(data)
+# 还原
+data_inverse = svd.inverse_transform(transformed_data)
+
+#画图
+X_ = [x[0] for x in data_inverse]
+Y_ = [y[1] for y in data_inverse]
+Z_ = [z[2] for z in data_inverse]
+ax.scatter(X, Y, Z, c=&apos;r&apos;)#原始数据是红色
+ax.scatter(X_, Y_, Z_, c=&apos;b&apos;)#分解后的数据是蓝色
+plt.savefig(&quot;svd.png&quot;)
+plt.show()
+print svd.explained_variance_ratio_
+&apos;&apos;&apos;
+</code></pre><p>当降到二维，再还原时，我们看到：<br><img src="https://ooo.0o0.ooo/2017/07/11/59643b2a666c7.png" alt=""><br>降到一维，再还原，我们看到：<br><img src="https://ooo.0o0.ooo/2017/07/11/59643cbeed773.png" alt=""> </p>
+<h1 id="SVD与潜在语义索引">3. SVD与潜在语义索引</h1><p>$$A=UΣV^T$$</p>
+<p>吴军老师在矩阵计算与文本处理中的分类问题中谈到：三个矩阵有非常清楚的物理含义。</p>
+<ul>
+<li>$U$中的每一行表示意思相关的一类词，其中的每个非零元素表示这类词中每个词的重要性（或者说相关性），数值越大越相关。</li>
+<li>$V^T$中的每一列表示同一主题一类文章，其中每个元素表示这类文章中每篇文章的相关性。中间的矩阵则表示类词和文章雷之间的相关性。</li>
+<li>因此，我们只要对关联矩阵$A$进行一次奇异值分解，我们就可以同时完成了近义词分类和文章的分类。（同时得到每类文章和每类词的相关性）。</li>
+</ul>
+<p>参考文献<a href="https://www.cnblogs.com/LeftNotEasy/archive/2011/01/19/svd-and-applications.html" target="_blank" rel="external">机器学习中的数学(5)-强大的矩阵奇异值分解(SVD)及其应用</a>给出了一个理解这句话的例子，此处不再阐述。</p>
+<p>我在做比赛的过程中，曾尝试过用SVD分解做APP特征，来描述APP之间的相似性特征。但效果不佳。推测原因是维度过低（几百万维压到了20维）。项目<a href="https://github.com/jiayi797/svd_app_recommend" target="_blank" rel="external">在这里</a></p>
+<p>但这里我还是打算好好看看。万一以后用到呢？</p>
+<p>参考文献<a href="http://charleshm.github.io/2016/03/SVD-Recommendation-System/" target="_blank" rel="external">SVD在推荐系统中的应用</a>以经典的电影评分问题为例，讲述了整个过程。参考文献<a href="http://www.jscon.co/multiarray/rs_used_svd.html" target="_blank" rel="external">SVD在推荐系统中的应用</a>用matlab进行了详细的过程复现。</p>
+<p>我的理解：<br><strong>SVD分解</strong><br>SVD分解是：$$A_{m\times n}=U_{m\times m}Σ_{m\times n}V^T_{n\times n}$$<br>其中：</p>
+<ul>
+<li>$Σ_{m\times n}$是一个对角阵。</li>
+<li>U_{m\times m}表示行间元素（一般是用户）的相似度</li>
+<li>V^T_{n\times n}表示列间元素（一般是商品）的相似度<br>根据好友张思遥的理解，是通过数学的方法，来将行和列的拆开，放在两个矩阵里。<br><strong>降维</strong><br>根据PCA理论（强烈建议看斯坦福大学安德鲁老师的机器学习课程），我们可以取前$r$维来对矩阵进行近似表示：<br>$$A_{m\times n}\approx U_{m\times r}Σ_{m\times n}V^T_{r\times n}$$<h1 id="参考文献">4. 参考文献</h1></li>
+</ul>
+<ol>
+<li><a href="http://www.qiujiawei.com/linear-algebra-9/" target="_blank" rel="external">线性代数之奇异值(SVD)分解</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_3f738ee00102val0.html" target="_blank" rel="external">奇异值分解(SVD)原理详解及推导</a></li>
+<li><a href="http://charleshm.github.io/2016/03/Singularly-Valuable-Decomposition/" target="_blank" rel="external">漫谈奇异值分解</a></li>
+<li><a href="http://www.sohu.com/a/127149396_464826" target="_blank" rel="external">机器学习系列-SVD篇</a></li>
+<li><a href="https://www.cnblogs.com/LeftNotEasy/archive/2011/01/19/svd-and-applications.html" target="_blank" rel="external">机器学习中的数学(5)-强大的矩阵奇异值分解(SVD)及其应用</a></li>
+<li><a href="http://charleshm.github.io/2016/03/SVD-Recommendation-System/" target="_blank" rel="external">SVD在推荐系统中的应用</a></li>
+<li><a href="http://www.jscon.co/multiarray/rs_used_svd.html" target="_blank" rel="external">SVD在推荐系统中的应用</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/07/10/矩阵相关知识复习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/10/矩阵相关知识复习/" itemprop="url">矩阵相关知识复习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T10:33:46+08:00">
+                2017-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数学/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="特征值与奇异值">1. 特征值与奇异值</h1><p><strong>特征值与特征向量</strong></p>
+<p>如果一个向量$v$是方针$A$的特征向量，那么：<br>$$Av=\lambda v$$</p>
+<ul>
+<li>$\lambda$:特征值</li>
+<li>$v$:特征向量<br>把$A$乘到$v$上，得到一个$\lambda v$，也就是意味着我们得到了一个方向未变但在长度上有伸缩改变的向量（方向未变不准确，有可能变反向）。这是让$A$乘以他的特征向量表现出来的性质。</li>
+</ul>
+<p>因此：</p>
+<ul>
+<li>特征向量所在直线上的向量都是特征向量；</li>
+<li>特征向量所在的直线，叫特征空间；</li>
+</ul>
+<p><strong>特征值分解</strong></p>
+<p>特征值分解是把一个n阶实对称矩阵分解为下面的形式：<br>$$A=QΣQ^{-1}$$<br>其中：</p>
+<ul>
+<li>$Q$是这个矩阵$A$的特征向量组成的矩阵，是一个正交矩阵</li>
+<li>$Σ$是一个对角阵，每个对角线上的元素就是一个特征值</li>
+</ul>
+<h1 id="正交变换与正交军阵">2. 正交变换与正交军阵</h1><h2 id="正交变换">2.1. 正交变换</h2><p><strong>什么是正交变换？</strong><br>正交变换：在线性空间中，保持向量长度不变的线性变换。<br><strong>正交变换的定义是什么？</strong><br>设$V$为欧式空间，$T$是$V$的一个线性变换。如果$T$保持$V$中任一向量$x$的长度不变，即有：<br>$$(x,x)=(Tx,Tx)$$<br>那么称$T$是$V$的一个正交变换。（即内积不变）</p>
+<p>注：<br>$(x,x)$是向量内积<br><strong>怎样的变换算是正交变换？</strong><br>线性变换$T$为正交变换的充要条件是，对于欧式空间$V$中任二向量$x,y$都有：<br>$$(x,y)=(Tx,Ty)$$</p>
+<h2 id="正交矩阵">2.2. 正交矩阵</h2><p><strong>正交矩阵的定义是什么？</strong><br>如果实方阵$Q$满足：<br>$$T^TQ=I,或 Q^{-1}=Q^T$$<br>则称$Q$为正交矩阵</p>
+<p>其中，$I$是单位矩阵。<br><strong>正交矩阵有哪些特点？</strong></p>
+<ul>
+<li>正交矩阵的行列式必定为$+-1$</li>
+<li>行列式值为+1的正交矩阵，称为特殊正交矩阵，它是一个旋转矩阵。</li>
+<li>行列式值为-1的正交矩阵，称为瑕旋转矩阵。瑕旋转是旋转加上镜射。镜射也是一种瑕旋转。</li>
+<li>正交矩阵的逆矩阵依然是正交矩阵</li>
+<li>两个正交矩阵的乘积依然是正交矩阵</li>
+<li>下面是一些小的正交矩阵和可能的解释：<br><img src="https://ooo.0o0.ooo/2017/07/10/59632337a1cdf.png" alt=""> </li>
+</ul>
+<p><strong>怎样的矩阵能够成为正交矩阵？</strong><br>$Q$是正交矩阵的充要条件是，它的列向量是两两正交的单位向量。</p>
+<h2 id="正交变换与正交矩阵的关系">2.3. 正交变换与正交矩阵的关系</h2><p>欧式空间的线性变换是正交变换的充要条件是，它对于标准正交基的矩阵是正交矩阵。</p>
+<h1 id="酉空间">3. 酉空间</h1><p>欧式空间是针对实数域$R$上的线性空间；<br>酉空间是特殊的复线性空间。</p>
+<p><strong>酉变换</strong><br>酉空间$V$中的线性变换$T$，如果满足<br>$$(x,x)=(Tx,Tx),x\in V$$<br>则称$T$为$V$的酉变换。<br><strong>酉矩阵</strong><br>酉变换在酉空间的标准正交基下的矩阵$A$是酉矩阵，即$A$满足下式：<br>$$A^HA=AA^H=I$$</p>
+<ul>
+<li>酉矩阵的逆矩阵也是酉矩阵</li>
+<li>两个酉矩阵的乘积还是酉矩阵</li>
+</ul>
+<h2 id="Schur定理">3.1. Schur定理</h2><p><strong>酉空间上的Schur定理（定理1.41）</strong><br>设$A\in C^{n\times n}$的特征值为$\lambda _1,\lambda _2,…,\lambda _n$，则存在酉矩阵$P$,使得：<br>$$P^{-1}AP=P^HAP=\left[<br>\begin{matrix}<br>\lambda _1 &amp; .          &amp; …&amp; . \\<br>           &amp; \lambda _2 &amp; …&amp; . \\<br>           &amp;            &amp; …&amp; . \\<br>           &amp;            &amp;    &amp;\lambda _n<br>\end{matrix}<br>\right]$$</p>
+<p><strong>实数空间上的Schur定理</strong><br>设$A\in R^{n\times n}$的特征值为$\lambda _1,\lambda _2,…,\lambda _n$，且$\lambda _n \in R(i=1,2,…,n)$,则存在正交矩阵$Q$,使得：<br>$$Q^{-1}AQ=Q^HAQ=\left[<br>\begin{matrix}<br>\lambda _1 &amp; .          &amp; …&amp; . \\<br>           &amp; \lambda _2 &amp; …&amp; . \\<br>           &amp;            &amp; …&amp; . \\<br>           &amp;            &amp;    &amp;\lambda _n<br>\end{matrix}<br>\right]$$</p>
+<p><strong>正规矩阵</strong></p>
+<p>设$A \in C^{n \times n}$，且等式<br>$$A^HA=AA^H$$<br>成立，则称$A$为正规矩阵。</p>
+<p><strong>正规矩阵与对角矩阵的定理（定理1.42）</strong></p>
+<ul>
+<li>（酉空间）设$A \in C^{n \times n}$，则$A$酉相似于对角矩阵的充要条件是$A$为正规矩阵；</li>
+<li>（实数空间）$A \in R^{n \times n}$，且$A$的特征值都是实数，则$A$正交相似于对角矩阵的充要条件是$A$为正规矩阵。</li>
+</ul>
+<h1 id="参考文献">4. 参考文献</h1><ol>
+<li><a href="https://zh.wikipedia.org/wiki/%E6%AD%A3%E4%BA%A4%E7%9F%A9%E9%98%B5" target="_blank" rel="external">维基百科，正交矩阵</a></li>
+<li><a href="">矩阵论，程云鹏</a></li>
+<li><a href="http://zisong.me/post/wo-dui-te-zheng-zhi-yu-te-zheng-xiang-liang-de-li-jie" target="_blank" rel="external">我对特征值与特征向量的理解</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/07/09/简单搜索引擎的实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -522,8 +959,7 @@
 <p>Beta分布除了两个显性的重要参数α和β外，还有两个相对隐形但同样重要的参数，平均值和中位数，通过平均值和众数可以唯一确定α和β的值，它们的数学关系如下：</p>
 <p>$$均值=\frac{\alpha}{\alpha+\beta}$$<br>$$众数=\frac{\alpha-1}{\alpha+\beta-2}$$</p>
 <p>因此，如果我们确定了平均值和中位数，那么α和β的值也就确定了（根据均值和中位数求解α和β的过程请读者自行推导），所以可以试着从平均值和中位数入手分析。让我们来看看beta分布的密度函数：<br><img src="https://ooo.0o0.ooo/2017/07/09/596235ef428c7.png" alt=""> </p>
-<p><strong>思路</strong></p>
-<p>把广告在某一次点击中是否被转化看做一个伯努利试验（每次发生都独立，且概率不变），我们重复进行多次这样的试验可以得到一个CVR估计。</p>
+<p>2017.7.9 好困，先回去休息。明日继续。</p>
 <h1 id="参考文献">3. 参考文献</h1><ol>
 <li><a href="https://zhuanlan.zhihu.com/p/21724759" target="_blank" rel="external">计算广告训练与平滑思想</a></li>
 </ol>
@@ -612,6 +1048,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -638,7 +1096,11 @@
       
         
           
-            <ol>
+            <p>在做比赛的过程中，我曾用过word embedding生成app特征，对结果提升了有几个万分点。</p>
+<p>论文：tem2vec: Neural Item Embedding for Collaborative Filtering</p>
+<h1 id="思想">1. 思想</h1><p>这篇文章比较朴素，创新性不高，基本是参照了google的word2vec方法，应用到推荐场景的i2i相似度计算中，但实际效果看还有有提升的。主要做法是把item视为word，用户的行为序列视为一个集合，item间的共现为正样本，并按照item的频率分布进行负样本采样，缺点是相似度的计算还只是利用到了item共现信息，1).忽略了user行为序列信息; 2).没有建模用户对不同item的喜欢程度高低。</p>
+<h1 id="实现">2. 实现</h1><p>主要代码来自于写论文的作者分享的<a href="https://github.com/Bereket123/Recommendation-based-on-sequence-" target="_blank" rel="external">代码</a></p>
+<h1 id="参考文献">3. 参考文献</h1><ol>
 <li><a href="https://zhuanlan.zhihu.com/p/24339183" target="_blank" rel="external">DNN论文分享 - Item2vec: Neural Item Embedding for Collaborative Filtering</a></li>
 <li><a href="https://view.inews.qq.com/a/20170428A07XNU00" target="_blank" rel="external">达观数据推荐算法实现：协同过滤之item embedding</a></li>
 </ol>
@@ -1674,389 +2136,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/19/OpenMessaging源码阅读2-demo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/19/OpenMessaging源码阅读2-demo/" itemprop="url">OpenMessaging源码阅读2-demo</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-19T16:32:48+08:00">
-                2017-05-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="producer操作">1. producer操作</h1><p>tips:以下涉及到的代码是关键步骤代码。</p>
-<ol>
-<li><p>====================构造n个<strong>Topic</strong>和n个<strong>Queue</strong>====================</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">String topic1 = <span class="string">"TOPIC1"</span>; <span class="comment">//实际测试时大概会有100个Topic左右</span></div><div class="line">String queue2 = <span class="string">"QUEUE2"</span>; <span class="comment">//实际测试时，queue数目与消费线程数目相同</span></div><div class="line">List&lt;Message&gt; messagesForTopic1 = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">1024</span>);</div><div class="line">List&lt;Message&gt; messagesForQueue1 = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">1024</span>);</div></pre></td></tr></table></figure>
-</li>
-<li><p>====================向Topic和Queue中<strong>create</strong>数据====================</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">messagesForTopic1.add(producer.createBytesMessageToTopic(topic1,  (topic1 + i).getBytes()));</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<ul>
-<li>调用<code>producer</code>的<code>producer.createBytesMessageToTopic()</code>方法来创建<code>BytesMessage</code></li>
-<li>将上一步产生的标准消息扔进messagesForTopic1中，即调用了每个<code>messagesForTopic1.add()</code>来向这个<code>Topic</code>中添加消息</li>
-</ul>
-<p>需要注意的是：</p>
-<ul>
-<li>messageFactory,而createBytesMessageToTopic()正是通过messageFactory.createBytesMessageToTopic(topic, body);来创建消息；</li>
-<li>messageFactory.createBytesMessageToTopic(topic, body);仅仅只是将消息的body和header放入了一个defaultBytesMessage类型的消息中，并返回</li>
-<li>每个producer对应一个messageStore<br><strong>总结：这一步将producer产生的数据放入消息列表messagesForTopic/Queue中</strong></li>
-</ul>
-<p>3.====================<strong>send</strong>数据====================</p>
-<p>方式：</p>
-<pre><code>producer.send(messagesForTopic1.get(i));
-</code></pre><p>然后<code>send()</code>内部是：</p>
-<pre><code>String topic = message.headers().getString(MessageHeader.TOPIC);
-messageStore.putMessage(topic或queue, message);
-</code></pre><p>需要注意的是：</p>
-<ul>
-<li>每个producer有一个messageStore，通过调用它的putMessage()来进行发送消息（将消息存储在硬盘中）</li>
-<li>MessageStore类有一个成员变量<code>Map &lt;String, ArrayList&lt;Message&gt;&gt; messageBuckets</code>用来装消息，其中键是topic或queue的名字，值是new ArrayList&lt;&gt;(1024)(这里有一点疑问？)</li>
-</ul>
-<p>而putMessage：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">putMessage</span><span class="params">(String bucket, Message message)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!messageBuckets.containsKey(bucket)) &#123;</div><div class="line">        messageBuckets.put(bucket, <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">1024</span>));</div><div class="line">    &#125;</div><div class="line">    ArrayList&lt;Message&gt; bucketList = messageBuckets.get(bucket);</div><div class="line">    bucketList.add(message);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><ul>
-<li>如果本messageStore的messageBuckets没有本bucket(Topic或Queue)，则将这个buket加入到messageBuckets中,并使得其键值为new ArrayList&lt;&gt;(1024)</li>
-<li>从本messageBuckets拿出(get)本bucket，放入消息列表bucketList中</li>
-<li>再将本message加入消息列表bucketList</li>
-</ul>
-<p><strong>总结：将Topic或Queue放入MessageStore的messageBuckets中，将消息体放入bMessageStore的ucketList中</strong></p>
-<h1 id="consumer操作">2. consumer操作</h1><ol>
-<li>====================进行消息订阅<strong>attach</strong>====================</li>
-</ol>
-<p>操作：</p>
-<pre><code>consumer1.attachQueue(queue1, Collections.singletonList(topic1));
-</code></pre><p>备注：</p>
-<ul>
-<li>singletonList(T) 方法用于返回一个只包含指定对象的不可变列表</li>
-</ul>
-<p>然后DefaultPullConsumer的attachQueue如下：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">attachQueue</span><span class="params">(String queueName, Collection&lt;String&gt; topics)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (queue != <span class="keyword">null</span> &amp;&amp; !queue.equals(queueName)) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ClientOMSException(<span class="string">"You have alreadly attached to a queue "</span> + queue);</div><div class="line">    &#125;</div><div class="line">    queue = queueName;</div><div class="line">    buckets.add(queueName);</div><div class="line">    buckets.addAll(topics);</div><div class="line">    bucketList.clear();</div><div class="line">    bucketList.addAll(buckets);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><ul>
-<li>buckets是DefaultPullConsumer的一个成员变量：private Set<string> buckets = new HashSet&lt;&gt;();</string></li>
-<li>bucketList是DefaultPullConsumer的一个成员变量：private List<string> bucketList = new ArrayList&lt;&gt;();</string></li>
-<li>将本queue以及其下的所有topic都加入到buckets中</li>
-<li>将bukets都加入到bucketList中</li>
-</ul>
-<p>2.====================进行消息拉取<strong>pull</strong>====================</p>
-<p>操作：</p>
-<p>Message message = consumer1.poll();</p>
-<p>其中，poll为：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> Message <span class="title">poll</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (buckets.size() == <span class="number">0</span> || queue == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//use Round Robin</span></div><div class="line">    <span class="keyword">int</span> checkNum = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span> (++checkNum &lt;= bucketList.size()) &#123;</div><div class="line">        String bucket = bucketList.get((++lastIndex) % (bucketList.size()));</div><div class="line">        Message message = messageStore.pullMessage(queue, bucket);</div><div class="line">        <span class="keyword">if</span> (message != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span> message;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><ul>
-<li>遍历每个bucketList（bucketList装的是本consumer订阅的topics以及对应的queue）</li>
-<li>对遍历到的每个bucket，从messageStore拉取消息</li>
-</ul>
-<p>而 messageStore.pullMessage为：</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> Message <span class="title">pullMessage</span><span class="params">(String queue, String bucket)</span> </span>&#123;</div><div class="line">    ArrayList&lt;Message&gt; bucketList = messageBuckets.get(bucket);</div><div class="line">    <span class="keyword">if</span> (bucketList == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    HashMap&lt;String, Integer&gt; offsetMap = queueOffsets.get(queue);</div><div class="line">    <span class="keyword">if</span> (offsetMap == <span class="keyword">null</span>) &#123;</div><div class="line">        offsetMap = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">        queueOffsets.put(queue, offsetMap);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> offset = offsetMap.getOrDefault(bucket, <span class="number">0</span>);</div><div class="line">    <span class="keyword">if</span> (offset &gt;= bucketList.size()) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    Message message = bucketList.get(offset);</div><div class="line">    offsetMap.put(bucket, ++offset);</div><div class="line">    <span class="keyword">return</span> message;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><ul>
-<li>先从messageStore的messageBuckets中get到本bucket的bucketList</li>
-<li>将这个consumer绑定的queue放入本messageStore的queueOffsets中</li>
-<li>然后我就有点疑惑了？？</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/17/RocketMQ简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/17/RocketMQ简介/" itemprop="url">RocketMQ简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-17T10:49:03+08:00">
-                2017-05-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>RocketMQ:分布式开放消息系统</p>
-<h1 id="消息中间件需要解决哪些问题？">1. 消息中间件需要解决哪些问题？</h1><h2 id="发布订阅（Publish-Subscribe）">1.1. 发布订阅（Publish/Subscribe）</h2><p>发布订阅是消息中间件的最基本功能，也是相对于传统RPC通信而言。在此不再详述。</p>
-<h2 id="消息优先级（Message-Priority）">1.2. 消息优先级（Message Priority）</h2><p>两种方式：</p>
-<ol>
-<li>严格优先级，例如0-65535。开销大，精准，但可能没有必要。</li>
-<li>档位优先级。高、中、低，或其他。每个优先级可以用不同的topic表示，发消息时，指定不同的topic来表示优先级。精确性低。</li>
-</ol>
-<h2 id="消息有序性（Message-Order）">1.3. 消息有序性（Message Order）</h2><ol>
-<li>一个订单的发出的消息顺序不能变</li>
-<li>订单之间是可以并行消费</li>
-</ol>
-<h2 id="消息过滤（Message-Filter）">1.4. 消息过滤（Message Filter）</h2><h3 id="消息协商器（Broker端）消息过滤">1.4.1. 消息协商器（Broker端）消息过滤</h3><p>在Broker中，按照Consumer的要求做过滤</p>
-<ol>
-<li>优点是减少了对于Consumer无用消息的网络传输。</li>
-<li>缺点是增加了Broker的负担，实现相对复杂。</li>
-</ol>
-<p>淘宝Notify支持多种过滤方式：<br>包含直接按照消息类型过滤，灵活的语法表达式过滤，几乎可以满足最苛刻的过滤需求。</p>
-<p>淘宝RocketMQ支持按照简单的Message Tag过滤，也支持按照Message Header、body进行过滤。</p>
-<p>CORBA Notification规范中也支持灵活的语法表达式过滤。</p>
-<h3 id="Consumer端消息过滤">1.4.2. Consumer端消息过滤</h3><p>这种过滤方式可由应用完全自定义实现，但是缺点是很多无用的消息要传输到Consumer端。</p>
-<h3 id="消息持久化（Message-Persistence）">1.4.3. 消息持久化（Message Persistence）</h3><p>持久化（Persistence）：即把数据（如内存中的对象）保存到可永久保存的存储设备中（如磁盘）。持久化的主要应用是将内存中的对象存储在数据库中，或者存储在磁盘文件中、XML数据文件中等等。</p>
-<p>消息中间件通常采用的几种持久化方式：</p>
-<ol>
-<li>持久化到数据库，例如Mysql。</li>
-<li>持久化到KV存储，例如levelDB、伯克利DB等KV存储系统。</li>
-<li>文件记录形式持久化，例如Kafka，RocketMQ</li>
-<li>对内存数据做一个持久化镜像，例如beanstalkd，VisiNotify</li>
-<li>(1)、(2)、(3)三种持久化方式都具有将内存队列Buffer进行扩展的能力，(4)只是一个内存的镜像，作用是当Broker挂掉重启后仍然能将之前内存的数据恢复出来。</li>
-</ol>
-<p>JMS与CORBA Notification规范没有明确说明如何持久化，但是持久化部分的性能直接决定了整个消息中间件的性能。</p>
-<p>RocketMQ充分利用Linux文件系统内存cache来提高性能。</p>
-<h3 id="消息可靠性（Message-Reliablity）">1.4.4. 消息可靠性（Message Reliablity）</h3><p>响消息可靠性的几种情况：</p>
-<ol>
-<li>Broker正常关闭</li>
-<li>Broker异常Crash</li>
-<li>OS Crash</li>
-<li>机器掉电，但是能立即恢复供电情况。</li>
-<li>机器无法开机（可能是cpu、主板、内存等关键设备损坏）</li>
-<li>磁盘设备损坏</li>
-</ol>
-<p>(1)、(2)、(3)、(4)四种情况都属于硬件资源可立即恢复情况，RocketMQ在这四种情况下能保证消息不丢，或者丢失少量数据（依赖刷盘方式是同步还是异步）。</p>
-<p>(5)、(6)属于单点故障，且无法恢复，一旦发生，在此单点上的消息全部丢失。RocketMQ在这两种情况下，通过异步复制，可保证99%的消息不丢，但是仍然会有极少量的消息可能丢失。通过同步双写技术可以完全避免单点，同步双写势必会影响性能，适合对消息可靠性要求极高的场合，例如与Money相关的应用。</p>
-<p>RocketMQ从3.0版本开始支持同步双写。</p>
-<h1 id="参考文献">2. 参考文献</h1><ol>
-<li><a href="http://jm.taobao.org/2017/01/12/rocketmq-quick-start-in-10-minutes/" target="_blank" rel="external">十分钟入门RocketMQ</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2106,7 +2185,7 @@ messageStore.putMessage(topic或queue, message);
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2117,7 +2196,7 @@ messageStore.putMessage(topic或queue, message);
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2128,7 +2207,7 @@ messageStore.putMessage(topic或queue, message);
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

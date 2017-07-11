@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="1. 问题描述在做比赛的过程中，我们发现了有转化率这个指标在大量数据下是有效的。理想情况下，例如某个广告点击量是10000次，转化量是100次，那转化率就是1%。但有时，例如某个广告点击量是2次，转化量是1次，这样算来转化率为50%。但此时这个指标在数学上是无效的。因为大数定律告诉我们，在试验不变的条件下，重复试验多次，随机事件的频率近似于它的概率。后者点击量只有2次，不满足“重复试验多次”的条件">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/07/09/596235ef428c7.png">
-<meta property="og:updated_time" content="2017-07-09T13:55:59.664Z">
+<meta property="og:updated_time" content="2017-07-11T06:09:26.718Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="转化率预估之贝叶斯平滑">
 <meta name="twitter:description" content="1. 问题描述在做比赛的过程中，我们发现了有转化率这个指标在大量数据下是有效的。理想情况下，例如某个广告点击量是10000次，转化量是100次，那转化率就是1%。但有时，例如某个广告点击量是2次，转化量是1次，这样算来转化率为50%。但此时这个指标在数学上是无效的。因为大数定律告诉我们，在试验不变的条件下，重复试验多次，随机事件的频率近似于它的概率。后者点击量只有2次，不满足“重复试验多次”的条件">
@@ -373,8 +373,7 @@
 <p>Beta分布除了两个显性的重要参数α和β外，还有两个相对隐形但同样重要的参数，平均值和中位数，通过平均值和众数可以唯一确定α和β的值，它们的数学关系如下：</p>
 <p>$$均值=\frac{\alpha}{\alpha+\beta}$$<br>$$众数=\frac{\alpha-1}{\alpha+\beta-2}$$</p>
 <p>因此，如果我们确定了平均值和中位数，那么α和β的值也就确定了（根据均值和中位数求解α和β的过程请读者自行推导），所以可以试着从平均值和中位数入手分析。让我们来看看beta分布的密度函数：<br><img src="https://ooo.0o0.ooo/2017/07/09/596235ef428c7.png" alt=""> </p>
-<p><strong>思路</strong></p>
-<p>把广告在某一次点击中是否被转化看做一个伯努利试验（每次发生都独立，且概率不变），我们重复进行多次这样的试验可以得到一个CVR估计。</p>
+<p>2017.7.9 好困，先回去休息。明日继续。</p>
 <h1 id="参考文献">3. 参考文献</h1><ol>
 <li><a href="https://zhuanlan.zhihu.com/p/21724759" target="_blank" rel="external">计算广告训练与平滑思想</a></li>
 </ol>
@@ -504,7 +503,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -515,7 +514,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -526,7 +525,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
