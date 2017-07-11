@@ -470,9 +470,10 @@ print svd.explained_variance_ratio_
 <ul>
 <li>$Σ_{m\times n}$是一个对角阵。</li>
 <li>U_{m\times m}表示行间元素（一般是用户）的相似度</li>
-<li>V^T_{n\times n}表示列间元素（一般是商品）的相似度<br>根据好友张思遥的理解，是通过数学的方法，来将行和列的拆开，放在两个矩阵里。<br><strong>降维</strong><br>根据PCA理论（强烈建议看斯坦福大学安德鲁老师的机器学习课程），我们可以取前$r$维来对矩阵进行近似表示：<br>$$A_{m\times n}\approx U_{m\times r}Σ_{m\times n}V^T_{r\times n}$$<h1 id="参考文献">4. 参考文献</h1></li>
+<li>V^T_{n\times n}表示列间元素（一般是商品）的相似度<br>根据好友张思遥的理解，是通过数学的方法，来将行和列的拆开，放在两个矩阵里。<br><strong>降维</strong><br>根据PCA理论（强烈建议看斯坦福大学安德鲁老师的机器学习课程），我们可以取前$r$维来对矩阵进行近似表示：<br>$$A_{m\times n}\approx U_{m\times r}Σ_{m\times n}V^T_{r\times n}$$</li>
 </ul>
-<ol>
+<h1 id="项目代码">4. 项目代码</h1><p><a href="https://github.com/jiayi797/svd_app_recommend" target="_blank" rel="external">SVD项目代码</a></p>
+<h1 id="参考文献">5. 参考文献</h1><ol>
 <li><a href="http://www.qiujiawei.com/linear-algebra-9/" target="_blank" rel="external">线性代数之奇异值(SVD)分解</a></li>
 <li><a href="http://blog.sina.com.cn/s/blog_3f738ee00102val0.html" target="_blank" rel="external">奇异值分解(SVD)原理详解及推导</a></li>
 <li><a href="http://charleshm.github.io/2016/03/Singularly-Valuable-Decomposition/" target="_blank" rel="external">漫谈奇异值分解</a></li>
@@ -960,7 +961,114 @@ print svd.explained_variance_ratio_
 <p>$$均值=\frac{\alpha}{\alpha+\beta}$$<br>$$众数=\frac{\alpha-1}{\alpha+\beta-2}$$</p>
 <p>因此，如果我们确定了平均值和中位数，那么α和β的值也就确定了（根据均值和中位数求解α和β的过程请读者自行推导），所以可以试着从平均值和中位数入手分析。让我们来看看beta分布的密度函数：<br><img src="https://ooo.0o0.ooo/2017/07/09/596235ef428c7.png" alt=""> </p>
 <p>2017.7.9 好困，先回去休息。明日继续。</p>
-<h1 id="参考文献">3. 参考文献</h1><ol>
+<h1 id="代码">3. 代码</h1><pre><code>&apos;&apos;&apos;Python
+#!/usr/bin/python
+# coding=utf-8
+
+import numpy
+import random
+import scipy.special as special
+import pandas as pd
+import time
+import math
+from math import log
+
+class HyperParam(object):
+    def __init__(self, alpha, beta):
+        self.alpha = alpha
+        self.beta = beta
+    def sample_from_beta(self, alpha, beta, num, imp_upperbound):
+        sample = numpy.random.beta(alpha, beta, num)
+        I = []
+        C = []
+        for click_ratio in sample:
+            imp = random.random() * imp_upperbound
+            #imp = imp_upperbound
+            click = imp * click_ratio
+            I.append(imp)
+            C.append(click)
+        return I, C
+    def update_from_data_by_FPI(self, tries, success, iter_num, epsilon):
+        &apos;&apos;&apos;estimate alpha, beta using fixed point iteration&apos;&apos;&apos;
+        for i in range(iter_num):
+            new_alpha, new_beta = self.__fixed_point_iteration(tries, success, self.alpha, self.beta)
+            if abs(new_alpha-self.alpha)&lt;epsilon and abs(new_beta-self.beta)&lt;epsilon:
+                break
+            self.alpha = new_alpha
+            self.beta = new_beta
+    def __fixed_point_iteration(self, tries, success, alpha, beta):
+        &apos;&apos;&apos;fixed point iteration&apos;&apos;&apos;
+        sumfenzialpha = 0.0
+        sumfenzibeta = 0.0
+        sumfenmu = 0.0
+        sumfenzialpha = special.digamma(success+alpha) - special.digamma(alpha)
+        print sumfenzialpha
+        # for i in range(len(tries)):
+        #     sumfenzialpha += (special.digamma(success[i]+alpha) - special.digamma(alpha))
+        #     sumfenzibeta += (special.digamma(tries[i]-success[i]+beta) - special.digamma(beta))
+        #     sumfenmu += (special.digamma(tries[i]+alpha+beta) - special.digamma(alpha+beta))
+        return alpha*(sumfenzialpha/sumfenmu), beta*(sumfenzibeta/sumfenmu)
+    def update_from_data_by_moment(self, tries, success):
+        &apos;&apos;&apos;estimate alpha, beta using moment estimation&apos;&apos;&apos;
+        mean, var = self.__compute_moment(tries, success)
+        #print &apos;mean and variance: &apos;, mean, var
+        #self.alpha = mean*(mean*(1-mean)/(var+0.000001)-1)
+        self.alpha = (mean+0.000001) * ((mean+0.000001) * (1.000001 - mean) / (var+0.000001) - 1)
+        #self.beta = (1-mean)*(mean*(1-mean)/(var+0.000001)-1)
+        self.beta = (1.000001 - mean) * ((mean+0.000001) * (1.000001 - mean) / (var+0.000001) - 1)
+    def __compute_moment(self, tries, success):
+        &apos;&apos;&apos;moment estimation&apos;&apos;&apos;
+        ctr_list = []
+        # var = 0.0
+        mean = (success / tries).mean()
+        if len(tries) == 1:
+            var = 0
+        else:
+            var = (success / tries).var()
+        # for i in range(len(tries)):
+        #     ctr_list.append(float(success[i])/tries[i])
+        # mean = sum(ctr_list)/len(ctr_list)
+        # for ctr in ctr_list:
+        #     var += pow(ctr-mean, 2)
+        return mean, var
+
+def test():
+    #设定初始值
+    hyper = HyperParam(1, 1)
+    #--------sample training data--------
+    # I, C = hyper.sample_from_beta(10, 1000, 10000, 1000)
+    # print I, C
+    train_data = pd.read_csv(&apos;data.csv&apos;,nrows=10000)
+    print &apos;read finish&apos;
+    # 统计点击次数和转化次数
+    key = [&apos;creativeID&apos;]
+    train_data[&apos;count&apos;] = 1
+    train_data = train_data.groupby(key).agg(&apos;sum&apos;).reset_index()
+    # 此时，train_data[&apos;count&apos;]是点击次数
+    # train_data[&apos;label&apos;]是点击次数
+    print &apos;cal finish&apos;
+    I = train_data[&apos;count&apos;]
+    C = train_data[&apos;label&apos;]
+    print key
+    start = time.clock()
+    #--------estimate parameter using fixed-point iteration--------
+    # 计算平滑
+    hyper.update_from_data_by_FPI(I, C, 1000, 0.00000001)
+    end = time.clock()
+    print hyper.alpha, hyper.beta
+    print &apos;run time: &apos;,end - start
+
+    start1 = time.clock()
+    #--------estimate parameter using moment estimation--------
+    hyper.update_from_data_by_moment(I, C)
+    end1 = time.clock()
+    print hyper.alpha, hyper.beta
+    print &apos;EM run time: &apos;, end1 - start1
+
+if __name__ == &apos;__main__&apos;:
+    test()
+&apos;&apos;&apos;
+</code></pre><h1 id="参考文献">4. 参考文献</h1><ol>
 <li><a href="https://zhuanlan.zhihu.com/p/21724759" target="_blank" rel="external">计算广告训练与平滑思想</a></li>
 </ol>
 
@@ -1384,7 +1492,7 @@ print svd.explained_variance_ratio_
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/07/Tencent_CVR预估初赛思路总结/" itemprop="url">Tencent_CVR预估初赛思路总结</a></h1>
+                <a class="post-title-link" href="/2017/06/07/Tencent_CVR预估初赛思路总结/" itemprop="url">腾讯社交广告APP转化率预估预估初赛&复赛思路总结</a></h1>
         
 
         <div class="post-meta">
@@ -1456,7 +1564,8 @@ print svd.explained_variance_ratio_
         
           
             <p>“这一段奔波太过匆忙，有时来不及回头张望。”</p>
-<p>Tencent“人工寻找trick”大赛初赛今天结束了。最终初赛线上logloss为0.099104，排名为64名。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-15-22-48.png" alt=""> </p>
+<p>腾讯“人工寻找trick”大赛初赛今天结束了。最终初赛线上logloss为0.099104，排名为64名：<img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-15-22-48.png" alt=""> </p>
+<p>复赛成绩0.101941，排名26名：<img src="https://ooo.0o0.ooo/2017/07/11/59646ce45d3e0.png" alt=""> </p>
 <p>虽然与前排大神的分相差甚远，虽结果不那么如人意，也是对这个领域入了个门。</p>
 <h1 id="赛题">1. 赛题</h1><p>详细赛题见<a href="http://algo.tpai.qq.com/home/information/index.html" target="_blank" rel="external">官方网站</a></p>
 <p><strong>已知</strong>：17-30天移动APP的广告、用户的转化情况，及相关上下文。<br><strong>预测</strong>：第31天指定用户和对应广告的转化率。</p>
@@ -1548,6 +1657,26 @@ print svd.explained_variance_ratio_
 <li>新的特征输入到分类（如LR）模型中训练分类器。</li>
 </ol>
 <p><em>实现</em>：<br>参考文献<a href="http://blog.csdn.net/shine19930820/article/details/71713680" target="_blank" rel="external">GBDT原理及利用GBDT构造新的特征-Python实现</a>的末尾有一个调用GBDT训练模型构建树，调用<a href="http://blog.csdn.net/shine19930820/article/details/71713680" target="_blank" rel="external">apply()</a>方法得到特征，然后将特征通过one-hot编码后作为新的模型输入LR进行训练。<a href="http://scikit-learn.org/stable/auto_examples/ensemble/plot_feature_transformation.html#example-ensemble-plot-feature-transformation-py" target="_blank" rel="external">feature trainsformation with ensembles of tree官方文档</a></p>
+<h2 id="本赛题特征构造">5.3. 本赛题特征构造</h2><p><a href="https://github.com/z564808896/Tencent_Social_Ads" target="_blank" rel="external">竟然有这种操作队分享</a>总结得非常好，主要特征是分为以下几类：</p>
+<ul>
+<li>Trick特征：<br>通过观察原始数据是不难发现的,有很多只有clickTime和label不一样的重复数据，按时间排序发现重复数据如果转化，label一般标在头或尾，少部分在中间，在训练集上出现的情况在测试集上也会出现，所以标记这些位置后onehot，让模型去学习，再就是时间差特征，关于trick我比赛分享的这篇文章有较详细的说明。比赛后期发现了几个和这个trick相类似的文章1和文章2，可以参考。</li>
+<li><p>统计特征：<br>原始特征主要三大类：广告特征、用户特征、位置特征，通过交叉组合算统计构造特征，由于机器限制，统计特征主要使用了转化率，丢掉了点击次数和转化次数。初赛利用了7天滑窗构造，决赛采用了周冠军分享的clickTime之前所有天算统计。三组合特征也来自周冠军分享的下载行为和网络条件限制，以及用户属性对app需求挖掘出。贝叶斯平滑user相关的特征特别废时间，初赛做过根据点击次数阈值来操作转化率，效果和平滑差不多但是阈值选择不太准。</p>
+</li>
+<li><p>活跃数特征：</p>
+</li>
+<li><p>特征构造灵感来自这里,比如某个广告位的app种数。</p>
+</li>
+<li><p>均值特征：</p>
+</li>
+<li><p>比如点击某广告的用户平均年龄</p>
+</li>
+<li><p>平均回流时间特征：<br>利用回流时间方式不对的话很容易造成leackage，这里参考了官方群里的分享，计算了每个appID的平均回流时间，没有回流的app用其所在类的平均回流时间代替</p>
+</li>
+<li><p>用户流水和历史特征：<br>利用installed文件关联user和app获得历史统计特征，利用actions进行7天滑动窗口获得用户和app流水特征。</p>
+</li>
+</ul>
+<h2 id="一些特殊的东西">5.4. 一些特殊的东西</h2><p><strong>多线程抽特征</strong></p>
+<p>决赛数据集太大，而我们组合特征非常多。因此我们采用了多线程抽特征的方式。<br>代码见<a href="https://github.com/zsyandjyhouse/TencentAD_contest" target="_blank" rel="external">TencentAD_contest</a>，extra_rate_thread_0623.py<br><strong>贝叶斯平滑</strong><br>在决赛时，我们还使用了贝叶斯平滑。针对Pandas，我们对网上已有的代码进行了改进。<br><a href="https://jiayi797.github.io/2017/07/09/%E8%BD%AC%E5%8C%96%E7%8E%87%E9%A2%84%E4%BC%B0%E4%B9%8B%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%B9%B3%E6%BB%91/" target="_blank" rel="external">贝叶斯平滑笔记</a><br><strong>word embedding</strong><br>这个我没有做过多研究，这里是<a href="https://jiayi797.github.io/2017/06/21/word-embedding/" target="_blank" rel="external">word embedding笔记</a><br><strong>SVD分解</strong><br>思路和代码主要看我这篇博客<a href="https://jiayi797.github.io/2017/07/10/SVD%E5%88%86%E8%A7%A3/" target="_blank" rel="external">SVD分解</a></p>
 <h1 id="训练集构造">6. 训练集构造</h1><p>训练集特征做不好，就很容易造成泄露。这是我试过的两种方式：</p>
 <ol>
 <li>用滑动窗口，即每天的前七天的统计（统计指统计转化量、点击量、转化率，下同）来作为第本天的特征。并拿30号来做线下测试集。<br>如下图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-49-53.png" alt=""><br>经测试我们发现，即使我们去掉了30号的部分负样本，还是有一些问题的。因此我们将时间区间改了一下：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-53-21.png" alt=""><br>这样做出于两种目的：一是尽量做到了线上线下统一，二是不让模型学习30号的样本数据，防止一些错误样本被模型学到。</li>
@@ -1556,6 +1685,8 @@ print svd.explained_variance_ratio_
 <p>相信很多人都用的是这两种其中的一种。我是一个对自己极度不自信的人，来来回回换了好几次。最终觉得第2种方式很稳定，线上线下较统一。第1种方式特征更新较快，模型更准确，但带来的问题就是线上线下不太统一。</p>
 <h1 id="模型训练和验证">7. 模型训练和验证</h1><p>至此特征工程已经完毕，开始训练。</p>
 <p>训练其实没什么好说的，只要注意一下别过拟合就可以。</p>
+<p>初赛我们采用的xgboost，决赛用的lightgbm。其实都是对GBDT的实现，两者都很好，但lightGBM更快一些，因为它只对部分节点进行生长。</p>
+<h2 id="stacking">7.1. stacking</h2><p>在初赛的时候听到最多的就是stacking魔法了。文章<a href="https://www.qcloud.com/community/article/895055" target="_blank" rel="external">【SPA大赛】腾讯广告点击大赛：对stacking的一些基本介绍</a>非常详细地介绍了stacking大法。我觉得这句话很好：“在我看来stacking严格来说不能称为一种算法，我理解的是一种非常精美而复杂的对模型的集成策略。”</p>
 <h1 id="总结">8. 总结</h1><p>平时在学习的过程中，过于注重理论的推导，只是在一遍遍地看那些公式。但没有切身实践过，感受不到模型真正的威力和缺憾。通过这次比赛，还是收获比较多的。注意到了平时学习过程中自以为不重要的、很容易被忽略的细节。</p>
 <p>在初赛中，我们其实并没有注重模型的调参等，而是一直在做特征工程。其实我初期也不知道究竟该怎么办。但JerryLin大神用他的言行教会我，特征决定了结果的上限，而模型只是在不断地逼近这个上限而已。只有得到了好的特征，才会拿到好的模型。</p>
 <p>做了这么久的特征工程，最大的感想就是，只有认认真真、踏踏实实分析数据，才能得到好的特征。过度依赖算法在工业上是不可靠的。</p>
@@ -1564,7 +1695,8 @@ print svd.explained_variance_ratio_
 <p>希望自己在未来的日子里，能将周志华老师的《机器学习》和李航老师的《统计学习方法》这两本书吃透，而不是像现在这样，狗熊掰棒子。</p>
 <p>失败乃成功之母。</p>
 <p>天行健，君子以自强不息。</p>
-<h1 id="参考文献">9. 参考文献</h1><ol>
+<h1 id="项目代码">9. 项目代码</h1><p><a href="https://github.com/zsyandjyhouse/TencentAD_contest" target="_blank" rel="external">TencentAD_contest</a></p>
+<h1 id="参考文献">10. 参考文献</h1><ol>
 <li><a href="https://zhuanlan.zhihu.com/p/26820998" target="_blank" rel="external">Kaggle 数据挖掘比赛经验分享</a></li>
 <li><a href="http://blog.csdn.net/yang090510118/article/details/39478033" target="_blank" rel="external">逻辑回归LR的特征为什么要先离散化</a></li>
 <li><a href="http://breezedeus.github.io/2014/11/20/breezedeus-feature-hashing.html" target="_blank" rel="external">特征哈希（Feature Hashing）</a></li>
@@ -1574,6 +1706,8 @@ print svd.explained_variance_ratio_
 <li><a href="http://www.jianshu.com/p/8f6f94f1d275" target="_blank" rel="external">scikit-learn系列之特征选择</a></li>
 <li><a href="http://blog.csdn.net/shine19930820/article/details/71713680" target="_blank" rel="external">GBDT原理及利用GBDT构造新的特征-Python实现</a></li>
 <li><a href="http://www.bigbear2017.com/blog/2016/11/02/facebook-ctr-paper/" target="_blank" rel="external">很好的文献资料Facebook CTR Paper</a></li>
+<li><a href="https://github.com/z564808896/Tencent_Social_Ads" target="_blank" rel="external">竟然有这种操作队分享</a></li>
+<li><a href="https://www.qcloud.com/community/article/895055" target="_blank" rel="external">【SPA大赛】腾讯广告点击大赛：对stacking的一些基本介绍</a></li>
 </ol>
 
           
