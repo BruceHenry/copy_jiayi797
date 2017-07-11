@@ -99,7 +99,7 @@
 <meta property="og:description" content="1. 逻辑回归模型1.0.1. 逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++： $$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$ $$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$ 其中 $u$为位置参数 $r&amp;gt;0$为形状参数 其中，密度函数与分布">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png">
-<meta property="og:updated_time" content="2017-07-11T08:01:04.133Z">
+<meta property="og:updated_time" content="2017-07-11T10:33:20.491Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逻辑回归（Logistic regression）">
 <meta name="twitter:description" content="1. 逻辑回归模型1.0.1. 逻辑回归分布连续随机变量$X$服从逻辑回归分布，则$X$具有下列++分布函数和密度函数++： $$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$ $$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$ 其中 $u$为位置参数 $r&amp;gt;0$为形状参数 其中，密度函数与分布">
@@ -394,7 +394,7 @@
 <p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png" alt=""> </p>
 <h1 id="总结">3. 总结</h1><ol>
 <li>逻辑回归是一种预测y的各类别的概率的模型，即计算P(Y=1|x)或者P(Y=0|x)</li>
-<li>与机器学习过程类似，即 通过已知的大量（x,y），预测参数w,b，来计算后来输入的x对应的类别y</li>
+<li>与机器学习过程类似，即 通过已知的大量（x,y），拟合计算参数w,b；再用y=wx+b来计算新的x下的y；把y输入sigmoid函数中，得到y为1的概率。</li>
 </ol>
 
       
@@ -438,8 +438,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/03/机器学习算法-SVM（一） 线性可分/" rel="next" title="SVM（一） 线性可分">
-                <i class="fa fa-chevron-left"></i> SVM（一） 线性可分
+              <a href="/2017/03/03/机器学习算法-SVM/" rel="next" title="SVM">
+                <i class="fa fa-chevron-left"></i> SVM
               </a>
             
           </div>
@@ -522,7 +522,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
