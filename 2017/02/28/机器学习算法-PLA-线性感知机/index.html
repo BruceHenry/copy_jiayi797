@@ -99,8 +99,9 @@
 <meta property="og:description" content="感觉自己记性越来越差。寒假前看的东西，回来忘得一干二净。从此认真做笔记，不能再重蹈覆辙。——题记（第一次使用markdown，不太习惯，后面的公式没有继续打。现在去学习一下好用一些的公式编辑方法） 1. 简介定义：感知机是二类分类的线性模型。 输入：实例的特征向量 输出：实例的类别（±1） 2. 感知机模型感知机——由输入空间到输出空间的函数： $$f(x)=sign(wx+b)$$ ###Tip">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-02-27-22-03-00.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-02-27-22-05-23.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/11/59648c8143357.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-02-27-22-06-33.png">
-<meta property="og:updated_time" content="2017-07-11T07:21:46.590Z">
+<meta property="og:updated_time" content="2017-07-11T08:31:32.562Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PLA-线性感知机">
 <meta name="twitter:description" content="感觉自己记性越来越差。寒假前看的东西，回来忘得一干二净。从此认真做笔记，不能再重蹈覆辙。——题记（第一次使用markdown，不太习惯，后面的公式没有继续打。现在去学习一下好用一些的公式编辑方法） 1. 简介定义：感知机是二类分类的线性模型。 输入：实例的特征向量 输出：实例的类别（±1） 2. 感知机模型感知机——由输入空间到输出空间的函数： $$f(x)=sign(wx+b)$$ ###Tip">
@@ -374,10 +375,12 @@
 <h1 id="感知机学习策略">3. 感知机学习策略</h1><ol>
 <li>感知机学习目标：求得一个能将训练集正实例点和负实例点完全正确分开的分离超平面 = 确定模型参数w,b。</li>
 <li>感知机学习策略：定义（经验）损失函数并将损失函数极小化。</li>
-<li>损失函数的选择：所有误分类点到超平面S的总距离：<img src="http://om1bxijvl.bkt.clouddn.com/2017-02-27-22-03-00.png" alt=""> </li>
+<li>损失函数的选择：</li>
 </ol>
-<p>一般不考虑w,即损失函数为：<img src="http://om1bxijvl.bkt.clouddn.com/2017-02-27-22-05-23.png" alt=""> </p>
-<p>M:误分类点的个数</p>
+<ul>
+<li>《统计学习方法》中介绍到的损失函数：所有误分类点到超平面S的总距离：<img src="http://om1bxijvl.bkt.clouddn.com/2017-02-27-22-03-00.png" alt=""><br>一般不考虑w,即损失函数为：<img src="http://om1bxijvl.bkt.clouddn.com/2017-02-27-22-05-23.png" alt=""><br>M:误分类点的个数</li>
+<li>《西瓜书》里提到的误差是均方误差：<img src="https://ooo.0o0.ooo/2017/07/11/59648c8143357.png" alt=""><br>然后用最小二乘法求解w,b。</li>
+</ul>
 <ol>
 <li>误分类点越少，损失函数越小。</li>
 </ol>
@@ -531,7 +534,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
