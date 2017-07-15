@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Buffer," />
+  <meta name="keywords" content="贝叶斯理论," />
 
 
 
@@ -90,19 +90,17 @@
 
 
 
-<meta name="description" content="引言 说到缓冲区，不得不提Java NIO。 Java NIO(New IO)是一个可以替代标准Java IO API的IO API（从Java 1.4开始)，Java NIO提供了与标准IO不同的IO工作方式。 Java NIO: Channels and Buffers（通道和缓冲区） 1. 什么是缓冲区Buffer定义 代码的角度来讲（可以查看JDK中Buffer、ByteBuffer、Do">
-<meta name="keywords" content="Buffer">
+<meta name="description" content="1. 朴素贝叶斯分类的原理参考文献算法杂货铺——分类算法之朴素贝叶斯分类指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的思想基础是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为什么">
+<meta name="keywords" content="贝叶斯理论">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java-Buffer">
-<meta property="og:url" content="http://yoursite.com/child/2017/05/22/Java-Buffer/index.html">
+<meta property="og:title" content="朴素贝叶斯的理解">
+<meta property="og:url" content="http://yoursite.com/child/2017/07/15/机器学习算法-朴素贝叶斯的理解/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="引言 说到缓冲区，不得不提Java NIO。 Java NIO(New IO)是一个可以替代标准Java IO API的IO API（从Java 1.4开始)，Java NIO提供了与标准IO不同的IO工作方式。 Java NIO: Channels and Buffers（通道和缓冲区） 1. 什么是缓冲区Buffer定义 代码的角度来讲（可以查看JDK中Buffer、ByteBuffer、Do">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-05-22-20-31-24.png">
-<meta property="og:updated_time" content="2017-05-22T12:41:17.295Z">
+<meta property="og:description" content="1. 朴素贝叶斯分类的原理参考文献算法杂货铺——分类算法之朴素贝叶斯分类指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的思想基础是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为什么">
+<meta property="og:updated_time" content="2017-07-15T15:01:42.444Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java-Buffer">
-<meta name="twitter:description" content="引言 说到缓冲区，不得不提Java NIO。 Java NIO(New IO)是一个可以替代标准Java IO API的IO API（从Java 1.4开始)，Java NIO提供了与标准IO不同的IO工作方式。 Java NIO: Channels and Buffers（通道和缓冲区） 1. 什么是缓冲区Buffer定义 代码的角度来讲（可以查看JDK中Buffer、ByteBuffer、Do">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-05-22-20-31-24.png">
+<meta name="twitter:title" content="朴素贝叶斯的理解">
+<meta name="twitter:description" content="1. 朴素贝叶斯分类的原理参考文献算法杂货铺——分类算法之朴素贝叶斯分类指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的思想基础是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为什么">
 
 
 
@@ -130,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/2017/05/22/Java-Buffer/"/>
+  <link rel="canonical" href="http://yoursite.com/child/2017/07/15/机器学习算法-朴素贝叶斯的理解/"/>
 
 
 
 
 
-  <title>java-Buffer | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>朴素贝叶斯的理解 | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -276,7 +274,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/22/Java-Buffer/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/07/15/机器学习算法-朴素贝叶斯的理解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -293,7 +291,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">java-Buffer</h1>
+          <h1 class="post-title" itemprop="name headline">朴素贝叶斯的理解</h1>
         
 
         <div class="post-meta">
@@ -305,8 +303,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-22T20:17:39+08:00">
-                2017-05-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-15T15:38:19+08:00">
+                2017-07-15
               </time>
             
 
@@ -328,8 +326,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习算法</span>
                   </a>
                 </span>
 
@@ -362,45 +360,44 @@
       
 
       
-        <p><strong>引言</strong></p>
-<p>说到缓冲区，不得不提Java NIO。</p>
-<p>Java NIO(New IO)是一个可以替代标准Java IO API的IO API（从Java 1.4开始)，Java NIO提供了与标准IO不同的IO工作方式。</p>
-<p>Java NIO: Channels and Buffers（通道和缓冲区）</p>
-<h1 id="什么是缓冲区">1. 什么是缓冲区</h1><p><strong>Buffer定义</strong></p>
-<p>代码的角度来讲（可以查看JDK中Buffer、ByteBuffer、DoubleBuffer等的源码），Buffer类内部其实就是一个基本数据类型的数组，以及对这个缓冲数组的各种操作；</p>
-<p>常见的缓冲区如ByteBuffer、IntBuffer、DoubleBuffer…内部对应的数组依次是byte、int、double…</p>
-<p><strong>Buffer与通道的关系</strong></p>
-<p>标准的IO基于字节流和字符流进行操作的，而NIO是基于通道（Channel）和缓冲区（Buffer）进行操作，数据总是<em>从通道读取到缓冲区中</em>，或者<em>从缓冲区写入到通道中</em>。</p>
-<p><strong>继承结构</strong></p>
-<p>以ByteBuffer为例：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-05-22-20-31-24.png" alt=""> </p>
-<p>Buffer是顶层抽象类，ByteBuffer继承Buffer，也是抽象类，ByteBuffer最常见的两个具体实现类如下：</p>
-<p>DirectByteBuffer（JVM堆外部、通过unsafe.allocateMemory实现）、HeapByteBuffer（JVM堆）</p>
-<p><strong>缓冲区用途</strong></p>
-<p>写，然后读出</p>
-<h1 id="缓冲区的四个属性">2. 缓冲区的四个属性</h1><ul>
-<li><p>容量(capacity)<br>capacity指的是缓冲区能够容纳元素的最大数量，这个值在缓冲区创建时被设定，而且不能够改变，如下，我们创建了一个最大容量为10的字节缓冲区；</p>
-<pre><code>ByteBuffer bf = ByteBuffer.allocate(10);
-</code></pre></li>
-<li><p>上界（limit）<br>limit指的是缓冲区中第一个不能读写的元素的数组下标索引，也可以认为是缓冲区中实际元素的数量；</p>
-</li>
-<li><p>位置（position）<br>position指的是下一个要被读写的元素的数组下标索引，该值会随get()和put()的调用自动更新；</p>
-</li>
-<li><p>标记（mark）<br>一个备忘位置，调用mark()方法的话，mark值将存储当前position的值，等下次调用reset()方法时，会设定position的值为之前的标记值；</p>
-</li>
-<li><p>四个属性值之间的关系<br>根据以上四个属性的定义，我们可以总结出它们之间的关系如下：<br>0 &lt;= mark &lt;= position &lt;= limit &lt;= capacity</p>
-</li>
+        <h1 id="朴素贝叶斯分类的原理">1. 朴素贝叶斯分类的原理</h1><p>参考文献<a href="http://www.cnblogs.com/leoo2sk/archive/2010/09/17/naive-bayesian-classifier.html" target="_blank" rel="external">算法杂货铺——分类算法之朴素贝叶斯分类</a>指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的<strong>思想基础</strong>是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为什么呢？因为黑人中非洲人的比率最高，当然人家也可能是美洲人或亚洲人，但在没有其它可用信息下，我们会选择条件概率最大的类别，这就是朴素贝叶斯的思想基础。</p>
+<p>将上面的描述形式化描述，就是下面的朴素贝叶斯分类的定义。</p>
+<h1 id="朴素贝叶斯分类的定义">2. 朴素贝叶斯分类的定义</h1><ol>
+<li>设$x={a_1,a_2,…,a_m}$为一个待分类项，其中每个$a$是$x$的一个特征属性。</li>
+<li>有类别集合$C={y_1,y_2,…,y_n}$</li>
+<li>计算$P(y_1|x),P(y_2|x),…,P(y_n|x)$。(也就是这个特征成为每个类别的概率)</li>
+<li>如果$P(y_k|x)=max[P(y_1|x),P(y_2|x),…,P(y_n|x)],则x\in y_k$。(选出一个最可能的类别，将这个类别设为x的类别)</li>
+</ol>
+<p><strong>如何计算$P(y_i|x)$?</strong><br>问题来了，那么我们应该如何计算第3步当中的$P(y_i|x)$呢？</p>
+<p>$P(y_i|x)$代表在这个$x$的情况下的类别成为$y_i$的概率，一般来说通过建模$p(y|x)$来预测$y$的模型叫“<strong>判别式模型</strong>”。<br>但问题在于如果特征数量n较大或者每个特征能取大量值时，基于概率模型列出概率表变得不现实。所以我们修改这个模型使之变得可行。因此我们可以先对联合概率分布$p(x,y)$建模，然后再由此得出$P(y_i|x)$，这样的是“<strong>生成式模型</strong>”。贝叶斯定理为：<br>$$P(y|x)=\frac{p(x,y)}{p(x)}=\frac{p(y)p(x|y)}{p(x)}\tag{公式0}$$</p>
+<p><strong>因此将问题转化成了：如何基于训练数据D来估计先验$p(y)$和似然$p(x|y)$？</strong></p>
+<ul>
+<li>$p(y)$是先验概率，表示样本空间中各类样本所占比例；可以通过统计近似得出；</li>
+<li>$p(x|y)$是各类样本条件下，所有$x$特征分布的概率。假设特征空间$x$有$d$维，且每一维都有2个取值，那么$x$的取值就有$2^d$种。一般来说这远大于训练样本数m。也就是很多取值是覆盖不到的。所以用频率来估计它不可行，因为“未被观测到”和“与出现概率为0”通常是不同的。</li>
 </ul>
-<h1 id="缓冲区调用一般步骤">3. 缓冲区调用一般步骤</h1><ol>
-<li>写入数据到 Buffer</li>
-<li>调用flip()方法</li>
-<li>从 Buffer 中get()数据</li>
-<li>调用clear()方法或者compact()方法</li>
+<p><strong>现在问题又来了，如何去估计$p(x|y)$？</strong></p>
+<p>估计类条件概率的通用解决方案：先假定其具有某种确定的概率分布形式，再基于训练样本对概率分布的参数进行估计。</p>
+<p><strong>问题又转化成了:如何进行参数估计？</strong></p>
+<p>为明确起见，我们将$p(x|y)$记作$p(x|θ_y)$。</p>
+<p>根据频率学派的思路，我们可以通过极大似然法来估计参数θ。</p>
+<p>极大似然估计的核心思想是：我们已知$x$已发生，我们再根据实际情况写出$x$发生的概率$p(x_θ)$。目标函数是使得这个概率$p(x_θ)$最大，然后求得$θ$。</p>
+<p>在本问题中，我们有训练样本集$X$，令$X_y$表示训练样本集$X$中第$y$类样本组成的集合，假设这些样本独立同分布。似然函数是某事件发生的概率，也就是$P(X_y|θ_y)$:<br>$$P(X_y|θ_y)=∏_{x\in X_y}P(x|θ_y) \tag{公式1}$$<br><em>小注，上式表达的意思是：</em>$在参数θ_y时，第y类样本集X_y发生的概率 = X_y中每个样本x发生的概率的乘积$</p>
+<p>我们已经知道$X_y|θ_y$这个事件发生了（因为我们观测到了），那就让这个概率$P(X_y|θ_y)$最大化，去求得一个$θ_y$，这就是我们的最终目标——得到$θ_y$。</p>
+<p><strong>如何解出结果？</strong><br>如上所述，我们现在的目标是求得一个$θ_y$是的公式1最大。而公式1的连乘操作容易造成下溢，因此我们通常使用对数似然：<br>$$LL(θ_y)=log P(X_y|θ_y)$$<br>$$=\sum_{x\in X_y}log P(x|θ_y)\tag{公式2.1}$$<br>此时我们求得一个$θ_y$，使得公式2.1最大:</p>
+<p>$$θ_y=arg_{θ_y} max LL(θ_y)\tag{公式2.2}$$</p>
+<p>因此，我们只需要知道$p(x|θ)$,就可以求得各$y$类标签取值下的$θ$，就得到了$x$下各label的概率:$P(x|θ_y)$，也就是$P(x|y)$。代入<em>公式0</em>，我们得到了$P(y|x)$。此时我们就<strong>解决了朴素贝叶斯分类的定义的第3步</strong>，这样就能进行下一步了。</p>
+<p>然而，<strong>这个问题并没有这么简单。</strong>在公式2中我们要求得$θ$。假设$x^{(j)}$有$S_j$个取值，那么每个类别下的$θ_y$就有$∏_{j=1}^nS_j$维。且$y$的取值有$k$个，那就是$k∏_{j=1}^nS_j$，这样就很难算，几乎算不出来。<br><strong>参数太多，维度爆炸了，怎么办？</strong><br>因此，朴素贝叶斯分类器用了<strong>属性条件独立性假设</strong>:对于已知类别，假设所有属性相互独立。</p>
+<p>此时，<em>公式0</em>可以改写成：<br>$$P(y|x)=\frac{p(y)p(x|y)}{p(x)}=\frac{p(y)}{p(x)}∏_{i=1}^dP(x_i|y)\tag{公式4}$$</p>
+<p>而$p(x)$是样本分布，可以认为是常数，所以忽略。<br>按照我们刚刚推导的步骤，想求得$P(y|x)$，我们就回到了朴素贝叶斯分类的定义的第3步，算出公式2.2:</p>
+<p>$$θ_y=arg_{θ_y} max LL(θ_y)=arg max_{y\in Y}P(y)∏_{i=1}^dP(x_i|y)\tag{公式5}$$</p>
+<p>之后还有半朴素贝叶斯分类器。我们来日再说。</p>
+<h1 id="参考文献">3. 参考文献</h1><ol>
+<li><a href="http://www.cnblogs.com/leoo2sk/archive/2010/09/17/naive-bayesian-classifier.html" target="_blank" rel="external">算法杂货铺——分类算法之朴素贝叶斯分类</a></li>
+<li><a href="https://github.com/endymecy/spark-ml-source-analysis/blob/master/%E5%88%86%E7%B1%BB%E5%92%8C%E5%9B%9E%E5%BD%92/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/nb.md" target="_blank" rel="external">朴素贝叶斯</a></li>
+<li><a href="">机器学习，周志华</a></li>
+<li><a href="">概率论与数理统计，华师大出版社</a></li>
 </ol>
-<h1 id="参考文献">4. 参考文献</h1><ol>
-<li><a href="http://www.cnblogs.com/chenpi/p/6475510.html" target="_blank" rel="external">Java NIO中的缓冲区Buffer（一）缓冲区基础</a></li>
-<li>[Java编程思想2]</li>
-</ol>
+<p>那我们回头看看我们的训练集。训练集是由一个已知分类的集合构成，也就是集合$X$和对应的$y$。也就是说，我们可以通过统计来获得各类别下各特征属性的条件概率估计：<br>$P(a_1|y_1),P(a_2|y_1),…,P(a_m|y_1);$<br>$P(a_1|y_2),P(a_2|y_2),…,P(a_m|y_2);$<br>$…,$<br>$P(a_1|y_n),P(a_2|y_n),…,P(a_m|y_n)$</p>
 
       
     </div>
@@ -430,7 +427,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Buffer/" rel="tag"># Buffer</a>
+            <a href="/tags/贝叶斯理论/" rel="tag"># 贝叶斯理论</a>
           
         </div>
       
@@ -443,18 +440,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/24/机器学习算法-特征选择与正则化/" rel="next" title="特征选择与正则化">
-                <i class="fa fa-chevron-left"></i> 特征选择与正则化
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/21/中间件比赛-内存映射文件/" rel="prev" title="内存映射文件">
-                内存映射文件 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/11/机器学习算法-总结/" rel="prev" title="机器学习算法-总结">
+                机器学习算法-总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -584,7 +577,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是缓冲区"><span class="nav-text">1. 什么是缓冲区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓冲区的四个属性"><span class="nav-text">2. 缓冲区的四个属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓冲区调用一般步骤"><span class="nav-text">3. 缓冲区调用一般步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">4. 参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯分类的原理"><span class="nav-text">1. 朴素贝叶斯分类的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯分类的定义"><span class="nav-text">2. 朴素贝叶斯分类的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">3. 参考文献</span></a></li></ol></div>
             
 
           </div>
