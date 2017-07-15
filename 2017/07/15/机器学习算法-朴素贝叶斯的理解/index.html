@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/child/2017/07/15/机器学习算法-朴素贝叶斯的理解/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="1. 朴素贝叶斯分类的原理参考文献算法杂货铺——分类算法之朴素贝叶斯分类指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的思想基础是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为什么">
-<meta property="og:updated_time" content="2017-07-15T15:01:42.444Z">
+<meta property="og:updated_time" content="2017-07-15T15:04:31.784Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="朴素贝叶斯的理解">
 <meta name="twitter:description" content="1. 朴素贝叶斯分类的原理参考文献算法杂货铺——分类算法之朴素贝叶斯分类指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的思想基础是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为什么">
@@ -368,25 +368,23 @@
 <li>计算$P(y_1|x),P(y_2|x),…,P(y_n|x)$。(也就是这个特征成为每个类别的概率)</li>
 <li>如果$P(y_k|x)=max[P(y_1|x),P(y_2|x),…,P(y_n|x)],则x\in y_k$。(选出一个最可能的类别，将这个类别设为x的类别)</li>
 </ol>
-<p><strong>如何计算$P(y_i|x)$?</strong><br>问题来了，那么我们应该如何计算第3步当中的$P(y_i|x)$呢？</p>
+<h2 id="如何计算-P-y-i-x">2.1. 如何计算$P(y_i|x)$?</h2><p>问题来了，那么我们应该如何计算第3步当中的$P(y_i|x)$呢？</p>
 <p>$P(y_i|x)$代表在这个$x$的情况下的类别成为$y_i$的概率，一般来说通过建模$p(y|x)$来预测$y$的模型叫“<strong>判别式模型</strong>”。<br>但问题在于如果特征数量n较大或者每个特征能取大量值时，基于概率模型列出概率表变得不现实。所以我们修改这个模型使之变得可行。因此我们可以先对联合概率分布$p(x,y)$建模，然后再由此得出$P(y_i|x)$，这样的是“<strong>生成式模型</strong>”。贝叶斯定理为：<br>$$P(y|x)=\frac{p(x,y)}{p(x)}=\frac{p(y)p(x|y)}{p(x)}\tag{公式0}$$</p>
-<p><strong>因此将问题转化成了：如何基于训练数据D来估计先验$p(y)$和似然$p(x|y)$？</strong></p>
-<ul>
+<h2 id="因此将问题转化成了：如何基于训练数据D来估计先验-p-y-和似然-p-x-y-？">2.2. 因此将问题转化成了：如何基于训练数据D来估计先验$p(y)$和似然$p(x|y)$？</h2><ul>
 <li>$p(y)$是先验概率，表示样本空间中各类样本所占比例；可以通过统计近似得出；</li>
 <li>$p(x|y)$是各类样本条件下，所有$x$特征分布的概率。假设特征空间$x$有$d$维，且每一维都有2个取值，那么$x$的取值就有$2^d$种。一般来说这远大于训练样本数m。也就是很多取值是覆盖不到的。所以用频率来估计它不可行，因为“未被观测到”和“与出现概率为0”通常是不同的。</li>
 </ul>
-<p><strong>现在问题又来了，如何去估计$p(x|y)$？</strong></p>
-<p>估计类条件概率的通用解决方案：先假定其具有某种确定的概率分布形式，再基于训练样本对概率分布的参数进行估计。</p>
-<p><strong>问题又转化成了:如何进行参数估计？</strong></p>
-<p>为明确起见，我们将$p(x|y)$记作$p(x|θ_y)$。</p>
+<h2 id="现在问题又来了，如何去估计-p-x-y-？">2.3. 现在问题又来了，如何去估计$p(x|y)$？</h2><p>估计类条件概率的通用解决方案：先假定其具有某种确定的概率分布形式，再基于训练样本对概率分布的参数进行估计。</p>
+<h2 id="问题又转化成了-如何进行参数估计？">2.4. 问题又转化成了:如何进行参数估计？</h2><p>为明确起见，我们将$p(x|y)$记作$p(x|θ_y)$。</p>
 <p>根据频率学派的思路，我们可以通过极大似然法来估计参数θ。</p>
 <p>极大似然估计的核心思想是：我们已知$x$已发生，我们再根据实际情况写出$x$发生的概率$p(x_θ)$。目标函数是使得这个概率$p(x_θ)$最大，然后求得$θ$。</p>
 <p>在本问题中，我们有训练样本集$X$，令$X_y$表示训练样本集$X$中第$y$类样本组成的集合，假设这些样本独立同分布。似然函数是某事件发生的概率，也就是$P(X_y|θ_y)$:<br>$$P(X_y|θ_y)=∏_{x\in X_y}P(x|θ_y) \tag{公式1}$$<br><em>小注，上式表达的意思是：</em>$在参数θ_y时，第y类样本集X_y发生的概率 = X_y中每个样本x发生的概率的乘积$</p>
 <p>我们已经知道$X_y|θ_y$这个事件发生了（因为我们观测到了），那就让这个概率$P(X_y|θ_y)$最大化，去求得一个$θ_y$，这就是我们的最终目标——得到$θ_y$。</p>
-<p><strong>如何解出结果？</strong><br>如上所述，我们现在的目标是求得一个$θ_y$是的公式1最大。而公式1的连乘操作容易造成下溢，因此我们通常使用对数似然：<br>$$LL(θ_y)=log P(X_y|θ_y)$$<br>$$=\sum_{x\in X_y}log P(x|θ_y)\tag{公式2.1}$$<br>此时我们求得一个$θ_y$，使得公式2.1最大:</p>
+<h2 id="如何解出参数？">2.5. 如何解出参数？</h2><p>如上所述，我们现在的目标是求得一个$θ_y$是的公式1最大。而公式1的连乘操作容易造成下溢，因此我们通常使用对数似然：<br>$$LL(θ_y)=log P(X_y|θ_y)$$<br>$$=\sum_{x\in X_y}log P(x|θ_y)\tag{公式2.1}$$<br>此时我们求得一个$θ_y$，使得公式2.1最大:</p>
 <p>$$θ_y=arg_{θ_y} max LL(θ_y)\tag{公式2.2}$$</p>
 <p>因此，我们只需要知道$p(x|θ)$,就可以求得各$y$类标签取值下的$θ$，就得到了$x$下各label的概率:$P(x|θ_y)$，也就是$P(x|y)$。代入<em>公式0</em>，我们得到了$P(y|x)$。此时我们就<strong>解决了朴素贝叶斯分类的定义的第3步</strong>，这样就能进行下一步了。</p>
-<p>然而，<strong>这个问题并没有这么简单。</strong>在公式2中我们要求得$θ$。假设$x^{(j)}$有$S_j$个取值，那么每个类别下的$θ_y$就有$∏_{j=1}^nS_j$维。且$y$的取值有$k$个，那就是$k∏_{j=1}^nS_j$，这样就很难算，几乎算不出来。<br><strong>参数太多，维度爆炸了，怎么办？</strong><br>因此，朴素贝叶斯分类器用了<strong>属性条件独立性假设</strong>:对于已知类别，假设所有属性相互独立。</p>
+<h2 id="并没有那么简单">2.6. 并没有那么简单</h2><p>然而，<strong>这个问题并没有这么简单。</strong>在公式2中我们要求得$θ$。假设$x^{(j)}$有$S_j$个取值，那么每个类别下的$θ_y$就有$∏_{j=1}^nS_j$维。且$y$的取值有$k$个，那就是$k∏_{j=1}^nS_j$，这样就很难算，几乎算不出来。</p>
+<h2 id="参数太多，维度爆炸了，怎么办？">2.7. 参数太多，维度爆炸了，怎么办？</h2><p>因此，朴素贝叶斯分类器用了<strong>属性条件独立性假设</strong>:对于已知类别，假设所有属性相互独立。</p>
 <p>此时，<em>公式0</em>可以改写成：<br>$$P(y|x)=\frac{p(y)p(x|y)}{p(x)}=\frac{p(y)}{p(x)}∏_{i=1}^dP(x_i|y)\tag{公式4}$$</p>
 <p>而$p(x)$是样本分布，可以认为是常数，所以忽略。<br>按照我们刚刚推导的步骤，想求得$P(y|x)$，我们就回到了朴素贝叶斯分类的定义的第3步，算出公式2.2:</p>
 <p>$$θ_y=arg_{θ_y} max LL(θ_y)=arg max_{y\in Y}P(y)∏_{i=1}^dP(x_i|y)\tag{公式5}$$</p>
@@ -577,7 +575,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯分类的原理"><span class="nav-text">1. 朴素贝叶斯分类的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯分类的定义"><span class="nav-text">2. 朴素贝叶斯分类的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">3. 参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯分类的原理"><span class="nav-text">1. 朴素贝叶斯分类的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯分类的定义"><span class="nav-text">2. 朴素贝叶斯分类的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何计算-P-y-i-x"><span class="nav-text">2.1. 如何计算$P(y_i|x)$?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#因此将问题转化成了：如何基于训练数据D来估计先验-p-y-和似然-p-x-y-？"><span class="nav-text">2.2. 因此将问题转化成了：如何基于训练数据D来估计先验$p(y)$和似然$p(x|y)$？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现在问题又来了，如何去估计-p-x-y-？"><span class="nav-text">2.3. 现在问题又来了，如何去估计$p(x|y)$？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题又转化成了-如何进行参数估计？"><span class="nav-text">2.4. 问题又转化成了:如何进行参数估计？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何解出参数？"><span class="nav-text">2.5. 如何解出参数？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并没有那么简单"><span class="nav-text">2.6. 并没有那么简单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数太多，维度爆炸了，怎么办？"><span class="nav-text">2.7. 参数太多，维度爆炸了，怎么办？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">3. 参考文献</span></a></li></ol></div>
             
 
           </div>
