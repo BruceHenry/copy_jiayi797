@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="1. 朴素贝叶斯分类的原理参考文献算法杂货铺——分类算法之朴素贝叶斯分类指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的思想基础是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为什么">
+<meta name="description" content="1. 朴素贝叶斯分类的思想基础参考文献算法杂货铺——分类算法之朴素贝叶斯分类指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的思想基础是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为">
 <meta name="keywords" content="贝叶斯理论">
 <meta property="og:type" content="article">
 <meta property="og:title" content="朴素贝叶斯的理解">
 <meta property="og:url" content="http://yoursite.com/child/2017/07/15/机器学习算法-朴素贝叶斯的理解/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="1. 朴素贝叶斯分类的原理参考文献算法杂货铺——分类算法之朴素贝叶斯分类指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的思想基础是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为什么">
-<meta property="og:updated_time" content="2017-07-15T15:04:31.784Z">
+<meta property="og:description" content="1. 朴素贝叶斯分类的思想基础参考文献算法杂货铺——分类算法之朴素贝叶斯分类指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的思想基础是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为">
+<meta property="og:updated_time" content="2017-07-15T15:06:06.558Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="朴素贝叶斯的理解">
-<meta name="twitter:description" content="1. 朴素贝叶斯分类的原理参考文献算法杂货铺——分类算法之朴素贝叶斯分类指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的思想基础是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为什么">
+<meta name="twitter:description" content="1. 朴素贝叶斯分类的思想基础参考文献算法杂货铺——分类算法之朴素贝叶斯分类指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的思想基础是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为">
 
 
 
@@ -360,9 +360,9 @@
       
 
       
-        <h1 id="朴素贝叶斯分类的原理">1. 朴素贝叶斯分类的原理</h1><p>参考文献<a href="http://www.cnblogs.com/leoo2sk/archive/2010/09/17/naive-bayesian-classifier.html" target="_blank" rel="external">算法杂货铺——分类算法之朴素贝叶斯分类</a>指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的<strong>思想基础</strong>是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为什么呢？因为黑人中非洲人的比率最高，当然人家也可能是美洲人或亚洲人，但在没有其它可用信息下，我们会选择条件概率最大的类别，这就是朴素贝叶斯的思想基础。</p>
+        <h1 id="朴素贝叶斯分类的思想基础">1. 朴素贝叶斯分类的思想基础</h1><p>参考文献<a href="http://www.cnblogs.com/leoo2sk/archive/2010/09/17/naive-bayesian-classifier.html" target="_blank" rel="external">算法杂货铺——分类算法之朴素贝叶斯分类</a>指出，朴素贝叶斯分类是一种十分简单的分类算法，叫它朴素贝叶斯分类是因为这种方法的思想真的很朴素，朴素贝叶斯的<strong>思想基础</strong>是这样的：对于给出的待分类项，求解在此项出现的条件下各个类别出现的概率，哪个最大，就认为此待分类项属于哪个类别。通俗来说，就好比这么个道理，你在街上看到一个黑人，我问你你猜这哥们哪里来的，你十有八九猜非洲。为什么呢？因为黑人中非洲人的比率最高，当然人家也可能是美洲人或亚洲人，但在没有其它可用信息下，我们会选择条件概率最大的类别，这就是朴素贝叶斯的思想基础。</p>
 <p>将上面的描述形式化描述，就是下面的朴素贝叶斯分类的定义。</p>
-<h1 id="朴素贝叶斯分类的定义">2. 朴素贝叶斯分类的定义</h1><ol>
+<h1 id="朴素贝叶斯分类的定义和求解">2. 朴素贝叶斯分类的定义和求解</h1><ol>
 <li>设$x={a_1,a_2,…,a_m}$为一个待分类项，其中每个$a$是$x$的一个特征属性。</li>
 <li>有类别集合$C={y_1,y_2,…,y_n}$</li>
 <li>计算$P(y_1|x),P(y_2|x),…,P(y_n|x)$。(也就是这个特征成为每个类别的概率)</li>
@@ -437,6 +437,10 @@
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/16/机器学习实践-推荐系统初探/" rel="next" title="推荐系统初探">
+                <i class="fa fa-chevron-left"></i> 推荐系统初探
+              </a>
             
           </div>
 
@@ -518,7 +522,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -529,7 +533,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -575,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯分类的原理"><span class="nav-text">1. 朴素贝叶斯分类的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯分类的定义"><span class="nav-text">2. 朴素贝叶斯分类的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何计算-P-y-i-x"><span class="nav-text">2.1. 如何计算$P(y_i|x)$?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#因此将问题转化成了：如何基于训练数据D来估计先验-p-y-和似然-p-x-y-？"><span class="nav-text">2.2. 因此将问题转化成了：如何基于训练数据D来估计先验$p(y)$和似然$p(x|y)$？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现在问题又来了，如何去估计-p-x-y-？"><span class="nav-text">2.3. 现在问题又来了，如何去估计$p(x|y)$？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题又转化成了-如何进行参数估计？"><span class="nav-text">2.4. 问题又转化成了:如何进行参数估计？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何解出参数？"><span class="nav-text">2.5. 如何解出参数？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并没有那么简单"><span class="nav-text">2.6. 并没有那么简单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数太多，维度爆炸了，怎么办？"><span class="nav-text">2.7. 参数太多，维度爆炸了，怎么办？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">3. 参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯分类的思想基础"><span class="nav-text">1. 朴素贝叶斯分类的思想基础</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#朴素贝叶斯分类的定义和求解"><span class="nav-text">2. 朴素贝叶斯分类的定义和求解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何计算-P-y-i-x"><span class="nav-text">2.1. 如何计算$P(y_i|x)$?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#因此将问题转化成了：如何基于训练数据D来估计先验-p-y-和似然-p-x-y-？"><span class="nav-text">2.2. 因此将问题转化成了：如何基于训练数据D来估计先验$p(y)$和似然$p(x|y)$？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现在问题又来了，如何去估计-p-x-y-？"><span class="nav-text">2.3. 现在问题又来了，如何去估计$p(x|y)$？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题又转化成了-如何进行参数估计？"><span class="nav-text">2.4. 问题又转化成了:如何进行参数估计？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何解出参数？"><span class="nav-text">2.5. 如何解出参数？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并没有那么简单"><span class="nav-text">2.6. 并没有那么简单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数太多，维度爆炸了，怎么办？"><span class="nav-text">2.7. 参数太多，维度爆炸了，怎么办？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">3. 参考文献</span></a></li></ol></div>
             
 
           </div>
