@@ -93,13 +93,13 @@
 <meta name="description" content="1. Object特性 所有类的超类 可以引用任何对象  2. equals方法Object类中的equals方法判断两对象是否有相同的引用 2.1. equals的重写在实际coding中，一般我们都会对equals方法进行重写，例:  对于超类Employee：  12345678910111213141516171819202122class Employee&amp;#123;    ...">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java学习笔记3-Object">
+<meta property="og:title" content="java学习笔记3-Object（equal/hashCode/toString）">
 <meta property="og:url" content="http://yoursite.com/child/2017/05/04/java学习笔记-3-Object/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="1. Object特性 所有类的超类 可以引用任何对象  2. equals方法Object类中的equals方法判断两对象是否有相同的引用 2.1. equals的重写在实际coding中，一般我们都会对equals方法进行重写，例:  对于超类Employee：  12345678910111213141516171819202122class Employee&amp;#123;    ...">
-<meta property="og:updated_time" content="2017-07-11T07:52:40.953Z">
+<meta property="og:updated_time" content="2017-09-04T12:18:37.961Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java学习笔记3-Object">
+<meta name="twitter:title" content="java学习笔记3-Object（equal/hashCode/toString）">
 <meta name="twitter:description" content="1. Object特性 所有类的超类 可以引用任何对象  2. equals方法Object类中的equals方法判断两对象是否有相同的引用 2.1. equals的重写在实际coding中，一般我们都会对equals方法进行重写，例:  对于超类Employee：  12345678910111213141516171819202122class Employee&amp;#123;    ...">
 
 
@@ -134,7 +134,7 @@
 
 
 
-  <title>java学习笔记3-Object | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>java学习笔记3-Object（equal/hashCode/toString） | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -291,7 +291,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">java学习笔记3-Object</h1>
+          <h1 class="post-title" itemprop="name headline">java学习笔记3-Object（equal/hashCode/toString）</h1>
         
 
         <div class="post-meta">
@@ -421,8 +421,17 @@
 <p>例如：</p>
 <pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">7</span> * name.hashCode()</div><div class="line">            + <span class="number">11</span> * <span class="keyword">new</span> Double(salary).hashCode()</div><div class="line">            + <span class="number">13</span> * hireDay.hashCode();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </code></pre><p>更方便的方法：</p>
-<pre><code><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">    public int hashCode()&#123;</div><div class="line">        return Objects.hash(name,salary,hireDay);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"># toString方法</div><div class="line"></div><div class="line">用途：返回表示对象值的字符串</div><div class="line"></div><div class="line">例如：</div><div class="line"></div><div class="line">    ```Java</div><div class="line">    public String toString()&#123;</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-</code></pre>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">return</span> Objects.hash(name,salary,hireDay);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><h1 id="toString方法">4. toString方法</h1><p>用途：返回表示对象值的字符串</p>
+<p>例如：</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">return</span> getClass().getName()</div><div class="line">        + <span class="string">"[name="</span> + name</div><div class="line">        + <span class="string">",salary="</span> + salary</div><div class="line">        + <span class="string">",hireDay="</span> + hireDay</div><div class="line">        +<span class="string">"]"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p>特别地：</p>
+<ol>
+<li>只要对象与一个字符串通过操作符“+”连接起来，或使用System.out.println(x)，Java编译就会自动调用toString方法。</li>
+<li>Object类定义了toString方法，用来打印输出对象所属的类名和散列码。</li>
+<li>有趣的是，数组继承了object类的toString方法。修正的方法是采用Array.toString.例如<code>String s = Array.toString(luckyNumbers)</code>。多维数组需要调用<code>Array.deepToString</code>方法。</li>
+</ol>
+
       
     </div>
 
@@ -542,7 +551,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">65</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -553,7 +562,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -599,7 +608,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Object特性"><span class="nav-text">1. Object特性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#equals方法"><span class="nav-text">2. equals方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#equals的重写"><span class="nav-text">2.1. equals的重写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#equals方法的特性"><span class="nav-text">2.2. equals方法的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相等测试"><span class="nav-text">2.3. 相等测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hashCode方法"><span class="nav-text">3. hashCode方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Object特性"><span class="nav-text">1. Object特性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#equals方法"><span class="nav-text">2. equals方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#equals的重写"><span class="nav-text">2.1. equals的重写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#equals方法的特性"><span class="nav-text">2.2. equals方法的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相等测试"><span class="nav-text">2.3. 相等测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hashCode方法"><span class="nav-text">3. hashCode方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#toString方法"><span class="nav-text">4. toString方法</span></a></li></ol></div>
             
 
           </div>
