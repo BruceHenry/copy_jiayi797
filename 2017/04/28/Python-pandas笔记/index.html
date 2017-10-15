@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/child/2017/04/28/Python-pandas笔记/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="1. 用pandas求差集从df1中去除掉df2的内容 data={‘id’:[1,2,3]}data2={‘id’:[3,1,4]}df1=pd.DataFrame(data)df2=pd.DataFrame(data2)print df1print df2df3=df1[~df1[‘id’].isin(df2[‘id’])]print df3 2. 求某个时间区间的数据集tart_t=’201">
-<meta property="og:updated_time" content="2017-05-01T05:38:05.920Z">
+<meta property="og:updated_time" content="2017-10-11T07:43:36.496Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jiayi797的专栏">
 <meta name="twitter:description" content="1. 用pandas求差集从df1中去除掉df2的内容 data={‘id’:[1,2,3]}data2={‘id’:[3,1,4]}df1=pd.DataFrame(data)df2=pd.DataFrame(data2)print df1print df2df3=df1[~df1[‘id’].isin(df2[‘id’])]print df3 2. 求某个时间区间的数据集tart_t=’201">
@@ -356,6 +356,30 @@ blue      3
 yellow      1      0      0
 red         0      1      0
 blue        0      0      1
+</code></pre><h1 id="其它to-DataFrame">4. 其它to DataFrame</h1><h2 id="dict-to-DataFrame">4.1. dict to DataFrame</h2><pre><code>pd.DataFrame(d.items())
+</code></pre><h1 id="fillna">5. fillna</h1><h2 id="用同组的均值填补">5.1. 用同组的均值填补</h2><pre><code>&gt;&gt;&gt; df
+  name  value
+0    A      1
+1    A    NaN
+2    B    NaN
+3    B      2
+4    B      3
+5    B      1
+6    C      3
+7    C    NaN
+8    C      3
+&gt;&gt;&gt; df[&quot;value&quot;] = df.groupby(&quot;name&quot;).transform(lambda x: x.fillna(x.mean()))
+&gt;&gt;&gt; df
+  name  value
+0    A      1
+1    A      1
+2    B      2
+3    B      2
+4    B      3
+5    B      1
+6    C      3
+7    C      3
+8    C      3
 </code></pre>
       
     </div>
@@ -533,7 +557,7 @@ blue        0      0      1
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用pandas求差集"><span class="nav-text">1. 用pandas求差集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#求某个时间区间的数据集"><span class="nav-text">2. 求某个时间区间的数据集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dummies"><span class="nav-text">3. dummies</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用pandas求差集"><span class="nav-text">1. 用pandas求差集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#求某个时间区间的数据集"><span class="nav-text">2. 求某个时间区间的数据集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dummies"><span class="nav-text">3. dummies</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其它to-DataFrame"><span class="nav-text">4. 其它to DataFrame</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dict-to-DataFrame"><span class="nav-text">4.1. dict to DataFrame</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fillna"><span class="nav-text">5. fillna</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用同组的均值填补"><span class="nav-text">5.1. 用同组的均值填补</span></a></li></ol></li></ol></div>
             
 
           </div>

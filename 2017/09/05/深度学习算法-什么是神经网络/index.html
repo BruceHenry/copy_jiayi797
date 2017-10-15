@@ -100,7 +100,8 @@
 <meta property="og:image" content="https://i.loli.net/2017/09/05/59aea656bf8da.png">
 <meta property="og:image" content="https://i.loli.net/2017/09/06/59afebe9849fe.png">
 <meta property="og:image" content="https://i.loli.net/2017/09/06/59aff15c7043c.png">
-<meta property="og:updated_time" content="2017-09-06T13:29:10.383Z">
+<meta property="og:image" content="https://i.loli.net/2017/10/15/59e3657d65b64.png">
+<meta property="og:updated_time" content="2017-10-15T13:53:07.319Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习算法-什么是神经网络">
 <meta name="twitter:description" content="所谓神经网络就是将许多个单一“神经元”联结在一起，这样，一个“神经元”的输出就可以是另一个“神经元”的输入。 我们使用圆圈来表示神经网络的输入，标上“+1”的圆圈被称为偏置节点，也就是截距项。神经网络最左边的一层叫做输入层，最右的一层叫做输出层（本例中，输出层只有一个节点）。中间所有节点组成的一层叫做隐藏层，因为我们不能在训练样本集中观测到它们的值。同时可以看到，以上神经网络的例子中有3个输入单元">
@@ -366,8 +367,7 @@
       
         <p>所谓神经网络就是将许多个单一“神经元”联结在一起，这样，一个“神经元”的输出就可以是另一个“神经元”的输入。</p>
 <p><img src="https://i.loli.net/2017/09/05/59aea656bf8da.png" alt=""><br>我们使用圆圈来表示神经网络的输入，标上“+1”的圆圈被称为<strong>偏置节点</strong>，也就是截距项。神经网络最左边的一层叫做<strong>输入层</strong>，最右的一层叫做<strong>输出层</strong>（本例中，输出层只有一个节点）。中间所有节点组成的一层叫做<strong>隐藏层</strong>，因为我们不能在训练样本集中观测到它们的值。同时可以看到，以上神经网络的例子中有3个<strong>输入单元</strong>（偏置单元不计在内），3个<strong>隐藏单元</strong>及一个<strong>输出单元</strong>。</p>
-<p>记：</p>
-<p>$a^{[0]} = X$，表示输入特征，也表示“acitive value”。<br>$a^{[1]}$，表示隐藏层的“active value”<br>$a^{[2]} = y^{\text{~}}$，表示输出层</p>
+<p>记：<br>$a^{[0]} = X$，表示输入特征，也表示“acitive value”<br>$a^{[1]}$，表示隐藏层的“active value”<br>$a^{[2]} = y^{\text{~}}$，表示输出层</p>
 <h1 id="如何计算神经网络的输出？">1. 如何计算神经网络的输出？</h1><p>首先，我们回顾最简单的LR单元如何计算输出：</p>
 <ol>
 <li>首先计算$z = w^Tx+b$;</li>
@@ -376,17 +376,29 @@
 </ol>
 <p>在神经网络中，我们以此计算每个神经元即可。</p>
 <p>为了方便表示，我们先约定符号：<br>$$a_{i\text{&lt;- node index in layer}}^{[j]\text{&lt;- layer index}}$$</p>
-<p>上标方括号表示层数；<br>下标表示在本层的第几个node。</p>
+<p>上标方括号表示层数；下标表示在本层的第几个node。</p>
 <p>因此，在神经网络中，我们计算以下即可：<br><img src="https://i.loli.net/2017/09/06/59afebe9849fe.png" alt=""> </p>
 <p>即依次计算z和a即可。</p>
 <p>我们将上面的计算过程向量化，得到：<br>$$<br>z^{[1]} =<br>\begin{bmatrix}<br>w_1^{[1]T}\\<br>w_2^{[1]T}\\<br>w_3^{[1]T} \\<br>\end{bmatrix}<br>\begin{bmatrix}<br>x_1\\<br>x_2\\<br>x_3\\<br>\end{bmatrix}<br>+\begin{bmatrix}<br>b_1^{[1]}\\<br>b_2^{[1]}\\<br>b_3^{[1]} \\<br>\end{bmatrix}<br>$$<br>$$=\begin{bmatrix}<br>w_1^{[1]T}x+b_1^{[1]}\\<br>w_2^{[1]T}x+b_2^{[1]}\\<br>w_3^{[1]T}x+b_3^{[1]} \\<br>\end{bmatrix}<br>=\begin{bmatrix}<br>z_1^{[1]}\\<br>z_2^{[1]}\\<br>z_3^{[1]} \\<br>\end{bmatrix}<br>$$</p>
-<p>而这一层得到的输出$a$作为下一层的输入$x$<br>因此在神经网络中，我们按照以下步骤计算：<br><img src="https://i.loli.net/2017/09/06/59aff15c7043c.png" alt=""> </p>
+<p>而这一层得到的输出$a$作为下一层的输入$x$</p>
+<p>因此在神经网络中，我们按照以下步骤计算：<br><img src="https://i.loli.net/2017/09/06/59aff15c7043c.png" alt=""> </p>
 <p>我们将上面的计算步骤叫作<strong>前向传播</strong>。即：给定第$l$层激活值$a^{[l]}$，第$l+1$层的激活值$a^{[l+1]}$可以按照以下步骤得到：<br>$z^{[l+1]} = w^{[l]}a^{[l]}+b^{[l]}$<br>$a^{[l+1]} =  a(z^{[l+1]})$</p>
 <h1 id="如何加速多样本计算？">2. 如何加速多样本计算？</h1><p>在上一节中，我们讲到我们的输出是依次计算的。即从$x^{(1)}$到$x^{(m)}$</p>
-<p>假设输入样本$X$有m个，那么我们的计算过程为：</p>
-<p>$x^{(1)} \text{  ———-&gt;  } a^{[l]\text{(1)}} = y^{\text{~(1)}}$<br>…<br>$x^{(i)} \text{  ———-&gt;  } a^{[l]\text{(i)}} = y^{\text{~(i)}}$<br>…<br>$x^{(m)} \text{  ———-&gt;  } a^{[l]\text{(m)}} = y^{\text{~(m)}}$</p>
+<p>假设输入样本$X$有m个，那么我们的计算过程为：<br>$x^{(1)} \text{  ———-&gt;  } a^{[l]\text{(1)}} = y^{\text{~(1)}}$<br>…<br>$x^{(i)} \text{  ———-&gt;  } a^{[l]\text{(i)}} = y^{\text{~(i)}}$<br>…<br>$x^{(m)} \text{  ———-&gt;  } a^{[l]\text{(m)}} = y^{\text{~(m)}}$</p>
 <p>同样的，我们也可以将这个过程向量化，只需要将m个样本放入一个大矩阵$X$中即可。此处对于我来说较容易理解，故不再多加阐述。</p>
-<h1 id="参考文献">3. 参考文献</h1><ol>
+<h1 id="关于激活函数">3. 关于激活函数</h1><p>回顾之前的内容，我们的网络为：</p>
+<ol>
+<li>计算$z = wx+b$</li>
+<li>将$z$代入激活函数$\sigma(z)$得到预测值</li>
+</ol>
+<p>其中的$\sigma$就是sigmod激活函数。当然也有其它的激活函数：</p>
+<ol>
+<li>$tanh$(在神经网络隐藏层，$tanh$比$\sigma$表现更佳)<br>$tanh(z) = \frac{e^z-e^{-z}}{e^z+e^{-z}}$<br><img src="https://i.loli.net/2017/10/15/59e3657d65b64.png" alt=""> </li>
+<li>$ReLU$-修正线性单元，更普遍<br>$a=max(0,z)$<br>学习速度很快</li>
+<li>带泄露的ReLU<br>$a=max(0.0001z,z)$<br>z小于零时，函数稍微倾斜一些</li>
+</ol>
+<h2 id="为什么需要激活函数？">3.1. 为什么需要激活函数？</h2><p>会导致输出结果就是输入特征的线性组合，导致网络并没有什么卵用。</p>
+<h1 id="参考文献">4. 参考文献</h1><ol>
 <li>[吴恩达，deepLearning.ai]</li>
 <li><a href="http://ufldl.stanford.edu/wiki/index.php/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C" target="_blank" rel="external">神经网络</a></li>
 </ol>
@@ -567,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何计算神经网络的输出？"><span class="nav-text">1. 如何计算神经网络的输出？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何加速多样本计算？"><span class="nav-text">2. 如何加速多样本计算？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">3. 参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何计算神经网络的输出？"><span class="nav-text">1. 如何计算神经网络的输出？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何加速多样本计算？"><span class="nav-text">2. 如何加速多样本计算？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于激活函数"><span class="nav-text">3. 关于激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要激活函数？"><span class="nav-text">3.1. 为什么需要激活函数？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">4. 参考文献</span></a></li></ol></div>
             
 
           </div>
