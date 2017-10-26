@@ -271,7 +271,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/04/Python-os操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/04/Python-pandas笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -290,7 +290,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/04/Python-os操作/" itemprop="url">python——os模块</a></h1>
+                <a class="post-title-link" href="/2017/05/04/Python-pandas笔记/" itemprop="url">pandas相关技巧</a></h1>
         
 
         <div class="post-meta">
@@ -361,14 +361,13 @@
       
         
           
-          1. os模块os模块的作用：
-　　os，语义为操作系统，所以肯定就是操作系统相关的功能了，可以处理文件和目录这些我们日常手动需要做的操作，就比如说：显示当前目录下所有文件/删除某个文件/获取文件大小……
-　　另外，os模块不受平台限制，也就是说：当我们要在linux中显示当前命令时就要用到pwd命令，而Windows中cmd命令行下就要用到这个，额…我擦，我还真不知道，（甭管怎么着，肯定不是pwd），这时候我们使用python中os模块的os.path.abspath(name)功能，甭管是linux或者Windows都可以获取当前的绝对路径。
-2. 文件夹操作2.1. 检验文件夹是否存在o
+          1. 用pandas求差集从df1中去除掉df2的内容
+data={‘id’:[1,2,3]}data2={‘id’:[3,1,4]}df1=pd.DataFrame(data)df2=pd.DataFrame(data2)print df1print df2df3=df1[~df1[‘id’].isin(df2[‘id’])]print df3
+2. 求某个时间区间的数据集tart_t=’2016-04-05 00:00:00’end_t=’2016-04-16 00:00:00’action.time=pd.to_datetime(action.time,format=’%Y-%m-%d 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/05/04/Python-os操作/#more" rel="contents">
+            <a class="btn" href="/2017/05/04/Python-pandas笔记/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
