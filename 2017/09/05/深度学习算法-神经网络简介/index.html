@@ -101,7 +101,7 @@
 <meta property="og:image" content="https://i.loli.net/2017/09/06/59afebe9849fe.png">
 <meta property="og:image" content="https://i.loli.net/2017/09/06/59aff15c7043c.png">
 <meta property="og:image" content="https://i.loli.net/2017/10/15/59e3657d65b64.png">
-<meta property="og:updated_time" content="2017-10-26T12:55:12.869Z">
+<meta property="og:updated_time" content="2017-10-26T13:00:56.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习算法-神经网络简介">
 <meta name="twitter:description" content="所谓神经网络就是将许多个单一“神经元”联结在一起，这样，一个“神经元”的输出就可以是另一个“神经元”的输入。神经网络就是按照一定规则将多个神经元连接起来的网络。 我们使用圆圈来表示神经网络的输入，标上“+1”的圆圈被称为偏置节点，也就是截距项。神经网络最左边的一层叫做输入层，最右的一层叫做输出层（本例中，输出层只有一个节点）。中间所有节点组成的一层叫做隐藏层，因为我们不能在训练样本集中观测到它们的">
@@ -412,7 +412,7 @@
 </ol>
 <h2 id="反向传播">4.2. 反向传播</h2><p>上述正向传播时我们假设我们已经有了一个模型。但事实上我们应该是已经有了一堆样本想和样本的y，我们想去学习这个模型。那如何进行模型学习呢？就要用到反向传播法，从已知的输出y出发，结合梯度下降，得到一个模型，使得这个模型最符合x的分布。</p>
 <p>具体过程的<strong>思想精华：在样本集下，想要得到各层的z=wx+b的参数w和b，使得损失函数L(a,y)最小。用梯度下降法的话，就要沿着$L(a,y)$导数的方向来调节w和b。</strong></p>
-<p>关于误差函数$L(a,y)$我会在之后的博客里进行叙述。</p>
+<p>关于误差函数$L(a,y)$我会在之后的博客<a href="https://jiayi797.github.io/2017/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95-%E8%AF%AF%E5%B7%AE%E5%87%BD%E6%95%B0%E6%8E%A2%E7%A9%B6/" target="_blank" rel="external">误差函数探究</a>里进行叙述。</p>
 <p>要计算$L(a,y)$的导数$\frac{dL(a,y)}{da}=-\frac{y}{a} + \frac{1-y}{1-a}$,那么就要计算$dz=\frac{dL}{dz}$，从而要计算$dw=\frac{dL}{dw}$和$db=\frac{dL}{db}$</p>
 <ol>
 <li>$dz^{[2]}=A^{[2]}-Y,Y=[y^{[1]}],y^{[2]},…,y^{[m]}$</li>
@@ -547,7 +547,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">68</span>
+                <span class="site-state-item-count">69</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
