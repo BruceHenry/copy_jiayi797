@@ -90,14 +90,17 @@
 
 
 
+<meta name="description" content="其实在之前的博客朴素贝叶斯的理解一文中曾经提到过最大似然估计。 极大似然估计的核心思想是：我们已知$x$已发生，我们再根据实际情况写出$x$发生的概率$p(x_θ)$。目标函数是使得这个概率$p(x_θ)$最大，然后求得$θ$。 在本问题中，我们有训练样本集$X$，令$X_y$表示训练样本集$X$中第$y$类样本组成的集合，假设这些样本独立同分布。似然函数是某事件发生的概率，也就是$P(X_y|θ">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数学-最大似然估计">
 <meta property="og:url" content="http://yoursite.com/child/2017/10/26/数学-最大似然估计/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:updated_time" content="2017-10-26T13:03:27.216Z">
+<meta property="og:description" content="其实在之前的博客朴素贝叶斯的理解一文中曾经提到过最大似然估计。 极大似然估计的核心思想是：我们已知$x$已发生，我们再根据实际情况写出$x$发生的概率$p(x_θ)$。目标函数是使得这个概率$p(x_θ)$最大，然后求得$θ$。 在本问题中，我们有训练样本集$X$，令$X_y$表示训练样本集$X$中第$y$类样本组成的集合，假设这些样本独立同分布。似然函数是某事件发生的概率，也就是$P(X_y|θ">
+<meta property="og:updated_time" content="2017-10-26T13:07:47.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数学-最大似然估计">
+<meta name="twitter:description" content="其实在之前的博客朴素贝叶斯的理解一文中曾经提到过最大似然估计。 极大似然估计的核心思想是：我们已知$x$已发生，我们再根据实际情况写出$x$发生的概率$p(x_θ)$。目标函数是使得这个概率$p(x_θ)$最大，然后求得$θ$。 在本问题中，我们有训练样本集$X$，令$X_y$表示训练样本集$X$中第$y$类样本组成的集合，假设这些样本独立同分布。似然函数是某事件发生的概率，也就是$P(X_y|θ">
 
 
 
@@ -311,6 +314,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数学/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -335,7 +360,14 @@
       
 
       
-        
+        <p>其实在之前的博客<a href="https://jiayi797.github.io/2017/07/15/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%9A%84%E7%90%86%E8%A7%A3/" target="_blank" rel="external">朴素贝叶斯的理解</a>一文中曾经提到过最大似然估计。</p>
+<p>极大似然估计的核心思想是：我们已知$x$已发生，我们再根据实际情况写出$x$发生的概率$p(x_θ)$。目标函数是使得这个概率$p(x_θ)$最大，然后求得$θ$。</p>
+<p>在本问题中，我们有训练样本集$X$，令$X_y$表示训练样本集$X$中第$y$类样本组成的集合，假设这些样本独立同分布。似然函数是某事件发生的概率，也就是$P(X_y|θ_y)$:</p>
+<p>$$P(X_y|θ_y)=∏_{x\in X_y}P(x|θ_y) \tag{公式1}$$</p>
+<p><em>小注，上式表达的意思是：</em></p>
+<p>$在参数θ_y时，第y类样本集X_y发生的概率 = X_y中每个样本x发生的概率的乘积$</p>
+<p>我们已经知道$X_y|θ_y$这个事件发生了（因为我们观测到了），那就让这个概率$P(X_y|θ_y)$最大化，去求得一个$θ_y$，这就是我们的最终目标——得到$θ_y$。</p>
+
       
     </div>
 
@@ -610,24 +642,7 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"]]}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
 
 
 
@@ -673,6 +688,38 @@
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
 
   
 
