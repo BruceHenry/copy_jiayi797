@@ -92,17 +92,17 @@
 
 
 
-<meta name="description" content="之前我们在神经网络简介中曾经提到过误差函数。这一节我们总结一下误差函数。 说到误差函数，我们先回顾下最大似然估计。我先去写最大似然估计。">
+<meta name="description" content="之前我们在神经网络简介中曾经提到过误差函数。这一节我们总结一下误差函数。 误差函数一般有两种来源：  如果参数模型定义了一个分布$p(y|x;\theta)$，我们采用最大似然原理得到代价函数：训练数据和模型预测间的交叉熵。这个在之后会详细解释。 如果不预测y的完整概率分布，仅仅预测在给定x条件下y的某种统计量，那就用某些专门的损失函数来计算。  1. 方法1，使用最大似然学习条件分布可以在博客最">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习算法-误差函数探究">
 <meta property="og:url" content="http://yoursite.com/child/2017/10/25/深度学习算法-误差函数探究/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="之前我们在神经网络简介中曾经提到过误差函数。这一节我们总结一下误差函数。 说到误差函数，我们先回顾下最大似然估计。我先去写最大似然估计。">
-<meta property="og:updated_time" content="2017-10-26T13:03:02.399Z">
+<meta property="og:description" content="之前我们在神经网络简介中曾经提到过误差函数。这一节我们总结一下误差函数。 误差函数一般有两种来源：  如果参数模型定义了一个分布$p(y|x;\theta)$，我们采用最大似然原理得到代价函数：训练数据和模型预测间的交叉熵。这个在之后会详细解释。 如果不预测y的完整概率分布，仅仅预测在给定x条件下y的某种统计量，那就用某些专门的损失函数来计算。  1. 方法1，使用最大似然学习条件分布可以在博客最">
+<meta property="og:updated_time" content="2017-10-30T14:36:22.411Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习算法-误差函数探究">
-<meta name="twitter:description" content="之前我们在神经网络简介中曾经提到过误差函数。这一节我们总结一下误差函数。 说到误差函数，我们先回顾下最大似然估计。我先去写最大似然估计。">
+<meta name="twitter:description" content="之前我们在神经网络简介中曾经提到过误差函数。这一节我们总结一下误差函数。 误差函数一般有两种来源：  如果参数模型定义了一个分布$p(y|x;\theta)$，我们采用最大似然原理得到代价函数：训练数据和模型预测间的交叉熵。这个在之后会详细解释。 如果不预测y的完整概率分布，仅仅预测在给定x条件下y的某种统计量，那就用某些专门的损失函数来计算。  1. 方法1，使用最大似然学习条件分布可以在博客最">
 
 
 
@@ -368,7 +368,29 @@
 
       
         <p>之前我们在<a href="https://jiayi797.github.io/2017/09/05/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/" target="_blank" rel="external">神经网络简介</a>中曾经提到过误差函数。这一节我们总结一下误差函数。</p>
-<p>说到误差函数，我们先回顾下最大似然估计。我先去写最大似然估计。</p>
+<p>误差函数一般有两种来源：</p>
+<ol>
+<li>如果参数模型定义了一个分布$p(y|x;\theta)$，我们采用最大似然原理得到代价函数：训练数据和模型预测间的交叉熵。这个在之后会详细解释。</li>
+<li>如果不预测y的完整概率分布，仅仅预测在给定x条件下y的某种统计量，那就用某些专门的损失函数来计算。</li>
+</ol>
+<h1 id="方法1，使用最大似然学习条件分布">1. 方法1，使用最大似然学习条件分布</h1><p>可以在博客<a href="https://jiayi797.github.io/2017/10/26/%E6%95%B0%E5%AD%A6-%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/" target="_blank" rel="external">最大似然估计</a>中看到，参数模型定义了一个分布$p(y|x;\theta)$，为了求得参数，我们使用最大似然原理，得到最终的目标函数是最小化代价函数J——<strong>训练数据</strong>和<strong>模型预测</strong>间的<strong>交叉熵:</strong></p>
+<p>$$J(\theta)=-E_{x,y\sim p’_{data}}log p_{model}(y|x)$$</p>
+<p>上式的意义是：在$x,y$服从训练数据$ p’_{data}$分布下，使得模型的$-Elog p_{model}(y|x)$最小。</p>
+<p>用似然解决问题带来的好处：</p>
+<ol>
+<li>当明确了一个模型$p(y|x)$时，就自动地确定了代价函数$logp(y|x)$。</li>
+<li>对数函数能帮我们避免梯度过小（例如有的输出单元有一个指数函数，取对数后梯度就不那么小了）</li>
+</ol>
+<h1 id="方法2，简单学习条件统计量">2. 方法2，简单学习条件统计量</h1><p>我们用历史的数据，计算出特征x下y发生的概率：$f(x)=p(y|x)$，将它作为x特征下y的预测。学习这个条件统计量的过程就是我们这节介绍的方法。</p>
+<h2 id="均方误差">2.1. 均方误差</h2><p>通过解优化问题：</p>
+<p>$$f^<em>=arg min_f E_{x,y\sim p_{data}}||y-f(x)||^2 \tag{均方误差最小化时的f^</em>}$$</p>
+<p>得到$f^*$,我们用它来进行预测得到：</p>
+<p>$$f^*(x)=E_{y\sim p_{data}(y|x)}[y]\tag{将所有服从p_{data}(y|x)的y的y均值作为x特征下y的预测}$$</p>
+<p>可以看出，这样得到的函数是可以用来对每个x的值预测出y的<strong>均值</strong>。</p>
+<h2 id="平均绝对误差">2.2. 平均绝对误差</h2><p>还有另一种误差叫平均绝对误差，通过解优化问题：</p>
+<p>$$f^*=arg min_f E_{x,y \sim p_{data}}||y-f(x)||_1$$</p>
+<p>得到的函数，可以对每个x预测y取值的<strong>中位数</strong>。</p>
+<h1 id="比较">3. 比较</h1><p>一般，均方误差和平均绝对误差在梯度下降法表现不好，因为饱和的输出单元梯度非常小。所以一般来说交叉熵代价函数更受欢迎。</p>
 
       
     </div>
@@ -464,8 +486,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -480,7 +511,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">69</span>
+                <span class="site-state-item-count">70</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -527,6 +558,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#方法1，使用最大似然学习条件分布"><span class="nav-text">1. 方法1，使用最大似然学习条件分布</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法2，简单学习条件统计量"><span class="nav-text">2. 方法2，简单学习条件统计量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#均方误差"><span class="nav-text">2.1. 均方误差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平均绝对误差"><span class="nav-text">2.2. 平均绝对误差</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#比较"><span class="nav-text">3. 比较</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -92,17 +92,26 @@
 
 
 
-<meta name="description" content="这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。混合和装袋 1. baggingbagging——基于数据随机重抽样的分类器构建方法。 2. boosting新的分类器根据已训练出的分类器的性能来进行训练；分类结果基于所有分类器的加权求和得到。 3. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Boo">
+<meta name="description" content="1. 卷积运算假设我们在用激光传感器追踪宇宙飞船的位置，$t$时刻位置在$x(t)$。 为了更好地估计，我们将时间越近的测量给予更高的权重$w(a)$，其中$a$表示测量结果距当前的时间间隔，那么： $$s(t)=\int x(a)w(t-a)da = (x*w)(t)$$ tips:$a$：距离当前时间的间隔；$x(a)$：$a$时刻，飞船位置，$x$也叫输入；$w(t-a)$：$t-a$时刻，">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="boosting（混合模型）和bagging（装袋）">
-<meta property="og:url" content="http://yoursite.com/child/2017/03/04/机器学习算法-boosting（混合模型）和bagging/index.html">
+<meta property="og:title" content="深度学习算法-卷积网络">
+<meta property="og:url" content="http://yoursite.com/child/2017/10/31/深度学习算法-卷积网络/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。混合和装袋 1. baggingbagging——基于数据随机重抽样的分类器构建方法。 2. boosting新的分类器根据已训练出的分类器的性能来进行训练；分类结果基于所有分类器的加权求和得到。 3. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Boo">
-<meta property="og:updated_time" content="2017-07-11T07:22:11.494Z">
+<meta property="og:description" content="1. 卷积运算假设我们在用激光传感器追踪宇宙飞船的位置，$t$时刻位置在$x(t)$。 为了更好地估计，我们将时间越近的测量给予更高的权重$w(a)$，其中$a$表示测量结果距当前的时间间隔，那么： $$s(t)=\int x(a)w(t-a)da = (x*w)(t)$$ tips:$a$：距离当前时间的间隔；$x(a)$：$a$时刻，飞船位置，$x$也叫输入；$w(t-a)$：$t-a$时刻，">
+<meta property="og:image" content="https://i.loli.net/2017/10/31/59f865cb07946.png">
+<meta property="og:image" content="https://i.loli.net/2017/10/31/59f86ae962147.png">
+<meta property="og:image" content="https://i.loli.net/2017/10/31/59f86aff4a4b1.png">
+<meta property="og:image" content="https://i.loli.net/2017/10/31/59f86f09c700e.png">
+<meta property="og:image" content="https://i.loli.net/2017/10/31/59f879f482dd9.png">
+<meta property="og:image" content="https://i.loli.net/2017/10/31/59f881a6783fa.png">
+<meta property="og:image" content="https://i.loli.net/2017/11/01/59f939076125c.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/11/01/59f95b688c95b.png">
+<meta property="og:updated_time" content="2017-11-01T05:42:25.306Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="boosting（混合模型）和bagging（装袋）">
-<meta name="twitter:description" content="这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。混合和装袋 1. baggingbagging——基于数据随机重抽样的分类器构建方法。 2. boosting新的分类器根据已训练出的分类器的性能来进行训练；分类结果基于所有分类器的加权求和得到。 3. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Boo">
+<meta name="twitter:title" content="深度学习算法-卷积网络">
+<meta name="twitter:description" content="1. 卷积运算假设我们在用激光传感器追踪宇宙飞船的位置，$t$时刻位置在$x(t)$。 为了更好地估计，我们将时间越近的测量给予更高的权重$w(a)$，其中$a$表示测量结果距当前的时间间隔，那么： $$s(t)=\int x(a)w(t-a)da = (x*w)(t)$$ tips:$a$：距离当前时间的间隔；$x(a)$：$a$时刻，飞船位置，$x$也叫输入；$w(t-a)$：$t-a$时刻，">
+<meta name="twitter:image" content="https://i.loli.net/2017/10/31/59f865cb07946.png">
 
 
 
@@ -130,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/2017/03/04/机器学习算法-boosting（混合模型）和bagging/"/>
+  <link rel="canonical" href="http://yoursite.com/child/2017/10/31/深度学习算法-卷积网络/"/>
 
 
 
 
 
-  <title>boosting（混合模型）和bagging（装袋） | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>深度学习算法-卷积网络 | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -276,7 +285,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/04/机器学习算法-boosting（混合模型）和bagging/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/10/31/深度学习算法-卷积网络/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -293,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">boosting（混合模型）和bagging（装袋）</h1>
+          <h1 class="post-title" itemprop="name headline">深度学习算法-卷积网络</h1>
         
 
         <div class="post-meta">
@@ -305,8 +314,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-04T17:00:58+08:00">
-                2017-03-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-31T15:58:36+08:00">
+                2017-10-31
               </time>
             
 
@@ -328,8 +337,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习算法</span>
+                  <a href="/categories/深度学习算法/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习算法</span>
                   </a>
                 </span>
 
@@ -367,12 +376,54 @@
       
 
       
-        <p>这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。<a href="http://blog.jasonding.top/2015/06/10/Machine%20Learning/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E3%80%91%E6%B7%B7%E5%90%88%E5%92%8C%E8%A3%85%E8%A2%8B/" target="_blank" rel="external">混合和装袋</a></p>
-<h1 id="bagging">1. bagging</h1><p>bagging——基于数据随机重抽样的分类器构建方法。</p>
-<h1 id="boosting">2. boosting</h1><p>新的分类器根据已训练出的分类器的性能来进行训练；<br>分类结果基于所有分类器的加权求和得到。</p>
-<h1 id="bagging和boosting区别">3. bagging和boosting区别</h1><p>Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。</p>
-<p>Boosting 则是迭代算法，每一次迭代都根据上一次迭代的预测结果对样本进行加权，所以随着迭代不断进行，误差会越来越小，所以模型的 bias 会不断降低。这种算法无法并行，例子比如 Adaptive Boosting.</p>
-<p>作者：匿名用户<br>链接：<a href="https://www.zhihu.com/question/26760839/answer/33963551" target="_blank" rel="external">https://www.zhihu.com/question/26760839/answer/33963551</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
+        <h1 id="卷积运算">1. 卷积运算</h1><p>假设我们在用激光传感器追踪宇宙飞船的位置，$t$时刻位置在$x(t)$。</p>
+<p>为了更好地估计，我们将时间越近的测量给予更高的权重$w(a)$，其中$a$表示测量结果距当前的时间间隔，那么：</p>
+<p>$$s(t)=\int x(a)w(t-a)da = (x*w)(t)$$</p>
+<p>tips:<br>$a$：距离当前时间的间隔；<br>$x(a)$：$a$时刻，飞船位置，$x$也叫<strong>输入</strong>；<br>$w(t-a)$：$t-a$时刻，也就是a秒前，飞船的权重，也是一种概率密度，叫做<strong>核函数</strong>；</p>
+<p>离散形式的卷积是：<br>$$s(t)=(x*w)(t)=\sum_{\alpha=-\infty}^{\infty}x(a)w(t-a)$$</p>
+<p>二维形式的卷积（我们定义核为K）：</p>
+<p>$$S(i,j)=(I*K)(i,j)=\sum_m \sum_n I(m,n)K(i-m,j-n)$$</p>
+<p>卷积是可交换的，也可写作：</p>
+<p>$$S(i,j)=(K*I)(i,j)=\sum_m \sum_n I(i-m,j-n)K(m,n)$$</p>
+<p>出现上面可交换的原因是：我们将核的相对输入进行了翻转，也相当于一种变量替换；</p>
+<p>然而，在许多神经网络中采用的是<strong>互相关函数(cross-correlation)</strong>：</p>
+<p>$$S(i,j)=(I*K)(i,j)=\sum_m \sum_n I(i+m,j+n)K(m,n)$$</p>
+<p>这个是不可交换的。</p>
+<h1 id="为什么要用卷积？">2. 为什么要用卷积？</h1><p>我们先说一下卷积网络的概念：卷积神经网络（Convolutional Neural Networks）的卷积操作是通过可训练的滤波器对上一层的输出进行卷积求和，然后添加上偏移量经过激活函数，得到了特征映射图作为下一层的输入。卷积操作相对于传统神经网络主要有稀疏链接、权值共享和等变表达的特性。</p>
+<p>上面介绍完了卷积的概念，下面我们探讨一下，卷积存在的动机是什么。</p>
+<p>卷积通过三个重要思想来帮助改进机器学习系统：稀疏交互、参数共享、等变表示。</p>
+<p><strong>稀疏交互</strong></p>
+<p>对于一张图像来说，输入图像可能包含上千万像素点。但我们可以通过只占用几十或几百的核来检测一些小的但有意义的特征，例如图像边缘。</p>
+<p>下图是一种稀疏连接的例子，从下往上看，我们强调了一个输入单元$x_3$以及$s$中受该单元影响的输出单元。这个是当$s$由核宽度为3的卷积产生的，只有3个输出受到了$x$的影响：</p>
+<p><img src="https://i.loli.net/2017/10/31/59f865cb07946.png" alt=""> </p>
+<p>从另一个角度，从上往下看，这次我们抢到了一个输出单元$s_3$以及$x$中影响该单元的输入单元。这些单元被称为$s_3$的<strong>接受域</strong>。</p>
+<p><img src="https://i.loli.net/2017/10/31/59f86ae962147.png" alt=""> </p>
+<p>从深层的网络来看，我们可以看到尽管连接稀疏，但处在更深层的单元可以间接地连接到全部或大部分输入图像中。</p>
+<p><img src="https://i.loli.net/2017/10/31/59f86aff4a4b1.png" alt="">  </p>
+<p><strong>参数共享</strong></p>
+<p>因为核的每一个元素都作用在输入的每一个位置上，因此卷积运算会导致用于一个输入的权重也会被绑定在其它权重上。这样的参数共享保证了我们只需要学习一个参数集合，而不是对每一个位置都需要学习一个单独的参数集合。如下图所示，黑色箭头表示两个不同模型中使用了特殊的参数连接。灰色箭头表示它用了黑色箭头的参数。其实就是一个$x$只有一个参数，但这个参数被用于了多个下一层。</p>
+<p><img src="https://i.loli.net/2017/10/31/59f86f09c700e.png" alt="">  </p>
+<p>对于卷积，参数共享的特殊形式使得神经网络层具有对<strong>平移等变的性质</strong>：先平移后卷积=先卷积后平移。</p>
+<p><strong>边缘检测的例子</strong></p>
+<p>如图所示，我们使用每个像素减去左边相邻像素形成的。这其实就是一种最简单的卷积。</p>
+<p><img src="https://i.loli.net/2017/10/31/59f879f482dd9.png" alt=""></p>
+<h1 id="池化">3. 池化</h1><p>卷积网络中一个典型层包括三级：卷积级、探测级和池化级。</p>
+<p><img src="https://i.loli.net/2017/10/31/59f881a6783fa.png" alt=""> </p>
+<p><strong>卷积级</strong>：并行计算多个卷积，产生一组线性激活响应；</p>
+<p><strong>探测级</strong>(detector stage)：每个线性激活响应会通过一个非线性激活函数；</p>
+<p><strong>池化级</strong>：我们使用池化(pooling)函数来进一步调整这一层的输出。</p>
+<h2 id="池化函数">3.1. 池化函数</h2><p><strong>池化函数</strong>：使用某一位置的相邻输出的总体统计特征来代替网络再该位置的输出。</p>
+<p>最大池化函数：给出相邻矩形区域内的最大值。</p>
+<h2 id="池化函数有什么用？">3.2. 池化函数有什么用？</h2><p>池化函数帮助输入近似不变：即当我们对输入进行少量平移时，经过池化函数后的大多数输出并不会发生改变。</p>
+<p>例如下图所示的例子。上图是一个网络，下图是一个网络，每个网络的下层是非线性输出，上层是最大池化输出。下图的非线性输出是通过向右平移一个像素得到的。我们可以发现，池化层的输出只有一半发生了改变，这是因为最大池化单元只对周围的最大值较敏感，而不是精确的位置。</p>
+<p><img src="https://i.loli.net/2017/11/01/59f939076125c.png" alt=""> </p>
+<p>当我们只关心某个特征是否出现（比如是否有眼睛），而不关心它的具体位置时，局部平移不变性是一个非常有用的性质。</p>
+<p>对空间区域进行池化产生了平移不变性。下图是一种学习不变性的实例：反映的是池化的旋转不变性，对于输入手写5，有三个滤波器分别检测选择不同角度的手写5。当滤波器和对应的手写5匹配时，滤波器会得到一个较大的激活值，然后池化会选择得到最大的激活值，无论手写5是怎样的旋转的。</p>
+<p><img src="https://ooo.0o0.ooo/2017/11/01/59f95b688c95b.png" alt=""> </p>
+<h1 id="参考文献">4. 参考文献</h1><ol>
+<li><a href="">深度学习</a></li>
+<li><a href="http://www.datagrand.com/blog/neural.html" target="_blank" rel="external">达观数据深度学习</a></li>
+</ol>
 
       
     </div>
@@ -409,18 +460,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/05/机器学习算法-决策树和CART/" rel="next" title="决策树和CART">
-                <i class="fa fa-chevron-left"></i> 决策树和CART
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/03/机器学习实践-O2O优惠券预测-思路总结/" rel="prev" title="O2O优惠券预测——思路总结">
-                O2O优惠券预测——思路总结 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/10/26/数学-最大似然估计/" rel="prev" title="数学-最大似然估计">
+                数学-最大似然估计 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -550,7 +597,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#bagging"><span class="nav-text">1. bagging</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#boosting"><span class="nav-text">2. boosting</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bagging和boosting区别"><span class="nav-text">3. bagging和boosting区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#卷积运算"><span class="nav-text">1. 卷积运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要用卷积？"><span class="nav-text">2. 为什么要用卷积？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#池化"><span class="nav-text">3. 池化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#池化函数"><span class="nav-text">3.1. 池化函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#池化函数有什么用？"><span class="nav-text">3.2. 池化函数有什么用？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">4. 参考文献</span></a></li></ol></div>
             
 
           </div>
