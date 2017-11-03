@@ -3,6 +3,75 @@
   
     
     <entry>
+      <title><![CDATA[算法-堆]]></title>
+      <url>/2017/11/03/%E7%AE%97%E6%B3%95-%E5%A0%86/</url>
+      <content type="html"></content>
+      
+        <categories>
+            
+            <category> 算法 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[算法-DP-钢条切割问题]]></title>
+      <url>/2017/11/02/%E7%AE%97%E6%B3%95-DP-%E9%92%A2%E6%9D%A1%E5%88%87%E5%89%B2%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>在说钢条切割问题之前，我们先说说动态规划。</p>
+<p><strong>动态规划</strong>——Dynamic programming(这个词指表格)：通过组合子问题的解求解原问题。</p>
+<p><strong>与分治法对比：</strong></p>
+<ol>
+<li>相同点：都是通过子问题组合求解原问题</li>
+<li>不同点：分治法将问题划分为<strong>不相交</strong>的子问题，求解再合并。动态规划应用于<strong>子问题重叠</strong>的情况，即<strong>不同</strong>的子问题具有<strong>公共</strong>的子子问题，此时如果用分治法就会出现重复计算求解。为了避免重复动态规划对子问题只求解一次，将其保存在表格中，从而无需每求解一个子子问题时重复计算。</li>
+</ol>
+<p><strong>求解步骤</strong></p>
+<ol>
+<li>刻画最优解的结构特征</li>
+<li>递归定义最优解的值</li>
+<li>计算最优解的值，通常采用自底向上的方法（可能需要同时维护一些额外信息）</li>
+<li>利用计算出的信息构造最优解（不是必须）</li>
+</ol>
+<h1 id="钢条切割">1. 钢条切割</h1><p>Serling公司购买一根长钢管，将其切割成短钢管出售，给定钢管长度和对应的价钱如下表：</p>
+<p><img src="https://i.loli.net/2017/10/31/59f7536b8fc8f.png" alt="img"></p>
+<p>问题要求根据上面的价格，给出最佳的切割方案，使得收益最大。</p>
+<p>以n=4为例，可以将钢条切割成如下图所示的8种情况，其中收益最大的是(c)：</p>
+<p><img src="https://ooo.0o0.ooo/2017/10/30/59f73938d2f50.png" alt="img"></p>
+<p>这个题的切入点非常重要，也就是——当知道长度为1到i的钢条的切割方案时，可以推导出长度为i+1的钢条如何切割最优。</p>
+<p>我们定义长度=i，且长度为i时最优切割方案的收益是$r_i$</p>
+<ul>
+<li>i=1时， 当然不切割，即$r_1=p_1$</li>
+<li>i=2时，有两种方案，要么切一刀，要么不切，即$r_2=max[p_2,r_1+r_1]$</li>
+<li>i=3时，我们从下图可以看到，假设我们从它上面随便切一刀，我们会发现无论是左边还是右边都是已知的。即$r_3=max[p_3,r_1+r_2,r_2+r_1]$</li>
+<li>i=4时，还是可以看到，无论我们从哪里切一刀，会发现无论是左边还是右边，都是已知的！即$r_4=max[p_4,r_1+r_3,r_2+r_2,r_3+r_1]$</li>
+</ul>
+<p><img src="https://i.loli.net/2017/11/02/59fb152d32886.png" alt="">  </p>
+<p>因此，我们可以用<strong>更短的钢条的最优切割收益</strong>来描述它：</p>
+<p>$$r_n = max[p_n,r_1+r_{n-1},r_2+r_{n-2},…,r_{n-1}+r_1]$$</p>
+<p>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public int[] q;</div><div class="line">private void solve(int n,int k,int[] p)&#123;</div><div class="line">    if(k&gt;n)return;</div><div class="line">    //长度k的钢条</div><div class="line">    q[k] = p[k];</div><div class="line">    //遍历，也就是计算max = [r_1+r_&#123;n-1&#125;,r_2+r_&#123;n-2&#125;,...,r_&#123;n-1&#125;+r_1]</div><div class="line">    for(int i=1;i&lt;k;i+=1)&#123;</div><div class="line">        q[k] = Math.max(q[i]+ q[k-i], q[k]);</div><div class="line">    &#125;</div><div class="line">    solve(n,k+1,p);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="钢条切割升级版">2. 钢条切割升级版</h1><p>《算法导论》练习题15.1-3提出：除了切割下的钢条段具有不同价格$p_i$外，每次切割还要付出固定成本$c$。求修改后的钢条切割问题。</p>
+<p><img src="https://i.loli.net/2017/11/02/59fb1b5eabefa.png" alt=""> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public int[] q;</div><div class="line"></div><div class="line">private void solve(int n,int k,int[] p,int c)&#123;</div><div class="line">    if(k&gt;n)return;</div><div class="line">    //长度k的钢条</div><div class="line">    q[k] = p[k];</div><div class="line">    for(int i=1;i&lt;k;i+=1)&#123;</div><div class="line">        q[k] = Math.max(q[i]+ q[k-i] - c, q[k]);</div><div class="line">    &#125;</div><div class="line">    solve(n,k+1,p,c);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 算法 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> DP </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深度学习算法-卷积网络]]></title>
       <url>/2017/10/31/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95-%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/</url>
       <content type="html"><![CDATA[<h1 id="卷积神经网络（CNN）概述">1. 卷积神经网络（CNN）概述</h1><p>本节主要来自参考文献<a href="http://blog.csdn.net/v_july_v/article/details/51812459" target="_blank" rel="external">CNN笔记：通俗理解卷积神经网络</a></p>
@@ -1511,6 +1580,7 @@ if __name__ == &apos;__main__&apos;:
 <li><a href="http://www.bigbear2017.com/blog/2016/11/02/facebook-ctr-paper/" target="_blank" rel="external">很好的文献资料Facebook CTR Paper</a></li>
 <li><a href="https://github.com/z564808896/Tencent_Social_Ads" target="_blank" rel="external">竟然有这种操作队分享</a></li>
 <li><a href="https://www.qcloud.com/community/article/895055" target="_blank" rel="external">【SPA大赛】腾讯广告点击大赛：对stacking的一些基本介绍</a></li>
+<li><a href="http://blog.csdn.net/ben3ben/article/details/74838338" target="_blank" rel="external">第七名</a></li>
 </ol>
 ]]></content>
       
@@ -2173,6 +2243,31 @@ run thread_name_2    4
     </entry>
     
     <entry>
+      <title><![CDATA[python——os模块]]></title>
+      <url>/2017/05/04/Python-os%E6%93%8D%E4%BD%9C/</url>
+      <content type="html"><![CDATA[<h1 id="os模块">1. os模块</h1><p>os模块的作用：</p>
+<p>　　os，语义为操作系统，所以肯定就是操作系统相关的功能了，可以处理文件和目录这些我们日常手动需要做的操作，就比如说：显示当前目录下所有文件/删除某个文件/获取文件大小……</p>
+<p>　　另外，os模块不受平台限制，也就是说：当我们要在linux中显示当前命令时就要用到pwd命令，而Windows中cmd命令行下就要用到这个，额…我擦，我还真不知道，（甭管怎么着，肯定不是pwd），这时候我们使用python中os模块的os.path.abspath(name)功能，甭管是linux或者Windows都可以获取当前的绝对路径。</p>
+<h1 id="文件夹操作">2. 文件夹操作</h1><h2 id="检验文件夹是否存在">2.1. 检验文件夹是否存在</h2><pre><code>os.path.exists(directory)
+</code></pre><h2 id="创建文件夹">2.2. 创建文件夹</h2><pre><code>os.makedirs(directory)
+</code></pre><p>实例：<br>检验文件夹是否存在，若不存在，则创建之</p>
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_dir</span><span class="params">(directory)</span>:</span></div><div class="line">    flag=os.path.exists(directory)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> flag:</div><div class="line">        os.makedirs(directory)</div></pre></td></tr></table></figure>
+</code></pre><h2 id="遍历指定目录名，显示目录下所有文件">2.3. 遍历指定目录名，显示目录下所有文件</h2><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pathDir =  os.listdir(filepath)</div><div class="line">    <span class="keyword">for</span> allDir <span class="keyword">in</span> pathDir:</div><div class="line">        <span class="keyword">print</span> allDir</div></pre></td></tr></table></figure>
+</code></pre><h1 id="参考文献">3. 参考文献</h1><ol>
+<li><a href="http://www.cnblogs.com/MnCu8261/p/5483657.html" target="_blank" rel="external">python基础之模块之os模块</a></li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[pandas相关技巧]]></title>
       <url>/2017/05/04/Python-pandas%E7%AC%94%E8%AE%B0/</url>
       <content type="html"><![CDATA[<h1 id="用pandas求差集">1. 用pandas求差集</h1><p>从df1中去除掉df2的内容</p>
@@ -2219,31 +2314,6 @@ blue        0      0      1
 8    C      3
 </code></pre><h1 id="ipython运行python">6. ipython运行python</h1><p>启动新的namespace运行： %run main.py</p>
 <p>在原有的namespace运行：%run -i main.py</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[python——os模块]]></title>
-      <url>/2017/05/04/Python-os%E6%93%8D%E4%BD%9C/</url>
-      <content type="html"><![CDATA[<h1 id="os模块">1. os模块</h1><p>os模块的作用：</p>
-<p>　　os，语义为操作系统，所以肯定就是操作系统相关的功能了，可以处理文件和目录这些我们日常手动需要做的操作，就比如说：显示当前目录下所有文件/删除某个文件/获取文件大小……</p>
-<p>　　另外，os模块不受平台限制，也就是说：当我们要在linux中显示当前命令时就要用到pwd命令，而Windows中cmd命令行下就要用到这个，额…我擦，我还真不知道，（甭管怎么着，肯定不是pwd），这时候我们使用python中os模块的os.path.abspath(name)功能，甭管是linux或者Windows都可以获取当前的绝对路径。</p>
-<h1 id="文件夹操作">2. 文件夹操作</h1><h2 id="检验文件夹是否存在">2.1. 检验文件夹是否存在</h2><pre><code>os.path.exists(directory)
-</code></pre><h2 id="创建文件夹">2.2. 创建文件夹</h2><pre><code>os.makedirs(directory)
-</code></pre><p>实例：<br>检验文件夹是否存在，若不存在，则创建之</p>
-<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_dir</span><span class="params">(directory)</span>:</span></div><div class="line">    flag=os.path.exists(directory)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> flag:</div><div class="line">        os.makedirs(directory)</div></pre></td></tr></table></figure>
-</code></pre><h2 id="遍历指定目录名，显示目录下所有文件">2.3. 遍历指定目录名，显示目录下所有文件</h2><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pathDir =  os.listdir(filepath)</div><div class="line">    <span class="keyword">for</span> allDir <span class="keyword">in</span> pathDir:</div><div class="line">        <span class="keyword">print</span> allDir</div></pre></td></tr></table></figure>
-</code></pre><h1 id="参考文献">3. 参考文献</h1><ol>
-<li><a href="http://www.cnblogs.com/MnCu8261/p/5483657.html" target="_blank" rel="external">python基础之模块之os模块</a></li>
-</ol>
 ]]></content>
       
         <categories>
