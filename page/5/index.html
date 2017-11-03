@@ -226,32 +226,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            归档
+            时光机
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            标签
+            琐碎
           </a>
         </li>
       
@@ -450,7 +440,23 @@ using namespace std;
 int main()
 {
     //freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
- 
+    char c[16];
+    int count=0;
+    int level=0;
+    int temp=0;
+    char in;
+    while(true){
+        c[count]=getchar();
+        if(c[count]==-1){
+            break;
+        }
+        if(count==16){
+            printf(&quot;%08d&quot;,level*10);
+            printf(&quot;  &quot;);
+            for(int i=0;i&lt;16;i++){
+                if(i==8){
+                    printf(&quot; &quot;);
+         
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -625,7 +631,12 @@ int main()
 1. 题目题目描述r_clover shows you a BIIIIIIIIIIG water problem:if $f(0)=1,f(1)=1$,$f(n)=2f(n-1)+3f(n-2)$, what is $f(n)mod1000000007$?
 输入格式A single integer n(0≤n≤10000000000).
 输出格式A single integer, which is the answer for f(n)mod1000000007.
-输入样例10输出样例29
+输入样例10输出样例29525
+2. 思路一开始想的是用递归。但经测试发现递归的时间、空间复杂度都太高，导致超时。
+正确打开方式：求出递推关系，并用快速幂取模方法计算结果。
+3. 递推关系求解《组合数学》内容————常系数线性齐次递推关系的求解。公式见后面的附1。求解题目中所给的递推关系：$$f(n)=2f(n-1)+3f(n-2)$$$$f(0)=1,f(1)=1$$它的特征方程为：$$x^2-2x-3=0$$解方程得：$$x_1=3,x_2=-1$$所以递推关系的通解为：$$f(n)=c_13^n+c_2(-1)^n$$代入初值$f(0)=1,f(1)=1$，得到：$$f(0)=c_1+c_2=1$$$$f(1)=3c_1-c_2=1$$解得:$c_1=c_2=0.5$因此该递推关系的解为$$f(n)=0.5(3)^n+0.5(-1)^n$$
+代码实现：
+12345678910long f(long long
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -804,7 +815,19 @@ int main()
 备注：正交矩阵：$A^{-1}=A^T$QR分解定理：，则A有QR分解：Q是mm的正交矩阵R是nn的有非负对角元的上三角阵
 当m=n，且A非奇异时，上述分解唯一。
 计算QR分解的方法 
-备注：计算A(j:m,j:n)=(I(m-j+1)-bvvT)A(j:m,j:n)时，I(m
+备注：计算A(j:m,j:n)=(I(m-j+1)-bvvT)A(j:m,j:n)时，I(m-j+1)-bvvT可以表示为： 
+QR分解的存储方法 
+用QR分解解线性方程组$Ax=b$$QRx=b$$Rx=Q^{-1}b$$x=R^{-1}Q^{-1}b$$x=R^{-1}Q^Tb$
+2. householder方法利用Householder变换逐步将A化为上三角矩阵。
+使用Gauss变换将矩阵化为上三角的理论依据————对于一个给定的向量x，可构造一个初等下三角阵L，使得$Lx=ae_1$，其中$e_1$是I的第一列，a是实数。（I是单位矩阵）
+householder变换目的：求一个初等正交矩阵，使其具有矩阵L的功能。
+使得：可以通过一系列初等正交变换来完成矩阵的上三角化任务。
+Householder变换 
+其中：I是单位矩阵w是实的单位列向量（单位正交矩阵），$ww^T=I$
+HouseHolder变换可以将一个向量映射到一个超平面上。 
+Householder变换的性质
+
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -983,7 +1006,26 @@ int main()
 L是单位下三角矩阵（对角线上的系数都为1的下三角矩阵）；L’也是单位上三角矩阵；
 U是非奇异上三角矩阵；
 
-3. 求解方法对于一般的线性方程组：$$Ax=b$$如果我们能将A分解成$A=LU$,即一个下三角阵和一个上三角阵U的乘积，那原方程组的解
+3. 求解方法对于一般的线性方程组：$$Ax=b$$如果我们能将A分解成$A=LU$,即一个下三角阵和一个上三角阵U的乘积，那原方程组的解x便可由下面两步得到：
+
+用前代法解$Ly=b$的y； 
+用回代法解$Ux=y$的x. 
+
+对于列主元消去法，求线性方程组$Ax=b$的计算过程可以按照以下步骤进行：
+
+求A的列主元LU分解$PA=LU$
+解下三角形方程组$Ly=Pb$
+解上三角形方程组$Ux=y$
+
+4. 实现前代法：需要注意的是，回代法在计算的过程中需要考虑到主元位置序列，并同时对b进行调整。
+double * forwardSub(double *lu,int n,double *b,int *p){
+    //double *y=new double[n];
+    double temp;
+      //按qivot对b行变换，与LU匹配
+      for(int i=0; i&lt;n-1; i++)  
+      {
+            temp = b[p[i]];
+            b[
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1161,7 +1203,21 @@ U是非奇异上三角矩阵；
 2. LU分解方法由于L存在可逆矩阵L’，即LL’=E则L’A=LL’U=U因此得出一般的分解方法：通过对(A,E)做初等行变换得到(U,L’),再由L’得到L.
 其中：
 
-L是单位下三角矩阵（对角线上的系数都为1的下三角矩阵）；L’也是单
+L是单位下三角矩阵（对角线上的系数都为1的下三角矩阵）；L’也是单位上三角矩阵；
+U是非奇异上三角矩阵；
+
+3. 直接消去法的矩阵解释计算过程如图所示： 
+目的：将[A|E]–&gt;[U|L]形式，其中U是上三角矩阵
+过程：每轮将一列的下三角消为0，就相当于给A左乘一个下三角单位矩阵Lk（对角线为1，保证变换后对角线元素不变）。
+第一轮消元：将第一列的下三角消为0，相当于对A1左乘矩阵L1，即：其中，我们注意到li1恰好使得第i行的第一列元素变为零，即ai1-li1*a11=0。
+第二轮消元：将第二列的下三角消为0，对应于 
+第k轮消元:其中， 
+把k轮消元相乘，即：整个消元过程为： 
+总结初始（第一步）： 
+迭代第r步：即ur=f(u1,u2,…,u(r-1),l1,l2,…,l(r-1)),第r项由前r-1项计算得到lr=g(u1,u2,…,u(r-1),l1,l2,…,l(r-1)) 
+计算顺序：
+ 
+需要注意的是，我们在计算时需要判断本阶的顺序
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1510,7 +1566,9 @@ L是单位下三角矩阵（对角线上的系数都为1的下三角矩阵）；
       
         
           
-          1. DescriptionAdvanced Cargo Movement, Ltd. uses trucks of different types. Some trucks are used for vegetable delivery, other for furniture, or for bricks. The company has its own code describing each type of a truck. The code is simply a string of exactly seven lowercase letters (each letter on ea
+          1. DescriptionAdvanced Cargo Movement, Ltd. uses trucks of different types. Some trucks are used for vegetable delivery, other for furniture, or for bricks. The company has its own code describing each type of a truck. The code is simply a string of exactly seven lowercase letters (each letter on each position has a very special meaning but that is unimportant for this task). At the beginning of company’s history, just a single truck type was used but later other types were derived from it, then from the new types another types were derived, and so on. 
+Movement:运动trucks：卡车exactly seven lowercase letters ：正好七个小写字母derived：派生
+Today, ACM is rich enough to pay historians to study its history. On
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1688,7 +1746,29 @@ L是单位下三角矩阵（对角线上的系数都为1的下三角矩阵）；
 GENERIC-MST(G,w)
 A={}
 while A does not form a spanning tree // 当A不是一个生成树时
-    
+    find an edge(u,v) that is safe for A // 找到一条A的安全边
+    A = A ∪ {(u,v)}
+return A
+注：安全边是指加入A后，不会使得A违反循环不变式。即 A ∪ {(u,v)}也是某颗最小生成树的一个子集
+问题：如何寻找安全边
+1.2. 求安全边定理：设A是图G的某最小生成树的一个子集。设（S,V-S）是图G中尊重集合A的任意一个切割，又设(u,v)是横跨切割(S,V-S)的一条轻量级边，则边(u,v)对于集合A是安全的。
+切割：图中的线切割尊重集合A：集合A中不存在横跨切割的边（如图a中的灰粗线构成的集合）轻量级边：横跨一个切割的所有边中权重最小的边（不唯一）。
+ 
+2. Kruskal和Prim关系
+
+
+term
+集合A
+说明
+共性
+
+
+
+
+Kruskal
+森林
+结点是原图结点，安全边是权重最小的连接两个不同分量的边
+都是用具体
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1859,7 +1939,7 @@ while A does not form a spanning tree // 当A不是一个生成树时
       
         
           
-          1. DescriptionSeveral currency exchange points are working in our city. Let us suppose that each point specializes in two particular currencies and performs exchange operations only with these currencies. There can be several points specializing in the same pair of currencies. Each point has its own
+          1. DescriptionSeveral currency exchange points are working in our city. Let us suppose that each point specializes in two particular currencies and performs exchange operations only with these currencies. There can be several points specializing in the same pair of currencies. Each point has its own exchange rates, exchange rate of A to B is the quantity of B you get for 1A. Also each exchange point has some commission, the sum you have to pay for your exchange operation. Commission is always collected in source currency.For example, if you want to exchange 100 US Dollars into Russian Rubles at the exchange point, where the exchange rate is 29.75, and the commission is 0.39 you will get (100
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -2037,7 +2117,19 @@ Bellman-Ford算法：采用动态规划进行设计。待总结。简单，还�
 
 $V’$是图G中从源节点s可以到达的所有结点的集合；
 $G’$形成一颗根节点为s的树；
-对于所有结点$v\in V’$,图$G’$中从结点s到结点v
+对于所有结点$v\in V’$,图$G’$中从结点s到结点v的唯一简单路径是图G中从结点s到结点v的一条最短路径。
+
+2. 松弛操作对每个节点v，我们维持一个属性v.d，记录s→v的最短路径估计
+松弛操作：比较s→u→v与s→v的d,然后进行更新。
+RELEAX(u,v,w)
+    if v.d&gt;u.d+w(u,v)
+        v.d=u.d+w(u,v)
+        v.π=u
+3. Bellman-Ford算法目标：解决单源最短路径问题条件：边权重可负输入：带权有向图$G=(V,E)$和权重函数$w:E→R$输出：布尔值，是否存在一个从源节点可以到达的负权重回路。若存在，则算法无解。
+思路：Bellman-Ford通过对边进行松弛操作来渐进地降低从源节点s到每个节点v的最短路径估计值v.d，直到该估计值与实际的最短路径权重$δ(s,v)$相同为止。
+初始函数：
+INITIALIZE-SINGLE-SOURCE(G,s)
+   
           ...
           <!--noindex-->
           <div class="post-button text-center">

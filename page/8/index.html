@@ -226,32 +226,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            归档
+            时光机
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            标签
+            琐碎
           </a>
         </li>
       
@@ -452,8 +442,8 @@
 站长统计
 搜索引擎
 
-12349.一键发布功能[已解决](http://blog.csdn.net/anonymalias/article/details/50528946)10.[为Hexo博客标题自动添加序号：hexo-head
-          ...
+12349.一键发布功能[已解决](http://blog.csdn.net/anonymalias/article/details/50528946)10.[为Hexo博客标题自动添加序号：hexo-heading-index](http://www.qingpingshan.com/jianzhan/cms/212734.html)
+          
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/28/blog-布置完毕/#more" rel="contents">
@@ -628,8 +618,20 @@
 1. 基础符号输入： $ x \in X $输出： $y \in Y $目标函数： $f:X\rightarrow Y $ （理想中的，实际得不到）假设函数：$g:X\rightarrow Y $ ，又称为hypothesis（学习到的g，希望跟f越像越好）$g \in H $假设函数集合：$H = \{h_k\} $ hypothesis set训练集：$D=\{(x_1,y_1),…,(x_N,y_N)\}$机器学习演算法：$A$
 2. 机器学习流程
 从数据集D出发
-通过演算法A，来计算出一个g，使得g很接近f
-          ...
+通过演算法A，来计算出一个g，使得g很接近f 
+
+3. 误差E不知道为什么公式显示不出来，只好手动展图了输入误差： 
+$$E_{in}(h)=\frac{1}{N} \sum_{n=1}^N(h(x_n)-y_n)^2$$
+
+样本（训练集）中出现的错误率
+
+输出误差： 
+$$E_{out}(h)=\mathcal{E}_{(x,y)\text~P}(w^Tx-y)^2$$
+
+总体（测试集+训练集）中出现的错误率
+
+
+          
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/27/机器学习简介/#more" rel="contents">
