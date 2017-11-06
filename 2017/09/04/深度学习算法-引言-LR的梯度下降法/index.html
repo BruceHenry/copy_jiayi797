@@ -99,7 +99,7 @@
 <meta property="og:description" content="本节是吴恩达老师在deepLearning.ai第二周课程的笔记。 本节以逻辑回归的梯度下降法为例，讲了我们究竟如何使用梯度下降法。 1. LR的梯度下降在LR中，我们想要得到z=wx+b，并且这个z在样本上，损失函数L(a,y)最小。那么，我们可以不断地改变w和b，找到一个合适的w和b，达到我们上述的目的。   如何改变w和b，能更快地得到最优的w和b呢？那么我们就要使用梯度下降法。  上图中，">
 <meta property="og:image" content="https://i.loli.net/2017/09/04/59acd4eac78da.png">
 <meta property="og:image" content="https://i.loli.net/2017/09/04/59acd39e1a9ea.png">
-<meta property="og:updated_time" content="2017-10-25T03:21:59.734Z">
+<meta property="og:updated_time" content="2017-11-06T15:12:53.055Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习算法-引言-LR的梯度下降法">
 <meta name="twitter:description" content="本节是吴恩达老师在deepLearning.ai第二周课程的笔记。 本节以逻辑回归的梯度下降法为例，讲了我们究竟如何使用梯度下降法。 1. LR的梯度下降在LR中，我们想要得到z=wx+b，并且这个z在样本上，损失函数L(a,y)最小。那么，我们可以不断地改变w和b，找到一个合适的w和b，达到我们上述的目的。   如何改变w和b，能更快地得到最优的w和b呢？那么我们就要使用梯度下降法。  上图中，">
@@ -356,8 +356,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-10-25T11:21:59+08:00">
-                2017-10-25
+              <time title="更新于" itemprop="dateModified" datetime="2017-11-06T23:12:53+08:00">
+                2017-11-06
               </time>
             
           </span>
@@ -411,7 +411,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  760
+                  788
                 </span>
               
 
@@ -444,7 +444,7 @@
 <ol>
 <li>先向前一步，计算损失函数$L(a,y)$关于$a$的导数$da = \frac{dL(a,y)}{da} = -\frac{y}{a} + \frac{1-y}{1-a}$。</li>
 <li>再向前一步，计算$dz = \frac{dL}{dz} = a - y$</li>
-<li>再向前一步，计算$dw = \frac{dL}{dw} = …, db = ..$</li>
+<li>再向前一步，计算$dw = \frac{dL}{dw} = …=x(a-y), db = …=a-y$</li>
 <li>用 $ w = w - \lambda dw,b = b - \lambda db$</li>
 </ol>
 <p>在m个训练集中，<br>$J(w,b) = \frac{1}{m} \sum{_i^m L(a^{(i)},y^{(i)})}$<br>那么：<br>$\frac{d(J(w,b))}{w1} = \frac{1}{m}\sum_i^m\frac{d(L(w^{(i)},y^{(i)}))}{w_i}$</p>
@@ -496,6 +496,7 @@ db= np.sum(dz) /m ;
 w2 = w2 - sdw2
 b = b - sb
 </code></pre><h1 id="总结">4. 总结</h1><p>这一节主要讲了我们如何将梯度下降法应用到LR中，以及强调了Nuppy。应该只是为了后续的学习做一些准备。</p>
+<p>一定一定要看这个作业<a href="http://kakack.github.io/2017/09/Logistic-Regression-with-a-Neural-Network-mindset/" target="_blank" rel="external">通过神经网络mindset实现简单的Logistic Regression</a></p>
 
       
     </div>
@@ -707,7 +708,7 @@ b = b - sb
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共93.2k字</span>
+  <span class="post-count">博客全站共94.2k字</span>
 </div>
 
 
