@@ -1696,7 +1696,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #8fdd39;
+  background: #550aff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -1759,10 +1759,10 @@ pre .javascript .function {
 }
 .post-toc ol {
   margin: 0;
-  padding: 0 2px 10px 8px;
+  padding: 10px 2px 10px 5px;
   text-align: left;
   list-style: none;
-  font-size: 20px;
+  font-size: 15px;
 }
 .post-toc ol > ol {
   padding-left: 0;
@@ -1785,9 +1785,7 @@ pre .javascript .function {
   white-space: nowrap;
   line-height: 1.8;
 }
-.post-toc .nav .nav-child {
-  display: none;
-}
+.post-toc .nav .nav-child,
 .post-toc .nav .active > .nav-child {
   display: block;
 }
