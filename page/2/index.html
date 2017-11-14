@@ -308,6 +308,551 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/10/26/数学-最大似然估计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/26/数学-最大似然估计/" itemprop="url">数学-最大似然估计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-26T21:03:27+08:00">
+                2017-10-26
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-10-28T15:50:52+08:00">
+                2017-10-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数学/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  439
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          其实在之前的博客朴素贝叶斯的理解一文中曾经提到过最大似然估计。
+极大似然估计的核心思想是：我们已知$x$已发生，我们再根据实际情况写出$x$发生的概率$p(x;θ)$。目标函数是使得这个概率$p(x;θ)$最大，然后求得$θ$：
+$$\theta_{ML}=arg max_\theta p(X;\theta)=arg max_\theta ∏_{i=1}^mp(x^{i};\theta)$$
+上公式中：$p(X;\theta)$是样本集$X$出现的概率；$p(x^{i};\theta)$是某个样本出现的概率；左式等于右式原因是每个样本出现的概率独立；
+
+多个数的连乘容易溢出，我们可以将它转化为log运算：$$\theta_{ML}=arg max_\theta \sum{i=1}^mlog p(x^{i};\theta)$$将上式除以$m$，得到一种期望：$$\theta_{ML}=arg max_\theta E_{x\text{~}p’_{data}}log p(x^{i};\theta) \tag{公式1}$$这个式子的含义是：在经验分布$x\text{~}p^`$上，求得一个$\theta$，使得模型分布的期望最大化。
+此时我们暂时先不看上面这个公式。我们从另一个角度——误差来衡量。训练集上的经验分布$p’_{data}​$和模型之间的分布差异可以用KL散度衡量：
+$$D_{KL}(p’_{data}||p_{model}) = E_{x\text{~}p’_{data}}[logp’_{data}(x)-logp_{model}(x)]$$
+我们的目标是使上式最小化。
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/26/数学-最大似然估计/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/10/25/深度学习算法-误差函数探究/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/25/深度学习算法-误差函数探究/" itemprop="url">深度学习算法-误差函数探究</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T11:11:00+08:00">
+                2017-10-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-10-30T22:36:22+08:00">
+                2017-10-30
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习算法/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  672
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          之前我们在神经网络简介中曾经提到过误差函数。这一节我们总结一下误差函数。
+误差函数一般有两种来源：
+
+如果参数模型定义了一个分布$p(y|x;\theta)$，我们采用最大似然原理得到代价函数：训练数据和模型预测间的交叉熵。这个在之后会详细解释。
+如果不预测y的完整概率分布，仅仅预测在给定x条件下y的某种统计量，那就用某些专门的损失函数来计算。
+
+1. 方法1，使用最大似然学习条件分布可以在博客最大似然估计中看到，参数模型定义了一个分布$p(y|x;\theta)$，为了求得参数，我们使用最大似然原理，得到最终的目标函数是最小化代价函数J——训练数据和模型预测间的交叉熵:
+$$J(\theta)=-E_{x,y\sim p’_{data}}log p_{model}(y|x)$$
+上式的意义是：在$x,y$服从训练数据$ p’_{data}$分布下，使得模型的$-Elog p_{model}(y|x)$最小。
+用似然解决问题带来的好处：
+
+当明确了一个模型$p(y|x)$时，就自动地确定了代价函数$logp(y|x)$。
+对数函数能帮我们避免梯度过小（例如有的输出单元有一个指数函数，取对数后梯度就不那么小了）
+
+2. 方法2，简单学习条件统计量我们用历史的数据，计算出特征x下y发生的概率：$f(x)=p(y|x)$，将它作为x特征下y的预测。学习这个条件统计量的过程就是我们这节介绍的方法。
+2.1. 均方误差通过解优化问题：
+$$f^=arg min_f E_{x,y\sim p_{data}}||y-f(x)||^2 \tag{均方误差最小化时的f^}$$
+得到$f^*$,我
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/25/深度学习算法-误差函数探究/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/09/25/机器学习算法-L2R进一步了解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/25/机器学习算法-L2R进一步了解/" itemprop="url">机器学习算法-L2R进一步了解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T15:30:16+08:00">
+                2017-09-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-09-25T18:46:20+08:00">
+                2017-09-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4,555
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          之前的博客中简单介绍了Learning to Rank的基本原理，也讲到了Learning to Rank的几类常用的方法：pointwise，pairwise，listwise。这篇博客就pairwise中的RankSVM、GBRank和LambdaRank做简要介绍。
+RankSVM是2000年提出的；GBRank是2007年提出的；LambdaMART是2008年提出的。因此我们按照提出顺序来讲解这三种算法。
+1. 引言机器学习一般都是解决分类问题。而在Rank中我们遇到的是排序问题。那么如何将排序问题转化为分类问题成了当下的关键。
+1.1. 如何将排序问题转化为分类问题？对于一个query-doc pair（检索-文档结果对），我们可以将其用一个feature vector表示：x。而排序函数为f(x)，我们根据f(x)的大小来决定哪个doc排在前面，哪个doc排在后面。即如果f(xi) &gt; f(xj)，则xi应该排在xj的前面，反之亦然。可以用下面的公式表示：
+ 
+理论上，f(x)可以是任意函数，为了简单起见，我们假设其为线性函数：如果这个排序函数f(x)是一个线性函数，那么我们便可以将一个排序问题转化为一个二元分类问题。理由如下：首先，对于任意两个feature vector xi和 xj，在f(x)是线性函数的前提下，下面的关系都是存在的：然后，便可以对xi和 xj的差值向量考虑二元分类问题。特别地，我们可以对其赋值一个label： 
+有一个很好的例子说明了如何将排序问题转化为分类问题，在L2R的笔记中已提到过，此处不再多加阐述。
+将排序问题转化为分类问题之
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/25/机器学习算法-L2R进一步了解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/09/05/深度学习算法-神经网络简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1589,592 +2134,6 @@ $P(y_i|x)$代表在这个$x$的情况下的类别成为$y_i$的概率，一般�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/07/11/机器学习算法-总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/11/机器学习算法-总结/" itemprop="url">机器学习算法-总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-11T18:46:07+08:00">
-                2017-07-11
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T20:58:21+08:00">
-                2017-07-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  179
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          我一想到明天要面试，我就贼紧张。赶紧好好复习一下吧。
-1. 特征降维主成分分析PCA线性判别分析LDA矩阵奇异值分解SVD深度学习SparseAutoEncoderLASSO小波分析法拉普拉斯特征映射
-2. 统计模式分类问题中，当先验概率未知时，可以使用最小误判概率准则最小损失准则
-3. 各种决策树
-
-
-决策树
-ID3/C4.5
-CART
-
-
-
-
-相同
-都是基于信息论的决策树算法
-
-
-
-不同1
-ID3是信息增益，C4.5是信息增益比
-CART中用于选择变量的不纯性度量是Gini指数
-
-
-不同2
-C4.5/ID3不一定是二叉树
-CART一定是二叉树
-
-
-
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/11/机器学习算法-总结/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/07/10/数学-SVD分解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/10/数学-SVD分解/" itemprop="url">SVD分解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T13:08:20+08:00">
-                2017-07-10
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:24:30+08:00">
-                2017-07-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数学/" itemprop="url" rel="index">
-                    <span itemprop="name">数学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  2,669
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          简介
-
-SVD(Singular Value Decomposition，奇异值分解)是对实数矩阵(甚至复数矩阵)的一种因式分解。
-任意的一个矩阵都可以做SVD分解。相比SVD分解，和SVD相近的特征值分解只能应用于方阵。
-SVD分解可用来解决非方阵不能计算逆矩阵的问题。
-
-1. SVD定义设一个$m\times n$的矩阵$M$,它的SVD分解是：$$M=UΣV^*$$其中：
-
-$U$是一个$m\times m$的酉矩阵。(我的理解：酉矩阵是在复数空间上，类似正交矩阵的矩阵。它有很多不错的性质。可以在我上一篇博客里看到)
-$Σ$是$m\times n$的矩形对角矩阵，并且在对角线上的元素都是非负实数$σ_i$，称为$M$的奇异值
-$V^*$是一个$n\times n$的酉矩阵，也是$V$的共轭转置矩阵。
-
-2. SVD的原理首先，我们对正交矩阵进行一些回顾。
-正交矩阵回顾
-从上一节我们知道，正交矩阵对应的变换是不会改变向量长度的。即，对于向量$(a,b)$，正交矩阵$U$，变换后的向量$U(a,b)$的长度与$(a,b)$是相等的。这个正交变换只是对$(a,b)$做了旋转或者镜射等操作。
-2.1. 特征值分解——EVD在讨论SVD之前，我们先讨论矩阵的特征值分解（EVD）。
-回顾特征值分解，特征值分解是把一个n阶实对称矩阵分解为下面的形式：$$A=QΣQ^{-1}$$其中：
-
-$Q$是这个矩阵$A$的特征向量组成的矩阵，是一个正交矩阵
-$Σ$是一个对角阵，每个对角线上的元素就是一个特征值
-
-此时假设有一个$x$向量，用$A$将这个向量$x$变换到$A$的列空间中，即：$$Ax
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/10/数学-SVD分解/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/07/10/数学-矩阵相关知识复习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/10/数学-矩阵相关知识复习/" itemprop="url">矩阵相关知识复习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T10:33:46+08:00">
-                2017-07-10
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-10-28T21:59:17+08:00">
-                2017-10-28
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数学/" itemprop="url" rel="index">
-                    <span itemprop="name">数学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  1,081
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1. 特征值与奇异值特征值与特征向量
-如果一个向量$v$是方阵$A$的特征向量，那么：$$Av=\lambda v$$
-
-$\lambda$:特征值
-$v$:特征向量把$A$乘到$v$上，得到一个$\lambda v$，也就是意味着我们得到了一个方向未变但在长度上有伸缩改变的向量（方向未变不准确，有可能变反向）。这是让$A$乘以他的特征向量表现出来的性质。
-
-因此：
-
-特征向量所在直线上的向量都是特征向量；
-特征向量所在的直线，叫特征空间；
-
-特征值分解
-特征值分解是把一个n阶实对称矩阵分解为下面的形式：$$A=QΣQ^{-1}$$其中：
-
-$Q$是这个矩阵$A$的特征向量组成的矩阵，是一个正交矩阵
-$Σ$是一个对角阵，每个对角线上的元素就是一个特征值
-
-2. 正交变换与正交军阵2.1. 正交变换什么是正交变换？正交变换：在线性空间中，保持向量长度不变的线性变换。正交变换的定义是什么？设$V$为欧式空间，$T$是$V$的一个线性变换。如果$T$保持$V$中任一向量$x$的长度不变，即有：$$(x,x)=(Tx,Tx)$$那么称$T$是$V$的一个正交变换。（即内积不变）
-注：$(x,x)$是向量内积怎样的变换算是正交变换？线性变换$T$为正交变换的充要条件是，对于欧式空间$V$中任二向量$x,y$都有：$$(x,y)=(Tx,Ty)$$
-2.2. 正交矩阵正交矩阵的定义是什么？如果实方阵$Q$满足：$$T^TQ=I,或 Q^{-1}=Q^T$$则称$Q$为正交矩阵
-其中，$I$是单位矩阵。正交矩阵有哪些特点？
-
-正交矩阵的行列式必定为$+-1$
-行列式值为+1的正交矩阵，称为特
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/10/数学-矩阵相关知识复习/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2224,7 +2183,7 @@ $Σ$是一个对角阵，每个对角线上的元素就是一个特征值
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-count">79</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2246,7 +2205,7 @@ $Σ$是一个对角阵，每个对角线上的元素就是一个特征值
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2299,7 +2258,7 @@ $Σ$是一个对角阵，每个对角线上的元素就是一个特征值
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共96.5k字</span>
+  <span class="post-count">博客全站共101.0k字</span>
 </div>
 
 
