@@ -11,6 +11,7 @@
 <li>在函数的参数传递中，String传进去时是一种拷贝</li>
 <li>String之间用+号非常不好！（+号内部用的是StringBuilder）</li>
 </ul>
+<a id="more"></a>
 <h1 id="StringBuilder">1. StringBuilder</h1><p>如果想实现将String[] words连接成一个String，那最土的方法就是：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">String result = <span class="string">""</span>;</div><div class="line"><span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; words.length ; ++i )&#123;</div><div class="line">  result += words[i];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>但由于每个+都调用了一次StringBuilder，这无疑增加了很多负担。较好的方式是：</p>

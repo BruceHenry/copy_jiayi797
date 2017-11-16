@@ -428,20 +428,12 @@
 
       
         
-          
-           首先我们来看一些String的特性。
-
-String对象不可变！
-在函数的参数传递中，String传进去时是一种拷贝
-String之间用+号非常不好！（+号内部用的是StringBuilder）
-
-1. StringBuilder如果想实现将String[] words连接成一个String，那最土的方法就是：
-1234String result = "";for( int i = 0 ; i &lt; words.length ; ++i )&#123;  result += words[i];&#125;
-但由于每个+都调用了一次StringBuilder，这无疑增加了很多负担。较好的方式是：
-12345StringBuilder stringBuilder = new StringBuilder();for( int i = 0 ; i &lt; words.length ; ++i )&#123;  stringBuilder.append(words[i]);&#125;String result = stringBuilder.toString();
-2. 遍历String的元素1234String a = "abc";for(char c : a.toCharArray())&#123;  //c&#125;
-
-          
+          <p> 首先我们来看一些String的特性。</p>
+<ul>
+<li>String对象不可变！</li>
+<li>在函数的参数传递中，String传进去时是一种拷贝</li>
+<li>String之间用+号非常不好！（+号内部用的是StringBuilder）</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/16/Java-String/#more" rel="contents">
