@@ -308,7 +308,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/11/15/算法-LinkedList/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/11/16/Java-String/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -327,7 +327,189 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/15/算法-LinkedList/" itemprop="url">算法-LinkedList</a></h1>
+                <a class="post-title-link" href="/2017/11/16/Java-String/" itemprop="url">Java-String</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-16T14:08:56+08:00">
+                2017-11-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-11-16T14:19:49+08:00">
+                2017-11-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  156
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+           首先我们来看一些String的特性。
+
+String对象不可变！
+在函数的参数传递中，String传进去时是一种拷贝
+String之间用+号非常不好！（+号内部用的是StringBuilder）
+
+1. StringBuilder如果想实现将String[] words连接成一个String，那最土的方法就是：
+1234String result = "";for( int i = 0 ; i &lt; words.length ; ++i )&#123;  result += words[i];&#125;
+但由于每个+都调用了一次StringBuilder，这无疑增加了很多负担。较好的方式是：
+12345StringBuilder stringBuilder = new StringBuilder();for( int i = 0 ; i &lt; words.length ; ++i )&#123;  stringBuilder.append(words[i]);&#125;String result = stringBuilder.toString();
+2. 遍历String的元素1234String a = "abc";for(char c : a.toCharArray())&#123;  //c&#125;
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/11/16/Java-String/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/11/15/Java-LinkedList/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/15/Java-LinkedList/" itemprop="url">Java-LinkedList</a></h1>
         
 
         <div class="post-meta">
@@ -355,8 +537,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-11-15T18:12:59+08:00">
-                2017-11-15
+              <time title="更新于" itemprop="dateModified" datetime="2017-11-16T14:40:06+08:00">
+                2017-11-16
               </time>
             
           </span>
@@ -432,7 +614,7 @@
 <p>LinkedList 是一个继承于AbstractSequentialList的双向链表。它也可以被当作堆栈、队列或双端队列进行操作。<br>LinkedList 实现 List 接口，能对它进行队列操作。<br>LinkedList 实现 Deque 接口，即能将LinkedList当作双端队列使用。<br>LinkedList 实现了Cloneable接口，即覆盖了函数clone()，能克隆。<br>LinkedList 实现java.io.Serializable接口，这意味着LinkedList支持序列化，能通过序列化去传输。<br>LinkedList 是非同步的。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/15/算法-LinkedList/#more" rel="contents">
+            <a class="btn" href="/2017/11/15/Java-LinkedList/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -525,8 +707,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-11-15T23:23:45+08:00">
-                2017-11-15
+              <time title="更新于" itemprop="dateModified" datetime="2017-11-16T14:37:41+08:00">
+                2017-11-16
               </time>
             
           </span>
@@ -575,7 +757,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  611
+                  729
                 </span>
               
 
@@ -599,6 +781,9 @@
       
         
           <p>主要总结自己做过的题的知识点。</p>
+<p>解释：</p>
+<p>★：需要再次看</p>
+<p>❤：没做出来</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/15/算法-leetcode刷题总结/#more" rel="contents">
@@ -1099,7 +1284,7 @@ leetcode题解模板
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  2,980
+                  3,250
                 </span>
               
 
@@ -1618,7 +1803,7 @@ leetcode题解模板
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,022
+                  1,025
                 </span>
               
 
@@ -1645,176 +1830,6 @@ leetcode题解模板
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/05/算法-进阶Ladder/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/11/04/算法-TOP-K问题的各种变种/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/04/算法-TOP-K问题的各种变种/" itemprop="url">算法-TOP-K问题的各种变种</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-04T16:17:13+08:00">
-                2017-11-04
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-11-05T14:57:50+08:00">
-                2017-11-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  1,612
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>TOP K问题也有多种解决方案，比如排序，最后截取靠前或者靠后的K个数据。当数据量小的时候，排序解决起来当然可以，算法简单，排序算法也有很多现成的。当数据量很大时，维护一个很长的数组，不管是空间存储上还是排序耗费的时间上都可能难以接受。这时我们可以采用最小堆的方式来实现，只需要维护一个K长度的数组就行。</p>
-<p>然而具体到问题，就会有非常多的变种。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/04/算法-TOP-K问题的各种变种/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1957,7 +1972,7 @@ leetcode题解模板
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  2,773
+                  4,386
                 </span>
               
 
@@ -2093,7 +2108,7 @@ leetcode题解模板
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2146,7 +2161,7 @@ leetcode题解模板
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共103.1k字</span>
+  <span class="post-count">博客全站共103.7k字</span>
 </div>
 
 
