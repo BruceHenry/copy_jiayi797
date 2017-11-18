@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="首先介绍一下HashMap的一些常见操作。然后再了解一下其他的Map。 1. HashMap1.1. HashMap的排序按照value排序： 123456789101112131415161718192021import java.util.*;public class MapUtil &amp;#123;    public static &amp;lt;K, V extends Comparable&amp;lt">
+<meta name="description" content="首先介绍一下HashMap的一些常见操作。然后再了解一下其他的Map。">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java-Map">
 <meta property="og:url" content="http://yoursite.com/child/2017/11/17/Java-Map/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="首先介绍一下HashMap的一些常见操作。然后再了解一下其他的Map。 1. HashMap1.1. HashMap的排序按照value排序： 123456789101112131415161718192021import java.util.*;public class MapUtil &amp;#123;    public static &amp;lt;K, V extends Comparable&amp;lt">
+<meta property="og:description" content="首先介绍一下HashMap的一些常见操作。然后再了解一下其他的Map。">
 <meta property="og:updated_time" content="2017-11-17T08:56:37.519Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java-Map">
-<meta name="twitter:description" content="首先介绍一下HashMap的一些常见操作。然后再了解一下其他的Map。 1. HashMap1.1. HashMap的排序按照value排序： 123456789101112131415161718192021import java.util.*;public class MapUtil &amp;#123;    public static &amp;lt;K, V extends Comparable&amp;lt">
+<meta name="twitter:description" content="首先介绍一下HashMap的一些常见操作。然后再了解一下其他的Map。">
 
 
 
@@ -431,6 +431,7 @@
 
       
         <p> 首先介绍一下HashMap的一些常见操作。然后再了解一下其他的Map。</p>
+<a id="more"></a>
 <h1 id="HashMap">1. HashMap</h1><h2 id="HashMap的排序">1.1. HashMap的排序</h2><p>按照value排序：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MapUtil</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;K, V extends Comparable&lt;? <span class="keyword">super</span> V&gt;&gt; <span class="function">Map&lt;K, V&gt; </span></div><div class="line">        <span class="title">sortByValue</span><span class="params">(Map&lt;K, V&gt; map)</span> &#123;</div><div class="line">       	<span class="comment">// 获取键值对的list</span></div><div class="line">        List&lt;Map.Entry&lt;K, V&gt;&gt; list = <span class="keyword">new</span> LinkedList&lt;Map.Entry&lt;K, V&gt;&gt;(map.entrySet());</div><div class="line">       <span class="comment">// 定义并调用sort接口</span></div><div class="line">        Collections.sort( list, <span class="keyword">new</span> Comparator&lt;Map.Entry&lt;K, V&gt;&gt;() &#123;</div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Map.Entry&lt;K, V&gt; o1, Map.Entry&lt;K, V&gt; o2)</span> </span>&#123;</div><div class="line">                <span class="keyword">return</span> (o1.getValue()).compareTo( o2.getValue() );</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">	  <span class="comment">// 依次输出已排序的结果</span></div><div class="line">        Map&lt;K, V&gt; result = <span class="keyword">new</span> LinkedHashMap&lt;K, V&gt;();</div><div class="line">        <span class="keyword">for</span> (Map.Entry&lt;K, V&gt; entry : list) &#123;</div><div class="line">            result.put(entry.getKey(), entry.getValue());</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>测试用例：</p>
@@ -651,7 +652,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共108.6k字</span>
+  <span class="post-count">博客全站共109.9k字</span>
 </div>
 
 

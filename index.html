@@ -355,8 +355,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-11-17T20:26:50+08:00">
-                2017-11-17
+              <time title="更新于" itemprop="dateModified" datetime="2017-11-18T15:38:10+08:00">
+                2017-11-18
               </time>
             
           </span>
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  294
+                  1,564
                 </span>
               
 
@@ -428,7 +428,12 @@
 
       
         
-          <p> 一些DP相关的Leetcode题解</p>
+          <h1 id="理解动态规划">1. 理解动态规划</h1><p>引入例题：<strong>triangle</strong></p>
+<p>给一个三角形，找到从上到下最短的路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">     [2],</div><div class="line">    [3,4],</div><div class="line">   [6,5,7],</div><div class="line">  [4,1,8,3]</div><div class="line">]</div></pre></td></tr></table></figure>
+<p>最短路径是<code>11</code> (i.e., 2 + 3 + 5 + 1 = 11).</p>
+<p>n = 三角形高度</p>
+<p>我们用下面几种方法来思考这个题。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/17/算法-DP/#more" rel="contents">
@@ -597,11 +602,7 @@
 
       
         
-          
-           首先介绍一下HashMap的一些常见操作。然后再了解一下其他的Map。
-1. HashMap1.1. HashMap的排序按照value排序：
-123456789101112131415161718192021import java.util.*;public class MapUtil &#123;    public static &lt;K, V extends Comparable&lt;? super V&gt;&gt; Map&lt;K, V&gt;         sortByValue(Map&lt;K, V&gt; map) &#123;       	// 获取键值对的list        List&lt;Map.Entry&lt;K, V&gt;&gt; list = new LinkedList&lt;Map.Entry&lt;K, V&gt;&gt;(map.entrySet());       // 定义并调用sort接口        Collections.sort( list, new Comparator&lt;Map.Entry&lt;K, V&gt;&gt;() &#123;            public int compare(Map.Entry&lt;K, V&gt; o1, Map.Entry&lt;K, V&gt; o2) &#123;                return (o1.getValue()).compareTo( o2.getValue() );            &#125;        &#
-          ...
+          <p> 首先介绍一下HashMap的一些常见操作。然后再了解一下其他的Map。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/17/Java-Map/#more" rel="contents">
@@ -2160,7 +2161,7 @@ leetcode题解模板
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共108.6k字</span>
+  <span class="post-count">博客全站共109.9k字</span>
 </div>
 
 
