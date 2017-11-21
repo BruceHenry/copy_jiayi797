@@ -308,6 +308,193 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/09/04/Java学习笔记4-泛型数组列表/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/04/Java学习笔记4-泛型数组列表/" itemprop="url">Java学习笔记4-泛型数组列表(ArrayList)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-04T20:19:00+08:00">
+                2017-09-04
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-09-04T20:36:42+08:00">
+                2017-09-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  191
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          ArrayList : 是一个采用类型参数(type parameter)的泛型类(generic class)（泛型类指数组内的元素可以是任意类型）。
+新建：
+ArrayList&lt;Employee&gt; staff = new ArrayList&lt;Employee&gt;();
+增：
+add();
+若调用add且内部数组已经满了，数组列表就自动地创建一个更大的数组，并将所有的对象从较小的数组中拷贝到较大的数组中。
+指定数组大小：
+test.ensureCapacity(100);
+或
+ArrayList&lt;Employee&gt; staff = new ArrayList&lt;&gt;(100);
+一旦确定数组大小不再发生变化，即可调用trimeToSize方法，使得存储区域的大小调整为当前元素数量所需的存储空间数目。垃圾回收器将回收多余的存储空间。
+其它操作：
+get(index);
+set(index,element);
+add(index,element);
+remove(index);
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/04/Java学习笔记4-泛型数组列表/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/09/04/深度学习算法-引言-LR的梯度下降法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1990,184 +2177,6 @@ $Σ$是一个对角阵，每个对角线上的元素就是一个特征值
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/07/09/机器学习实践-转化率预估之贝叶斯平滑/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/09/机器学习实践-转化率预估之贝叶斯平滑/" itemprop="url">转化率预估之贝叶斯平滑</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T20:11:32+08:00">
-                2017-07-09
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T16:07:21+08:00">
-                2017-07-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/腾讯算法大赛-CVR预估/" itemprop="url" rel="index">
-                    <span itemprop="name">腾讯算法大赛-CVR预估</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  1,296
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1. 问题描述在做比赛的过程中，我们发现了有转化率这个指标在大量数据下是有效的。理想情况下，例如某个广告点击量是10000次，转化量是100次，那转化率就是1%。但有时，例如某个广告点击量是2次，转化量是1次，这样算来转化率为50%。但此时这个指标在数学上是无效的。因为大数定律告诉我们，在试验不变的条件下，重复试验多次，随机事件的频率近似于它的概率。后者点击量只有2次，不满足“重复试验多次”的条件。
-那么如何解决这个问题呢？
-整体思路：用估计值来模拟实际CVR。
-2. 解决方案实际上，广告妆化率是随着时间迁移和用户喜好变化而变化的。因此我们可以利用先验知识来持续性地调整CVR。计算广告训练与平滑思想给出了一个很好的解决方案：贝叶斯平滑。
-考虑到时序序列模型，我们把从第一天到第n天的所有先验知识汇总到第n天的结果，并以此来对第n+1天的CTR进行平滑。在广告平滑上，没有什么方法比贝叶斯平滑能够更好的利用先验知识了，而帮助贝叶斯平滑方法实现目标的就是Beta分布。Beta分布的强大之处在于，通过改变其中的两个参数α和β，你可以让Beta分布的图形变成任意形状，而且在加入先验知识前后，通过贝叶斯变换，对CTR的预估都可以表示为Beta分布。
-Beta分布中参数α和β的本质含义，即：α表示点击数，β表示曝光数。因为贝叶斯平滑的具体公式就是：
-$$SmoothCTR = \frac{(α + CurrentC - 1)}{( α + β + CurrentI -2)}$$
-能不能直接把历史点击和历史曝光分别赋值给α和β来进行计算呢？显然不行，因为这么做就会犯之前我们提到的那些问题，比如不
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/09/机器学习实践-转化率预估之贝叶斯平滑/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2217,7 +2226,7 @@ $$SmoothCTR = \frac{(α + CurrentC - 1)}{( α + β + CurrentI -2)}$$
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">85</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2292,7 +2301,7 @@ $$SmoothCTR = \frac{(α + CurrentC - 1)}{( α + β + CurrentI -2)}$$
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共112.8k字</span>
+  <span class="post-count">博客全站共115.1k字</span>
 </div>
 
 
