@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  973
+                  984
                 </span>
               
 
@@ -428,13 +428,7 @@
 
       
         
-          
-          1. LeetCode题1.1. Word Break II给一个str s和一个str[] dict,输出所有s可能被dict拼接的组合。例如
-s = &quot;catsanddog&quot;,dict = [&quot;cat&quot;, &quot;cats&quot;, &quot;and&quot;, &quot;sand&quot;, &quot;dog&quot;].
-A solution is [&quot;cats and dog&quot;, &quot;cat sand dog&quot;].
-一开始我的想法是用DFS维护一个栈，再用Trie优化字符串检索。可惜这种方式会超时。看了别人的代码，就感觉自己宛如一个智障。
-123456789101112131415161718192021222324252627282930313233343536373839404142434445用刀在字符串中切一刀。左边是i个字符，右边是len-i个字符。|=======前i个位置=======|  |----------|----------||1,2,....,i|i+1,..,len||----------|----------|如果：左边是字典里的词，右边是可以wordbreak的，那么把左边的字符串加到右边算出来的List中，生成新的list返回。边界条件：1. 当输入字符串为空的时候，应该给出一个空解。这个很重要，否则这个递归是不能运行的。2. 递归时i应该从1开始递归，因为我们要把这个问题分解为2个部分，如果你左边给0，那就是死循环。记忆：为了加快DFS
-          ...
+          <p> 记了点自己有问题的题目</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/21/算法-DFS/#more" rel="contents">
@@ -530,7 +524,7 @@ A solution is [&quot;cats and dog&quot;, &quot;cat sand dog&quot;].
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-11-23T19:22:35+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2017-11-23T21:59:43+08:00">
                 2017-11-23
               </time>
             
@@ -580,7 +574,7 @@ A solution is [&quot;cats and dog&quot;, &quot;cat sand dog&quot;].
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  7,825
+                  8,653
                 </span>
               
 
@@ -1436,7 +1430,7 @@ A solution is [&quot;cats and dog&quot;, &quot;cat sand dog&quot;].
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,330
+                  1,588
                 </span>
               
 
@@ -2166,7 +2160,7 @@ leetcode题解模板
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共117.4k字</span>
+  <span class="post-count">博客全站共118.5k字</span>
 </div>
 
 
