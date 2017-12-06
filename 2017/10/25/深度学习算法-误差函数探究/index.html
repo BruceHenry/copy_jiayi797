@@ -99,7 +99,7 @@
 <meta property="og:url" content="http://yoursite.com/child/2017/10/25/深度学习算法-误差函数探究/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="之前我们在神经网络简介中曾经提到过误差函数。这一节我们总结一下误差函数。 误差函数一般有两种来源：  如果参数模型定义了一个分布$p(y|x;\theta)$，我们采用最大似然原理得到代价函数：训练数据和模型预测间的交叉熵。这个在之后会详细解释。 如果不预测y的完整概率分布，仅仅预测在给定x条件下y的某种统计量，那就用某些专门的损失函数来计算。  1. 方法1，使用最大似然学习条件分布可以在博客最">
-<meta property="og:updated_time" content="2017-10-30T14:36:22.411Z">
+<meta property="og:updated_time" content="2017-12-05T11:51:35.268Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习算法-误差函数探究">
 <meta name="twitter:description" content="之前我们在神经网络简介中曾经提到过误差函数。这一节我们总结一下误差函数。 误差函数一般有两种来源：  如果参数模型定义了一个分布$p(y|x;\theta)$，我们采用最大似然原理得到代价函数：训练数据和模型预测间的交叉熵。这个在之后会详细解释。 如果不预测y的完整概率分布，仅仅预测在给定x条件下y的某种统计量，那就用某些专门的损失函数来计算。  1. 方法1，使用最大似然学习条件分布可以在博客最">
@@ -364,8 +364,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-10-30T22:36:22+08:00">
-                2017-10-30
+              <time title="更新于" itemprop="dateModified" datetime="2017-12-05T19:51:35+08:00">
+                2017-12-05
               </time>
             
           </span>
@@ -457,7 +457,7 @@
 </ol>
 <h1 id="方法2，简单学习条件统计量">2. 方法2，简单学习条件统计量</h1><p>我们用历史的数据，计算出特征x下y发生的概率：$f(x)=p(y|x)$，将它作为x特征下y的预测。学习这个条件统计量的过程就是我们这节介绍的方法。</p>
 <h2 id="均方误差">2.1. 均方误差</h2><p>通过解优化问题：</p>
-<p>$$f^<em>=arg min_f E_{x,y\sim p_{data}}||y-f(x)||^2 \tag{均方误差最小化时的f^</em>}$$</p>
+<p>$$f^*=arg min_f E_{x,y\sim p_{data}}||y-f(x)||^2 \tag{均方误差最小化时的f^{※}}$$</p>
 <p>得到$f^*$,我们用它来进行预测得到：</p>
 <p>$$f^*(x)=E_{y\sim p_{data}(y|x)}[y]\tag{将所有服从p_{data}(y|x)的y的y均值作为x特征下y的预测}$$</p>
 <p>可以看出，这样得到的函数是可以用来对每个x的值预测出y的<strong>均值</strong>。</p>
@@ -585,7 +585,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">88</span>
+                <span class="site-state-item-count">89</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -676,7 +676,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共128.7k字</span>
+  <span class="post-count">博客全站共135.1k字</span>
 </div>
 
 
