@@ -1,0 +1,1453 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="true" />
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="q1zwhBKKPA" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="本文主要参考自吴恩达Coursera深度学习课程 DeepLearning.ai 编程作业（1-4） 吴恩达Coursera课程 DeepLearning.ai 编程作业系列，本文为《神经网络与深度学习》部分的第四周“深层神经网络”的课程作业。 本节的主要内容是：实现L层的神经网络 1. 大纲首先完成一些helper function。然后再建立两层、多层神经网络：  两层和多层神经网络的初始化">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习实践-1-4-1-构建神经网络">
+<meta property="og:url" content="http://yoursite.com/child/2017/12/10/深度学习实践-1-4-1-构建深层神经网络/index.html">
+<meta property="og:site_name" content="jiayi797的专栏">
+<meta property="og:description" content="本文主要参考自吴恩达Coursera深度学习课程 DeepLearning.ai 编程作业（1-4） 吴恩达Coursera课程 DeepLearning.ai 编程作业系列，本文为《神经网络与深度学习》部分的第四周“深层神经网络”的课程作业。 本节的主要内容是：实现L层的神经网络 1. 大纲首先完成一些helper function。然后再建立两层、多层神经网络：  两层和多层神经网络的初始化">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-08-15-15-25.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-08-16-51-52.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-08-17-11-51.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-08-20-17-43.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-09-13-40-28.png">
+<meta property="og:updated_time" content="2017-12-10T07:14:17.657Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度学习实践-1-4-1-构建神经网络">
+<meta name="twitter:description" content="本文主要参考自吴恩达Coursera深度学习课程 DeepLearning.ai 编程作业（1-4） 吴恩达Coursera课程 DeepLearning.ai 编程作业系列，本文为《神经网络与深度学习》部分的第四周“深层神经网络”的课程作业。 本节的主要内容是：实现L层的神经网络 1. 大纲首先完成一些helper function。然后再建立两层、多层神经网络：  两层和多层神经网络的初始化">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-08-15-15-25.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/child/2017/12/10/深度学习实践-1-4-1-构建深层神经网络/"/>
+
+
+
+
+
+  <title>深度学习实践-1-4-1-构建神经网络 | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-110169171-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?9856596edaab494b299151eb0e9bb214";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">jiayi797的专栏</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时光机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            琐碎
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/12/10/深度学习实践-1-4-1-构建深层神经网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深度学习实践-1-4-1-构建神经网络</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-10T15:06:06+08:00">
+                2017-12-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-12-10T15:14:17+08:00">
+                2017-12-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习实践/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习实践</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/12/10/深度学习实践-1-4-1-构建深层神经网络/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/12/10/深度学习实践-1-4-1-构建深层神经网络/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4,315
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要参考自<a href="http://blog.csdn.net/koala_tree/article/details/78092337" target="_blank" rel="external">吴恩达Coursera深度学习课程 DeepLearning.ai 编程作业（1-4）</a></p>
+<p>吴恩达Coursera课程 DeepLearning.ai 编程作业系列，本文为《神经网络与深度学习》部分的第四周“深层神经网络”的课程作业。</p>
+<p>本节的主要内容是：实现L层的神经网络</p>
+<h1 id="大纲">1. 大纲</h1><p>首先完成一些helper function。然后再建立两层、多层神经网络：</p>
+<ul>
+<li>两层和多层神经网络的初始化</li>
+<li>实现前向传播模型<ul>
+<li>实现某一层的前向传播 - 输出$Z^{[l]}$</li>
+<li>激活层已给出</li>
+<li>将前两步结合</li>
+<li>将前向传播迭代L-1次，然后将激活层加到最后，就完成了L层的前向传播</li>
+</ul>
+</li>
+<li>计算误差</li>
+<li>实现后向传播模型<ul>
+<li>实现某一层的后向传播</li>
+<li>激活层的后向传播已给出</li>
+<li>将前两步结合</li>
+<li>将后向传播迭代L-1次，然后将激活层加到最后，完成了L层的后向传播</li>
+</ul>
+</li>
+<li>更新参数</li>
+</ul>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-08-15-15-25.png" alt=""> </p>
+<a id="more"></a>
+<h1 id="import">2. import</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> warnings</div><div class="line">warnings.filterwarnings(<span class="string">"ignore"</span>) </div><div class="line"></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> h5py</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"></div><div class="line">%matplotlib inline</div><div class="line">plt.rcParams[<span class="string">'figure.figsize'</span>] = (<span class="number">5.0</span>, <span class="number">4.0</span>) <span class="comment"># set default size of plots</span></div><div class="line">plt.rcParams[<span class="string">'image.interpolation'</span>] = <span class="string">'nearest'</span></div><div class="line">plt.rcParams[<span class="string">'image.cmap'</span>] = <span class="string">'gray'</span></div><div class="line"></div><div class="line">%load_ext autoreload</div><div class="line">%autoreload <span class="number">2</span></div><div class="line"></div><div class="line">np.random.seed(<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<h1 id="初始化">3. 初始化</h1><ul>
+<li>完成两层模型的初始化</li>
+<li>完成多层模型的初始化</li>
+</ul>
+<h2 id="两层模型的初始化">3.1. 两层模型的初始化</h2><ul>
+<li>模型结构是： LINEAR - RELU - LINEAR - SIGMOID</li>
+<li>用随机数初始化w</li>
+<li>用0初始化b</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 参数初始化</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">initialize_parameters</span><span class="params">(n_x, n_h, n_y)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    参数：</div><div class="line">    n_x -- 输入层的大小</div><div class="line">    n_h -- 隐藏层的大小</div><div class="line">    n_y -- 输出层的大小</div><div class="line">    </div><div class="line">    Returns:</div><div class="line">    parameters -- python dict ：</div><div class="line">                    W1 -- weight matrix of shape (n_h, n_x)</div><div class="line">                    b1 -- bias vector of shape (n_h, 1)</div><div class="line">                    W2 -- weight matrix of shape (n_y, n_h)</div><div class="line">                    b2 -- bias vector of shape (n_y, 1)</div><div class="line">    """</div><div class="line">    <span class="comment"># 初始化</span></div><div class="line">    W1 = np.random.randn(n_h, n_x)*<span class="number">0.01</span></div><div class="line">    b1 = np.zeros((n_h, <span class="number">1</span>))</div><div class="line">    W2 = np.random.randn(n_y, n_h)*<span class="number">0.01</span></div><div class="line">    b2 = np.zeros((n_y, <span class="number">1</span>))</div><div class="line">    </div><div class="line">    <span class="comment"># 验证</span></div><div class="line">    <span class="keyword">assert</span>(W1.shape == (n_h, n_x))</div><div class="line">    <span class="keyword">assert</span>(b1.shape == (n_h, <span class="number">1</span>))</div><div class="line">    <span class="keyword">assert</span>(W2.shape == (n_y, n_h))</div><div class="line">    <span class="keyword">assert</span>(b2.shape == (n_y, <span class="number">1</span>))</div><div class="line"></div><div class="line">    parameters = &#123;<span class="string">"W1"</span>: W1,</div><div class="line">                  <span class="string">"b1"</span>: b1,</div><div class="line">                  <span class="string">"W2"</span>: W2,</div><div class="line">                  <span class="string">"b2"</span>: b2&#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> parameters    </div><div class="line"></div><div class="line">parameters = initialize_parameters(<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>)</div><div class="line">print(<span class="string">"W1 = "</span> + str(parameters[<span class="string">"W1"</span>]))</div><div class="line">print(<span class="string">"b1 = "</span> + str(parameters[<span class="string">"b1"</span>]))</div><div class="line">print(<span class="string">"W2 = "</span> + str(parameters[<span class="string">"W2"</span>]))</div><div class="line">print(<span class="string">"b2 = "</span> + str(parameters[<span class="string">"b2"</span>]))</div></pre></td></tr></table></figure>
+<pre><code>W1 = [[ 0.01624345 -0.00611756 -0.00528172]
+ [-0.01072969  0.00865408 -0.02301539]]
+b1 = [[ 0.]
+ [ 0.]]
+W2 = [[ 0.01744812 -0.00761207]]
+b2 = [[ 0.]]
+</code></pre><h2 id="L层模型的初始化">3.2. L层模型的初始化</h2><p>这个比较复杂。我们先来看一个X.shape = (12288,209)的例子:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>W.shape</strong></th>
+<th><strong>b.shape</strong></th>
+<th style="text-align:center"><strong>A</strong></th>
+<th><strong>A.shape</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Layer 1</strong></td>
+<td>(n[1],12288)</td>
+<td>(n[1],1)</td>
+<td style="text-align:center">Z[1]=W[1]X+b[1]</td>
+<td>(n[1],209)</td>
+</tr>
+<tr>
+<td><strong>Layer 2</strong></td>
+<td>(n[2],n[1])</td>
+<td>(n[2],1)</td>
+<td style="text-align:center">Z[2]=W[2]A[1]+b[2]</td>
+<td>(n[2],209)</td>
+</tr>
+<tr>
+<td>⋮</td>
+<td>⋮</td>
+<td>⋮</td>
+<td style="text-align:center">⋮</td>
+<td>⋮</td>
+</tr>
+<tr>
+<td><strong>Layer L-1</strong></td>
+<td>(n[L−1],n[L−2])</td>
+<td>(n[L−1],1)</td>
+<td style="text-align:center">Z[L−1]=W[L−1]A[L−2]+b[L−1]</td>
+<td>(n[L−1],209)</td>
+</tr>
+<tr>
+<td><strong>Layer L</strong></td>
+<td>(n[L],n[L−1])</td>
+<td>(n[L],1)</td>
+<td style="text-align:center">Z[L]=W[L]A[L−1]+b[L]</td>
+<td>(n[L],209)</td>
+</tr>
+</tbody>
+</table>
+<p>实现：</p>
+<ul>
+<li>模型结构是 [LINEAR -&gt; RELU]  ×  (L-1) -&gt; LINEAR -&gt; SIGMOID . 也就是说，有L-1层的ReLU激活函数，还有一层sigmoid输出</li>
+<li>w用随机初始化</li>
+<li>b用0初始化</li>
+<li>将$n^{[l]}$存入数组变量layer_dims中，代表第l层的n</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">initialize_parameters_deep</span><span class="params">(layer_dims)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    输入：</div><div class="line">    layer_dims: 数组变量，代表每一层的维度</div><div class="line">    </div><div class="line">    Returns:</div><div class="line">    parameters -- python dict , 包含 "W1", "b1", ..., "WL", "bL":</div><div class="line">            Wl -- 权重矩阵，W1.shape =  (layer_dims[l], layer_dims[l-1])</div><div class="line">            bl -- 偏置向量，b1.shape =  (layer_dims[l], 1)</div><div class="line"></div><div class="line">    """</div><div class="line">    </div><div class="line">    parameters = &#123;&#125;</div><div class="line">    L = len(layer_dims) <span class="comment"># 网络的层数</span></div><div class="line">    </div><div class="line">    <span class="keyword">for</span> l <span class="keyword">in</span> range(<span class="number">1</span>, L):</div><div class="line">        <span class="comment"># 初始化第l层参数</span></div><div class="line">        parameters[<span class="string">'W'</span> + str(l)] = np.random.randn(layer_dims[l], layer_dims[l<span class="number">-1</span>]) * <span class="number">0.01</span></div><div class="line">        parameters[<span class="string">'b'</span> + str(l)] = np.zeros((layer_dims[l], <span class="number">1</span>))</div><div class="line">        </div><div class="line">        <span class="comment"># 验证</span></div><div class="line">        <span class="keyword">assert</span>(parameters[<span class="string">'W'</span> + str(l)].shape == (layer_dims[l], layer_dims[l<span class="number">-1</span>]))</div><div class="line">        <span class="keyword">assert</span>(parameters[<span class="string">'b'</span> + str(l)].shape == (layer_dims[l], <span class="number">1</span>))</div><div class="line">        </div><div class="line">    <span class="keyword">return</span> parameters</div><div class="line"></div><div class="line">parameters = initialize_parameters_deep([<span class="number">5</span>,<span class="number">4</span>,<span class="number">3</span>])</div><div class="line">print(<span class="string">"W1 = "</span> + str(parameters[<span class="string">"W1"</span>]))</div><div class="line">print(<span class="string">"b1 = "</span> + str(parameters[<span class="string">"b1"</span>]))</div><div class="line">print(<span class="string">"W2 = "</span> + str(parameters[<span class="string">"W2"</span>]))</div><div class="line">print(<span class="string">"b2 = "</span> + str(parameters[<span class="string">"b2"</span>]))</div></pre></td></tr></table></figure>
+<pre><code>W1 = [[ 0.00319039 -0.0024937   0.01462108 -0.02060141 -0.00322417]
+ [-0.00384054  0.01133769 -0.01099891 -0.00172428 -0.00877858]
+ [ 0.00042214  0.00582815 -0.01100619  0.01144724  0.00901591]
+ [ 0.00502494  0.00900856 -0.00683728 -0.0012289  -0.00935769]]
+b1 = [[ 0.]
+ [ 0.]
+ [ 0.]
+ [ 0.]]
+W2 = [[-0.00267888  0.00530355 -0.00691661 -0.00396754]
+ [-0.00687173 -0.00845206 -0.00671246 -0.00012665]
+ [-0.0111731   0.00234416  0.01659802  0.00742044]]
+b2 = [[ 0.]
+ [ 0.]
+ [ 0.]]
+</code></pre><h1 id="前向传播">4. 前向传播</h1><p>按照如下顺序实现：</p>
+<ul>
+<li>LINEAR</li>
+<li>LINEAR -&gt; ACTIVATION where ACTIVATION will be either ReLU or Sigmoid.</li>
+<li>[LINEAR -&gt; RELU] × (L-1) -&gt; LINEAR -&gt; SIGMOID (whole model)</li>
+</ul>
+<h2 id="LINEAR">4.1. LINEAR</h2><p>线性模型如下：</p>
+<p>$$Z^{[l]} = W^{[l]}A^{[l-1]} +b^{[l]}\tag{4}$$</p>
+<p>where $A^{[0]} = X$. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">linear_forward</span><span class="params">(A,W,b)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    实现前向传播的线性部分</div><div class="line">    </div><div class="line">    输入：</div><div class="line">    </div><div class="line">    A -- 上一层的输出，也是本层的输入</div><div class="line">    W -- 权重矩阵 ， W.shape = (n_(l-1), n_l)</div><div class="line">    b -- 偏置向量 ， b.shape = (n_l , 1)</div><div class="line">    </div><div class="line">    Returns : </div><div class="line">    Z -- 激活函数的输入，也叫"pre-activation parameter"</div><div class="line">    cache - dict，包含A,W,b</div><div class="line">    """</div><div class="line">    </div><div class="line">    <span class="comment"># 线性部分</span></div><div class="line">    Z = np.dot(W,A) + b</div><div class="line">    </div><div class="line">    <span class="comment"># 验证</span></div><div class="line">    <span class="keyword">assert</span>(Z.shape == (W.shape[<span class="number">0</span>], A.shape[<span class="number">1</span>]))</div><div class="line">    </div><div class="line">    <span class="comment"># 暂存</span></div><div class="line">    cache = (A, W, b)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> Z, cache</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 测试函数</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">linear_forward_test_case</span><span class="params">()</span>:</span></div><div class="line">    np.random.seed(<span class="number">1</span>)</div><div class="line">    <span class="string">"""</span></div><div class="line">    X = np.array([[-1.02387576, 1.12397796],</div><div class="line"> [-1.62328545, 0.64667545],</div><div class="line"> [-1.74314104, -0.59664964]])</div><div class="line">    W = np.array([[ 0.74505627, 1.97611078, -1.24412333]])</div><div class="line">    b = np.array([[1]])</div><div class="line">    """</div><div class="line">    A = np.random.randn(<span class="number">3</span>,<span class="number">2</span>)</div><div class="line">    W = np.random.randn(<span class="number">1</span>,<span class="number">3</span>)</div><div class="line">    b = np.random.randn(<span class="number">1</span>,<span class="number">1</span>)</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> A, W, b</div><div class="line"><span class="comment"># 测试</span></div><div class="line">A, W, b = linear_forward_test_case()</div><div class="line"></div><div class="line">Z, linear_cache = linear_forward(A, W, b)</div><div class="line">print(<span class="string">"Z = "</span> + str(Z))</div></pre></td></tr></table></figure>
+<pre><code>Z = [[ 3.26295337 -1.23429987]]
+</code></pre><p>​    </p>
+<h2 id="LINEAR-gt-ACTIVATION">4.2. LINEAR -&gt; ACTIVATION</h2><p>本层的公式是：</p>
+<p> $A^{[l]} = g(Z^{[l]}) = g(W^{[l]}A^{[l-1]} +b^{[l]})$</p>
+<p>其中,g()有两种选择：</p>
+<p><strong>sigmod</strong> ： </p>
+<p>$\sigma(Z) = \sigma(W A + b) = \frac{1}{ 1 + e^{-(W A + b)}}$</p>
+<p>sigmod的实现如下所示</p>
+<p>输出:</p>
+<ul>
+<li>A</li>
+<li>cache = z</li>
+</ul>
+<p><strong>ReLU</strong> :</p>
+<p>$A = RELU(Z) = max(0, Z)$</p>
+<p>ReLU的实现如下所示<br>输出：</p>
+<ul>
+<li>A</li>
+<li>cache = Z</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(Z)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    Implements the sigmoid activation in numpy</div><div class="line"></div><div class="line">    Arguments:</div><div class="line">    Z -- numpy array of any shape</div><div class="line"></div><div class="line">    Returns:</div><div class="line">    A -- output of sigmoid(z), same shape as Z</div><div class="line">    cache -- returns Z as well, useful during backpropagation</div><div class="line">    """</div><div class="line"></div><div class="line">    A = <span class="number">1</span>/(<span class="number">1</span>+np.exp(-Z))</div><div class="line">    cache = Z</div><div class="line"></div><div class="line">    <span class="keyword">return</span> A, cache</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">relu</span><span class="params">(Z)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    Implement the RELU function.</div><div class="line"></div><div class="line">    Arguments:</div><div class="line">    Z -- Output of the linear layer, of any shape</div><div class="line"></div><div class="line">    Returns:</div><div class="line">    A -- Post-activation parameter, of the same shape as Z</div><div class="line">    cache -- a python dictionary containing "A" ; stored for computing the backward pass efficiently</div><div class="line">    """</div><div class="line"></div><div class="line">    A = np.maximum(<span class="number">0</span>,Z)</div><div class="line"></div><div class="line">    <span class="keyword">assert</span>(A.shape == Z.shape)</div><div class="line"></div><div class="line">    cache = Z </div><div class="line">    <span class="keyword">return</span> A, cache</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 实现LINEAR-&gt;ACTIVATION层</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">linear_activation_forward</span><span class="params">(A_prev, W, b, activation)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    LINEAR-&gt;ACTIVATION的实现</div><div class="line">    </div><div class="line">    输入：</div><div class="line">    A_prev -- 上一层的输出</div><div class="line">    W -- 权重矩阵 ， W.shape = (n_l, n_(l-1))</div><div class="line">    b -- 偏置向量 ， b.shape = (n_l , 1)</div><div class="line">    activation -- 激活的名称，"sigmoid"或"relu"</div><div class="line">    </div><div class="line">    Returns:</div><div class="line">    A -- 激活层输出，也叫post-activation value</div><div class="line">    cache  -- python dict, 包含 "linear_cache" 和 "activation_cache"</div><div class="line">    """</div><div class="line">    </div><div class="line">    <span class="comment"># 线性输出</span></div><div class="line">    Z, linear_cache = linear_forward(A_prev, W, b)</div><div class="line">    </div><div class="line">    <span class="comment"># 激活</span></div><div class="line">    <span class="keyword">if</span> activation == <span class="string">"sigmoid"</span>:</div><div class="line">        A, activation_cache = sigmoid(Z)</div><div class="line">        </div><div class="line">    <span class="keyword">elif</span> activation == <span class="string">"relu"</span>:</div><div class="line">        A, activation_cache = relu(Z)</div><div class="line">        </div><div class="line">    <span class="comment"># 验证</span></div><div class="line">    <span class="keyword">assert</span> (A.shape == (W.shape[<span class="number">0</span>], A_prev.shape[<span class="number">1</span>]))</div><div class="line">    cache = (linear_cache, activation_cache)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> A, cache</div><div class="line">    </div><div class="line">    </div><div class="line"><span class="comment"># 测试</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">linear_activation_forward_test_case</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    X = np.array([[-1.02387576, 1.12397796],</div><div class="line"> [-1.62328545, 0.64667545],</div><div class="line"> [-1.74314104, -0.59664964]])</div><div class="line">    W = np.array([[ 0.74505627, 1.97611078, -1.24412333]])</div><div class="line">    b = 5</div><div class="line">    """</div><div class="line">    np.random.seed(<span class="number">2</span>)</div><div class="line">    A_prev = np.random.randn(<span class="number">3</span>,<span class="number">2</span>)</div><div class="line">    W = np.random.randn(<span class="number">1</span>,<span class="number">3</span>)</div><div class="line">    b = np.random.randn(<span class="number">1</span>,<span class="number">1</span>)</div><div class="line">    <span class="keyword">return</span> A_prev, W, b</div><div class="line"></div><div class="line">A_prev, W, b = linear_activation_forward_test_case()</div><div class="line"></div><div class="line">A, linear_activation_cache = linear_activation_forward(A_prev, W, b, activation = <span class="string">"sigmoid"</span>)</div><div class="line">print(<span class="string">"With sigmoid: A = "</span> + str(A))</div><div class="line"></div><div class="line">A, linear_activation_cache = linear_activation_forward(A_prev, W, b, activation = <span class="string">"relu"</span>)</div><div class="line">print(<span class="string">"With ReLU: A = "</span> + str(A))</div></pre></td></tr></table></figure>
+<pre><code>With sigmoid: A = [[ 0.96890023  0.11013289]]
+With ReLU: A = [[ 3.43896131  0.        ]]
+</code></pre><h2 id="L-Model-Forward">4.3. L-Model Forward</h2><ul>
+<li>用RELU，重复之前的linear_activation_forward，L-1次</li>
+<li>最后输入SIGMOID 的linear_activation_forward</li>
+</ul>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-08-16-51-52.png" alt=""> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">L_model_forward</span><span class="params">(X, parameters)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    实现后向传播的[LINEAR-&gt;RELU]*(L-1)-&gt;LINEAR-&gt;SIGMOID步骤</div><div class="line">    </div><div class="line">    输入：</div><div class="line">    </div><div class="line">    X -- 数据集</div><div class="line">    parameters -- initialize_parameters_deep()的输出，是多层网络初始化后的参数</div><div class="line">    </div><div class="line">    Returns:</div><div class="line">    </div><div class="line">    AL -- 最终输出</div><div class="line">    caches -- 每层的caches：</div><div class="line">            1 ~ L - 1层 的 linear_relu_forward()</div><div class="line">            L 层 的 linear_sigmoid_forward()</div><div class="line">    """</div><div class="line">    </div><div class="line">    caches = []</div><div class="line">    L = len(parameters) / <span class="number">2</span></div><div class="line">    A = X</div><div class="line">    </div><div class="line">    <span class="comment"># 1~ L-1 层，迭代</span></div><div class="line">    <span class="keyword">for</span> l <span class="keyword">in</span> range(<span class="number">1</span>,L):</div><div class="line">        A_prev = A</div><div class="line">        A, cache = linear_activation_forward(A_prev, parameters[<span class="string">'W'</span> + str(l)], parameters[<span class="string">'b'</span> + str(l)], <span class="string">"relu"</span>)</div><div class="line">        caches.append(cache)</div><div class="line">        </div><div class="line">    <span class="comment"># L 层     </span></div><div class="line">    AL, cache = linear_activation_forward(A, parameters[<span class="string">'W'</span> + str(L)], parameters[<span class="string">'b'</span> + str(L)], <span class="string">"sigmoid"</span>)</div><div class="line">    caches.append(cache)</div><div class="line">        </div><div class="line">    <span class="comment"># 验证</span></div><div class="line">    <span class="keyword">assert</span>(AL.shape == (<span class="number">1</span>,X.shape[<span class="number">1</span>]))</div><div class="line"></div><div class="line">    <span class="keyword">return</span> AL, caches</div><div class="line"></div><div class="line"><span class="comment"># 测试</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">L_model_forward_test_case</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    X = np.array([[-1.02387576, 1.12397796],</div><div class="line"> [-1.62328545, 0.64667545],</div><div class="line"> [-1.74314104, -0.59664964]])</div><div class="line">    parameters = &#123;'W1': np.array([[ 1.62434536, -0.61175641, -0.52817175],</div><div class="line">        [-1.07296862,  0.86540763, -2.3015387 ]]),</div><div class="line"> 'W2': np.array([[ 1.74481176, -0.7612069 ]]),</div><div class="line"> 'b1': np.array([[ 0.],</div><div class="line">        [ 0.]]),</div><div class="line"> 'b2': np.array([[ 0.]])&#125;</div><div class="line">    """</div><div class="line">    np.random.seed(<span class="number">1</span>)</div><div class="line">    X = np.random.randn(<span class="number">4</span>,<span class="number">2</span>)</div><div class="line">    W1 = np.random.randn(<span class="number">3</span>,<span class="number">4</span>)</div><div class="line">    b1 = np.random.randn(<span class="number">3</span>,<span class="number">1</span>)</div><div class="line">    W2 = np.random.randn(<span class="number">1</span>,<span class="number">3</span>)</div><div class="line">    b2 = np.random.randn(<span class="number">1</span>,<span class="number">1</span>)</div><div class="line">    parameters = &#123;<span class="string">"W1"</span>: W1,</div><div class="line">                  <span class="string">"b1"</span>: b1,</div><div class="line">                  <span class="string">"W2"</span>: W2,</div><div class="line">                  <span class="string">"b2"</span>: b2&#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> X, parameters</div><div class="line"></div><div class="line"><span class="comment"># 获取X和初始化参数</span></div><div class="line">X, parameters = L_model_forward_test_case()</div><div class="line"></div><div class="line"><span class="keyword">print</span> <span class="string">"X.shape = "</span> + str(X.shape) , <span class="string">"，即"</span>,X.shape[<span class="number">0</span>],<span class="string">"行"</span>,X.shape[<span class="number">1</span>],<span class="string">"列"</span></div><div class="line"></div><div class="line"><span class="comment"># 前向传播</span></div><div class="line">AL, caches = L_model_forward(X, parameters)</div><div class="line">print(<span class="string">"AL = "</span> + str(AL))</div><div class="line">print(<span class="string">"Length of caches list = "</span> + str(len(caches)))</div></pre></td></tr></table></figure>
+<pre><code>X.shape = (4L, 2L) ，即 4 行 2 列
+AL = [[ 0.17007265  0.2524272 ]]
+Length of caches list = 2
+</code></pre><h1 id="计算误差">5. 计算误差</h1><p>误差公式如下：</p>
+<p> $$-\frac{1}{m} \sum\limits_{i = 1}^{m} (y^{(i)}\log\left(a^{[L] (i)}\right) + (1-y^{(i)})\log\left(1- a^{<a href="i">L</a>}\right)) \tag{7}$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_cost</span><span class="params">(AL, Y)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    实现公式7的误差计算</div><div class="line">    </div><div class="line">    输入：</div><div class="line">    AL -- 上一步计算出的结果</div><div class="line">    Y -- 实际的label</div><div class="line">    </div><div class="line">    Returns : </div><div class="line">    cost -- 交叉熵误差</div><div class="line">    """</div><div class="line">    </div><div class="line">    m = Y.shape[<span class="number">1</span>]</div><div class="line">    </div><div class="line">    <span class="comment"># 计算</span></div><div class="line">    cost = -np.sum(np.multiply(np.log(AL),Y) + np.multiply(np.log(<span class="number">1</span> - AL), <span class="number">1</span> - Y)) / m</div><div class="line">    cost = np.squeeze(cost)</div><div class="line">    </div><div class="line">    <span class="comment"># 验证</span></div><div class="line">    <span class="keyword">assert</span>(cost.shape == ())</div><div class="line"></div><div class="line">    <span class="keyword">return</span> cost</div><div class="line">    </div><div class="line"><span class="comment"># 测试</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_cost_test_case</span><span class="params">()</span>:</span></div><div class="line">    Y = np.asarray([[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]])</div><div class="line">    aL = np.array([[<span class="number">.8</span>,<span class="number">.9</span>,<span class="number">0.4</span>]])</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> Y, aL</div><div class="line"></div><div class="line">Y, AL = compute_cost_test_case()</div><div class="line"></div><div class="line">print(<span class="string">"cost = "</span> + str(compute_cost(AL, Y)))</div></pre></td></tr></table></figure>
+<pre><code>cost = 0.414931599615
+</code></pre><p>​    </p>
+<h1 id="后向传播">6. 后向传播</h1><p>后向传播是用来计算梯度的</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-08-17-11-51.png" alt=""> </p>
+<p>紫色方块代表前向传播<br>红色方块代表后向传播</p>
+<p>我们的目标是计算出$dw^{[l]}和db^{[l]}, l = 1,2,…L$，以便之后更新w和b。</p>
+<p>为了计算$dw^{[1]}和db^{[1]}$，要使用如下链式法则：</p>
+<p>$dw^{[1]}=\frac{dL}{dw^{[1]}}=\frac{dL}{dz^{[1]}} \times \frac{dz}{dw^{[1]}}=dz^{[1]}\times \frac{dz}{dw^{[1]}}$</p>
+<p>$db^{[1]}=\frac{dL}{db^{[1]}} = \frac{dL}{dz^{[1]}} \times \frac{dz^{[1]}}{db^{[1]}} = dz^{[1]} \times \frac{dz^{[1]}}{db^{[1]}}$</p>
+<p>因此我们首先要算出$dz^{[1]}$ : </p>
+<p>$$\frac{dL(a^{[2]},y)}{dz^{[1]}}=\frac{dL(a^{[2]},y)}{da^{[2]}}\frac{da^{[2]}}{dz^{[2]}}\frac{dz^{[2]}}{da^{[1]}}\frac{da^{[1]}}{dz^{[1]}}$$</p>
+<p>而要算出$dz^{[1]}$，由上公示可以看出，我们必须先计算$dz^{[2]}$等</p>
+<p>因此此过程叫做<strong>后向传播</strong></p>
+<p>总之，后向传播需要完成：</p>
+<ul>
+<li>LINEAR</li>
+<li>LINEAR -&gt; ACTIVATION </li>
+<li>[LINEAR -&gt; RELU] × (L-1) -&gt; LINEAR -&gt; SIGMOID backward (whole model)</li>
+</ul>
+<h2 id="LINEAR-1">6.1. LINEAR</h2><p>对于第l层来说，这一层的Linear部分是：$Z^{[l]} = W^{[l]} A^{[l-1]} + b^{[l]}$</p>
+<p>假设此时你已经计算好了 $dZ^{[l]} = \frac{\partial \mathcal{L} }{\partial Z^{[l]}}$</p>
+<p>你接下来想要得到$(dW^{[l]}, db^{[l]} dA^{[l-1]})$</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-08-20-17-43.png" alt=""> </p>
+<p>我们可以通过如下的公式，通过$dZ^{[l]}$来计算出这三个东西$(dW^{[l]}, db^{[l]}, dA^{[l-1]})$:</p>
+<p>$$ dW^{[l]} = \frac{\partial \mathcal{L} }{\partial W^{[l]}} = \frac{1}{m} dZ^{[l]} A^{[l-1] T} \tag{8}$$<br>$$ db^{[l]} = \frac{\partial \mathcal{L} }{\partial b^{[l]}} = \frac{1}{m} \sum_{i = 1}^{m} dZ^{<a href="i">l</a>}\tag{9}$$<br>$$ dA^{[l-1]} = \frac{\partial \mathcal{L} }{\partial A^{[l-1]}} = W^{[l] T} dZ^{[l]} \tag{10}$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">linear_backward</span><span class="params">(dZ, cache)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    实现后向传播的linear部分</div><div class="line">    </div><div class="line">    输入：</div><div class="line">    dZ -- dL/dz</div><div class="line">    cache -- 三元组(A_prev, W, b) , 来自于当前层的前向传播</div><div class="line">    </div><div class="line">    Returns:</div><div class="line">    dA_prev -- 上一层A的梯度</div><div class="line">    dW -- w的梯度</div><div class="line">    db -- b的梯度</div><div class="line">    """</div><div class="line">    </div><div class="line">    A_prev, W, b = cache</div><div class="line">    m = A_prev.shape[<span class="number">1</span>]</div><div class="line">    </div><div class="line">    <span class="comment"># 计算dw，db，dA_prev</span></div><div class="line">    dW = np.dot(dZ, A_prev.T) / m</div><div class="line">    db = np.sum(dZ, axis = <span class="number">1</span>, keepdims = <span class="keyword">True</span>) / m </div><div class="line">    dA_prev = np.dot(W.T, dZ) </div><div class="line">    </div><div class="line">    <span class="comment"># 验证</span></div><div class="line">    <span class="keyword">assert</span> (dA_prev.shape == A_prev.shape)</div><div class="line">    <span class="keyword">assert</span> (dW.shape == W.shape)</div><div class="line">    <span class="keyword">assert</span> (db.shape == b.shape)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> dA_prev, dW, db</div><div class="line"><span class="comment"># 测试</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">linear_backward_test_case</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    z, linear_cache = (np.array([[-0.8019545 ,  3.85763489]]), (np.array([[-1.02387576,  1.12397796],</div><div class="line">       [-1.62328545,  0.64667545],</div><div class="line">       [-1.74314104, -0.59664964]]), np.array([[ 0.74505627,  1.97611078, -1.24412333]]), np.array([[1]]))</div><div class="line">    """</div><div class="line">    np.random.seed(<span class="number">1</span>)</div><div class="line">    dZ = np.random.randn(<span class="number">1</span>,<span class="number">2</span>)</div><div class="line">    A = np.random.randn(<span class="number">3</span>,<span class="number">2</span>)</div><div class="line">    W = np.random.randn(<span class="number">1</span>,<span class="number">3</span>)</div><div class="line">    b = np.random.randn(<span class="number">1</span>,<span class="number">1</span>)</div><div class="line">    linear_cache = (A, W, b)</div><div class="line">    <span class="keyword">return</span> dZ, linear_cache </div><div class="line"></div><div class="line">dZ, linear_cache = linear_backward_test_case()</div><div class="line"></div><div class="line">dA_prev, dW, db = linear_backward(dZ, linear_cache)</div><div class="line"><span class="keyword">print</span> (<span class="string">"dA_prev = "</span>+ str(dA_prev))</div><div class="line"><span class="keyword">print</span> (<span class="string">"dW = "</span> + str(dW))</div><div class="line"><span class="keyword">print</span> (<span class="string">"db = "</span> + str(db))</div></pre></td></tr></table></figure>
+<pre><code>dA_prev = [[ 0.51822968 -0.19517421]
+ [-0.40506361  0.15255393]
+ [ 2.37496825 -0.89445391]]
+dW = [[-0.10076895  1.40685096  1.64992505]]
+db = [[ 0.50629448]]
+</code></pre><h2 id="LINEAR-gt-ACTIVATION-1">6.2. LINEAR -&gt; ACTIVATION</h2><p>本节要加入后向传播中的activation部分：</p>
+<p>假设$g(.)$是激活函数，</p>
+<p>而下面给出的两个函数：<code>sigmoid_backward</code> 和 <code>relu_backward</code> 计算了$dL/dz$ :<br>$$dZ^{[l]} = dA^{[l]} * g’(Z^{[l]}) \tag{11}$$. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">relu_backward</span><span class="params">(dA, cache)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    Implement the backward propagation for a single RELU unit.</div><div class="line"></div><div class="line">    Arguments:</div><div class="line">    dA -- post-activation gradient, of any shape</div><div class="line">    cache -- 'Z' where we store for computing backward propagation efficiently</div><div class="line"></div><div class="line">    Returns:</div><div class="line">    dZ -- Gradient of the cost with respect to Z</div><div class="line">    """</div><div class="line">    </div><div class="line">    Z = cache</div><div class="line">    dZ = np.array(dA, copy=<span class="keyword">True</span>) <span class="comment"># just converting dz to a correct object.</span></div><div class="line">    </div><div class="line">    <span class="comment"># When z &lt;= 0, you should set dz to 0 as well. </span></div><div class="line">    dZ[Z &lt;= <span class="number">0</span>] = <span class="number">0</span></div><div class="line">    </div><div class="line">    <span class="keyword">assert</span> (dZ.shape == Z.shape)</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> dZ</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid_backward</span><span class="params">(dA, cache)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    Implement the backward propagation for a single SIGMOID unit.</div><div class="line"></div><div class="line">    Arguments:</div><div class="line">    dA -- post-activation gradient, of any shape</div><div class="line">    cache -- 'Z' where we store for computing backward propagation efficiently</div><div class="line"></div><div class="line">    Returns:</div><div class="line">    dZ -- Gradient of the cost with respect to Z</div><div class="line">    """</div><div class="line">    </div><div class="line">    Z = cache</div><div class="line">    </div><div class="line">    s = <span class="number">1</span>/(<span class="number">1</span>+np.exp(-Z))</div><div class="line">    dZ = dA * s * (<span class="number">1</span>-s)</div><div class="line">    </div><div class="line">    <span class="keyword">assert</span> (dZ.shape == Z.shape)</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> dZ</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">linear_activation_backward</span><span class="params">(dA, cache, activation)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    后向传播的LINEAR-&gt;ACTIVATION实现</div><div class="line">    </div><div class="line">    输入：</div><div class="line">    dA -- 当前层的输出A的导数</div><div class="line">    cache -- 二元组(linear_cache, activation_cache)，也就是之前前向传播计算时的cache</div><div class="line">    activation -- 本层的激活函数，是"sigmoid"或"relu"</div><div class="line">    </div><div class="line">    Returns :</div><div class="line">    dA_prev -- 上一层输出的导数</div><div class="line">    dW -- 本层W的导数</div><div class="line">    db -- 本层b的导数</div><div class="line">    """</div><div class="line">    </div><div class="line">    linear_cache, activation_cache = cache</div><div class="line">    <span class="comment"># 计算dZ</span></div><div class="line">    <span class="keyword">if</span> activation == <span class="string">"relu"</span>:</div><div class="line">        dZ = relu_backward(dA, activation_cache)</div><div class="line">    <span class="keyword">elif</span> activation == <span class="string">"sigmoid"</span>:</div><div class="line">        dZ = sigmoid_backward(dA,activation_cache)</div><div class="line">    <span class="comment"># 已知dZ, 计算dA_prev, dW, db</span></div><div class="line">    dA_prev, dW, db = linear_backward(dZ, linear_cache)</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> dA_prev, dW, db</div><div class="line"><span class="comment"># 测试</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">linear_activation_backward_test_case</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    aL, linear_activation_cache = (np.array([[ 3.1980455 ,  7.85763489]]), ((np.array([[-1.02387576,  1.12397796], [-1.62328545,  0.64667545], [-1.74314104, -0.59664964]]), np.array([[ 0.74505627,  1.97611078, -1.24412333]]), 5), np.array([[ 3.1980455 ,  7.85763489]])))</div><div class="line">    """</div><div class="line">    np.random.seed(<span class="number">2</span>)</div><div class="line">    dA = np.random.randn(<span class="number">1</span>,<span class="number">2</span>)</div><div class="line">    A = np.random.randn(<span class="number">3</span>,<span class="number">2</span>)</div><div class="line">    W = np.random.randn(<span class="number">1</span>,<span class="number">3</span>)</div><div class="line">    b = np.random.randn(<span class="number">1</span>,<span class="number">1</span>)</div><div class="line">    Z = np.random.randn(<span class="number">1</span>,<span class="number">2</span>)</div><div class="line">    linear_cache = (A, W, b)</div><div class="line">    activation_cache = Z</div><div class="line">    linear_activation_cache = (linear_cache, activation_cache)</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> dA, linear_activation_cache</div><div class="line"></div><div class="line">AL, linear_activation_cache = linear_activation_backward_test_case()</div><div class="line"></div><div class="line">dA_prev, dW, db = linear_activation_backward(AL, linear_activation_cache, activation = <span class="string">"sigmoid"</span>)</div><div class="line"><span class="keyword">print</span> (<span class="string">"sigmoid:"</span>)</div><div class="line"><span class="keyword">print</span> (<span class="string">"dA_prev = "</span>+ str(dA_prev))</div><div class="line"><span class="keyword">print</span> (<span class="string">"dW = "</span> + str(dW))</div><div class="line"><span class="keyword">print</span> (<span class="string">"db = "</span> + str(db) + <span class="string">"\n"</span>)</div><div class="line"></div><div class="line">dA_prev, dW, db = linear_activation_backward(AL, linear_activation_cache, activation = <span class="string">"relu"</span>)</div><div class="line"><span class="keyword">print</span> (<span class="string">"relu:"</span>)</div><div class="line"><span class="keyword">print</span> (<span class="string">"dA_prev = "</span>+ str(dA_prev))</div><div class="line"><span class="keyword">print</span> (<span class="string">"dW = "</span> + str(dW))</div><div class="line"><span class="keyword">print</span> (<span class="string">"db = "</span> + str(db))</div></pre></td></tr></table></figure>
+<pre><code>sigmoid:
+dA_prev = [[ 0.11017994  0.01105339]
+ [ 0.09466817  0.00949723]
+ [-0.05743092 -0.00576154]]
+dW = [[ 0.10266786  0.09778551 -0.01968084]]
+db = [[-0.05729622]]
+
+(1L, 2L)
+(1L, 2L)
+relu:
+dA_prev = [[ 0.44090989 -0.        ]
+ [ 0.37883606 -0.        ]
+ [-0.2298228   0.        ]]
+dW = [[ 0.44513824  0.37371418 -0.10478989]]
+db = [[-0.20837892]]
+</code></pre><h2 id="L-Model-Backward">6.3. L-Model Backward</h2><p>接下来就该将后向传播应用在整个网络了。步骤如下：</p>
+<ol>
+<li>前向传播 - <code>L_model_forward()</code>,在每一层都存下了(X,W,b,z)</li>
+<li>后向传播 - <code>L_model_backward()</code>，利用之前存的值，一层层向前计算导数</li>
+</ol>
+<p>后向传播计算导数的流程如下图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-09-13-40-28.png" alt=""> </p>
+<p><strong>初始化部分</strong></p>
+<p>对于贯穿网络的后向传播来说，我们知道输出是$A^{[L]} = \sigma(Z^{[L]})$.<br>我们需要计算出 ：  <code>dAL</code> $= \frac{\partial \mathcal{L}}{\partial A^{[L]}}$.</p>
+<p>为了完成这个目标，我们用如下公式实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dAL = - (np.divide(Y, AL) - np.divide(<span class="number">1</span> - Y, <span class="number">1</span> - AL)) <span class="comment"># 相对于AL的成本衍生物</span></div></pre></td></tr></table></figure></p>
+<p>这个公式计算了LINEAR-&gt;SIGMOID后向传播部分</p>
+<p>接下来就该计算LINEAR-&gt;RELU后向传播部分了，这一部分需要存储每一步的dA, dW, db，用如下公式实现：<br>$$grads[“dW” + str(l)] = dW^{[l]}\tag{15} $$<br>例如，l=3，就将dw3 存储在<code>grads[&quot;dw3&quot;]</code>中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">L_model_backward</span><span class="params">(AL, Y, chache)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    [LINEAR-&gt;RELU] * (L-1) -&gt; LINEAR -&gt; SIGMOID 的后向传播的实现</div><div class="line">    </div><div class="line">    输入：</div><div class="line">    AL -- 概率向量，是前向传播L_model_forward()的输出</div><div class="line">    Y  -- 标签向量</div><div class="line">    caches -- caches列表：</div><div class="line">                     1 ~ L - 1 : relu的linear_activation_forward()的caches</div><div class="line">                     L         : sigmoid 的 linear_activation_forward()的caches</div><div class="line">                     </div><div class="line">    Returns:</div><div class="line">    </div><div class="line">    grads -- 梯度dict :</div><div class="line">        grads["dA" + str(l)] = ...</div><div class="line">        grads["dW" + str(l)] = ...</div><div class="line">        grads["db" + str(l)] = ...</div><div class="line">    """</div><div class="line">    </div><div class="line">    grads = &#123;&#125;</div><div class="line">    L = len(caches)</div><div class="line">    m = AL.shape[<span class="number">1</span>]</div><div class="line">    Y = Y.reshape(AL.shape)</div><div class="line">    </div><div class="line">    <span class="comment">#后向传播的初始化</span></div><div class="line">    dAL = -(np.divide(Y, AL) - np.divide(<span class="number">1</span> - Y, <span class="number">1</span> - AL)) </div><div class="line">    </div><div class="line">    <span class="comment"># 计算dAL,dWL,dbL</span></div><div class="line">    <span class="comment"># 第L层 - (SIGMOID -&gt; LINEAR)  - 的梯度</span></div><div class="line">    <span class="comment"># 输入 ：AL, Y, caches</span></div><div class="line">    <span class="comment"># 输出 ：grads["dAL"], grads["dWL"]</span></div><div class="line">    current_cache = caches[L - <span class="number">1</span>]</div><div class="line">    grads[<span class="string">"dA"</span> + str(L)], grads[<span class="string">"dW"</span> + str(L)], grads[<span class="string">"db"</span> + str(L)] = linear_activation_backward(dAL,current_cache, <span class="string">"sigmoid"</span>)</div><div class="line">    </div><div class="line">    <span class="comment"># 计算dAl,dWl,dbl , l = 1~L-1</span></div><div class="line">    <span class="keyword">for</span> l <span class="keyword">in</span> reversed(range(L<span class="number">-1</span>)):</div><div class="line">        <span class="comment"># 第l层：(RELU -&gt; LINEAR) 的梯度</span></div><div class="line">        <span class="comment"># 输入 ： "grads["dA" + str(l + 2)], caches". </span></div><div class="line">        <span class="comment"># 输出: "grads["dA" + str(l + 1)] , grads["dW" + str(l + 1)] , grads["db" + str(l + 1)] </span></div><div class="line">        current_cache = caches[l]</div><div class="line">        dA_prev_temp, dW_temp, db_temp = linear_activation_backward(grads[<span class="string">"dA"</span> + str(l + <span class="number">2</span>)], current_cache, <span class="string">"relu"</span>)</div><div class="line">        grads[<span class="string">"dA"</span> + str(l + <span class="number">1</span>)] = dA_prev_temp</div><div class="line">        grads[<span class="string">"dW"</span> + str(l + <span class="number">1</span>)] = dW_temp</div><div class="line">        grads[<span class="string">"db"</span> + str(l + <span class="number">1</span>)] = db_temp</div><div class="line">    <span class="keyword">return</span> grads</div><div class="line"></div><div class="line"><span class="comment"># 测试</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">L_model_backward_test_case</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    X = np.random.rand(3,2)</div><div class="line">    Y = np.array([[1, 1]])</div><div class="line">    parameters = &#123;'W1': np.array([[ 1.78862847,  0.43650985,  0.09649747]]), 'b1': np.array([[ 0.]])&#125;</div><div class="line"></div><div class="line">    aL, caches = (np.array([[ 0.60298372,  0.87182628]]), [((np.array([[ 0.20445225,  0.87811744],</div><div class="line">           [ 0.02738759,  0.67046751],</div><div class="line">           [ 0.4173048 ,  0.55868983]]),</div><div class="line">    np.array([[ 1.78862847,  0.43650985,  0.09649747]]),</div><div class="line">    np.array([[ 0.]])),</div><div class="line">   np.array([[ 0.41791293,  1.91720367]]))])</div><div class="line">   """</div><div class="line">    np.random.seed(<span class="number">3</span>)</div><div class="line">    AL = np.random.randn(<span class="number">1</span>, <span class="number">2</span>)</div><div class="line">    Y = np.array([[<span class="number">1</span>, <span class="number">0</span>]])</div><div class="line"></div><div class="line">    A1 = np.random.randn(<span class="number">4</span>,<span class="number">2</span>)</div><div class="line">    W1 = np.random.randn(<span class="number">3</span>,<span class="number">4</span>)</div><div class="line">    b1 = np.random.randn(<span class="number">3</span>,<span class="number">1</span>)</div><div class="line">    Z1 = np.random.randn(<span class="number">3</span>,<span class="number">2</span>)</div><div class="line">    linear_cache_activation_1 = ((A1, W1, b1), Z1)</div><div class="line"></div><div class="line">    A2 = np.random.randn(<span class="number">3</span>,<span class="number">2</span>)</div><div class="line">    W2 = np.random.randn(<span class="number">1</span>,<span class="number">3</span>)</div><div class="line">    b2 = np.random.randn(<span class="number">1</span>,<span class="number">1</span>)</div><div class="line">    Z2 = np.random.randn(<span class="number">1</span>,<span class="number">2</span>)</div><div class="line">    linear_cache_activation_2 = ( (A2, W2, b2), Z2)</div><div class="line"></div><div class="line">    caches = (linear_cache_activation_1, linear_cache_activation_2)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> AL, Y, caches</div><div class="line"></div><div class="line">AL, Y_assess, caches = L_model_backward_test_case()</div><div class="line">grads = L_model_backward(AL, Y_assess, caches)</div><div class="line"><span class="keyword">print</span> (<span class="string">"dW1 = "</span>+ str(grads[<span class="string">"dW1"</span>]))</div><div class="line"><span class="keyword">print</span> (<span class="string">"db1 = "</span>+ str(grads[<span class="string">"db1"</span>]))</div><div class="line"><span class="keyword">print</span> (<span class="string">"dA1 = "</span>+ str(grads[<span class="string">"dA1"</span>]))</div></pre></td></tr></table></figure>
+<pre><code>(3L, 2L)
+(3L, 2L)
+dW1 = [[ 0.41010002  0.07807203  0.13798444  0.10502167]
+ [ 0.          0.          0.          0.        ]
+ [ 0.05283652  0.01005865  0.01777766  0.0135308 ]]
+db1 = [[-0.22007063]
+ [ 0.        ]
+ [-0.02835349]]
+dA1 = [[ 0.          0.52257901]
+ [ 0.         -0.3269206 ]
+ [ 0.         -0.32070404]
+ [ 0.         -0.74079187]]
+</code></pre><h1 id="更新参数">7. 更新参数</h1><p>在这一部分我们用以上模型更新参数：</p>
+<p>$$ W^{[l]} = W^{[l]} - \alpha \text{ } dW^{[l]} \tag{16}$$<br>$$ b^{[l]} = b^{[l]} - \alpha \text{ } db^{[l]} \tag{17}$$</p>
+<p>其中，$\alpha$是学习率。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_parameters</span><span class="params">(parameters, grads, learning_rate)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    用梯度下降更新参数</div><div class="line">    </div><div class="line">    输入：</div><div class="line">    parameters -- python dict，里面包含一些参数</div><div class="line">    grads -- python dict, 包含梯度</div><div class="line">    </div><div class="line">    Returns:</div><div class="line">    parameters -- python dict, 包含更新后的参数：</div><div class="line">                  parameters["W" + str(l)] = ... </div><div class="line">                  parameters["b" + str(l)] = ...</div><div class="line">    """</div><div class="line">    </div><div class="line">    L = len(parameters) / <span class="number">2</span></div><div class="line">    <span class="keyword">for</span> l <span class="keyword">in</span> range(L):</div><div class="line">        parameters[<span class="string">"W"</span> + str(l+<span class="number">1</span>)] = parameters[<span class="string">"W"</span> + str(l+<span class="number">1</span>)] - learning_rate * grads[<span class="string">"dW"</span> + str(l+<span class="number">1</span>)]</div><div class="line">        parameters[<span class="string">"b"</span> + str(l+<span class="number">1</span>)] = parameters[<span class="string">"b"</span> + str(l+<span class="number">1</span>)] - learning_rate * grads[<span class="string">"db"</span> + str(l+<span class="number">1</span>)]</div><div class="line">    <span class="keyword">return</span> parameters</div><div class="line"></div><div class="line"><span class="comment"># 测试</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_parameters_test_case</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    parameters = &#123;'W1': np.array([[ 1.78862847,  0.43650985,  0.09649747],</div><div class="line">        [-1.8634927 , -0.2773882 , -0.35475898],</div><div class="line">        [-0.08274148, -0.62700068, -0.04381817],</div><div class="line">        [-0.47721803, -1.31386475,  0.88462238]]),</div><div class="line"> 'W2': np.array([[ 0.88131804,  1.70957306,  0.05003364, -0.40467741],</div><div class="line">        [-0.54535995, -1.54647732,  0.98236743, -1.10106763],</div><div class="line">        [-1.18504653, -0.2056499 ,  1.48614836,  0.23671627]]),</div><div class="line"> 'W3': np.array([[-1.02378514, -0.7129932 ,  0.62524497],</div><div class="line">        [-0.16051336, -0.76883635, -0.23003072]]),</div><div class="line"> 'b1': np.array([[ 0.],</div><div class="line">        [ 0.],</div><div class="line">        [ 0.],</div><div class="line">        [ 0.]]),</div><div class="line"> 'b2': np.array([[ 0.],</div><div class="line">        [ 0.],</div><div class="line">        [ 0.]]),</div><div class="line"> 'b3': np.array([[ 0.],</div><div class="line">        [ 0.]])&#125;</div><div class="line">    grads = &#123;'dW1': np.array([[ 0.63070583,  0.66482653,  0.18308507],</div><div class="line">        [ 0.        ,  0.        ,  0.        ],</div><div class="line">        [ 0.        ,  0.        ,  0.        ],</div><div class="line">        [ 0.        ,  0.        ,  0.        ]]),</div><div class="line"> 'dW2': np.array([[ 1.62934255,  0.        ,  0.        ,  0.        ],</div><div class="line">        [ 0.        ,  0.        ,  0.        ,  0.        ],</div><div class="line">        [ 0.        ,  0.        ,  0.        ,  0.        ]]),</div><div class="line"> 'dW3': np.array([[-1.40260776,  0.        ,  0.        ]]),</div><div class="line"> 'da1': np.array([[ 0.70760786,  0.65063504],</div><div class="line">        [ 0.17268975,  0.15878569],</div><div class="line">        [ 0.03817582,  0.03510211]]),</div><div class="line"> 'da2': np.array([[ 0.39561478,  0.36376198],</div><div class="line">        [ 0.7674101 ,  0.70562233],</div><div class="line">        [ 0.0224596 ,  0.02065127],</div><div class="line">        [-0.18165561, -0.16702967]]),</div><div class="line"> 'da3': np.array([[ 0.44888991,  0.41274769],</div><div class="line">        [ 0.31261975,  0.28744927],</div><div class="line">        [-0.27414557, -0.25207283]]),</div><div class="line"> 'db1': 0.75937676204411464,</div><div class="line"> 'db2': 0.86163759922811056,</div><div class="line"> 'db3': -0.84161956022334572&#125;</div><div class="line">    """</div><div class="line">    np.random.seed(<span class="number">2</span>)</div><div class="line">    W1 = np.random.randn(<span class="number">3</span>,<span class="number">4</span>)</div><div class="line">    b1 = np.random.randn(<span class="number">3</span>,<span class="number">1</span>)</div><div class="line">    W2 = np.random.randn(<span class="number">1</span>,<span class="number">3</span>)</div><div class="line">    b2 = np.random.randn(<span class="number">1</span>,<span class="number">1</span>)</div><div class="line">    parameters = &#123;<span class="string">"W1"</span>: W1,</div><div class="line">                  <span class="string">"b1"</span>: b1,</div><div class="line">                  <span class="string">"W2"</span>: W2,</div><div class="line">                  <span class="string">"b2"</span>: b2&#125;</div><div class="line">    np.random.seed(<span class="number">3</span>)</div><div class="line">    dW1 = np.random.randn(<span class="number">3</span>,<span class="number">4</span>)</div><div class="line">    db1 = np.random.randn(<span class="number">3</span>,<span class="number">1</span>)</div><div class="line">    dW2 = np.random.randn(<span class="number">1</span>,<span class="number">3</span>)</div><div class="line">    db2 = np.random.randn(<span class="number">1</span>,<span class="number">1</span>)</div><div class="line">    grads = &#123;<span class="string">"dW1"</span>: dW1,</div><div class="line">             <span class="string">"db1"</span>: db1,</div><div class="line">             <span class="string">"dW2"</span>: dW2,</div><div class="line">             <span class="string">"db2"</span>: db2&#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> parameters, grads</div><div class="line"></div><div class="line">parameters, grads = update_parameters_test_case()</div><div class="line">parameters = update_parameters(parameters, grads, <span class="number">0.1</span>)</div><div class="line"></div><div class="line"><span class="keyword">print</span> (<span class="string">"W1 = "</span>+ str(parameters[<span class="string">"W1"</span>]))</div><div class="line"><span class="keyword">print</span> (<span class="string">"b1 = "</span>+ str(parameters[<span class="string">"b1"</span>]))</div><div class="line"><span class="keyword">print</span> (<span class="string">"W2 = "</span>+ str(parameters[<span class="string">"W2"</span>]))</div><div class="line"><span class="keyword">print</span> (<span class="string">"b2 = "</span>+ str(parameters[<span class="string">"b2"</span>]))</div></pre></td></tr></table></figure>
+<pre><code>W1 = [[-0.59562069 -0.09991781 -2.14584584  1.82662008]
+ [-1.76569676 -0.80627147  0.51115557 -1.18258802]
+ [-1.0535704  -0.86128581  0.68284052  2.20374577]]
+b1 = [[-0.04659241]
+ [-1.28888275]
+ [ 0.53405496]]
+W2 = [[-0.55569196  0.0354055   1.32964895]]
+b2 = [[-0.84610769]]
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/10/深度学习实践-1-4-2-用神经网络给识别猫/" rel="next" title="深度学习实践-1-4-2-用神经网络给识别猫">
+                <i class="fa fa-chevron-left"></i> 深度学习实践-1-4-2-用神经网络给识别猫
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/08/深度学习算法-深度卷积模型/" rel="prev" title="深度学习算法-深度卷积模型">
+                深度学习算法-深度卷积模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="jiayi797" />
+          <p class="site-author-name" itemprop="name">jiayi797</p>
+           
+              <p class="site-description motion-element" itemprop="description">甲乙小朋友写字的地方</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">92</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大纲"><span class="nav-text">1. 大纲</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#import"><span class="nav-text">2. import</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始化"><span class="nav-text">3. 初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#两层模型的初始化"><span class="nav-text">3.1. 两层模型的初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L层模型的初始化"><span class="nav-text">3.2. L层模型的初始化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前向传播"><span class="nav-text">4. 前向传播</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LINEAR"><span class="nav-text">4.1. LINEAR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LINEAR-gt-ACTIVATION"><span class="nav-text">4.2. LINEAR -> ACTIVATION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L-Model-Forward"><span class="nav-text">4.3. L-Model Forward</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算误差"><span class="nav-text">5. 计算误差</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后向传播"><span class="nav-text">6. 后向传播</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LINEAR-1"><span class="nav-text">6.1. LINEAR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LINEAR-gt-ACTIVATION-1"><span class="nav-text">6.2. LINEAR -> ACTIVATION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L-Model-Backward"><span class="nav-text">6.3. L-Model Backward</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新参数"><span class="nav-text">7. 更新参数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jiayi797</span>
+</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by">感谢hexo.Next</div>
+  <span class="post-count">博客全站共145.9k字</span>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人次
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytmgt7V8';
+      var conf = 'f20a47bca89136fdb1ce79762c886a35';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
