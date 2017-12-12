@@ -95,8 +95,8 @@
 <meta name="description" content="所谓神经网络就是将许多个单一“神经元”联结在一起，这样，一个“神经元”的输出就可以是另一个“神经元”的输入。神经网络就是按照一定规则将多个神经元连接起来的网络。 我们使用圆圈来表示神经网络的输入，标上“+1”的圆圈被称为偏置节点，也就是截距项。神经网络最左边的一层叫做输入层，最右的一层叫做输出层（本例中，输出层只有一个节点）。中间所有节点组成的一层叫做隐藏层，因为我们不能在训练样本集中观测到它们的">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深度学习算法-神经网络简介">
-<meta property="og:url" content="http://yoursite.com/child/2017/09/05/深度学习算法-神经网络简介/index.html">
+<meta property="og:title" content="深度学习算法-神经网络">
+<meta property="og:url" content="http://yoursite.com/child/2017/09/05/深度学习算法-神经网络/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="所谓神经网络就是将许多个单一“神经元”联结在一起，这样，一个“神经元”的输出就可以是另一个“神经元”的输入。神经网络就是按照一定规则将多个神经元连接起来的网络。 我们使用圆圈来表示神经网络的输入，标上“+1”的圆圈被称为偏置节点，也就是截距项。神经网络最左边的一层叫做输入层，最右的一层叫做输出层（本例中，输出层只有一个节点）。中间所有节点组成的一层叫做隐藏层，因为我们不能在训练样本集中观测到它们的">
 <meta property="og:image" content="https://i.loli.net/2017/09/05/59aea656bf8da.png">
@@ -111,9 +111,35 @@
 <meta property="og:image" content="http://www.zhihu.com/equation?tex=2%5E%7Bn-1%7D">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-11-07-21-20-54.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-11-07-21-29-22.png">
-<meta property="og:updated_time" content="2017-11-07T15:09:22.805Z">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-16-41-05.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-16-48-33.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-16-51-45.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-10-25.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-11-56.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-14-04.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-21-05.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-22-46.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-23-08.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-26-15.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-33-01.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-56-17.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-19-49-59.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-19-55-25.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-20-11-28.png">
+<meta property="og:image" content="http://ufldl.stanford.edu/wiki/images/math/a/2/3/a23bea0ab48ded7b9a979b68f6356613.png">
+<meta property="og:image" content="http://ufldl.stanford.edu/wiki/images/math/6/9/d/69d920fe8e1da0543eb63d1097f21754.png">
+<meta property="og:image" content="http://ufldl.stanford.edu/wiki/images/math/4/8/a/48a000aed96c8595fcca2a45f48343ce.png">
+<meta property="og:image" content="http://ufldl.stanford.edu/wiki/images/math/8/5/c/85c12e90fcb870ff439cb037d805e09c.png">
+<meta property="og:image" content="http://ufldl.stanford.edu/wiki/images/math/c/f/d/cfd7bf1257600c6c7706c5597af1b94d.png">
+<meta property="og:image" content="http://ufldl.stanford.edu/wiki/images/math/8/5/c/85c12e90fcb870ff439cb037d805e09c.png">
+<meta property="og:image" content="http://ufldl.stanford.edu/wiki/images/math/f/a/b/fab2be95b827b3db4ea4d2e27a3d5f99.png">
+<meta property="og:image" content="http://ufldl.stanford.edu/wiki/images/math/0/9/6/09643c7c4bb96e039caf25737d835201.png">
+<meta property="og:image" content="http://ufldl.stanford.edu/wiki/images/math/e/9/f/e9fed70b38b2cfac3b42d1d21d46e449.png">
+<meta property="og:image" content="http://ufldl.stanford.edu/wiki/images/math/c/6/d/c6d06b4a25dab5ef468c72900872eda0.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-12-20-20-57.png">
+<meta property="og:updated_time" content="2017-12-12T12:19:24.112Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深度学习算法-神经网络简介">
+<meta name="twitter:title" content="深度学习算法-神经网络">
 <meta name="twitter:description" content="所谓神经网络就是将许多个单一“神经元”联结在一起，这样，一个“神经元”的输出就可以是另一个“神经元”的输入。神经网络就是按照一定规则将多个神经元连接起来的网络。 我们使用圆圈来表示神经网络的输入，标上“+1”的圆圈被称为偏置节点，也就是截距项。神经网络最左边的一层叫做输入层，最右的一层叫做输出层（本例中，输出层只有一个节点）。中间所有节点组成的一层叫做隐藏层，因为我们不能在训练样本集中观测到它们的">
 <meta name="twitter:image" content="https://i.loli.net/2017/09/05/59aea656bf8da.png">
 
@@ -143,13 +169,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/2017/09/05/深度学习算法-神经网络简介/"/>
+  <link rel="canonical" href="http://yoursite.com/child/2017/09/05/深度学习算法-神经网络/"/>
 
 
 
 
 
-  <title>深度学习算法-神经网络简介 | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>深度学习算法-神经网络 | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -332,7 +358,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/09/05/深度学习算法-神经网络简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/09/05/深度学习算法-神经网络/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -349,7 +375,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">深度学习算法-神经网络简介</h1>
+          <h1 class="post-title" itemprop="name headline">深度学习算法-神经网络</h1>
         
 
         <div class="post-meta">
@@ -377,8 +403,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-11-07T23:09:22+08:00">
-                2017-11-07
+              <time title="更新于" itemprop="dateModified" datetime="2017-12-12T20:19:24+08:00">
+                2017-12-12
               </time>
             
           </span>
@@ -415,8 +441,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2017/09/05/深度学习算法-神经网络简介/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/09/05/深度学习算法-神经网络简介/" itemprop="commentsCount"></span>
+                <a href="/2017/09/05/深度学习算法-神经网络/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/09/05/深度学习算法-神经网络/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -443,7 +469,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  2,763
+                  6,638
                 </span>
               
 
@@ -500,10 +526,12 @@
 <p>而这一层得到的输出$a$作为下一层的输入$x$</p>
 <p>因此在神经网络中，我们按照以下步骤计算：<br><img src="https://i.loli.net/2017/09/06/59aff15c7043c.png" alt=""> </p>
 <p>我们将上面的计算步骤叫作<strong>前向传播</strong>。即：给定第$l$层激活值$a^{[l]}$，第$l+1$层的激活值$a^{[l+1]}$可以按照以下步骤得到：<br>$z^{[l+1]} = w^{[l]}a^{[l]}+b^{[l]}$<br>$a^{[l+1]} =  a(z^{[l+1]})$</p>
-<h3 id="加速多样本计算">1.1.1. 加速多样本计算</h3><p>在上一节中，我们讲到我们的输出是依次计算的。即从$x^{(1)}$到$x^{(m)}$</p>
+<p><strong>向量化-加速多样本计算</strong></p>
+<p>在上一节中，我们讲到我们的输出是依次计算的。即从$x^{(1)}$到$x^{(m)}$</p>
 <p>假设输入样本$X$有m个，那么我们的计算过程为：<br>$x^{(1)} \text{  ———-&gt;  } a^{[l]\text{(1)}} = y^{\text{~(1)}}$<br>…<br>$x^{(i)} \text{  ———-&gt;  } a^{[l]\text{(i)}} = y^{\text{~(i)}}$<br>…<br>$x^{(m)} \text{  ———-&gt;  } a^{[l]\text{(m)}} = y^{\text{~(m)}}$</p>
 <p>同样的，我们也可以将这个过程向量化，只需要将m个样本放入一个大矩阵$X$中即可。此处对于我来说较容易理解，故不再多加阐述。</p>
-<h3 id="关于激活函数">1.1.2. 关于激活函数</h3><p>回顾之前的内容，我们的网络为：</p>
+<p><strong>激活函数</strong></p>
+<p>回顾之前的内容，我们的网络为：</p>
 <ol>
 <li>计算$z = wx+b$</li>
 <li>将$z$代入激活函数$\sigma(z)$得到预测值</li>
@@ -514,7 +542,8 @@
 <li>$ReLU$-修正线性单元，更普遍<br>$a=max(0,z)$<br>学习速度很快</li>
 <li>带泄露的ReLU<br>$a=max(0.0001z,z)$<br>z小于零时，函数稍微倾斜一些</li>
 </ol>
-<h3 id="为什么需要激活函数">1.1.3. 为什么需要激活函数</h3><p>会导致输出结果就是输入特征的线性组合，导致网络并没有什么卵用。</p>
+<p><strong>为什么需要激活函数？</strong></p>
+<p>会导致输出结果就是输入特征的线性组合，导致网络并没有什么卵用。</p>
 <h2 id="如何计算参数">1.2. 如何计算参数?</h2><p>接下来我们来解决第二个问题：</p>
 <p>如何通过x + y –&gt; 计算模型</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">-------------------------------------------</div><div class="line">      --&gt; |	          |</div><div class="line">x + y --&gt; |	前向+反向  | ---&gt; 得到网络参数w,b</div><div class="line">      --&gt; |	          |</div><div class="line">--------------------------------------------</div></pre></td></tr></table></figure>
@@ -593,11 +622,237 @@
 <p>$$db^{[l]}=\frac{dL}{db^{[l]}}=\frac{dL}{dz^{[l]}}*\frac{dz^{[l]}}{db^{[l]}}=\frac{dL}{dz^{[l]}}=dz^{[l]}$$</p>
 <p>计算$da^{[l-1]}$:</p>
 <p>$$da^{[l-1]}=\frac{dL}{da^{[l-1]}}=\frac{dL}{dz^{[l]}}\cdot \frac{dz^{[l]}}{da^{[l-1]}}=dz^{[l]}\cdot w^{[l]}$$</p>
-<h1 id="参考文献">3. 参考文献</h1><ol>
+<h1 id="改善深层神经网络">3. 改善深层神经网络</h1><h2 id="训练、验证、测试集">3.1. 训练、验证、测试集</h2><p>对于一个需要解决的问题的样本数据，在建立模型的过程中，我们会将问题的<strong>data</strong>划分为以下几个部分：</p>
+<ul>
+<li><strong>训练集</strong>（train set）：用训练集对算法或模型进行训练过程；</li>
+<li><strong>验证集</strong>（development set）：利用验证集或者又称为简单交叉验证集（hold-out cross validation set）进行交叉验证，选择出最好的模型；</li>
+<li><strong>测试集</strong>（test set）：最后利用测试集对模型进行测试，获取模型运行的无偏估计。</li>
+</ul>
+<p><strong>小数据时代</strong></p>
+<p>在小数据量的时代，如：100、1000、10000的数据量大小，可以将<strong>data</strong>做以下划分：</p>
+<ul>
+<li>无验证集的情况：70% / 30%；</li>
+<li>有验证集的情况：60% / 20% / 20%；</li>
+</ul>
+<p>通常在小数据量时代，以上比例的划分是非常合理的。</p>
+<p><strong>大数据时代</strong></p>
+<p>但是在如今的大数据时代，对于一个问题，我们拥有的<strong>data</strong>的数量可能是百万级别的，所以验证集和测试集所占的比重会趋向于变得更小。</p>
+<p>验证集的目的是为了验证不同的算法哪种更加有效，所以验证集只要足够大能够验证大约2-10种算法哪种更好就足够了，不需要使用20%的数据作为验证集。如百万数据中抽取1万的数据作为验证集就可以了。</p>
+<p>测试集的主要目的是评估模型的效果，如在单个分类器中，往往在百万级别的数据中，我们选择其中1000条数据足以评估单个模型的效果。</p>
+<ul>
+<li>100万数据量：98% / 1% / 1%；</li>
+<li>超百万数据量：99.5% / 0.25% / 0.25%（或者99.5% / 0.4% / 0.1%）</li>
+</ul>
+<p><strong>Notation</strong></p>
+<ul>
+<li>建议验证集要和训练集来自于同一个分布，可以使得机器学习算法变得更快；</li>
+<li>如果不需要用无偏估计来评估模型的性能，则可以不需要测试集。</li>
+</ul>
+<h2 id="偏差、方差">3.2. 偏差、方差</h2><p>对于下图中两个类别分类边界的分割： </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-16-41-05.png" alt=""> </p>
+<p>从图中我们可以看出：</p>
+<ul>
+<li>欠拟合（underfitting）的情况下，出现高偏差（high bias）的情况；</li>
+<li>过拟合（overfitting）的情况下，出现高方差（high variance）的情况。</li>
+</ul>
+<p>在bias-variance tradeoff 的角度来讲，我们利用训练集对模型进行训练就是为了使得模型在train集上使 bias（偏差） 最小化，避免出现underfitting的情况；</p>
+<p>但是如果模型设置的太复杂，虽然在train集上 bias 的值非常小，模型甚至可以将所有的数据点正确分类，但是当将训练好的模型应用在dev 集上的时候，却出现了较高的错误率。这是因为模型设置的太复杂则没有排除一些train集数据中的噪声，使得模型出现overfitting的情况，在dev 集上出现高 <strong>variance</strong> 的现象。</p>
+<p>所以对于bias和variance的权衡问题，对于模型来说是一个十分重要的问题。</p>
+<p>假如对于一个数据集，以下几种模型：</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>训练集误差</td>
+<td>1%</td>
+<td>15%</td>
+<td>15%</td>
+<td>0.5%</td>
+</tr>
+<tr>
+<td>验证集误差</td>
+<td>11%</td>
+<td>16%</td>
+<td>30%</td>
+<td>1%</td>
+</tr>
+<tr>
+<td></td>
+<td>高方差</td>
+<td>高偏差</td>
+<td>高偏差、高方差</td>
+<td>低偏差、低方差</td>
+</tr>
+<tr>
+<td></td>
+<td>过拟合</td>
+<td>欠拟合</td>
+<td>欠拟合</td>
+</tr>
+</tbody>
+</table>
+<p>上面的模型3出现的原因可能如下：</p>
+<p>没有找到边界线（蓝色部分），但却在部分数据点上出现了过拟合（紫色），则会导致这种高偏差和高方差的情况。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-16-48-33.png" alt=""> </p>
+<p>虽然在这里二维的情况下可能看起来较为奇怪，出现的可能性比较低；但是在高维的情况下，出现这种情况就成为可能。</p>
+<h2 id="机器学习的基本方法">3.3. 机器学习的基本方法</h2><p>在训练机器学习模型的过程中，解决高偏差（High bias）和高方差（High variance）的过程：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-16-51-45.png" alt=""> </p>
+<ul>
+<li>存在高偏差？<ul>
+<li>增加网络结构，如增加隐藏层数目；</li>
+<li>训练更长时间；</li>
+<li>寻找合适的网络架构，使用更大的NN结构；</li>
+</ul>
+</li>
+<li>存在高方差？<ul>
+<li>获取更多的数据；</li>
+<li>正则化（ regularization）；</li>
+<li>寻找合适的网络结构；</li>
+</ul>
+</li>
+</ul>
+<p>在大数据时代，深度学习对监督式学习大有裨益，使得我们不用像以前一样太过关注如何平衡偏差和方差的权衡问题，通过以上方法可以使得再不增加另一方的情况下减少一方的值。</p>
+<h2 id="正则化">3.4. 正则化</h2><p>利用正则化来解决高方差的问题，正则化是在 Cost function 中加入一项正则化项，惩罚模型的复杂度。</p>
+<h3 id="逻辑回归的正则化">3.4.1. 逻辑回归的正则化</h3><p>加入正则化项的代价函数： </p>
+<p>$$J(w,b)=\dfrac{1}{m}\sum\limits_{i=1}^{m}l(\hat y^{(i)},y^{(i)})+正则化项$$</p>
+<p>其中，正则化项有：</p>
+<ul>
+<li>L2正则化：$\dfrac{\lambda}{2m}||w||_{2}^{2} = \dfrac{\lambda}{2m}\sum\limits_{j=1}^{n_{x}} w_{j}^{2}=\dfrac{\lambda}{2m}w^{T}w$</li>
+<li>L1正则化：$\dfrac{\lambda}{2m}||w||_{1}=\dfrac{\lambda}{2m}\sum\limits_{j=1}^{n_{x}}|w_{j}|$</li>
+</ul>
+<p>其中，$\lambda$是正则化因子</p>
+<h3 id="神经网络的正则化">3.4.2. 神经网络的正则化</h3><p>加入正则化项的代价函数： </p>
+<p>$$J(w^{[1]},b^{[1]},\cdots,w^{[L]},b^{[L]})=\dfrac{1}{m}\sum\limits_{i=1}^{m}l(\hat y^{(i)},y^{(i)})+\dfrac{\lambda}{2m}\sum\limits_{l=1}^{L}||w^{[l]}||_{F}^{2}$$</p>
+<p>其中，$||w^{[l]}||_{F}^{2}=\sum\limits_{i=1}^{n^{[l-1]}}\sum\limits_{j=1}^{n^{[l]}}(w_{ij}^{[l]})^{2}$。而因为$w$的大小为$(n^{[l-1]},n^{[l]})$，因此该矩阵范数被称为“Frobenus norm”。</p>
+<p><strong>权重衰减</strong></p>
+<p>在加入正则化项后，梯度变为：</p>
+<p>$$\frac{dL}{dW^{[l]}} = dW^{[l]} = (form_backprop)+\dfrac{\lambda}{m}W^{[l]}$$</p>
+<p>因此梯度更新公式变为：</p>
+<p>$$W^{[l]}:= W^{[l]}-\alpha dW^{[l]}\\= W^{[l]}-\alpha [ (form_backprop)+\dfrac{\lambda}{m}W^{[l]}]\ = W^{[l]}-\alpha\dfrac{\lambda}{m}W^{[l]} -\alpha(form_backprop)\\=(1-\dfrac{\alpha\lambda}{m})W^{[l]}-\alpha(form_backprop)$$</p>
+<p>其中，$(1-\dfrac{\alpha\lambda}{m}) &lt; 1$，因此会给原来的$W^{[l]}$带来一个衰减的参数。因此L2范数正则化又被称为“权重衰减(weight decay)”。</p>
+<h3 id="为什么正则化可以减小过拟合">3.4.3. 为什么正则化可以减小过拟合</h3><p>假设下图的神经网络结构属于过拟合状态： </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-10-25.png" alt=""> </p>
+<p>对于神经网络的Cost function： </p>
+<p>$$J(w^{[1]},b^{[1]},\cdots,w^{[L]},b^{[L]})=\dfrac{1}{m}\sum\limits_{i=1}^{m}l(\hat y^{(i)},y^{(i)})+\dfrac{\lambda}{2m}\sum\limits_{l=1}^{L}||w^{[l]}||_{F}^{2}$$</p>
+<p><strong>直观解释</strong></p>
+<p>加入正则化项，直观上理解，正则化因子λ设置的足够大的情况下，为了使代价函数最小化，权重矩阵W就会被设置为接近于0的值。则相当于消除了很多神经元的影响，那么图中的大的神经网络就会变成一个较小的网络。</p>
+<p>当然上面这种解释是一种直观上的理解，但是实际上隐藏层的神经元依然存在，但是他们的影响变小了，便不会导致过拟合。</p>
+<p><strong>数学解释</strong></p>
+<p>假设神经元中使用的激活函数为$g(z)=tanh(z)$，在加入正则化项后： </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-11-56.png" alt=""> </p>
+<p>当$λ$增大，导致$W[l]$减小，$Z^{[l]}=W^{[l]}a^{[l-1]}+b^{[l]}$便会减小，由上图可知，在z较小的区域里，$tanh(z)$函数近似线性，所以每层的函数就近似线性函数，整个网络就成为一个简单的近似线性的网络，从而不会发生过拟合。</p>
+<h2 id="Dropout正则化">3.5. Dropout正则化</h2><p>Dropout（随机失活）就是在神经网络的Dropout层，为每个神经元结点设置一个随机消除的概率，对于保留下来的神经元，我们得到一个节点较少，规模较小的网络进行训练。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-14-04.png" alt=""> </p>
+<p><strong>实现方法：反向随机激活（inverted dropout）</strong></p>
+<p>假设对 layer 3 进行dropout：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">keep_prob = <span class="number">0.8</span>  <span class="comment"># 设置神经元保留概率</span></div><div class="line">d3 = np.random.rand(a3.shape[<span class="number">0</span>], a3.shape[<span class="number">1</span>]) &lt; keep_prob</div><div class="line">a3 = np.multiply(a3, d3)</div><div class="line">a3 /= keep_prob</div></pre></td></tr></table></figure>
+<p>依照例子中的<code>keep_prob = 0.8</code> ，那么就有大约20%的神经元被删除了，也就是说$a[3]$中有20%的元素被归零了，在下一层的计算中有$Z^{[4]}=W^{[4]}\cdot a^{[3]}+b^{[4]}$，所以为了不影响Z[4]的期望值，所以需要$W^{[4]}\cdot a^{[3]}$的部分除以一个keep_prob。</p>
+<p>Notation：在测试阶段不要用dropout，因为那样会使得预测结果变得随机。</p>
+<p><strong>缺点</strong></p>
+<p>dropout的一大缺点就是其使得 Cost function不能再被明确的定义，因为每次迭代都会随机消除一些神经元结点，所以我们无法绘制出每次迭代J(W,b)下降的图，如下：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-21-05.png" alt=""> </p>
+<p><strong>使用Dropout：</strong></p>
+<ul>
+<li>关闭dropout功能，即设置 keep_prob = 1.0；</li>
+<li>运行代码，确保$J(W，b)$函数单调递减；</li>
+<li>再打开dropout函数。</li>
+</ul>
+<h2 id="其它正则化方法">3.6. 其它正则化方法</h2><ul>
+<li><p>数据扩增（Data augmentation）：通过图片的一些变换，得到更多的训练集和验证集； </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-22-46.png" alt=""> </p>
+</li>
+<li><p>Early stopping：在交叉验证集的误差上升之前的点停止迭代，避免过拟合。这种方法的缺点是无法同时解决bias和variance之间的最优。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-23-08.png" alt="">  </p>
+</li>
+</ul>
+<h2 id="归一化输入">3.7. 归一化输入</h2><p>对数据集特征x1,x2归一化的过程： </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-26-15.png" alt=""> </p>
+<ul>
+<li>计算每个特征所有样本数据的均值：$\mu = \dfrac{1}{m}\sum\limits_{i=1}^{m}x^{(i)}$</li>
+<li>减去均值得到对称的分布$x : =x-\mu$</li>
+<li>归一化方差 : $\sigma^{2} = \dfrac{1}{m}\sum\limits_{i=1}^{m}x^{(i)^{2}},x = x/\sigma^{2}$</li>
+</ul>
+<p><strong>使用归一化的原因</strong>：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-33-01.png" alt=""> </p>
+<p>由图可以看出不使用归一化和使用归一化前后Cost function 的函数形状会有很大的区别。</p>
+<p>在不使用归一化的代价函数中，如果我们设置一个较小的学习率，那么很可能我们需要很多次迭代才能到达代价函数全局最优解；如果使用了归一化，那么无论从哪个位置开始迭代，我们都能以相对很少的迭代次数找到全局最优解。</p>
+<h2 id="梯度消失与梯度爆炸">3.8. 梯度消失与梯度爆炸</h2><p>如下图所示的神经网络结构，以两个输入为例：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-17-56-17.png" alt=""> </p>
+<p>方便起见，我们先假定激活函数$g(z) = z$，偏置$b = 0$。那么目标输出是：</p>
+<p>$\hat y = W^{[L]}W^{[L-1]}\cdots W^{[2]}W^{[1]}X$</p>
+<ul>
+<li>如果$W^{[l]}$大于1：<br>$W^{[l]}=\left[ \begin{array}{l}  1.5 &amp; 0 \ 0 &amp; 1.5\end{array} \right]$，随着一层层的递进，激活函数的值将以指数递增；</li>
+<li>如果$W^{[l]}$小于1：<br>$W^{[l]}=\left[ \begin{array}{l}  0.5 &amp; 0 \ 0 &amp; 0.5\end{array} \right]$，随着一层层的递进，激活函数的值将以指数递减；</li>
+</ul>
+<p>而对于梯度来说，梯度函数也会以指数级递增或递减，也叫做梯度爆炸或梯度消失。那么就会出现如下的图所示的情况：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-19-49-59.png" alt=""> </p>
+<p>当参数接近这样的悬崖区域时，梯度下降更新会使参数弹得非常远，可能会让大量已完成的优化工作成为无用功。</p>
+<h3 id="解决梯度消失与爆炸">3.8.1. 解决梯度消失与爆炸</h3><p><strong>利用初始化缓解梯度消失和爆炸问题</strong></p>
+<p>以一个单个神经元为例子：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-19-55-25.png" alt="">  </p>
+<p>由上图可知，当输入的数量$n$较大时，我们希望每个$w_i$的值都小一些，这样它们的和得到的$z$也较小。这里为了得到较小的$w_i$，将它初始化为$Var(w_i)=\frac{1}{n}$，这里称为Xavier initialization。 即：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">WL = np.random.randn(WL.shape[<span class="number">0</span>],WL.shape[<span class="number">1</span>])* np.sqrt(<span class="number">1</span>/n)</div></pre></td></tr></table></figure>
+<p>这么做是因为，如果激活函数的输入$x$近似设置成均值为0，标准方差1的情况，输出$z$也会调整到相似的范围内。虽然没有解决梯度消失和爆炸的问题，但其在一定程度上确实减缓了梯度消失和爆炸的速度。</p>
+<p>不同激活函数下，也有不同的Xavier initialization：</p>
+<ul>
+<li>激活函数为Relu时，$Var(w_{i})=\dfrac{2}{n}$</li>
+<li>激活函数为tanh时，$Var(w_{i})=\dfrac{1}{n}$</li>
+</ul>
+<p>其中n是输入神经元个数，也就是$n^{[l-1]}$</p>
+<p><strong>启发式梯度截断</strong></p>
+<p>传统的梯度下降的梯度只指明了方向，而步长是定值。而启发式梯度截断的思路是：当传统的梯度建议更新很大一步时，启发式梯度截断会干涉来缩减步长，从而使其不太可能走出梯度近似为最陡方向的悬崖区域。</p>
+<h2 id="梯度的数值逼近">3.9. 梯度的数值逼近</h2><p>使用双边误差的方法去逼近导数： </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-20-11-28.png" alt=""> </p>
+<p>由图可以看出，双边误差逼近的误差是0.0001，先比单边逼近的误差0.03，其精度要高了很多。</p>
+<p>涉及的公式：</p>
+<ul>
+<li><p>双边导数：<br>$$f’(\theta) = \lim\limits_{\varepsilon  \to 0}=\dfrac{f(\theta+\varepsilon)-(\theta-\varepsilon)}{2\varepsilon}$$<br>误差：$O(\varepsilon^{2})$</p>
+</li>
+<li><p>单边导数：</p>
+<p>$$f’(\theta) = \lim\limits_{\varepsilon  \to 0}=\dfrac{f(\theta+\varepsilon)-(\theta)}{\varepsilon}$$</p>
+<p>误差：$O(\varepsilon)$</p>
+</li>
+</ul>
+<h2 id="梯度检验">3.10. 梯度检验</h2><p>众所周知，反向传播算法很难调试得到正确结果，尤其是当实现程序存在很多难于发现的bug时。举例来说，索引的缺位错误（off-by-one error）会导致只有部分层的权重得到训练，再比如忘记计算偏置项。这些错误会使你得到一个看似十分合理的结果（但实际上比正确代码的结果要差）。因此，但从计算结果上来看，我们很难发现代码中有什么东西遗漏了。本节中，我们将介绍一种对求导结果进行数值检验的方法，该方法可以验证求导代码是否正确。</p>
+<p>假设我们已经用代码实现了计算$\frac{dL}{dw}$ 的函数$g(w)$ ，接着我们使用$w:=w - \lambda g(w)$来实现梯度下降算法。那么我们如何检验$g$的实现是否正确呢？</p>
+<p>回忆导数的数学定义：</p>
+<p><img src="http://ufldl.stanford.edu/wiki/images/math/a/2/3/a23bea0ab48ded7b9a979b68f6356613.png" alt="\begin{align}\frac{d}{d\theta}J(\theta) = \lim_{\epsilon \rightarrow 0}\frac{J(\theta+ \epsilon) - J(\theta-\epsilon)}{2 \epsilon}.\end{align}"></p>
+<p>那么对于任意 <img src="http://ufldl.stanford.edu/wiki/images/math/6/9/d/69d920fe8e1da0543eb63d1097f21754.png" alt="\textstyle \theta"> 值，我们都可以对等式左边的导数用：</p>
+<p><img src="http://ufldl.stanford.edu/wiki/images/math/4/8/a/48a000aed96c8595fcca2a45f48343ce.png" alt="\begin{align}\frac{J(\theta+{\rm EPSILON}) - J(\theta-{\rm EPSILON})}{2 \times {\rm EPSILON}}\end{align}"></p>
+<p>来近似。</p>
+<p>实际应用中，我们常将 <img src="http://ufldl.stanford.edu/wiki/images/math/8/5/c/85c12e90fcb870ff439cb037d805e09c.png" alt="\textstyle EPSILON"> 设为一个很小的常量，比如在<img src="http://ufldl.stanford.edu/wiki/images/math/c/f/d/cfd7bf1257600c6c7706c5597af1b94d.png" alt="\textstyle 10^{-4}"> 数量级（虽然 <img src="http://ufldl.stanford.edu/wiki/images/math/8/5/c/85c12e90fcb870ff439cb037d805e09c.png" alt="\textstyle EPSILON"> 的取值范围可以很大，但是我们不会将它设得太小，比如 <img src="http://ufldl.stanford.edu/wiki/images/math/f/a/b/fab2be95b827b3db4ea4d2e27a3d5f99.png" alt="\textstyle 10^{-20}">，因为那将导致数值舍入误差。）</p>
+<p>给定一个被认为能计算 <img src="http://ufldl.stanford.edu/wiki/images/math/0/9/6/09643c7c4bb96e039caf25737d835201.png" alt="\textstyle \frac{d}{d\theta}J(\theta)"> 的函数<img src="http://ufldl.stanford.edu/wiki/images/math/e/9/f/e9fed70b38b2cfac3b42d1d21d46e449.png" alt="\textstyle g(\theta)">，我们可以用下面的数值检验公式</p>
+<p><img src="http://ufldl.stanford.edu/wiki/images/math/c/6/d/c6d06b4a25dab5ef468c72900872eda0.png" alt="\begin{align}g(\theta) \approx\frac{J(\theta+{\rm EPSILON}) - J(\theta-{\rm EPSILON})}{2 \times {\rm EPSILON}}.\end{align}"></p>
+<p>计算两端是否一样来检验函数是否正确。</p>
+<p>而在多维情况下，即可计算：</p>
+<p>$$\dfrac {||d\theta_{approx}-d\theta||_{2}}{||d\theta_{approx}||_{2}+||d\theta||_{2}}$$</p>
+<p>将它与代码计算出来的$g(\theta)$进行比较。如果近似，则说明计算没有出错。</p>
+<p>也就是：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-12-20-20-57.png" alt=""> </p>
+<p>再判断$d\theta_{approx}\approx d\theta$是否成立</p>
+<p>其中，“$||⋅||2$”表示欧几里得范数，它是误差平方之和，然后求平方根，得到的欧氏距离。</p>
+<p><strong>notes</strong></p>
+<ul>
+<li>不要在训练过程中使用梯度检验，只在debug的时候使用，使用完毕关闭梯度检验的功能；</li>
+<li>如果算法的梯度检验出现了错误，要检查每一项，找出错误，也就是说要找出哪个$d\theta_{approx}[i]$与dθ的值相差比较大；</li>
+<li>不要忘记了正则化项；</li>
+<li>梯度检验不能与dropout同时使用。因为每次迭代的过程中，dropout会随机消除隐层单元的不同神经元，这时是难以计算dropout在梯度下降上的代价函数J；</li>
+<li>在随机初始化的时候运行梯度检验，也可以在训练几次后再进行。</li>
+</ul>
+<h1 id="参考文献">4. 参考文献</h1><ol>
 <li>[吴恩达，deepLearning.ai]</li>
 <li><a href="http://ufldl.stanford.edu/wiki/index.php/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C" target="_blank" rel="external">神经网络</a></li>
 <li><a href="http://www.jianshu.com/p/d161a22a0292" target="_blank" rel="external">不会停的蜗牛，什么是神经网络</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/29738823" target="_blank" rel="external">大树先生，吴恩达 DeepLearning.ai 课程提炼笔记（1-4）神经网络和深度学习 — 深层神经网络</a></li>
+<li><a href="http://ufldl.stanford.edu/wiki/index.php/%E6%A2%AF%E5%BA%A6%E6%A3%80%E9%AA%8C%E4%B8%8E%E9%AB%98%E7%BA%A7%E4%BC%98%E5%8C%96" target="_blank" rel="external">梯度检验与高级优化</a></li>
 </ol>
 
       
@@ -778,7 +1033,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#浅层神经网络"><span class="nav-text">1. 浅层神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何计算输出？"><span class="nav-text">1.1. 如何计算输出？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加速多样本计算"><span class="nav-text">1.1.1. 加速多样本计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于激活函数"><span class="nav-text">1.1.2. 关于激活函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要激活函数"><span class="nav-text">1.1.3. 为什么需要激活函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何计算参数"><span class="nav-text">1.2. 如何计算参数?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正向传播"><span class="nav-text">1.2.1. 正向传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向传播"><span class="nav-text">1.2.2. 反向传播</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深度神经网络"><span class="nav-text">2. 深度神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#深度神经网络的好处"><span class="nav-text">2.1. 深度神经网络的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前向传播和反向传播"><span class="nav-text">2.2. 前向传播和反向传播</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">3. 参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#浅层神经网络"><span class="nav-text">1. 浅层神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何计算输出？"><span class="nav-text">1.1. 如何计算输出？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何计算参数"><span class="nav-text">1.2. 如何计算参数?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正向传播"><span class="nav-text">1.2.1. 正向传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向传播"><span class="nav-text">1.2.2. 反向传播</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深度神经网络"><span class="nav-text">2. 深度神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#深度神经网络的好处"><span class="nav-text">2.1. 深度神经网络的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前向传播和反向传播"><span class="nav-text">2.2. 前向传播和反向传播</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#改善深层神经网络"><span class="nav-text">3. 改善深层神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#训练、验证、测试集"><span class="nav-text">3.1. 训练、验证、测试集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#偏差、方差"><span class="nav-text">3.2. 偏差、方差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习的基本方法"><span class="nav-text">3.3. 机器学习的基本方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则化"><span class="nav-text">3.4. 正则化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归的正则化"><span class="nav-text">3.4.1. 逻辑回归的正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#神经网络的正则化"><span class="nav-text">3.4.2. 神经网络的正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么正则化可以减小过拟合"><span class="nav-text">3.4.3. 为什么正则化可以减小过拟合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dropout正则化"><span class="nav-text">3.5. Dropout正则化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它正则化方法"><span class="nav-text">3.6. 其它正则化方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#归一化输入"><span class="nav-text">3.7. 归一化输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度消失与梯度爆炸"><span class="nav-text">3.8. 梯度消失与梯度爆炸</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决梯度消失与爆炸"><span class="nav-text">3.8.1. 解决梯度消失与爆炸</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度的数值逼近"><span class="nav-text">3.9. 梯度的数值逼近</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度检验"><span class="nav-text">3.10. 梯度检验</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">4. 参考文献</span></a></li></ol></div>
             
 
           </div>
@@ -812,7 +1067,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共149.0k字</span>
+  <span class="post-count">博客全站共154.6k字</span>
 </div>
 
 
