@@ -319,6 +319,203 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/01/机器学习实践-O2O优惠券预测-ROC和AUC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/01/机器学习实践-O2O优惠券预测-ROC和AUC/" itemprop="url">ROC和AUC</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-01T12:02:39+08:00">
+                2017-03-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T16:08:32+08:00">
+                2017-07-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/o2o优惠券使用预测/" itemprop="url" rel="index">
+                    <span itemprop="name">o2o优惠券使用预测</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/03/01/机器学习实践-O2O优惠券预测-ROC和AUC/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/child/2017/03/01/机器学习实践-O2O优惠券预测-ROC和AUC/" class="cy_cmt_count" data-xid="2017/03/01/机器学习实践-O2O优惠券预测-ROC和AUC/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,231
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          0.0.1. AUC定义用途：用来度量分类模型好坏的一个标准背景：
+
+有些时候，仅仅依靠正确率是不妥当的。
+能客观反映对正样本、负样本综合预测的能力，还要考虑消除样本倾斜的影响。
+
+0.0.2. ROC
+ROC:Receiver Operating Characteristic
+ROC曲线：横坐标是false positive rate(FPR)，纵坐标是true positive rate(TPR)。
+对某个分类器而言，我们可以根据其在测试样本上的表现得到一个TPR和FPR点对。这样，此分类器就可以映射成ROC平面上的一个点。
+调整这个分类器分类时候使用的阈值，我们就可以得到一个经过(0, 0)，(1, 1)的曲线，这就是此分类器的ROC曲线。
+
+tip：FPR和TPR先来看一个普遍的二分类问题的结果，预测值和实际值有4种组合情况，看下面的表格：我们定义$$ TruePositiveRate(TPR) = \frac{TP}{TP+FN=P} = \frac{正确预测1}{正确预测1+错误预测1=1的数量}=实际正样本正确预测的比例$$$$ FalsePositiveRate(FPR) = \frac{FP}{FP+TN=N} = \frac{错误预测0}{错误预测0+正确预测0=0的数量}=实际负样本错误预测的比例$$
+0.0.2.1. 如何一个分类器的画ROC曲线概率输出：即表示分类器认为某个样本具有多大的概率属于正样本（或负样本），来动态调整一个样本是否属于正负样本例：
+
+图中共有20个测试样本
+“Class”一栏表示每个测试样本真正的标签（p表示正样本，n表示负样本）
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/01/机器学习实践-O2O优惠券预测-ROC和AUC/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/02/28/机器学习算法-PLA-线性感知机/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -956,7 +1153,7 @@ $$E_{out}(h)=\mathcal{E}_{(x,y)\text~P}(w^Tx-y)^2$$
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -967,7 +1164,7 @@ $$E_{out}(h)=\mathcal{E}_{(x,y)\text~P}(w^Tx-y)^2$$
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1031,7 +1228,7 @@ $$E_{out}(h)=\mathcal{E}_{(x,y)\text~P}(w^Tx-y)^2$$
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共163.3k字</span>
+  <span class="post-count">博客全站共166.1k字</span>
 </div>
 
 
