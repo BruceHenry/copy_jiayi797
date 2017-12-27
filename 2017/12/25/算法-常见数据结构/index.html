@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  23
+                  586
                 </span>
               
 
@@ -467,6 +467,13 @@
 </li>
 </ul>
 <a id="more"></a>
+<h1 id="Hash相关问题">1. Hash相关问题</h1><h2 id="Insert-Delete-GetRandom-O-1">1.1. Insert Delete GetRandom O(1)</h2><p>设计一个数据结构，支持插入、删除和随机取的复杂度都是$O(1)$</p>
+<p>注意一些技巧，特别是remove时的技巧。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">HashMap&lt;Integer, Integer&gt; set;</div><div class="line">    ArrayList&lt;Integer&gt; nums;</div><div class="line">    <span class="comment">/**set的key是插入的数字，value是在nums中的idx**/</span></div><div class="line">    java.util.Random rand = <span class="keyword">new</span> java.util.Random();</div><div class="line">    <span class="comment">/** Initialize your data structure here. */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RandomizedSet</span><span class="params">()</span> </span>&#123;</div><div class="line">        set = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">        nums = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/** Inserts a value to the set. Returns true if the set did not already contain the specified element. */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(set.containsKey(val)) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        set.put(val,nums.size());</div><div class="line">        nums.add(val);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/** Removes a value from the set. Returns true if the set contained the specified element. */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(set.containsKey(val))&#123;</div><div class="line">            <span class="comment">// 为了保证序号正确，先让val与nums中的最后一个交换</span></div><div class="line">            <span class="keyword">int</span> idx = set.get(val);</div><div class="line">            <span class="keyword">int</span> lastVal = nums.get(nums.size() - <span class="number">1</span>);</div><div class="line">            set.replace(lastVal, idx);</div><div class="line">            nums.set(idx,lastVal);</div><div class="line">            set.remove(val);</div><div class="line">            nums.remove(nums.size() - <span class="number">1</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;<span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/** Get a random element from the set. */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getRandom</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//System.out.println(rand.nextInt(nums.size()));</span></div><div class="line">        <span class="keyword">return</span> nums.get(rand.nextInt(nums.size())); <span class="comment">// 注意这个用法</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="Insert-Delete-GetRandom-O-1-Duplicates-allowed">1.2. Insert Delete GetRandom O(1) - Duplicates allowed</h2><p>如果允许重复元素出现，那么怎么实现？</p>
+<p>那就把idx变成idx列表！</p>
+<p>（为什么不能直接计数呢？因为如果只计数的话，随机输出时，元素比例就不符合原来的比例了）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">HashMap&lt;Integer, ArrayList&lt;Integer&gt;&gt; set;</div><div class="line">ArrayList&lt;Integer&gt; nums;</div><div class="line">Random rand = <span class="keyword">new</span> Random();</div><div class="line"><span class="comment">/**key : 就是插入的值</span></div><div class="line"> * value :在nums中的idx **/</div><div class="line"><span class="comment">/** Initialize your data structure here. */</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">RandomizedCollection</span><span class="params">()</span> </span>&#123;</div><div class="line">    set = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">    nums = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(set.containsKey(val))&#123;</div><div class="line">        set.get(val).add(nums.size());</div><div class="line">        nums.add(val);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        ArrayList idxs = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        idxs.add(nums.size());</div><div class="line">        set.put(val,idxs);</div><div class="line">        nums.add(val);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/** Removes a value from the collection. Returns true if the collection contained the specified element. */</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(set.containsKey(val))&#123;</div><div class="line">        <span class="comment">// 待删除元素的idxs列表</span></div><div class="line">        ArrayList&lt;Integer&gt; idxs = set.get(val);</div><div class="line">        <span class="comment">// idx = idxs.get(0)</span></div><div class="line">        <span class="comment">// 将nums最后一个挪过来</span></div><div class="line">        <span class="keyword">if</span>(idxs.get(<span class="number">0</span>) &lt; nums.size() - <span class="number">1</span>) &#123;</div><div class="line">            nums.set(idxs.get(<span class="number">0</span>), nums.get(nums.size() - <span class="number">1</span>));</div><div class="line">            <span class="comment">// 更新set中挪过来的idx</span></div><div class="line">            ArrayList&lt;Integer&gt; lastIdxs = set.get(nums.get(idxs.get(<span class="number">0</span>)));</div><div class="line">            <span class="keyword">int</span> deleted = <span class="number">0</span>;</div><div class="line">            <span class="keyword">while</span> (deleted &lt; lastIdxs.size()) &#123;</div><div class="line">                <span class="keyword">if</span> (lastIdxs.get(deleted) == nums.size() - <span class="number">1</span>) &#123;</div><div class="line">                    lastIdxs.remove(deleted);</div><div class="line">                &#125;</div><div class="line">                deleted += <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            lastIdxs.add(idxs.get(<span class="number">0</span>));</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 删除</span></div><div class="line">        nums.remove(nums.size() - <span class="number">1</span>);</div><div class="line">        <span class="keyword">if</span>(idxs.size() == <span class="number">1</span>)&#123;set.remove(val);&#125;</div><div class="line">        <span class="keyword">else</span>&#123;idxs.remove(<span class="number">0</span>);&#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/** Get a random element from the collection. */</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getRandom</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(nums.size() == <span class="number">0</span>) <span class="keyword">return</span>  -<span class="number">1</span>;</div><div class="line">    <span class="keyword">return</span> nums.get(rand.nextInt(nums.size()));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -560,8 +567,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -624,6 +640,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hash相关问题"><span class="nav-text">1. Hash相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Insert-Delete-GetRandom-O-1"><span class="nav-text">1.1. Insert Delete GetRandom O(1)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Insert-Delete-GetRandom-O-1-Duplicates-allowed"><span class="nav-text">1.2. Insert Delete GetRandom O(1) - Duplicates allowed</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -651,7 +683,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共171.2k字</span>
+  <span class="post-count">博客全站共172.1k字</span>
 </div>
 
 
