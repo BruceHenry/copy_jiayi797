@@ -319,6 +319,195 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/09/25/机器学习算法-L2R进一步了解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/25/机器学习算法-L2R进一步了解/" itemprop="url">机器学习算法-L2R进一步了解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T15:30:16+08:00">
+                2017-09-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-09-25T18:46:20+08:00">
+                2017-09-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/09/25/机器学习算法-L2R进一步了解/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/child/2017/09/25/机器学习算法-L2R进一步了解/" class="cy_cmt_count" data-xid="2017/09/25/机器学习算法-L2R进一步了解/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4,555
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          之前的博客中简单介绍了Learning to Rank的基本原理，也讲到了Learning to Rank的几类常用的方法：pointwise，pairwise，listwise。这篇博客就pairwise中的RankSVM、GBRank和LambdaRank做简要介绍。
+RankSVM是2000年提出的；GBRank是2007年提出的；LambdaMART是2008年提出的。因此我们按照提出顺序来讲解这三种算法。
+1. 引言机器学习一般都是解决分类问题。而在Rank中我们遇到的是排序问题。那么如何将排序问题转化为分类问题成了当下的关键。
+1.1. 如何将排序问题转化为分类问题？对于一个query-doc pair（检索-文档结果对），我们可以将其用一个feature vector表示：x。而排序函数为f(x)，我们根据f(x)的大小来决定哪个doc排在前面，哪个doc排在后面。即如果f(xi) &gt; f(xj)，则xi应该排在xj的前面，反之亦然。可以用下面的公式表示：
+ 
+理论上，f(x)可以是任意函数，为了简单起见，我们假设其为线性函数：如果这个排序函数f(x)是一个线性函数，那么我们便可以将一个排序问题转化为一个二元分类问题。理由如下：首先，对于任意两个feature vector xi和 xj，在f(x)是线性函数的前提下，下面的关系都是存在的：然后，便可以对xi和 xj的差值向量考虑二元分类问题。特别地，我们可以对其赋值一个label： 
+有一个很好的例子说明了如何将排序问题转化为分类问题，在L2R的笔记中已提到过，此处不再多加阐述。
+将排序问题转化为分类问题之
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/25/机器学习算法-L2R进一步了解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/09/05/深度学习算法-神经网络/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2125,211 +2314,6 @@ $Σ$是一个对角阵，每个对角线上的元素就是一个特征值
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/07/10/数学-矩阵相关知识复习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/10/数学-矩阵相关知识复习/" itemprop="url">矩阵相关知识复习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T10:33:46+08:00">
-                2017-07-10
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-10-28T21:59:17+08:00">
-                2017-10-28
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数学/" itemprop="url" rel="index">
-                    <span itemprop="name">数学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/07/10/数学-矩阵相关知识复习/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/07/10/数学-矩阵相关知识复习/" class="cy_cmt_count" data-xid="2017/07/10/数学-矩阵相关知识复习/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  1,081
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1. 特征值与奇异值特征值与特征向量
-如果一个向量$v$是方阵$A$的特征向量，那么：$$Av=\lambda v$$
-
-$\lambda$:特征值
-$v$:特征向量把$A$乘到$v$上，得到一个$\lambda v$，也就是意味着我们得到了一个方向未变但在长度上有伸缩改变的向量（方向未变不准确，有可能变反向）。这是让$A$乘以他的特征向量表现出来的性质。
-
-因此：
-
-特征向量所在直线上的向量都是特征向量；
-特征向量所在的直线，叫特征空间；
-
-特征值分解
-特征值分解是把一个n阶实对称矩阵分解为下面的形式：$$A=QΣQ^{-1}$$其中：
-
-$Q$是这个矩阵$A$的特征向量组成的矩阵，是一个正交矩阵
-$Σ$是一个对角阵，每个对角线上的元素就是一个特征值
-
-2. 正交变换与正交军阵2.1. 正交变换什么是正交变换？正交变换：在线性空间中，保持向量长度不变的线性变换。正交变换的定义是什么？设$V$为欧式空间，$T$是$V$的一个线性变换。如果$T$保持$V$中任一向量$x$的长度不变，即有：$$(x,x)=(Tx,Tx)$$那么称$T$是$V$的一个正交变换。（即内积不变）
-注：$(x,x)$是向量内积怎样的变换算是正交变换？线性变换$T$为正交变换的充要条件是，对于欧式空间$V$中任二向量$x,y$都有：$$(x,y)=(Tx,Ty)$$
-2.2. 正交矩阵正交矩阵的定义是什么？如果实方阵$Q$满足：$$T^TQ=I,或 Q^{-1}=Q^T$$则称$Q$为正交矩阵
-其中，$I$是单位矩阵。正交矩阵有哪些特点？
-
-正交矩阵的行列式必定为$+-1$
-行列式值为+1的正交矩阵，称为特
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/10/数学-矩阵相关知识复习/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2379,7 +2363,7 @@ $Σ$是一个对角阵，每个对角线上的元素就是一个特征值
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">96</span>
+                <span class="site-state-item-count">97</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2454,7 +2438,7 @@ $Σ$是一个对角阵，每个对角线上的元素就是一个特征值
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共193.3k字</span>
+  <span class="post-count">博客全站共196.3k字</span>
 </div>
 
 
