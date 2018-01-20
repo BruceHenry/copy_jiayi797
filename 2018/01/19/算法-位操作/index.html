@@ -92,21 +92,17 @@
 
 
 
-<meta name="description" content="在说LR之前，我们先回顾一下logistic分布。 1. logistic分布如果连续随机变量$X$服从logistic分布，则$X$具有下列分布函数和密度函数： $$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$ $$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$ 其中 $u$为位置参数 $r&amp;gt">
+<meta name="description" content="0.1. 相关题0.2. Bitwise AND of Numbers Range求m ~ n之间所有数字的与。 思路：一开始就是暴力与。但这样超时了。 参考资料[LeetCode] Bitwise AND of Numbers Range 数字范围位相与 我们先从题目中给的例子来分析，[5, 7]里共有三个数字，分别写出它们的二进制为： 101　　110　　111 相与后的结果为100，仔细观察">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LR">
-<meta property="og:url" content="http://yoursite.com/child/2017/03/02/机器学习算法-LR/index.html">
+<meta property="og:title" content="算法-位操作">
+<meta property="og:url" content="http://yoursite.com/child/2018/01/19/算法-位操作/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="在说LR之前，我们先回顾一下logistic分布。 1. logistic分布如果连续随机变量$X$服从logistic分布，则$X$具有下列分布函数和密度函数： $$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$ $$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$ 其中 $u$为位置参数 $r&amp;gt">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-11-06-23-03-41.png">
-<meta property="og:updated_time" content="2017-11-07T15:09:27.742Z">
+<meta property="og:description" content="0.1. 相关题0.2. Bitwise AND of Numbers Range求m ~ n之间所有数字的与。 思路：一开始就是暴力与。但这样超时了。 参考资料[LeetCode] Bitwise AND of Numbers Range 数字范围位相与 我们先从题目中给的例子来分析，[5, 7]里共有三个数字，分别写出它们的二进制为： 101　　110　　111 相与后的结果为100，仔细观察">
+<meta property="og:updated_time" content="2018-01-19T14:57:29.890Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LR">
-<meta name="twitter:description" content="在说LR之前，我们先回顾一下logistic分布。 1. logistic分布如果连续随机变量$X$服从logistic分布，则$X$具有下列分布函数和密度函数： $$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$ $$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$ 其中 $u$为位置参数 $r&amp;gt">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png">
+<meta name="twitter:title" content="算法-位操作">
+<meta name="twitter:description" content="0.1. 相关题0.2. Bitwise AND of Numbers Range求m ~ n之间所有数字的与。 思路：一开始就是暴力与。但这样超时了。 参考资料[LeetCode] Bitwise AND of Numbers Range 数字范围位相与 我们先从题目中给的例子来分析，[5, 7]里共有三个数字，分别写出它们的二进制为： 101　　110　　111 相与后的结果为100，仔细观察">
 
 
 
@@ -134,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/2017/03/02/机器学习算法-LR/"/>
+  <link rel="canonical" href="http://yoursite.com/child/2018/01/19/算法-位操作/"/>
 
 
 
 
 
-  <title>LR | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>算法-位操作 | jiayi797的专栏</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -323,7 +319,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/02/机器学习算法-LR/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2018/01/19/算法-位操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -340,7 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LR</h1>
+          <h1 class="post-title" itemprop="name headline">算法-位操作</h1>
         
 
         <div class="post-meta">
@@ -352,8 +348,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-02T22:45:32+08:00">
-                2017-03-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-19T20:38:17+08:00">
+                2018-01-19
               </time>
             
 
@@ -368,8 +364,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-11-07T23:09:27+08:00">
-                2017-11-07
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-19T22:57:29+08:00">
+                2018-01-19
               </time>
             
           </span>
@@ -387,8 +383,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习算法</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -406,8 +402,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2017/03/02/机器学习算法-LR/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/03/02/机器学习算法-LR/" itemprop="commentsCount"></span>
+                <a href="/2018/01/19/算法-位操作/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/01/19/算法-位操作/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -434,7 +430,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  2,325
+                  287
                 </span>
               
 
@@ -456,82 +452,16 @@
       
 
       
-        <p>在说LR之前，我们先回顾一下logistic分布。</p>
-<h1 id="logistic分布">1. logistic分布</h1><p>如果连续随机变量$X$服从logistic分布，则$X$具有下列<strong>分布函数和密度函数</strong>：</p>
-<p>$$<br>F(x)=P(X&lt;=x)=\frac{1}{1+e^{-(x-u)/r}}<br>$$</p>
-<p>$$<br>f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}<br>$$</p>
-<p>其中</p>
-<p>$u$为位置参数</p>
-<p>$r&gt;0$为形状参数</p>
-<p>其中，密度函数与分布函数的形状如图所示<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png" alt=""> </p>
-<p><strong>备注：分布密度函数与分布函数</strong></p>
-<p>概率密度函数$f(x)$：表示瞬时值落在某区间的概率，是幅值的概率。++用来描述连续型随机变量取值的密集程度的。++$f(x)$表示X=x的概率是$\int_0^1f(x)$。</p>
-<p>$P(X=x|x \in (0,1))=\int_0^1f(x)$</p>
-<p>分布函数$F(x)$：描述随机变量落在任一区间的概率。</p>
-<p>$F(x)=P(X&lt;=x)$</p>
-<p>关系：</p>
-<p>分布函数$F(x)$是概率密度函数$f(x)$从负无穷到正无穷上的积分；</p>
-<p>在坐标轴上，概率密度函数的函数值y表示落在x点上的概率为y；分布函数的函数值y则表示x落在区间(-∞上的概率。</p>
-<h1 id="二项logistic回归模型">2. 二项logistic回归模型</h1><p><strong>用途：估计某个值的为哪一类的概率</strong></p>
-<p>logistic回归是分类问题。前面我们讲的分类问题的输出都是 “yes”或者“no”。但是在现实生活中，我们并不是总是希望结果那么肯定，而是概率（发生的可能性）。比如，我们希望知道这个房子在第三个星期被卖出去的概率。那么以前的分类算法就无法使用了，这时logistic 回归就派上了用场。 </p>
-<p><strong>定义</strong></p>
-<p>二项logistic回归模型是如下的条件概率分布：</p>
-<p>$$<br>P(Y=1|x)=\frac{exp(wx+b)}{1+exp(wx+b)}<br>$$</p>
-<p>$$<br>P(Y=0|x)=\frac{1}{1+exp(wx+b)}<br>$$</p>
-<p>其中：<br>$x \in R^n$ ：输入</p>
-<p>$Y \in (0,1)$ ：输出</p>
-<p>给定$x$，可以求得$P(Y=1|x)$和$P(Y=0|x)$</p>
-<p><strong>logistic回归模型的特点</strong></p>
-<p>几率（odds）= 该事件发生的概率/该事件不该发生的概率，则对数几率：</p>
-<p>$$<br>log(odds)=log(\frac{p}{1-p})=log(\frac{P(Y=1|x)}{1-P(Y=1|x)})=wx<br>$$</p>
-<p>则：输出Y=1的对数几率=输入x的线性函数</p>
-<h1 id="模型参数估计">3. 模型参数估计</h1><p>输入： 一堆（x,y）</p>
-<p>目标：估计参数w,b</p>
-<p>方法：极大似然法</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png" alt=""> </p>
-<h1 id="总结">4. 总结</h1><ol>
-<li>逻辑回归是一种预测y的各类别的概率的模型，即计算P(Y=1|x)或者P(Y=0|x)</li>
-<li>与机器学习过程类似，即 通过已知的大量（x,y），拟合计算参数w,b；再用y=wx+b来计算新的x下的y；把y输入sigmoid函数中，得到y为1的概率。</li>
-</ol>
-<h1 id="LR推导（sigmoid，损失函数，梯度，参数更新公式）">5. LR推导（sigmoid，损失函数，梯度，参数更新公式）</h1><p>这篇文章非常详细地介绍了逻辑回归的推导。非常有用。我在此处进行了转载。</p>
-<h2 id="声明">5.1. 声明</h2><ol>
-<li>$ x(1),x(2),…,x(m) $ 表示 n 维空间的一个样本，$x(i)$ 表示第i个样本，$x(i)_j$ 表示第i个样本的第j维的数据（因为$x$是一个n维向量）。</li>
-<li>$y(1),y(2),…,y(m)$ 表示 k 维空间的一个观测结果，记k从1,2,…,k变化，即分类问题中的k个类别，也可以0为下标开始，不影响推导。</li>
-<li>$\pi()$是我们学习到的概率函数，实现样本数据到预测结果的映射：$R^n\rightarrow R^k$，（其实就是样本经过函数 $\pi()$计算后得到各个类别的预测概率，即一个k维向量），<br>$\pi(x)_u​$表示数据样本x属于类别u的概率，我们希望$\pi()​$具有如下性质：</li>
-</ol>
-<blockquote>
-<ol>
-<li>$\pi(x)_v&gt;0$  (样本x属于类别v的概率大于0，显然概率必须大于0)</li>
-<li>$\sum_{v=1}^k\pi(x)_v = 1$,样本x属于各个类别的概率和为1</li>
-<li>$\pi(x(i))_{y(i)}在所有类别概率中最大$</li>
-</ol>
-</blockquote>
-<ol>
-<li>$A(u,v)$是一个指示函数，$当u=v时A(u,v)=1，当u\neq v时A(u,v)=0，如A(u,y(i))$表示第i个观测结果是否为u</li>
-</ol>
-<h2 id="逻辑回归求解分类问题过程">5.2. 逻辑回归求解分类问题过程</h2><p>对于二分类问题有k=2，对线性回归函数$\lambda x$进行非线性映射得到：</p>
-<p>$$ \pi(x)_1 = \frac{\rm e^{\lambda \cdot x}}{\rm e^{\lambda \cdot x}+1}\tag{1} $$<br> $$ \pi(x)_2 = 1-\pi(x)_1= \frac{1}{\rm e^{\lambda \cdot x}+1}\tag{2} $$<br>对于多分类问题有：<br> $$ \pi(x) = \frac{\rm e^{\lambda _v\cdot x}}{\sum_{u=1}^m\rm e^{\lambda_u \cdot x}}\tag{3} $$<br>对$\lambda$求偏导可得：</p>
-<p>$$ \begin{aligned}<br>u = v 时，<br>\frac {\partial\,\pi (x)_v}{\lambda_{v,j}} &amp;= \frac{x_j\rm e^{\lambda _{v,j}\cdot x}\cdot \sum_{u=1}^m\rm e^{\lambda_{u,j} \cdot x}-x_j\rm e^{\lambda _{v,j}\cdot x}\rm e^{\lambda _{v,j}\cdot x}}{(\sum_{u=1}^m\rm e^{\lambda_{u,j} \cdot x})^2}\\<br>&amp; = \frac{x_j\rm e^{\lambda _{v,j}\cdot x}}{\sum_{u=1}^m\rm e^{\lambda_{u,j} \cdot x}} \cdot \frac{\sum_{u=1}^m\rm e^{\lambda_{u,j} \cdot x}-\rm e^{\lambda_{v,j}\cdot x}}{\sum_{u=1}^m\rm e^{\lambda_{u,j} \cdot x}}\\&amp; = x_j \pi(x)_v(1-\pi(x)_v)\end{aligned}\tag{4} $$ </p>
-<p>$$<br>\begin{aligned}<br>u \neq v 时<br>\frac {\partial\,\pi (x)_v}{\lambda_{u,j}}&amp;=-\frac{\rm e^{\lambda_{v,j} \cdot x} \cdot (x_j\rm e^{\lambda_{u,j} \cdot x})}{(\sum_{u=1}^m\rm e^{\lambda_{u,j} \cdot x})^2} \\<br>&amp;= -x_j \pi(x)_v\pi(x)_u, u\neq v时<br>\end{aligned}<br>\tag{5}<br>$$<br>该分类问题的最大似然函数为：<br> $$ L(\lambda)=\prod_{i=1}^m \pi(x(i))_{y(i)}\tag{6} $$<br>取对数得：<br> $$ f(\lambda)=\log L(\lambda)=\sum_{i=1}^m \log(\pi(x(i))_{y(i)})\tag{7} $$<br>求似然函数最大值，令：<br>$$<br>\begin{aligned}<br>\frac{\partial\,f(\lambda)}{\partial \,\lambda_{u,j}} &amp;=\frac{\partial}{\partial \,\lambda_{u,j}}\sum_{i=1}^m \log(\pi(x(i))_{y(i)}) \\<br>&amp;= \sum_{i=1}^m \frac{1}{\pi(x(i))_{y(i)}}\frac{\partial}{\partial \,\lambda_{u,j}}\pi(x(i))_{y(i)} \\<br>&amp;= \sum_{\begin{array}{c}i=1,\\y(i)=u\end{array}}^m \frac{1}{\pi(x(i))_{y(i)}}\frac{\partial}{\partial \,\lambda_{u,j}}\pi(x(i))_{u} + \sum_{\begin{array}{c}i=1,\\y(i)\neq u\end{array}}^m \frac{1}{\pi(x(i))_{y(i)}}\frac{\partial}{\partial \,\lambda_{u,j}}\pi(x(i))_{y(i)}\\<br>&amp;= \sum_{\begin{array}{c}i=1,\\y(i)=u\end{array}}^m \frac{1}{\pi(x(i))_{y(i)}}x(i)_j\pi(x(i))_u(1-\pi(x(i))_u) \\<br>&amp;\quad - \sum_{\begin{array}{c}i=1,\\y(i)\neq u\end{array}}^m \frac{1}{\pi(x(i))_{y(i)}}x(i)_j\pi(x(i))_{y(i)} \pi(x(i))_u\\<br>&amp;= \sum_{\begin{array}{c}i=1,\\y(i)=u\end{array}}^m x(i)_j(1-\pi(x(i))_u)-\sum_{\begin{array}{c}i=1,\\y(i)\neq u\end{array}}^m x(i)_j \pi(x(i))_u \\<br>&amp;= \sum_{\begin{array}{c}i=1,\\y(i)=u\end{array}}^m x(i)_j - \sum_{i=1}^m x(i)_j\pi(x(i))_u \\<br>&amp;= 0<br>\end{aligned}<br>\tag{8}<br>$$<br>得：<br> $$ \sum_{\begin{array}{c}i=1,\\y(i)=u\end{array}}^m x(i)_j = \sum_{i=1}^m x(i)_j\pi(x(i))_u\tag{9} $$<br>代入$A(u,y(i))=1$得：<br> $$ \sum_{i=1}^m x(i)_j\pi(x(i))_u = \sum_{i=1}^m x(i)_jA(u,y(i))\tag{10} $$<br>综上有：<br> $$ \frac{\partial\,f(\lambda)}{\partial \,\lambda_{u,j}}=\sum_{i=1}^m x(i)_j(A(u,y(i))-\pi(x(i))_u)\tag{11} $$<br>则参数更新公式为：</p>
-<p>$$ \begin{aligned}\lambda_{u,j} &amp;= \lambda_{u,j} - \alpha \cdot \frac{\partial\,f(\lambda)}{\partial \,\lambda_{u,j}} \\&amp;= \lambda_{u,j} - \alpha \cdot \sum_{i=1}^m x(i)_j(A(u,y(i))-\pi(x(i))_u)\end{aligned}\tag{12} $$ </p>
-<h2 id="sigmoid函数的由来（最大熵）">5.3. sigmoid函数的由来（最大熵）</h2><p>由上文已知$\pi()$具应有如下性质：</p>
-<blockquote>
-<ol>
-<li>样本x属于类别v的概率大于0，显然概率必须大于0$\pi(x)_v&gt;0\tag{13}$ </li>
-<li>样本x属于各个类别的概率和为1 $\sum_{v=1}^k\pi(x)_v = 1\tag{14}$</li>
-<li>$\pi(x(i))_{y(i)}在所有类别概率中最大$</li>
-</ol>
-</blockquote>
-<p>其中对最后一个条件等价于尽可能的让$\pi(x(i))\rightarrow y(i)$ 即 $\pi(x(i))\rightarrow A(u,y(i))$，理想情况为$\pi(x(i))= A(u,y(i))$固有：<br> $$ \sum_{i=1}^m x(i)_j\pi(x(i))_u = \sum_{i=1}^m x(i)_jA(u,y(i))\tag{15}，对所有的u，j都成立 $$ </p>
-<p>对所有类别及所有样本取$\pi()$的熵，得：<br> $$ f(v,i)=-\sum_{v=1}^k\sum_{i=1}^m\pi(x(i))_v \log(\pi(x(i))_v)\tag{16} $$<br>得到一个优化问题：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-11-06-23-03-41.png" alt=""> </p>
-<p>$$\left{<br>\begin{aligned}<br>max f(v,i)=max (-\sum_{v=1}^k \sum_{i=1}^m pi(x(i))_v log(π(x(i))_v))\\<br>\pi(x)_v&gt;0\\<br>\sum_{v=1}^k π(x)_v = 1\\<br>\sum_{i=1}^m x(i)_j π(x(i))_u = \sum_{i=1}^m x(i)_j A(u,y(i))<br>\end{aligned}<br>\right.<br>\tag{17}$$<br>利用拉格朗日对偶性求这个优化问题的对偶问题，首先引入拉格朗日函数：</p>
-<p>$$ \begin{aligned}L &amp;= \sum_{j=1}^n\sum_{v=1}^k\lambda_{v,j} \left( \sum_{i=1}^m\pi(x(i))_vx(i)_j-A(v,y(i))x(i)_j \right)\\&amp;+ \sum_{v=1}^k\sum_{i=1}^m\beta_i(\pi(x(i))_v-1)\\&amp;- \sum_{v=1}^k\sum_{i=1}^m\pi(x(i))_v\log(\pi(x(i))_v)\end{aligned}\tag{18} $$<br>其中 $$ \beta&lt;0 $$ ,由KKT条件有：<br>$$ \frac{\partial\,L}{\partial \,\pi(x(i))_u} = \lambda_u\cdot x(i)+\beta_i-\log(\pi(x(i))_u) - 1 = 0  \quad对所有i,u \tag{19}$$</p>
-<p>$$则：\pi(x(i))_u = e^{\lambda_u \cdot x(i)+\beta_i-1} \tag{20}$$ </p>
-<p>则： $$\pi(x(i))_u = e^{\lambda_u \cdot x(i)+\beta_i-1} \tag{20}$$<br>由（14）式得到：<br> $$  \sum_{v=1}^k e^{\lambda_u \cdot x(i)+\beta_i-1} = 1\ $$<br>即： $$e^\beta=\frac{1}{\sum_{v=1}^ke^{\lambda_u \cdot x(i)-1}} \tag{21} $$<br>代入（21）式消去常数项得：<br> $$ \pi(x(i))_u=\frac{e^{\lambda_u \cdot x}}{\sum_{v=1}^ke^{\lambda_u \cdot x}}\tag{22} $$<br>即多分类问题对应的sigmoid函数</p>
-<h1 id="其它文献">6. 其它文献</h1><ol>
-<li><a href="http://blog.csdn.net/cyh_24/article/details/50359055" target="_blank" rel="external">Logistic Regression 的前世今生（理论篇）</a></li>
-</ol>
+        <h2 id="相关题">0.1. 相关题</h2><h2 id="Bitwise-AND-of-Numbers-Range">0.2. Bitwise AND of Numbers Range</h2><p>求m ~ n之间所有数字的与。</p>
+<p>思路：一开始就是暴力与。但这样超时了。</p>
+<p>参考资料<a href="http://www.cnblogs.com/grandyang/p/4431646.html" target="_blank" rel="external">[LeetCode] Bitwise AND of Numbers Range 数字范围位相与</a></p>
+<p>我们先从题目中给的例子来分析，[5, 7]里共有三个数字，分别写出它们的二进制为：</p>
+<p>101　　110　　111</p>
+<p>相与后的结果为100，仔细观察我们可以得出，最后的数是该数字范围内所有的数的左边共同的部分，如果上面那个例子不太明显，我们再来看一个范围[26, 30]，它们的二进制如下：</p>
+<p>11010　　11011　　11100　　11101　　11110</p>
+<p>发现了规律后，我们只要写代码找到左边公共的部分即可。</p>
+<p>直接平移m和n，每次向右移一位，直到m和n相等，记录下所有平移的次数i，然后再把m左移i位即为最终结果，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rangeBitwiseAnd</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">       <span class="comment">// 统计m和n的高位相等的个数</span></div><div class="line">       <span class="keyword">int</span> counter = <span class="number">0</span>;</div><div class="line">       <span class="keyword">while</span> (m != n)&#123;</div><div class="line">           m = m &gt;&gt; <span class="number">1</span>;</div><div class="line">           n = n &gt;&gt; <span class="number">1</span>;</div><div class="line">           ++counter;</div><div class="line">       &#125;</div><div class="line">       <span class="comment">// 将m左移counter次就是结果</span></div><div class="line">       <span class="keyword">return</span> m &lt;&lt; counter;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -568,18 +498,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/03/机器学习算法-SVM/" rel="next" title="SVM">
-                <i class="fa fa-chevron-left"></i> SVM
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/02/SQL-SQL游标/" rel="prev" title="SQL游标">
-                SQL游标 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/15/系统设计-新鲜事系统/" rel="prev" title="系统设计-新鲜事系统">
+                系统设计-新鲜事系统 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -711,7 +637,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#logistic分布"><span class="nav-text">1. logistic分布</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二项logistic回归模型"><span class="nav-text">2. 二项logistic回归模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型参数估计"><span class="nav-text">3. 模型参数估计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">4. 总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LR推导（sigmoid，损失函数，梯度，参数更新公式）"><span class="nav-text">5. LR推导（sigmoid，损失函数，梯度，参数更新公式）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#声明"><span class="nav-text">5.1. 声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归求解分类问题过程"><span class="nav-text">5.2. 逻辑回归求解分类问题过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sigmoid函数的由来（最大熵）"><span class="nav-text">5.3. sigmoid函数的由来（最大熵）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其它文献"><span class="nav-text">6. 其它文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#相关题"><span class="nav-text">0.1. 相关题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bitwise-AND-of-Numbers-Range"><span class="nav-text">0.2. Bitwise AND of Numbers Range</span></a></li></ol></div>
             
 
           </div>
