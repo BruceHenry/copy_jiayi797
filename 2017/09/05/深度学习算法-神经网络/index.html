@@ -96,7 +96,7 @@
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习算法-神经网络">
-<meta property="og:url" content="http://yoursite.com/child/2017/09/05/深度学习算法-神经网络/index.html">
+<meta property="og:url" content="http://jiayi797.github.io/about/2017/09/05/深度学习算法-神经网络/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="本文是吴恩达老师的课程总结。主要参考了大树先生和PilgrimHui 的笔记。如有不当之处，还请各位指出。 本课程附带编程作业。本文的编程作业有：  实现浅层神经网络 ：深度学习实践-1-3-构建浅层神经网络  实现深层神经网络： 深度学习实践-1-4-1-构建深层神经网络  用神经网络做猫脸识别：深度学习实践-1-4-2-用神经网络识别猫  待续   1. 神经网络概念所谓神经网络就是将许多个单">
 <meta property="og:image" content="https://i.loli.net/2017/09/05/59aea656bf8da.png">
@@ -179,7 +179,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/2017/09/05/深度学习算法-神经网络/"/>
+  <link rel="canonical" href="http://jiayi797.github.io/about/2017/09/05/深度学习算法-神经网络/"/>
 
 
 
@@ -368,7 +368,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/09/05/深度学习算法-神经网络/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/09/05/深度学习算法-神经网络/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -595,7 +595,7 @@
 <h3 id="反向传播">2.2.2. 反向传播</h3><p>上述正向传播时我们假设我们已经有了一个模型。但事实上我们应该是已经有了一堆样本想和样本的y，我们想去学习这个模型。那如何进行模型学习呢？就要用到反向传播法，从已知的输出y出发，结合梯度下降，得到一个模型，使得这个模型最符合x的分布。</p>
 <p>反向传播算法其实指的是用于计算梯度的方法。而梯度下降是使用这个计算好了的梯度来进行学习的方法。</p>
 <p>具体过程的<strong>思想精华：在样本集下，想要得到各层的z=wx+b的参数w和b，使得损失函数L(a,y)最小。用梯度下降法的话，就要沿着$L(a,y)$导数的方向来调节w和b。</strong></p>
-<p>关于误差函数$L(a,y)$我会在之后的博客<a href="https://jiayi797.github.io/2017/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95-%E8%AF%AF%E5%B7%AE%E5%87%BD%E6%95%B0%E6%8E%A2%E7%A9%B6/" target="_blank" rel="external">误差函数探究</a>里进行叙述。</p>
+<p>关于误差函数$L(a,y)$我会在之后的博客<a href="https://jiayi797.github.io/2017/10/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95-%E8%AF%AF%E5%B7%AE%E5%87%BD%E6%95%B0%E6%8E%A2%E7%A9%B6/">误差函数探究</a>里进行叙述。</p>
 <p>要计算$L(a,y)$的导数$\frac{dL(a,y)}{da}=-\frac{y}{a} + \frac{1-y}{1-a}$,那么就要计算$dz=\frac{dL}{dz}$，从而要计算$dw=\frac{dL}{dw}$和$db=\frac{dL}{db}$</p>
 <ol>
 <li>$dz^{[2]}=A^{[2]}-Y,Y=[y^{[1]}],y^{[2]},…,y^{[m]}$</li>
@@ -1103,7 +1103,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">100</span>
+                <span class="site-state-item-count">101</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1194,7 +1194,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共210.3k字</span>
+  <span class="post-count">博客全站共211.5k字</span>
 </div>
 
 

@@ -95,7 +95,7 @@
 <meta name="description" content="甲乙小朋友写字的地方">
 <meta property="og:type" content="website">
 <meta property="og:title" content="jiayi797的专栏">
-<meta property="og:url" content="http://yoursite.com/child/page/6/index.html">
+<meta property="og:url" content="http://jiayi797.github.io/about/page/6/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="甲乙小朋友写字的地方">
 <meta name="twitter:card" content="summary">
@@ -128,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/page/6/"/>
+  <link rel="canonical" href="http://jiayi797.github.io/about/page/6/"/>
 
 
 
@@ -319,7 +319,216 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/22/Java-Buffer/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/24/机器学习算法-特征选择与正则化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/24/机器学习算法-特征选择与正则化/" itemprop="url">特征选择与正则化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-24T14:40:33+08:00">
+                2017-05-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T18:29:28+08:00">
+                2017-07-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/05/24/机器学习算法-特征选择与正则化/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/05/24/机器学习算法-特征选择与正则化/" class="cy_cmt_count" data-xid="2017/05/24/机器学习算法-特征选择与正则化/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,328
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          特征选择：很重要
+tip:冗余特征(redundant feature)：
+
+本特征能被其它特征中推演出来。它不一定有坏处，但也不一定有好处。例如：考虑立方体对象，若已有特征“长”、“宽”，则“底面积”是冗余特征。
+冗余特征在很多时候不起作用，会增加学习过程的负担。
+但如果学习目标是估算立方体体积，则“底面积”特征会对学习更好。
+
+结论：如果某冗余特征恰好对应完成学习任务所需的“中间概念”，则该冗余特征是有益的。
+1. 子集搜索与评价特征选取时，若没有任何领域知识进行先验假设，只能遍历所有可能子集。–&gt;不可取！
+可行做法:产生个“候选子集”，评价它的好坏，基于评价结果产生下一个候选子集。
+1.1. 问题一，如何评价结果获取下一个候选特征子集？子集搜索
+
+前向搜索
+
+
+给定特征集合${a_1,a_2,…,a_d}$,将每个特征看做一个候选子集。对d个候选单特征子集进行评价，假定${a_2}$最优，将${a_2}$做为第一轮选定集；
+加入一个新特征，构成包含两个特征的候选子集，假定在这$d-1$个候选两特征子集中${a_2,a_4}$最优，则将${a_2,a_4}$作为本轮选定集；
+…
+k+1轮时，不再更好，停止迭代
+
+
+后向搜索每次都删除掉一个特征
+
+1.2. 问题二，如何评价候选特征子集？信息增益
+
+给定数据集$D$,假定$D$中第$i$类样本所占的比例为$p_i(i=1,2,…,|Y|)$.
+假定所有样本属性均为离散型
+对属性子集$A$,假定根据其取值将$D$分成了$V$个子集${D^1,D^2,…,D^V}$,每个子集中的样本在A上取值相同，则属性子集$A$的信息增益
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/24/机器学习算法-特征选择与正则化/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/22/Java-Buffer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -405,7 +614,7 @@
               </span>
               
                 <a href="/2017/05/22/Java-Buffer/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/05/22/Java-Buffer/" class="cy_cmt_count" data-xid="2017/05/22/Java-Buffer/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/05/22/Java-Buffer/" class="cy_cmt_count" data-xid="2017/05/22/Java-Buffer/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -519,7 +728,7 @@ ByteBuffer
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/21/中间件比赛-内存映射文件/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/21/中间件比赛-内存映射文件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -605,7 +814,7 @@ ByteBuffer
               </span>
               
                 <a href="/2017/05/21/中间件比赛-内存映射文件/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/05/21/中间件比赛-内存映射文件/" class="cy_cmt_count" data-xid="2017/05/21/中间件比赛-内存映射文件/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/05/21/中间件比赛-内存映射文件/" class="cy_cmt_count" data-xid="2017/05/21/中间件比赛-内存映射文件/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -712,7 +921,7 @@ ByteBuffer
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -798,7 +1007,7 @@ ByteBuffer
               </span>
               
                 <a href="/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/" class="cy_cmt_count" data-xid="2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/" class="cy_cmt_count" data-xid="2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -909,7 +1118,7 @@ messageFactory,而createBytesMessageToTopic()正是通过message
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/17/中间件比赛-RocketMQ简介/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/17/中间件比赛-RocketMQ简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -995,7 +1204,7 @@ messageFactory,而createBytesMessageToTopic()正是通过message
               </span>
               
                 <a href="/2017/05/17/中间件比赛-RocketMQ简介/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/05/17/中间件比赛-RocketMQ简介/" class="cy_cmt_count" data-xid="2017/05/17/中间件比赛-RocketMQ简介/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/05/17/中间件比赛-RocketMQ简介/" class="cy_cmt_count" data-xid="2017/05/17/中间件比赛-RocketMQ简介/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -1111,7 +1320,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/16/机器学习实践-CVR-转化率预估资料/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/16/机器学习实践-CVR-转化率预估资料/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -1197,7 +1406,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
               </span>
               
                 <a href="/2017/05/16/机器学习实践-CVR-转化率预估资料/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/05/16/机器学习实践-CVR-转化率预估资料/" class="cy_cmt_count" data-xid="2017/05/16/机器学习实践-CVR-转化率预估资料/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/05/16/机器学习实践-CVR-转化率预估资料/" class="cy_cmt_count" data-xid="2017/05/16/机器学习实践-CVR-转化率预估资料/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -1297,7 +1506,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/14/中间件比赛-李健胜解决方案/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/14/中间件比赛-李健胜解决方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -1383,7 +1592,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
               </span>
               
                 <a href="/2017/05/14/中间件比赛-李健胜解决方案/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/05/14/中间件比赛-李健胜解决方案/" class="cy_cmt_count" data-xid="2017/05/14/中间件比赛-李健胜解决方案/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/05/14/中间件比赛-李健胜解决方案/" class="cy_cmt_count" data-xid="2017/05/14/中间件比赛-李健胜解决方案/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -1497,7 +1706,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/13/中间件比赛-OpenMessaging源码阅读1/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/13/中间件比赛-OpenMessaging源码阅读1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -1583,7 +1792,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
               </span>
               
                 <a href="/2017/05/13/中间件比赛-OpenMessaging源码阅读1/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/05/13/中间件比赛-OpenMessaging源码阅读1/" class="cy_cmt_count" data-xid="2017/05/13/中间件比赛-OpenMessaging源码阅读1/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/05/13/中间件比赛-OpenMessaging源码阅读1/" class="cy_cmt_count" data-xid="2017/05/13/中间件比赛-OpenMessaging源码阅读1/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -1697,7 +1906,7 @@ Properties(财产，特性)：每个消息都有一个消息自有的部分，�
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/12/Java-多线程/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/12/Java-多线程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -1783,7 +1992,7 @@ Properties(财产，特性)：每个消息都有一个消息自有的部分，�
               </span>
               
                 <a href="/2017/05/12/Java-多线程/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/05/12/Java-多线程/" class="cy_cmt_count" data-xid="2017/05/12/Java-多线程/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/05/12/Java-多线程/" class="cy_cmt_count" data-xid="2017/05/12/Java-多线程/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -1903,7 +2112,7 @@ run  Thread-0
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/11/中间件比赛-OpenMessaging简介/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/11/中间件比赛-OpenMessaging简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -1989,7 +2198,7 @@ run  Thread-0
               </span>
               
                 <a href="/2017/05/11/中间件比赛-OpenMessaging简介/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/05/11/中间件比赛-OpenMessaging简介/" class="cy_cmt_count" data-xid="2017/05/11/中间件比赛-OpenMessaging简介/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/05/11/中间件比赛-OpenMessaging简介/" class="cy_cmt_count" data-xid="2017/05/11/中间件比赛-OpenMessaging简介/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -2088,205 +2297,11 @@ PushConsumer:可从多个队列中接收消息，且这个消息是由MOM server
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/05/11/中间件比赛-中间件入门/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/11/中间件比赛-中间件入门/" itemprop="url">中间件入门</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-11T16:52:49+08:00">
-                2017-05-11
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:26:11+08:00">
-                2017-07-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件比赛/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件比赛</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/05/11/中间件比赛-中间件入门/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/05/11/中间件比赛-中间件入门/" class="cy_cmt_count" data-xid="2017/05/11/中间件比赛-中间件入门/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  880
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1. 中间件概念中间件：处于操作系统和应用程序之间的软件。
-中间件简单解释，可以理解为面向信息系统交互，集成过程中的通用部分的集合，屏蔽了底层的通讯，交互，连接等复杂又通用化的功能，以产品的形式提供出来，系统在交互时，直接采用中间件进行连接和交互即可，避免了大量的代码开发和人工成本。
-其实，理论上来讲，中间件所提供的功能通过代码编写都可以实现，只不过开发的周期和需要考虑的问题太多，逐渐的，这些部分，以中间件产品的形式进行了替代。
-比如常见的消息中间件，即系统之间的通讯与交互的专用通道，类似于邮局，系统只需要把传输的消息交给中间件，由中间件负责传递，并保证传输过程中的各类问题，如网络问题，协议问题，两端的开发接口问题等均由消息中间件屏蔽了，出现了网络故障时，消息中间件会负责缓存消息，以避免信息丢失。相当于你想给美国发一个邮包，只需要把邮包交给邮局，填写地址和收件人，至于运送过程中的一系列问题你都不需要关心了。
-2. 中间件分类
-消息中间件（MOM：Message-Oriented Middleware）
-数据中间件（Database Middleware）
-远程过程调用中间件（RPC：Remote Process Call）
-对象请求代理中间件（ORB：Object Request Broker）
-事务处理中间件（TP Monitor：Transaction Process Monitor）
-J2EE中间件
-
-3. Open-Messaging是一个建立行业内的指引和消息的协议（charter）。它的streaming规范提供了一个可用于电子商务、物联网和大数据的基础框架。它的主
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/11/中间件比赛-中间件入门/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2331,7 +2346,7 @@ J2EE中间件
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">100</span>
+                <span class="site-state-item-count">101</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2406,7 +2421,7 @@ J2EE中间件
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共210.3k字</span>
+  <span class="post-count">博客全站共211.5k字</span>
 </div>
 
 

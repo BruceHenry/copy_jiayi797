@@ -95,7 +95,7 @@
 <meta name="description" content="甲乙小朋友写字的地方">
 <meta property="og:type" content="website">
 <meta property="og:title" content="jiayi797的专栏">
-<meta property="og:url" content="http://yoursite.com/child/page/8/index.html">
+<meta property="og:url" content="http://jiayi797.github.io/about/page/8/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="甲乙小朋友写字的地方">
 <meta name="twitter:card" content="summary">
@@ -128,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/page/8/"/>
+  <link rel="canonical" href="http://jiayi797.github.io/about/page/8/"/>
 
 
 
@@ -319,7 +319,198 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/31/数学-QR分解/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/04/03/ACM-BUPT-2017-F-Simple-recursion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/04/03/ACM-BUPT-2017-F-Simple-recursion/" itemprop="url">BUPT_ACM_2017_F_Simple_recursion</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T13:53:01+08:00">
+                2017-04-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-04-24T21:26:32+08:00">
+                2017-04-24
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ACM/" itemprop="url" rel="index">
+                    <span itemprop="name">ACM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/04/03/ACM-BUPT-2017-F-Simple-recursion/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/04/03/ACM-BUPT-2017-F-Simple-recursion/" class="cy_cmt_count" data-xid="2017/04/03/ACM-BUPT-2017-F-Simple-recursion/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,062
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          本文是2017年北京邮电大学第十一届程序设计竞赛网络热身赛的F. Simple recursion题解。
+1. 题目题目描述r_clover shows you a BIIIIIIIIIIG water problem:if $f(0)=1,f(1)=1$,$f(n)=2f(n-1)+3f(n-2)$, what is $f(n)mod1000000007$?
+输入格式A single integer n(0≤n≤10000000000).
+输出格式A single integer, which is the answer for f(n)mod1000000007.
+输入样例10输出样例29525
+2. 思路一开始想的是用递归。但经测试发现递归的时间、空间复杂度都太高，导致超时。
+正确打开方式：求出递推关系，并用快速幂取模方法计算结果。
+3. 递推关系求解《组合数学》内容————常系数线性齐次递推关系的求解。公式见后面的附1。求解题目中所给的递推关系：$$f(n)=2f(n-1)+3f(n-2)$$$$f(0)=1,f(1)=1$$它的特征方程为：$$x^2-2x-3=0$$解方程得：$$x_1=3,x_2=-1$$所以递推关系的通解为：$$f(n)=c_13^n+c_2(-1)^n$$代入初值$f(0)=1,f(1)=1$，得到：$$f(0)=c_1+c_2=1$$$$f(1)=3c_1-c_2=1$$解得:$c_1=c_2=0.5$因此该递推关系的解为$$f(n)=0.5(3)^n+0.5(-1)^n$$
+代码实现：
+12345678910long f(long long
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/03/ACM-BUPT-2017-F-Simple-recursion/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/31/数学-QR分解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -405,7 +596,7 @@
               </span>
               
                 <a href="/2017/03/31/数学-QR分解/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/03/31/数学-QR分解/" class="cy_cmt_count" data-xid="2017/03/31/数学-QR分解/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/03/31/数学-QR分解/" class="cy_cmt_count" data-xid="2017/03/31/数学-QR分解/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -521,7 +712,7 @@ Householder变换的性质
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/30/数学-求线代方程的解/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/30/数学-求线代方程的解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -607,7 +798,7 @@ Householder变换的性质
               </span>
               
                 <a href="/2017/03/30/数学-求线代方程的解/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/03/30/数学-求线代方程的解/" class="cy_cmt_count" data-xid="2017/03/30/数学-求线代方程的解/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/03/30/数学-求线代方程的解/" class="cy_cmt_count" data-xid="2017/03/30/数学-求线代方程的解/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -730,7 +921,7 @@ double * forwardSub(double *lu,int n,double *b,int *p){
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/29/数学-矩阵LU分解/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/29/数学-矩阵LU分解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -816,7 +1007,7 @@ double * forwardSub(double *lu,int n,double *b,int *p){
               </span>
               
                 <a href="/2017/03/29/数学-矩阵LU分解/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/03/29/数学-矩阵LU分解/" class="cy_cmt_count" data-xid="2017/03/29/数学-矩阵LU分解/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/03/29/数学-矩阵LU分解/" class="cy_cmt_count" data-xid="2017/03/29/数学-矩阵LU分解/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -933,7 +1124,7 @@ U是非奇异上三角矩阵；
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/28/算法-最大流/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/28/算法-最大流/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -1019,7 +1210,7 @@ U是非奇异上三角矩阵；
               </span>
               
                 <a href="/2017/03/28/算法-最大流/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/03/28/算法-最大流/" class="cy_cmt_count" data-xid="2017/03/28/算法-最大流/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/03/28/算法-最大流/" class="cy_cmt_count" data-xid="2017/03/28/算法-最大流/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -1122,7 +1313,7 @@ U是非奇异上三角矩阵；
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/27/ACM-poj1789-TruckHistory/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/27/ACM-poj1789-TruckHistory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -1208,7 +1399,7 @@ U是非奇异上三角矩阵；
               </span>
               
                 <a href="/2017/03/27/ACM-poj1789-TruckHistory/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/03/27/ACM-poj1789-TruckHistory/" class="cy_cmt_count" data-xid="2017/03/27/ACM-poj1789-TruckHistory/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/03/27/ACM-poj1789-TruckHistory/" class="cy_cmt_count" data-xid="2017/03/27/ACM-poj1789-TruckHistory/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -1306,7 +1497,7 @@ Today, ACM is rich enough to pay historians to study its history. On
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/26/算法-最小生成树算法/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/26/算法-最小生成树算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -1325,7 +1516,7 @@ Today, ACM is rich enough to pay historians to study its history. On
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/03/26/算法-最小生成树算法/" itemprop="url">最小生成树算法</a></h1>
+                <a class="post-title-link" href="/2017/03/26/算法-最小生成树算法/" itemprop="url">算法-最小生成树算法</a></h1>
         
 
         <div class="post-meta">
@@ -1353,8 +1544,8 @@ Today, ACM is rich enough to pay historians to study its history. On
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-04-24T21:26:32+08:00">
-                2017-04-24
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-23T17:09:07+08:00">
+                2018-01-23
               </time>
             
           </span>
@@ -1392,7 +1583,7 @@ Today, ACM is rich enough to pay historians to study its history. On
               </span>
               
                 <a href="/2017/03/26/算法-最小生成树算法/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/03/26/算法-最小生成树算法/" class="cy_cmt_count" data-xid="2017/03/26/算法-最小生成树算法/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/03/26/算法-最小生成树算法/" class="cy_cmt_count" data-xid="2017/03/26/算法-最小生成树算法/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -1517,7 +1708,7 @@ Kruskal
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/23/ACM-poj1860-CurrencyExchange/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/23/ACM-poj1860-CurrencyExchange/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -1603,7 +1794,7 @@ Kruskal
               </span>
               
                 <a href="/2017/03/23/ACM-poj1860-CurrencyExchange/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/03/23/ACM-poj1860-CurrencyExchange/" class="cy_cmt_count" data-xid="2017/03/23/ACM-poj1860-CurrencyExchange/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/03/23/ACM-poj1860-CurrencyExchange/" class="cy_cmt_count" data-xid="2017/03/23/ACM-poj1860-CurrencyExchange/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -1699,7 +1890,7 @@ Kruskal
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/23/算法-单源最短路径问题/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/23/算法-单源最短路径问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -1718,7 +1909,7 @@ Kruskal
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/03/23/算法-单源最短路径问题/" itemprop="url">单源最短路径问题</a></h1>
+                <a class="post-title-link" href="/2017/03/23/算法-单源最短路径问题/" itemprop="url">算法-单源最短路径问题</a></h1>
         
 
         <div class="post-meta">
@@ -1785,7 +1976,7 @@ Kruskal
               </span>
               
                 <a href="/2017/03/23/算法-单源最短路径问题/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/03/23/算法-单源最短路径问题/" class="cy_cmt_count" data-xid="2017/03/23/算法-单源最短路径问题/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/03/23/算法-单源最短路径问题/" class="cy_cmt_count" data-xid="2017/03/23/算法-单源最短路径问题/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -1900,7 +2091,7 @@ INITIALIZE-SINGLE-SOURCE(G,s)
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/22/ACM-Radar-Installation/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/22/ACM-Radar-Installation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -1986,7 +2177,7 @@ INITIALIZE-SINGLE-SOURCE(G,s)
               </span>
               
                 <a href="/2017/03/22/ACM-Radar-Installation/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/03/22/ACM-Radar-Installation/" class="cy_cmt_count" data-xid="2017/03/22/ACM-Radar-Installation/" itemprop="commentsCount" ></span>
+                  <span id="url::http://jiayi797.github.io/about/2017/03/22/ACM-Radar-Installation/" class="cy_cmt_count" data-xid="2017/03/22/ACM-Radar-Installation/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -2074,204 +2265,11 @@ We use Cartesian coordinate system, defining the coasting is the x-axis. The sea
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/03/21/Python-numpy笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/21/Python-numpy笔记/" itemprop="url">numpy笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-21T22:05:07+08:00">
-                2017-03-21
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:50:17+08:00">
-                2017-07-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/03/21/Python-numpy笔记/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/child/2017/03/21/Python-numpy笔记/" class="cy_cmt_count" data-xid="2017/03/21/Python-numpy笔记/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  138
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1. numpy结构数组在c语言中，我们可以使用关键字struct定义结构类型。和c语言一样，numpy也可以创建结构定义，这样可以很方便的读取二进制的C语言结构数组，将其转换为numpy数组对象，假设我们定义的结构数组如下(C语言描述)：
-struct Person{
-     char name[30];
-     int    age;
-     float weight; 
-};
-我们在python中可以自定义类型如下：
-persontype = np.dtype({
-&apos;names&apos;:[&apos;name&apos;,&apos;age&apos;,&apos;weight&apos;],
-&apos;formats&apos;:[&apos;S30&apos;,&apos;i&apos;,&apos;f&apos;]},align = True)
-参考文献numpy中结构数组
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/21/Python-numpy笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2316,7 +2314,7 @@ persontype = np.dtype({
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">100</span>
+                <span class="site-state-item-count">101</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2391,7 +2389,7 @@ persontype = np.dtype({
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共210.3k字</span>
+  <span class="post-count">博客全站共211.5k字</span>
 </div>
 
 

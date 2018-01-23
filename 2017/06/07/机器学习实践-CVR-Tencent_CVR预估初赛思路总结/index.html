@@ -96,7 +96,7 @@
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="腾讯社交广告APP转化率预估预估初赛&复赛思路总结">
-<meta property="og:url" content="http://yoursite.com/child/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛思路总结/index.html">
+<meta property="og:url" content="http://jiayi797.github.io/about/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛思路总结/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="“这一段奔波太过匆忙，有时来不及回头张望。” 腾讯“人工寻找trick”大赛初赛今天结束了。最终初赛线上logloss为0.099104，排名为64名：  复赛成绩0.101941，排名26名：  虽然与前排大神的分相差甚远，虽结果不那么如人意，也是对这个领域入了个门。 1. 赛题详细赛题见官方网站 已知：17-30天移动APP的广告、用户的转化情况，及相关上下文。预测：第31天指定用户和对应广告">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-07-15-22-48.png">
@@ -137,7 +137,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛思路总结/"/>
+  <link rel="canonical" href="http://jiayi797.github.io/about/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛思路总结/"/>
 
 
 
@@ -326,7 +326,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛思路总结/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛思路总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -572,7 +572,7 @@
 </li>
 </ul>
 <h2 id="一些特殊的东西">5.4. 一些特殊的东西</h2><p><strong>多线程抽特征</strong></p>
-<p>决赛数据集太大，而我们组合特征非常多。因此我们采用了多线程抽特征的方式。<br>代码见<a href="https://github.com/zsyandjyhouse/TencentAD_contest" target="_blank" rel="external">TencentAD_contest</a>，extra_rate_thread_0623.py<br><strong>贝叶斯平滑</strong><br>在决赛时，我们还使用了贝叶斯平滑。针对Pandas，我们对网上已有的代码进行了改进。<br><a href="https://jiayi797.github.io/2017/07/09/%E8%BD%AC%E5%8C%96%E7%8E%87%E9%A2%84%E4%BC%B0%E4%B9%8B%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%B9%B3%E6%BB%91/" target="_blank" rel="external">贝叶斯平滑笔记</a><br><strong>word embedding</strong><br>这个我没有做过多研究，这里是<a href="https://jiayi797.github.io/2017/06/21/word-embedding/" target="_blank" rel="external">word embedding笔记</a><br><strong>SVD分解</strong><br>思路和代码主要看我这篇博客<a href="https://jiayi797.github.io/2017/07/10/SVD%E5%88%86%E8%A7%A3/" target="_blank" rel="external">SVD分解</a></p>
+<p>决赛数据集太大，而我们组合特征非常多。因此我们采用了多线程抽特征的方式。<br>代码见<a href="https://github.com/zsyandjyhouse/TencentAD_contest" target="_blank" rel="external">TencentAD_contest</a>，extra_rate_thread_0623.py<br><strong>贝叶斯平滑</strong><br>在决赛时，我们还使用了贝叶斯平滑。针对Pandas，我们对网上已有的代码进行了改进。<br><a href="https://jiayi797.github.io/2017/07/09/%E8%BD%AC%E5%8C%96%E7%8E%87%E9%A2%84%E4%BC%B0%E4%B9%8B%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%B9%B3%E6%BB%91/">贝叶斯平滑笔记</a><br><strong>word embedding</strong><br>这个我没有做过多研究，这里是<a href="https://jiayi797.github.io/2017/06/21/word-embedding/">word embedding笔记</a><br><strong>SVD分解</strong><br>思路和代码主要看我这篇博客<a href="https://jiayi797.github.io/2017/07/10/SVD%E5%88%86%E8%A7%A3/">SVD分解</a></p>
 <h1 id="训练集构造">6. 训练集构造</h1><p>训练集特征做不好，就很容易造成泄露。这是我试过的两种方式：</p>
 <ol>
 <li>用滑动窗口，即每天的前七天的统计（统计指统计转化量、点击量、转化率，下同）来作为第本天的特征。并拿30号来做线下测试集。<br>如下图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-49-53.png" alt=""><br>经测试我们发现，即使我们去掉了30号的部分负样本，还是有一些问题的。因此我们将时间区间改了一下：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-53-21.png" alt=""><br>这样做出于两种目的：一是尽量做到了线上线下统一，二是不让模型学习30号的样本数据，防止一些错误样本被模型学到。</li>
@@ -728,7 +728,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">100</span>
+                <span class="site-state-item-count">101</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -819,7 +819,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共210.3k字</span>
+  <span class="post-count">博客全站共211.5k字</span>
 </div>
 
 

@@ -96,7 +96,7 @@
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习算法-误差函数探究">
-<meta property="og:url" content="http://yoursite.com/child/2017/10/25/深度学习算法-误差函数探究/index.html">
+<meta property="og:url" content="http://jiayi797.github.io/about/2017/10/25/深度学习算法-误差函数探究/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
 <meta property="og:description" content="之前我们在神经网络简介中曾经提到过误差函数。这一节我们总结一下误差函数。 误差函数一般有两种来源：  如果参数模型定义了一个分布$p(y|x;\theta)$，我们采用最大似然原理得到代价函数：训练数据和模型预测间的交叉熵。这个在之后会详细解释。 如果不预测y的完整概率分布，仅仅预测在给定x条件下y的某种统计量，那就用某些专门的损失函数来计算。  1. 方法1，使用最大似然学习条件分布可以在博客最">
 <meta property="og:updated_time" content="2017-12-16T06:17:59.573Z">
@@ -130,7 +130,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/2017/10/25/深度学习算法-误差函数探究/"/>
+  <link rel="canonical" href="http://jiayi797.github.io/about/2017/10/25/深度学习算法-误差函数探究/"/>
 
 
 
@@ -319,7 +319,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2017/10/25/深度学习算法-误差函数探究/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/10/25/深度学习算法-误差函数探究/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -452,13 +452,13 @@
       
 
       
-        <p>之前我们在<a href="https://jiayi797.github.io/2017/09/05/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/" target="_blank" rel="external">神经网络简介</a>中曾经提到过误差函数。这一节我们总结一下误差函数。</p>
+        <p>之前我们在<a href="https://jiayi797.github.io/2017/09/05/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/">神经网络简介</a>中曾经提到过误差函数。这一节我们总结一下误差函数。</p>
 <p>误差函数一般有两种来源：</p>
 <ol>
 <li>如果参数模型定义了一个分布$p(y|x;\theta)$，我们采用最大似然原理得到代价函数：训练数据和模型预测间的交叉熵。这个在之后会详细解释。</li>
 <li>如果不预测y的完整概率分布，仅仅预测在给定x条件下y的某种统计量，那就用某些专门的损失函数来计算。</li>
 </ol>
-<h1 id="方法1，使用最大似然学习条件分布">1. 方法1，使用最大似然学习条件分布</h1><p>可以在博客<a href="https://jiayi797.github.io/2017/10/26/%E6%95%B0%E5%AD%A6-%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/" target="_blank" rel="external">最大似然估计</a>中看到，参数模型定义了一个分布$p(y|x;\theta)$，为了求得参数，我们使用最大似然原理，得到最终的目标函数是最小化代价函数J——<strong>训练数据</strong>和<strong>模型预测</strong>间的<strong>交叉熵:</strong></p>
+<h1 id="方法1，使用最大似然学习条件分布">1. 方法1，使用最大似然学习条件分布</h1><p>可以在博客<a href="https://jiayi797.github.io/2017/10/26/%E6%95%B0%E5%AD%A6-%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/">最大似然估计</a>中看到，参数模型定义了一个分布$p(y|x;\theta)$，为了求得参数，我们使用最大似然原理，得到最终的目标函数是最小化代价函数J——<strong>训练数据</strong>和<strong>模型预测</strong>间的<strong>交叉熵:</strong></p>
 <p>$$J(\theta)=-E_{x,y\sim p’_{data}}log p_{model}(y|x)$$</p>
 <p>上式的意义是：在$x,y$服从训练数据$ p’_{data}$分布下，使得模型的$-Elog p_{model}(y|x)$最小。</p>
 <p>用似然解决问题带来的好处：</p>
@@ -598,7 +598,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">100</span>
+                <span class="site-state-item-count">101</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -689,7 +689,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共210.3k字</span>
+  <span class="post-count">博客全站共211.5k字</span>
 </div>
 
 
