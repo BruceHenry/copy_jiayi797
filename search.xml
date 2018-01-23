@@ -113,6 +113,10 @@
 <h2 id="Single-Number">0.3. Single Number</h2><p>给一个数组，数组中只有一个元素是单个出现的，其它都是成对出现。找到这个元素。</p>
 <p>思路：由于<code>x ^ 0 = x, x ^ x = 0 , 因此  x ^ x ^ y ^ z ^ z = y</code> </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">singleNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> Integer.MIN_VALUE;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> res = nums[<span class="number">0</span>];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</div><div class="line">            res ^= nums[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="Reverse-Bits">0.4. Reverse Bits</h2><p>将无符号整数按位反转。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">reverseBits</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> result = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; ++i) &#123; <span class="comment">// 注意：这里不可以用 n &gt; 0的判断！因为是无符号的！</span></div><div class="line">            result &lt;&lt;= <span class="number">1</span>;</div><div class="line">            result += (n &amp; <span class="number">1</span>); <span class="comment">// n &amp; 1 == n % 2</span></div><div class="line">            n &gt;&gt;= <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="Number-of-1-Bits">0.5. Number of 1 Bits</h2><p>求一个无符号整数的1bit的个数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> counter = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; ++i)&#123;</div><div class="line">            counter += (n &amp; <span class="number">1</span>);</div><div class="line">            n &gt;&gt;= <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> counter;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 ]]></content>
       
         <categories>
@@ -148,6 +152,18 @@
 </ul>
 <a id="more"></a>
 <p>设计新鲜事系统——类似微博、twitter的系统。</p>
+<ul>
+<li>什么是新鲜事系统？news feed ?<ul>
+<li>朋友圈、微博的信息流</li>
+<li>朋友信息集合</li>
+</ul>
+</li>
+<li>核心因素？<ul>
+<li>关注、被关注</li>
+<li>每个人看到的新鲜事是不同的</li>
+</ul>
+</li>
+</ul>
 <p>常见错误：扮演关键词大师（负载均衡、Memcache、NodeJS、MongoDB、MySQL、Sharding、Consistent Hashing、Master Slave、HDFS、Hadoop…)</p>
 <p>思考：或许只有两个用户呢？</p>
 <p>系统设计面试评分标准：</p>
@@ -286,6 +302,114 @@
 <p><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-15-22-51-24.png" alt=""> </p>
 <p><strong>结构化数据如何细化表结构？</strong></p>
 <p><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-15-22-52-54.png" alt=""> </p>
+<h3 id="获取feed">2.3.1. 获取feed</h3><h4 id="Pull模型-——-主动模型">2.3.1.1. Pull模型 —— 主动模型</h4><p>用户查看news feed时，获取每个好友前100条微博，合并出前100条——K路归并算法</p>
+<p>复杂度：</p>
+<ul>
+<li>News Feed –&gt; 假如有N个关注对象，则复杂度 = N次db read（不可接受的复杂度） + K路归并（可忽略）</li>
+<li>Post a tweet –&gt; 一次db write</li>
+</ul>
+<p>pull 原理图：</p>
+<ol>
+<li>用户请求消息</li>
+<li>获取关注列表</li>
+<li>获取关注列表的前100tweets</li>
+<li>merge之后返回</li>
+</ol>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-22-22-49-28.png" alt=""> </p>
+<p>pull模型的缺陷：N次db reads太慢了，而且它发生在用户获得news feed的请求过程中，简直致命</p>
+<h4 id="Push模型-——-被动模型">2.3.1.2. Push模型 —— 被动模型</h4><ol>
+<li>为用户建一个list，每个用户的好友发的tweets都在这个用户的list里。（叫做<strong>fanout</strong>)</li>
+<li>用户想看时，只需要从该list里读取最新的100条即可</li>
+</ol>
+<p>复杂度分析：</p>
+<ul>
+<li>News feed –&gt; 1次db read</li>
+<li>post a tweet –&gt; n个粉丝，需要n次db writes ，虽然没有read快，但是可以异步执行的</li>
+</ul>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-22-23-04-04.png" alt=""> </p>
+<p>push模型的缺陷：不及时。明星的followers的数目可能很大，用户延迟慢的很。</p>
+<h4 id="Poll与Push的选择">2.3.1.3. Poll与Push的选择</h4><p>考虑到僵尸粉与活跃用户，很多都是pull模型，为了及时。</p>
+<p>热门Social App的模型<br>• Facebook – Pull<br>• Instagram – Push + Pull<br>• Twitter – Pull</p>
+<p> 误区<br>• 不坚定想法，摇摆不定<br>• 不能表现出Tradeoff的能力<br>• 无法解决特定的问题 </p>
+<h2 id="扩展">2.4. 扩展</h2><p>第一步 Step 1: Optimize</p>
+<ul>
+<li>解决设计缺陷 </li>
+<li>Pull vs Push——Normalize vs De-normalize</li>
+<li>更多功能设计 ：Edit, Delete, Media, Ads</li>
+<li>一些特殊用例 ：Lady Gaga, Inactive Users</li>
+</ul>
+<p>第二步 Step 2: Maintenance</p>
+<ul>
+<li>鲁棒性 Robust：如果有一台服务器/数据库挂了怎么办</li>
+<li>扩展性 Scalability：如果有流量暴增，如何扩展 </li>
+</ul>
+<h3 id="解决pull的缺陷">2.4.1. 解决pull的缺陷</h3><p>最慢的部分发生在用户读请求时，那么可以:</p>
+<ul>
+<li>在DB访问之前加入cache</li>
+<li>cache每个用户的timeline：<ul>
+<li>N次DB请求 –&gt; N次cache请求</li>
+<li>trade off : 可以考虑只考虑最近的1000条之类的</li>
+</ul>
+</li>
+<li>cache每个用户的news feed<ul>
+<li>没有cache news feed的用户：归并N个用户最近的100条tweets，然后取出结果的前100条</li>
+<li>有cache news feed的用户：归并N个用户在某个时间戳之后的所有tweets</li>
+</ul>
+</li>
+</ul>
+<h3 id="解决push缺陷">2.4.2. 解决push缺陷</h3><ul>
+<li>浪费空间<ul>
+<li>但其实没啥</li>
+</ul>
+</li>
+<li>不活跃用户<ul>
+<li>粉丝排序。但也没啥作用</li>
+</ul>
+</li>
+<li>大量粉丝问题，无解。因此可以尝试在现有的模型下</li>
+</ul>
+<p>进行优化。还可以对长期增长进行估计，并评估是否值得转化整个模型。</p>
+<h3 id="结合">2.4.3. 结合</h3><p>Push 结合 Pull 的优化方案</p>
+<ul>
+<li>普通的用户仍然 Push</li>
+<li>将 Lady Gaga 这类的用户，标记为明星用户</li>
+<li>对于明星用户，不 Push 到用户的 News Feed 中</li>
+<li>当用户需要的时候，来明星用户的 Timeline 里取，并合并到 News Feed 里</li>
+</ul>
+<p>摇摆问题</p>
+<ul>
+<li>明星定义： followers &gt; 1m</li>
+<li>邓超掉粉： 邓超某天不停的发帖刷屏，于是大家果取关，一天掉了几十万粉，变成了非明星。</li>
+</ul>
+<p>解决方法</p>
+<ul>
+<li>明星用户发 Tweet 之后，依然继续 Push 他们的 Tweet 到所有用户的 News Feed 里</li>
+<li>原来的代码完全不用改了</li>
+<li>将关注对象中的明星用户的 Timeline 与自己的 News Feed 进行合并后展示</li>
+<li>但并不存储进自己的 News Feed 列表，因为 Push 会来负责这个事情。 </li>
+</ul>
+<p>为什么既然大家都用Pull，我们仍然要学习Push？</p>
+<ul>
+<li>系统设计不是选择一个最好的方案</li>
+<li>而是选择一个最合适的方案</li>
+<li>如果你没有很大的流量，Push是最经济最省力的做法</li>
+<li>系统设计面试也并不是期望你答出最优的解决方法，而是从你的分析当中判断你对系统的理解和知识储备。</li>
+</ul>
+<p>什么时候用 Push？</p>
+<ul>
+<li>资源少</li>
+<li>想偷懒，少写代码</li>
+<li>实时性要求不高</li>
+<li>用户发帖比较少</li>
+<li>双向好友关系，没有明星问题（比如朋友圈）</li>
+</ul>
+<p>什么时候用 Pull ?</p>
+<ul>
+<li>资源充足</li>
+<li>实时性要求高</li>
+<li>用户发帖很多</li>
+<li>单向好友关系，有明星问题 </li>
+</ul>
 ]]></content>
       
         <categories>
@@ -2230,6 +2354,9 @@ Accuracy for 50 hidden units: 90.75 %
 </ul>
 </li>
 </ul>
+<h1 id="其他题">6. 其他题</h1><h2 id="Intersection-of-Two-Linked-Lists">6.1. Intersection of Two Linked Lists</h2><p>寻找两个链表的交叉点，如下所示，返回节点c1。如果不存在，返回Null</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">A:          a1 → a2</div><div class="line">                   ↘</div><div class="line">                     c1 → c2 → c3</div><div class="line">                   ↗            </div><div class="line">B:     b1 → b2 → b3</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getLen</span><span class="params">(ListNode head)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> length = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span> (head != <span class="keyword">null</span>)&#123;</div><div class="line">            ++length;</div><div class="line">            head = head.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> length;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> remainA = getLen(headA);</div><div class="line">        <span class="keyword">int</span> remainB = getLen(headB);</div><div class="line">        <span class="keyword">while</span> (remainA &gt; remainB)&#123;</div><div class="line">            headA = headA.next;</div><div class="line">            --remainA;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span> (remainA &lt; remainB)&#123;</div><div class="line">            headB = headB.next;</div><div class="line">            --remainB;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 此时remainA == remainB</span></div><div class="line">        <span class="keyword">while</span> (headA != <span class="keyword">null</span> &amp;&amp; headB != <span class="keyword">null</span> &amp;&amp; headA != headB)&#123;</div><div class="line">            headA = headA.next;</div><div class="line">            headB = headB.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(headA == headB) <span class="keyword">return</span> headA;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 ]]></content>
       
         <categories>
@@ -3151,6 +3278,15 @@ Accuracy for 50 hidden units: 90.75 %
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reverseWords</span><span class="params">(<span class="keyword">char</span>[] str)</span> </span>&#123;</div><div class="line">    reverse(str, <span class="number">0</span>, str.length-<span class="number">1</span>);</div><div class="line">    <span class="keyword">int</span> r = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(r &lt; str.length)&#123;</div><div class="line">        <span class="keyword">int</span> l = r;</div><div class="line">        <span class="keyword">while</span>(r &lt; str.length &amp;&amp; str[r] != <span class="string">' '</span>)</div><div class="line">            r++;</div><div class="line">        reverse(str, l, r-<span class="number">1</span>);</div><div class="line">        r++;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="keyword">char</span>[] s, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span>&#123;</div><div class="line">    <span class="keyword">while</span>(l &lt; r)&#123;</div><div class="line">        <span class="keyword">char</span> tmp = s[l];</div><div class="line">        s[l++] = s[r];</div><div class="line">        s[r--] = tmp;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="Reverse-Words-in-a-String-III">4.15. Reverse Words in a String III</h2><p>这道题其实是上一题的easy版。要将字符串内的每个单词的单词内部顺序搞反。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="keyword">char</span>[] str, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span>&#123;</div><div class="line">    <span class="keyword">while</span> (low &lt; high) &#123;</div><div class="line">        <span class="keyword">char</span> temp = str[low];</div><div class="line">        str[low] = str[high];</div><div class="line">        str[high] = temp;</div><div class="line">        ++low;</div><div class="line">        --high;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">reverseWords</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span>[] str = s.toCharArray();</div><div class="line">    <span class="comment">// 1. 逐个单词内部反转</span></div><div class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> low = i; <span class="keyword">int</span> high = i;</div><div class="line">    <span class="keyword">char</span> space = <span class="string">' '</span>;</div><div class="line">    <span class="keyword">while</span> (i &lt; str.length)&#123;</div><div class="line">        <span class="keyword">if</span>(str[i] == space)&#123;++i;&#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            <span class="comment">// str[i]不是space</span></div><div class="line">            low = i; ++i;</div><div class="line">            <span class="keyword">while</span> (i &lt; str.length &amp;&amp; str[i] != space)&#123;</div><div class="line">                ++i;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// [low, i) 都不是space，反转low到i</span></div><div class="line">            high = i - <span class="number">1</span>;</div><div class="line">            reverse(str, low, high);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> String.valueOf(str);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Excel-Sheet-Column-Title">4.16. Excel Sheet Column Title</h2><p>将数字表示成Excel中的字母：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">1 -&gt; A</div><div class="line">2 -&gt; B</div><div class="line">3 -&gt; C</div><div class="line">...</div><div class="line">26 -&gt; Z</div><div class="line">27 -&gt; AA</div><div class="line">28 -&gt; AB</div></pre></td></tr></table></figure>
+<p>这道题的棘手之处在于没有0元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> String <span class="title">helper</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span> (n &gt; <span class="number">26</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(n%<span class="number">26</span> == <span class="number">0</span>)&#123;</div><div class="line">                <span class="keyword">return</span> helper(n/<span class="number">26</span> - <span class="number">1</span>) +</div><div class="line">                        helper((n - <span class="number">26</span>*(n/<span class="number">26</span>) == <span class="number">0</span> ? <span class="number">25</span> :n - <span class="number">26</span>*(n/<span class="number">26</span>) ) + <span class="number">1</span>);</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> helper(n/<span class="number">26</span>) + helper(n - <span class="number">26</span>*(n/<span class="number">26</span>));</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="keyword">return</span> String.valueOf((<span class="keyword">char</span>)(n+<span class="number">64</span>));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">convertToTitle</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> helper(n);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>代码写的太绕了，看看别人的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">convertToTitle</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">       StringBuilder sb = <span class="keyword">new</span> StringBuilder();</div><div class="line">       <span class="keyword">while</span>(n&gt;<span class="number">0</span>)&#123;</div><div class="line">           n--; <span class="comment">// 这个处理非常巧妙，将所有的字符表示统统减了1</span></div><div class="line">           sb.insert(<span class="number">0</span>,(<span class="keyword">char</span>)(<span class="string">'A'</span>+n%<span class="number">26</span>));</div><div class="line">           n=n/<span class="number">26</span>;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">return</span> sb.toString();</div><div class="line">       </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h2 id="Excel-Sheet-Column-Number">4.17. Excel Sheet Column Number</h2><p>将Excel中的字母表示成数字。</p>
+<p>做完上一题，这一题就简单很多。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">titleToNumber</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c : s.toCharArray())&#123;</div><div class="line">            num *= <span class="number">26</span>;</div><div class="line">            num += (c - <span class="string">'A'</span> + <span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> num;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 ]]></content>
       
         <categories>
