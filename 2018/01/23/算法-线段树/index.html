@@ -92,17 +92,22 @@
 
 
 
-<meta name="description" content="甲乙小朋友写字的地方">
+<meta name="description" content="1. 线段树入门本文主要参考自JustDoIT 和 线段树知识点总结 线段树，类似区间树，它在各个节点保存一条线段（数组中的一段子数组），主要用于高效解决连续区间的动态查询问题，由于二叉结构的特性，它基本能保持每个操作的复杂度为O(logn)。 线段树的每个节点表示一个区间，子节点则分别表示父节点的左右半区间，例如父亲的区间是[a,b]，那么(c=(a+b)/2)左儿子的区间是[a,c]，右儿子的">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法-线段树">
 <meta property="og:url" content="http://jiayi797.github.io/about/2018/01/23/算法-线段树/index.html">
 <meta property="og:site_name" content="jiayi797的专栏">
-<meta property="og:description" content="甲乙小朋友写字的地方">
-<meta property="og:updated_time" content="2018-01-23T07:35:34.290Z">
+<meta property="og:description" content="1. 线段树入门本文主要参考自JustDoIT 和 线段树知识点总结 线段树，类似区间树，它在各个节点保存一条线段（数组中的一段子数组），主要用于高效解决连续区间的动态查询问题，由于二叉结构的特性，它基本能保持每个操作的复杂度为O(logn)。 线段树的每个节点表示一个区间，子节点则分别表示父节点的左右半区间，例如父亲的区间是[a,b]，那么(c=(a+b)/2)左儿子的区间是[a,c]，右儿子的">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-23-18-59-58.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-23-19-01-44.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-23-20-15-07.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-23-20-16-03.png">
+<meta property="og:updated_time" content="2018-01-23T17:13:48.731Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法-线段树">
-<meta name="twitter:description" content="甲乙小朋友写字的地方">
+<meta name="twitter:description" content="1. 线段树入门本文主要参考自JustDoIT 和 线段树知识点总结 线段树，类似区间树，它在各个节点保存一条线段（数组中的一段子数组），主要用于高效解决连续区间的动态查询问题，由于二叉结构的特性，它基本能保持每个操作的复杂度为O(logn)。 线段树的每个节点表示一个区间，子节点则分别表示父节点的左右半区间，例如父亲的区间是[a,b]，那么(c=(a+b)/2)左儿子的区间是[a,c]，右儿子的">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-23-18-59-58.png">
 
 
 
@@ -364,8 +369,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-23T15:35:34+08:00">
-                2018-01-23
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-24T01:13:48+08:00">
+                2018-01-24
               </time>
             
           </span>
@@ -430,7 +435,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  0
+                  1,936
                 </span>
               
 
@@ -452,7 +457,54 @@
       
 
       
-        
+        <h1 id="线段树入门">1. 线段树入门</h1><p>本文主要参考自<a href="http://www.cnblogs.com/TenosDoIt/" target="_blank" rel="external">JustDoIT</a> 和 <a href="https://www.jiuzhang.com/article/kSiBNt/" target="_blank" rel="external">线段树知识点总结</a></p>
+<p>线段树，类似区间树，它在各个节点保存一条线段（数组中的一段子数组），主要用于高效解决连续区间的动态查询问题，由于二叉结构的特性，它基本能保持每个操作的复杂度为O(logn)。</p>
+<p>线段树的每个节点表示一个区间，子节点则分别表示父节点的左右半区间，例如父亲的区间是[a,b]，那么(c=(a+b)/2)左儿子的区间是[a,c]，右儿子的区间是[c+1,b]。线段树形如：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-23-18-59-58.png" alt=""> </p>
+<a id="more"></a>
+<p>下面我们从一个经典的例子来了解线段树，问题描述如下:从数组arr[0…n-1]中查找某个数组某个区间内的最大值，其中数组大小固定，但是数组中的元素的值可以随时更新。从这题可以看出：区间(a,b)的最大值和区间(b,c)的最大值中，取较大的就是区间(a,c)的最大值。很明显这个操作具有区间的性质。</p>
+<p>我们可以用线段树来解决这个区间最大值问题。根据这个问题我们构造如下的二叉线段树。区间的第三维就是区间的最大值。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-23-19-01-44.png" alt=""> </p>
+<p>加入第三维的时候，只需要在构建完左右区间后，根据左右区间的最大值更新当前区间最大值即可。</p>
+<p>因为每次将区间长度一分为二，所有构造的节点个数为：</p>
+<p>   n + 1/2 <em> n + 1/4 </em> n + 1/8 * n + …</p>
+<p>=   (1 + 1/2 + 1/4 + 1/8 + …) * n</p>
+<p>=   2n</p>
+<p>所以构造线段树的时空复杂度都为O(n)。</p>
+<h2 id="线段树常见题型">1.1. 线段树常见题型</h2><p>一道题可不可以用线段树来做，基本是看这道题的操作有没有<strong>区间的性质</strong>。也就是在一个区间上的操作是否可以转化为两个子区间上的操作。</p>
+<ul>
+<li>求区间和，积，最小值，gcd等</li>
+<li>以当前节点的值作为节点处理。例如给出N个数字，再给一个数，问比这个数大的有多少个。</li>
+<li>区间加减同一个值，或者区间同时赋一个值。</li>
+</ul>
+<h2 id="链式线段树">1.2. 链式线段树</h2><p>我们常见的二叉树都是链式结构。因此我们先完成链式的线段树。</p>
+<p><strong>建树</strong></p>
+<p>复杂度$O( n ) $</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">节点区间定义</div><div class="line">(start, end) 代表节点的区间范围</div><div class="line">max 是节点在(start, end)区间上的最大值</div><div class="line">left, right 是当前节点区间划分后的左右节点区间</div><div class="line">**/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SegmentTreeNode</span></span>&#123; <span class="comment">// 节点</span></div><div class="line">  <span class="keyword">int</span> start, end;</div><div class="line">  <span class="keyword">int</span> max;</div><div class="line">  SegmentTreeNode left = <span class="keyword">null</span>, right = <span class="keyword">null</span>;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">SegmentTreeNode</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end, <span class="keyword">int</span> max)</span></span>&#123;</div><div class="line">    <span class="keyword">this</span>.start = start;</div><div class="line">    <span class="keyword">this</span>.end = end;</div><div class="line">    <span class="keyword">this</span>.max = max;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 构造树</span></div><div class="line"><span class="function"><span class="keyword">public</span> SegmentTreeNode <span class="title">build</span><span class="params">(<span class="keyword">int</span>[] A)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> buildhelper(<span class="number">0</span>, A.length - <span class="number">1</span>, A);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 建树耗时O(n)，空间O(n)</span></div><div class="line"><span class="function"><span class="keyword">public</span> SegmentTreeNode <span class="title">buildhelper</span><span class="params">(<span class="keyword">int</span> low, <span class="keyword">int</span> high, <span class="keyword">int</span>[] A)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(low &gt; high) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">  SegmentTreeNode root = <span class="keyword">new</span> SegmentTreeNode(low, high, A[low]); <span class="comment">// 根据节点区间左边界的值为节点赋初值</span></div><div class="line">  <span class="keyword">if</span>(low == high) <span class="keyword">return</span> root;</div><div class="line">  <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>; <span class="comment">// 划分当前区间的左右区间</span></div><div class="line">  root.left = buildhelper(low, mid, A);</div><div class="line">  root.right = buildhelper(mid + <span class="number">1</span>, high, A);</div><div class="line">  root.max = Math.max(root.left.max, root.right.max); <span class="comment">// 更新当前节点值</span></div><div class="line">  <span class="keyword">return</span> root;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>一些变种：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//如果需要区间最小值</span></div><div class="line">root.min = Math.min(root.left.min, root.right.min);</div><div class="line"></div><div class="line"><span class="comment">// 如果需要区间和</span></div><div class="line">root.sum = root.left.sum + root.right.sum;</div></pre></td></tr></table></figure>
+<p><strong>区间查询</strong></p>
+<p>复杂度 $O(log(n))$</p>
+<p>构造线段树目的是为了更快地查询。例如给定区间，要求区间中的最大值。而线段树的区间查询操作就是将当前区间分解为较小的子区间，然后由子区间的最大值就可以快速得到需要查询区间的最大值。例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">query(<span class="number">1</span>,<span class="number">3</span>) = max(query(<span class="number">1</span>,<span class="number">1</span>), query(<span class="number">2</span>,<span class="number">3</span>)) = max(<span class="number">4</span>,<span class="number">3</span>) = <span class="number">4</span></div></pre></td></tr></table></figure>
+<p>查询实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">query</span><span class="params">(SegmentTreeNode root, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(low == root.start &amp;&amp; root.end == high)&#123;</div><div class="line">    <span class="comment">// 如果查询区间就是当前节点区间，直接输出结果</span></div><div class="line">    <span class="keyword">return</span> root.max;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">int</span> mid = (root.start + root.end) / <span class="number">2</span>; <span class="comment">// 将当前节点区间分割为左右两个区间</span></div><div class="line">  <span class="keyword">int</span> ans = Integer.MIN_VALUE;</div><div class="line">  <span class="comment">/**</span></div><div class="line">  [root.left,...,mid,...,root.right]</div><div class="line">         [low,                     high]</div><div class="line">  **/</div><div class="line">  <span class="keyword">if</span>(mid &gt;= low)&#123; <span class="comment">// 如果查询区间与左子节点有交集，则查询区间的最大值有可能是左子节点的最大值。</span></div><div class="line">    ans = Math.max(ans, query(root.left, low, high));</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span>(mid + <span class="number">1</span> &lt;= high)&#123; <span class="comment">// 如果查询区间与右子节点有交集，则查询区间的最大值有可能是右子节点的最大值。</span></div><div class="line">    ans = Math.max(ans, query(root.right, low, high));</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> ans;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>单点更新</strong></p>
+<p>复杂度 $O(log(n))$</p>
+<p>更新序列中的一个节点，那么如何把这种变化体现到线段树中呢？</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-23-20-15-07.png" alt=""> </p>
+<p>例如要将第4个点更新为5.就要变动3个区间的值，分别为[3,3], [2,3], [0,3]</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-23-20-16-03.png" alt=""> </p>
+<p>改动一个节点，与这个节点对应的叶子结点都要变动。并且，这个节点变动后，这个节点的属性值也有可能会变动，那么就有可能印象到这个节点的父亲节点的属性值（例如可能影响到最大值）。所以需要从叶子节点一路走到根节点。</p>
+<p>单点更新实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">modify</span><span class="params">(SegmentTreeNode root, <span class="keyword">int</span> idx, <span class="keyword">int</span> val)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(root.start == root.end &amp;&amp; root.start == idx)&#123; <span class="comment">// 找到要改动的叶子节点</span></div><div class="line">    root.max = val; </div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">int</span> mid = (root.start + root.end) / <span class="number">2</span>; <span class="comment">// 将当前节点区间分割为2个区间</span></div><div class="line">  <span class="keyword">if</span>(idx &lt;= mid)&#123; <span class="comment">// 如果修改节点在左边</span></div><div class="line">    modify(root.left, idx, val);</div><div class="line">  &#125;<span class="keyword">else</span>&#123; <span class="comment">// 如果修改节点在右边</span></div><div class="line">    modify(root.right, idx, val);</div><div class="line">  &#125;</div><div class="line">  root.max = Math.max(root.right.max, root.left.max) ;<span class="comment">// 更新</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="数组式线段树">1.3. 数组式线段树</h2><p>由于输入的是数组，那么树节点个数不会变化，而且线段树是趋于完全二叉树的。因此我们可以考虑用数组形式的线段树。</p>
+<p><strong>建树</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 节点定义与上面保持一致</span></div><div class="line"><span class="comment">// (start, end) 代表节点的区间范围</span></div><div class="line"><span class="comment">// max 是节点在(start, end)区间上的最大值</span></div><div class="line"><span class="comment">// left, right 是当前节点区间划分后的左右节点区间</span></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SegmentTreeNode</span></span>&#123;</div><div class="line">  <span class="keyword">int</span> start, end;</div><div class="line">  <span class="keyword">int</span> max;</div><div class="line">  SegmentTreeNode left = <span class="keyword">null</span>, right = <span class="keyword">null</span>;</div><div class="line">&#125;</div><div class="line">SegmentTreeNode[] SegmentTree; <span class="comment">// 替代原来的root</span></div><div class="line"></div><div class="line">i的左节点：SegmentTree[<span class="number">2</span>*i + <span class="number">1</span>]</div><div class="line">i的右节点：SegmentTree[<span class="number">2</span>*i]</div><div class="line"></div><div class="line">其它操作都差不多，省略</div></pre></td></tr></table></figure>
+<h1 id="相关题">2. 相关题</h1><h2 id="Range-Sum-Query-Mutable">2.1. Range Sum Query - Mutable</h2><p>给一个数组，求数组的i到j的和。而且数组的值实时更新。</p>
+<p>老套路不行了，就超时了。得换新套路——线段树</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">// 线段树节点定义  </span></div><div class="line"> <span class="class"><span class="keyword">class</span> <span class="title">SegmentTreeNode</span></span>&#123;</div><div class="line">       <span class="keyword">int</span> start, end;</div><div class="line">       <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">       SegmentTreeNode left = <span class="keyword">null</span>, right = <span class="keyword">null</span>;</div><div class="line">       SegmentTreeNode(<span class="keyword">int</span> start, <span class="keyword">int</span> end)&#123;</div><div class="line">           <span class="keyword">this</span>.start = start;</div><div class="line">           <span class="keyword">this</span>.end = end;</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line">   <span class="comment">// 树根</span></div><div class="line">   SegmentTreeNode root;</div><div class="line">   </div><div class="line">   <span class="comment">// 构造</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="title">NumArray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">       root = NumArrayHelper(nums, <span class="number">0</span>, nums.length - <span class="number">1</span>);</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">private</span> SegmentTreeNode <span class="title">NumArrayHelper</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span>&#123;</div><div class="line">       <span class="keyword">if</span>(low &gt; high) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">       SegmentTreeNode node = <span class="keyword">new</span> SegmentTreeNode(low, high);</div><div class="line">       <span class="keyword">if</span>(low == high)&#123;</div><div class="line">           node.sum = nums[low];</div><div class="line">       &#125;<span class="keyword">else</span>&#123;</div><div class="line">           <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>;</div><div class="line">           node.left = NumArrayHelper(nums, low, mid);</div><div class="line">           node.right = NumArrayHelper(nums, mid + <span class="number">1</span>, high);</div><div class="line">           node.sum = node.right.sum + node.left.sum;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">return</span> node;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="comment">// 更新节点</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">       updateHelper(root, i, val);</div><div class="line">   &#125;</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">updateHelper</span><span class="params">(SegmentTreeNode node,<span class="keyword">int</span> idx, <span class="keyword">int</span> val)</span></span>&#123;</div><div class="line">       <span class="keyword">if</span>(node.start == node.end)&#123;</div><div class="line">           <span class="keyword">if</span>(node.start == idx) node.sum = val;</div><div class="line">           <span class="keyword">else</span> System.out.println(<span class="string">"error"</span>);</div><div class="line">           <span class="keyword">return</span>;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">int</span> mid = (node.start + node.end) / <span class="number">2</span>;</div><div class="line">       <span class="keyword">if</span>(idx &lt;= mid)&#123;</div><div class="line">           updateHelper(node.left, idx, val);</div><div class="line">       &#125;<span class="keyword">else</span>&#123;</div><div class="line">           updateHelper(node.right, idx, val);</div><div class="line">       &#125;</div><div class="line">       node.sum = node.left.sum + node.right.sum;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="comment">// 求sum</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">sumRange</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</div><div class="line">       <span class="keyword">return</span> sumRangeHelper(root, i, j);</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">sumRangeHelper</span><span class="params">(SegmentTreeNode node, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span>&#123;</div><div class="line">       <span class="keyword">if</span>(node == <span class="keyword">null</span> || high &lt; node.start || low &gt; node.end) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">       <span class="keyword">if</span>(node.start == low &amp;&amp; node.end == high) <span class="keyword">return</span> node.sum;</div><div class="line">       <span class="comment">/**</span></div><div class="line">        *    [node.start, ...mid..., node.end] node是一个较大的区间</div><div class="line">        * 1.    [low, , high]                  查找区间完全在左子区间</div><div class="line">        * 2.                    [low....high]  查找区间完全在右子区间</div><div class="line">        * 3.     [low, ..........,high]        查找区间跨越左右子区间      **/</div><div class="line">       <span class="keyword">int</span> mid = (node.start + node.end) / <span class="number">2</span>;</div><div class="line">       <span class="keyword">if</span>(high &lt;= mid)&#123;</div><div class="line">           <span class="keyword">return</span> sumRangeHelper(node.left, low, high);</div><div class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(low &gt; mid)&#123;</div><div class="line">           <span class="keyword">return</span> sumRangeHelper(node.right,low, high);</div><div class="line">       &#125;<span class="keyword">else</span>&#123;</div><div class="line">           <span class="keyword">return</span> sumRangeHelper(node.left, low, mid) + sumRangeHelper(node.right, mid + <span class="number">1</span>, high);</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -549,8 +601,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -613,6 +674,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线段树入门"><span class="nav-text">1. 线段树入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线段树常见题型"><span class="nav-text">1.1. 线段树常见题型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链式线段树"><span class="nav-text">1.2. 链式线段树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组式线段树"><span class="nav-text">1.3. 数组式线段树</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关题"><span class="nav-text">2. 相关题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Range-Sum-Query-Mutable"><span class="nav-text">2.1. Range Sum Query - Mutable</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -640,7 +717,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共211.5k字</span>
+  <span class="post-count">博客全站共213.5k字</span>
 </div>
 
 
