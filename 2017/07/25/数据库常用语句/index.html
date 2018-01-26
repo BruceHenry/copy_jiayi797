@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  155
+                  289
                 </span>
               
 
@@ -471,7 +471,11 @@
 </li>
 </ul>
 <h1 id="MYSQL数据类型">5. MYSQL数据类型</h1><p><a href="http://www.runoob.com/mysql/mysql-data-types.html" target="_blank" rel="external">MySQL 数据类型</a></p>
-<h1 id="参考文献">6. 参考文献</h1><ol>
+<h1 id="相关Leetcode题">6. 相关Leetcode题</h1><h2 id="Left-Join">6.1. Left Join</h2><p>教程：<a href="http://www.w3school.com.cn/sql/sql_join_left.asp" target="_blank" rel="external">SQL LEFT JOIN 关键字</a></p>
+<p>LEFT JOIN 关键字从左表（table1）返回所有的行，即使右表（table2）中没有匹配。如果右表中没有匹配，则结果为 NULL。</p>
+<h2 id="Combine-Two-Tables">6.2. Combine Two Tables</h2><p>Person表有PersonId, FirstName, LastName. Adress表有AdressId, PersonId, City, State. 获得数据：FirstName, LastName, City, State。例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">Person :</div><div class="line">PersonId, FirstName, LastName</div><div class="line">1,        Wang,      Allen</div><div class="line"></div><div class="line"></div><div class="line">Adress:</div><div class="line">AdressId, PersonId, City,           State</div><div class="line">1,        2,        New York City,  New York</div><div class="line">2,        1,        BJ,             BJ</div><div class="line"></div><div class="line"></div><div class="line">返回：</div><div class="line">FirstName, LastName, City, State</div><div class="line">Wang,      Allen,    BJ,   BJ</div><div class="line"></div><div class="line"></div><div class="line">查询语句：</div><div class="line"></div><div class="line">SELECT Person.FirstName, Person.LastName, Address.City, Address.State FROM Person LEFT JOIN Address ON Person.PersonId=Address.PersonId;</div></pre></td></tr></table></figure>
+<h1 id="参考文献">7. 参考文献</h1><ol>
 <li><a href="http://www.centoscn.com/mysql/2016/0315/6844.html" target="_blank" rel="external">CentOS 7 安装 MySQL</a></li>
 <li><a href="http://www.2cto.com/database/201210/164243.html" target="_blank" rel="external">linux下执行mysql的sql文件</a></li>
 </ol>
@@ -654,7 +658,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#启动-关闭"><span class="nav-text">1. 启动/关闭</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#linux下执行sql脚本"><span class="nav-text">2. linux下执行sql脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#databases操作"><span class="nav-text">3. databases操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tables操作"><span class="nav-text">4. tables操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MYSQL数据类型"><span class="nav-text">5. MYSQL数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">6. 参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#启动-关闭"><span class="nav-text">1. 启动/关闭</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#linux下执行sql脚本"><span class="nav-text">2. linux下执行sql脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#databases操作"><span class="nav-text">3. databases操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tables操作"><span class="nav-text">4. tables操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MYSQL数据类型"><span class="nav-text">5. MYSQL数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关Leetcode题"><span class="nav-text">6. 相关Leetcode题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Left-Join"><span class="nav-text">6.1. Left Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Combine-Two-Tables"><span class="nav-text">6.2. Combine Two Tables</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">7. 参考文献</span></a></li></ol></div>
             
 
           </div>
@@ -688,7 +692,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共213.5k字</span>
+  <span class="post-count">博客全站共215.5k字</span>
 </div>
 
 
