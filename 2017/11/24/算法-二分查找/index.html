@@ -433,7 +433,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  2,839
+                  3,011
                 </span>
               
 
@@ -476,6 +476,10 @@
 <li>如果这个数比120小，就向右走</li>
 <li>如果这个数比120大，就向上走</li>
 </ul>
+<p><strong>思路1，每行二分</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">seachRow</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> low, <span class="keyword">int</span> high, <span class="keyword">int</span> target)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> mid;</div><div class="line">        <span class="keyword">while</span> (low + <span class="number">1</span> &lt; high)&#123;</div><div class="line">            mid = low + (high - low)/<span class="number">2</span>;</div><div class="line">            <span class="keyword">if</span>(arr[mid] == target) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            <span class="keyword">if</span>(arr[mid] &lt; target)&#123;</div><div class="line">                low = mid;</div><div class="line">            &#125;<span class="keyword">else</span> &#123;</div><div class="line">                high = mid;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(arr[low] == target || arr[high] == target) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">searchMatrix</span><span class="params">(<span class="keyword">int</span>[][] matrix, <span class="keyword">int</span> target)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(matrix.length == <span class="number">0</span> || matrix[<span class="number">0</span>].length == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row = <span class="number">0</span>; row &lt; matrix.length; ++row)&#123;</div><div class="line">            <span class="keyword">if</span>(target &gt; matrix[row][matrix[<span class="number">0</span>].length - <span class="number">1</span>]) <span class="keyword">continue</span>;</div><div class="line">            <span class="keyword">if</span>(seachRow(matrix[row], <span class="number">0</span>, matrix[<span class="number">0</span>].length - <span class="number">1</span>, target)) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><strong>思路2，从左下开始寻找</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">searchMatrix</span><span class="params">(<span class="keyword">int</span>[][] matrix, <span class="keyword">int</span> target)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(matrix.length == <span class="number">0</span> || matrix[<span class="number">0</span>].length == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> m = matrix.length, n = matrix[<span class="number">0</span>].length;</div><div class="line">        <span class="keyword">int</span> row = <span class="number">0</span>, col = n - <span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span> (row &gt;= <span class="number">0</span> &amp;&amp; row &lt; m &amp;&amp; col &gt;= <span class="number">0</span> &amp;&amp; col &lt; n)&#123;</div><div class="line">            <span class="keyword">if</span>(target == matrix[row][col]) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            <span class="keyword">if</span>(target &gt; matrix[row][col]) &#123;++row;&#125;</div><div class="line">            <span class="keyword">else</span>&#123;--col;&#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <h2 id="例题6，First-Bad-Version">2.6. 例题6，First Bad Version</h2><p>代码库的版本号是从 1 到 <em>n</em> 的整数。某一天，有人提交了错误版本的代码，因此造成自身及之后版本的代码在单元测试中均出错。请找出第一个错误的版本号。</p>
 <p>你可以通过 <code>isBadVersion</code> 的接口来判断版本号 version 是否在单元测试中出错，具体接口详情和调用方法请见代码的注释部分。</p>
 <p><strong>注意事项</strong></p>
@@ -632,7 +636,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">101</span>
+                <span class="site-state-item-count">102</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -723,7 +727,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共215.5k字</span>
+  <span class="post-count">博客全站共219.0k字</span>
 </div>
 
 
