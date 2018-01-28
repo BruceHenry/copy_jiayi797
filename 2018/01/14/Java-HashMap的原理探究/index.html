@@ -433,7 +433,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  4,649
+                  4,670
                 </span>
               
 
@@ -589,7 +589,8 @@
 <p>效率高,以后一定要使用此种方式！</p>
 <h2 id="第二种">4.6. 第二种</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">　　Map map = <span class="keyword">new</span> HashMap();</div><div class="line">　　Iterator iter = map.keySet().iterator();</div><div class="line">　　<span class="keyword">while</span> (iter.hasNext()) &#123;</div><div class="line">Object key = iter.next();</div><div class="line">Object val = map.get(key);</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
 <p>效率低,以后尽量少使用！</p>
-<h1 id="参考资料">5. 参考资料</h1><ol>
+<h1 id="HashSet">5. HashSet</h1><p>在Java里，其实HashSet内部是一个HashMap。此处不再过多阐述。</p>
+<h1 id="参考资料">6. 参考资料</h1><ol>
 <li><a href="http://wiki.jikexueyuan.com/project/java-collection/hashmap.html" target="_blank" rel="external">极客学院，HashMap 的实现原理</a></li>
 <li><a href="https://tech.meituan.com/java-hashmap.html" target="_blank" rel="external">美团点评技术团队，Java 8系列之重新认识HashMap</a></li>
 </ol>
@@ -715,7 +716,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-count">104</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -772,7 +773,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap概述"><span class="nav-text">1. HashMap概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap的数据结构"><span class="nav-text">2. HashMap的数据结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap核心方法解读"><span class="nav-text">3. HashMap核心方法解读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#put-方法"><span class="nav-text">3.1. put()方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get-方法"><span class="nav-text">3.2. get()方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#归纳"><span class="nav-text">3.3. 归纳</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap相关机制"><span class="nav-text">4. HashMap相关机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#resize机制（rehash）"><span class="nav-text">4.1. resize机制（rehash）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap的构造器"><span class="nav-text">4.2. HashMap的构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fail-Fast机制"><span class="nav-text">4.3. Fail-Fast机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap的两种遍历方式"><span class="nav-text">4.4. HashMap的两种遍历方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一种"><span class="nav-text">4.5. 第一种</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二种"><span class="nav-text">4.6. 第二种</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-text">5. 参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap概述"><span class="nav-text">1. HashMap概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap的数据结构"><span class="nav-text">2. HashMap的数据结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap核心方法解读"><span class="nav-text">3. HashMap核心方法解读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#put-方法"><span class="nav-text">3.1. put()方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get-方法"><span class="nav-text">3.2. get()方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#归纳"><span class="nav-text">3.3. 归纳</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap相关机制"><span class="nav-text">4. HashMap相关机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#resize机制（rehash）"><span class="nav-text">4.1. resize机制（rehash）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap的构造器"><span class="nav-text">4.2. HashMap的构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fail-Fast机制"><span class="nav-text">4.3. Fail-Fast机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap的两种遍历方式"><span class="nav-text">4.4. HashMap的两种遍历方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一种"><span class="nav-text">4.5. 第一种</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二种"><span class="nav-text">4.6. 第二种</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashSet"><span class="nav-text">5. HashSet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-text">6. 参考资料</span></a></li></ol></div>
             
 
           </div>
@@ -806,7 +807,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共219.0k字</span>
+  <span class="post-count">博客全站共221.0k字</span>
 </div>
 
 
