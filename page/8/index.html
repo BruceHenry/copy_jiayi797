@@ -319,6 +319,626 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/04/java学习笔记-3-Object/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/04/java学习笔记-3-Object/" itemprop="url">java学习笔记3-Object（equal/hashCode/toString）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-04T11:47:33+08:00">
+                2017-05-04
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-09-04T20:18:37+08:00">
+                2017-09-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/05/04/java学习笔记-3-Object/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/05/04/java学习笔记-3-Object/" class="cy_cmt_count" data-xid="2017/05/04/java学习笔记-3-Object/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,304
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1. Object特性
+所有类的超类
+可以引用任何对象
+
+2. equals方法Object类中的equals方法判断两对象是否有相同的引用
+2.1. equals的重写在实际coding中，一般我们都会对equals方法进行重写，例:
+
+对于超类Employee：
+ 12345678910111213141516171819202122class Employee&#123;    ...    public boolean equals(Object otherObject)&#123;        //如果otherObject与this是同一个引用        if(this == therObject) return true;        //如果therObject为空        if(therObject == null) return false;        //如果类型不同        if(getClass() != otherObject.getClass()) return false;        //现在我们已经确认了otherObject是一个非空的Employee对象        //为了比较实例域，我们将otherObject转换为Employee类型        Employee other = (Employee) otherObject        //检测实例域是否相等        return name.equals(other.name)            &amp;&amp; salary == o
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/04/java学习笔记-3-Object/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/04/28/机器学习框架-xgboost参数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/04/28/机器学习框架-xgboost参数/" itemprop="url">xgboost参数调节完全指南（Python版）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-28T17:16:11+08:00">
+                2017-04-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:23:40+08:00">
+                2017-07-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习框架/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/04/28/机器学习框架-xgboost参数/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/04/28/机器学习框架-xgboost参数/" class="cy_cmt_count" data-xid="2017/04/28/机器学习框架-xgboost参数/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,795
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          本文大多来自于参考文献2.的翻译。
+1. Xgboost参数XGBoost作者将参数分为3类：
+
+基本(General)参数：指导整体函数
+提升(Booster)参数：在每一步指导每个提升（树或回归）
+学习任务(Learning Task Parameters)参数：指导优化模型表现
+
+1.1. 基本参数1.1.1. booster
+默认值：gbtree
+含义：在每次迭代中的模型类型，有两种选择：
+
+
+gbtree:树模型
+gblinear:线性模型
+
+1.1.2. silent
+默认值：0
+含义
+
+
+0=运行时打印running messages
+1=不打running messages
+
+1.1.3. nthread
+运行时的最大线程数
+默认值：占当前计算机的最大线程
+
+1.2. 提升参数这里仅仅介绍树模型（gbtree）的相关参数。
+1.2.1. eta
+学习步长
+default=0.3
+一般调整下限为0.01-0.2
+
+1.2.2. min_child_weight
+表示所有孩子节点(all observations required in a child)的最小权重和
+一般都用来控制过拟合。
+但如果调得太高就会导致欠拟合。
+default=1
+
+1.2.3. max_depth
+default=6
+用来控制过拟合
+一般在3-10之间
+
+1.2.4. gamma
+default=0
+range: [0,∞]
+模型在默认情况下，对于一个节点的划分只有在其损失函数得到结果大于0的情况下才进行，而gamma给定了所需的最低损失函数的值
+gamma值使得算法更conservat
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/28/机器学习框架-xgboost参数/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/04/25/机器学习实践-O2O优惠券预测-特征工程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/04/25/机器学习实践-O2O优惠券预测-特征工程/" itemprop="url">特征工程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-25T14:32:40+08:00">
+                2017-04-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T16:09:34+08:00">
+                2017-07-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/o2o优惠券使用预测/" itemprop="url" rel="index">
+                    <span itemprop="name">o2o优惠券使用预测</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/04/25/机器学习实践-O2O优惠券预测-特征工程/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/04/25/机器学习实践-O2O优惠券预测-特征工程/" class="cy_cmt_count" data-xid="2017/04/25/机器学习实践-O2O优惠券预测-特征工程/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  497
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1. 特征工程1.1. 别人的例子 
+1.2. 特征选择特征选择，就是从多个特征中，挑选出一些对结果预测最有用的特征。因为原始的特征中可能会有冗余和噪声。特征选择和降维有什么区别呢？前者只踢掉原本特征里和结果预测关系不大的， 后者做特征的计算组合构成新特征。
+1.2.1. 过滤型
+方法：  评估单个特征和结果值之间的相关程度， 排序留下Top相关的特征部分。 
+评价方式：Pearson相关系数， 互信息， 距离相关度。 
+缺点：只评估了单个特征对结果的影响，没有考虑到特征之间的关联作用， 可能把有用的关联特征误踢掉。因此工业界使用比较少。 
+python包：SelectKBest指定过滤个数、SelectPercentile指定过滤百分比。
+
+1.2.2. 包裹型
+方法：把特征选择看做一个特征子集搜索问题， 筛选各种特征子集， 用模型评估效果。 
+典型算法：“递归特征删除算法”。 
+应用在逻辑回归的过程：用全量特征跑一个模型；根据线性模型的系数(体现相关性)，删掉5-10%的弱特征，观察准确率/auc的变化；逐步进行， 直至准确率/auc出现大的下滑停止。 
+python包：RFE 
+　　
+
+1.2.3. 嵌入型
+方法：根据模型来分析特征的重要性，最常见的方式为用正则化方式来做特征选择。 
+举例：最早在电商用LR做CTR预估， 在3-5亿维的系数特征上用L1正则化的LR模型。上一篇介绍了L1正则化有截断作用，剩余2-3千万的feature， 意味着其他的feature重要度不够。 
+python包：feature_selection.SelectFromModel选出权重不为0
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/25/机器学习实践-O2O优惠券预测-特征工程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/04/14/linux常见命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1717,582 +2337,6 @@ double * forwardSub(double *lu,int n,double *b,int *p){
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/29/数学-矩阵LU分解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/29/数学-矩阵LU分解/" itemprop="url">矩阵LU分解及其实现</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-29T19:27:31+08:00">
-                2017-03-29
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:24:40+08:00">
-                2017-07-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数学/" itemprop="url" rel="index">
-                    <span itemprop="name">数学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/03/29/数学-矩阵LU分解/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/03/29/数学-矩阵LU分解/" class="cy_cmt_count" data-xid="2017/03/29/数学-矩阵LU分解/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  1,499
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          LU分解:可以将一个矩阵分解为一个单位下三角矩阵和一个上三角矩阵的乘积（有时是它们和一个置换矩阵的乘积）。LU分解主要应用在数值分析中，用来解线性方程、求反矩阵或计算行列式。
- 
-1. LU分解条件如果n阶方阵A的各阶顺序主子式 ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU
-其中k阶顺序主子式指 
-2. LU分解方法由于L存在可逆矩阵L’，即LL’=E则L’A=LL’U=U因此得出一般的分解方法：通过对(A,E)做初等行变换得到(U,L’),再由L’得到L.
-其中：
-
-L是单位下三角矩阵（对角线上的系数都为1的下三角矩阵）；L’也是单位上三角矩阵；
-U是非奇异上三角矩阵；
-
-3. 直接消去法的矩阵解释计算过程如图所示： 
-目的：将[A|E]–&gt;[U|L]形式，其中U是上三角矩阵
-过程：每轮将一列的下三角消为0，就相当于给A左乘一个下三角单位矩阵Lk（对角线为1，保证变换后对角线元素不变）。
-第一轮消元：将第一列的下三角消为0，相当于对A1左乘矩阵L1，即：其中，我们注意到li1恰好使得第i行的第一列元素变为零，即ai1-li1*a11=0。
-第二轮消元：将第二列的下三角消为0，对应于 
-第k轮消元:其中， 
-把k轮消元相乘，即：整个消元过程为： 
-总结初始（第一步）： 
-迭代第r步：即ur=f(u1,u2,…,u(r-1),l1,l2,…,l(r-1)),第r项由前r-1项计算得到lr=g(u1,u2,…,u(r-1),l1,l2,…,l(r-1)) 
-计算顺序：
- 
-需要注意的是，我们在计算时需要判断本阶的顺序
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/29/数学-矩阵LU分解/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/28/算法-最大流/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/28/算法-最大流/" itemprop="url">最大流</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-28T19:20:05+08:00">
-                2017-03-28
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-04-24T21:26:32+08:00">
-                2017-04-24
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/03/28/算法-最大流/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/03/28/算法-最大流/" class="cy_cmt_count" data-xid="2017/03/28/算法-最大流/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  106
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          最大流问题：给定流网络、源节点、汇点，找到值最大的一个流。
-1. Ford-Fullkerson方法主要思想：循环增加流的值。
-1.1. 几个概念1.1.1. 残存网络$G_f$残存网络简单定义：
-残存网络=网络容量Capacity-流量网络flow
-残存网络形式化定义：
- 
-说明：第一项很好理解，就是=网络容量Capacity-流量网络flow
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/28/算法-最大流/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/27/ACM-poj1789-TruckHistory/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/27/ACM-poj1789-TruckHistory/" itemprop="url">ACM-poj1789-TruckHistory</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-27T15:56:38+08:00">
-                2017-03-27
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-04-24T21:26:32+08:00">
-                2017-04-24
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ACM/" itemprop="url" rel="index">
-                    <span itemprop="name">ACM</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/03/27/ACM-poj1789-TruckHistory/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/03/27/ACM-poj1789-TruckHistory/" class="cy_cmt_count" data-xid="2017/03/27/ACM-poj1789-TruckHistory/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  503
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1. DescriptionAdvanced Cargo Movement, Ltd. uses trucks of different types. Some trucks are used for vegetable delivery, other for furniture, or for bricks. The company has its own code describing each type of a truck. The code is simply a string of exactly seven lowercase letters (each letter on each position has a very special meaning but that is unimportant for this task). At the beginning of company’s history, just a single truck type was used but later other types were derived from it, then from the new types another types were derived, and so on. 
-Movement:运动trucks：卡车exactly seven lowercase letters ：正好七个小写字母derived：派生
-Today, ACM is rich enough to pay historians to study its history. On
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/27/ACM-poj1789-TruckHistory/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2342,7 +2386,7 @@ Today, ACM is rich enough to pay historians to study its history. On
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">105</span>
+                <span class="site-state-item-count">108</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2417,7 +2461,7 @@ Today, ACM is rich enough to pay historians to study its history. On
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共226.4k字</span>
+  <span class="post-count">博客全站共231.6k字</span>
 </div>
 
 

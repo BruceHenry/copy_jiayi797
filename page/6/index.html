@@ -319,6 +319,603 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/10/数学-SVD分解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/10/数学-SVD分解/" itemprop="url">SVD分解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T13:08:20+08:00">
+                2017-07-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:24:30+08:00">
+                2017-07-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数学/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/10/数学-SVD分解/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/07/10/数学-SVD分解/" class="cy_cmt_count" data-xid="2017/07/10/数学-SVD分解/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,669
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          简介
+
+SVD(Singular Value Decomposition，奇异值分解)是对实数矩阵(甚至复数矩阵)的一种因式分解。
+任意的一个矩阵都可以做SVD分解。相比SVD分解，和SVD相近的特征值分解只能应用于方阵。
+SVD分解可用来解决非方阵不能计算逆矩阵的问题。
+
+1. SVD定义设一个$m\times n$的矩阵$M$,它的SVD分解是：$$M=UΣV^*$$其中：
+
+$U$是一个$m\times m$的酉矩阵。(我的理解：酉矩阵是在复数空间上，类似正交矩阵的矩阵。它有很多不错的性质。可以在我上一篇博客里看到)
+$Σ$是$m\times n$的矩形对角矩阵，并且在对角线上的元素都是非负实数$σ_i$，称为$M$的奇异值
+$V^*$是一个$n\times n$的酉矩阵，也是$V$的共轭转置矩阵。
+
+2. SVD的原理首先，我们对正交矩阵进行一些回顾。
+正交矩阵回顾
+从上一节我们知道，正交矩阵对应的变换是不会改变向量长度的。即，对于向量$(a,b)$，正交矩阵$U$，变换后的向量$U(a,b)$的长度与$(a,b)$是相等的。这个正交变换只是对$(a,b)$做了旋转或者镜射等操作。
+2.1. 特征值分解——EVD在讨论SVD之前，我们先讨论矩阵的特征值分解（EVD）。
+回顾特征值分解，特征值分解是把一个n阶实对称矩阵分解为下面的形式：$$A=QΣQ^{-1}$$其中：
+
+$Q$是这个矩阵$A$的特征向量组成的矩阵，是一个正交矩阵
+$Σ$是一个对角阵，每个对角线上的元素就是一个特征值
+
+此时假设有一个$x$向量，用$A$将这个向量$x$变换到$A$的列空间中，即：$$Ax
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/10/数学-SVD分解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/10/数学-矩阵相关知识复习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/10/数学-矩阵相关知识复习/" itemprop="url">矩阵相关知识复习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T10:33:46+08:00">
+                2017-07-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-10-28T21:59:17+08:00">
+                2017-10-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数学/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/10/数学-矩阵相关知识复习/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/07/10/数学-矩阵相关知识复习/" class="cy_cmt_count" data-xid="2017/07/10/数学-矩阵相关知识复习/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,081
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1. 特征值与奇异值特征值与特征向量
+如果一个向量$v$是方阵$A$的特征向量，那么：$$Av=\lambda v$$
+
+$\lambda$:特征值
+$v$:特征向量把$A$乘到$v$上，得到一个$\lambda v$，也就是意味着我们得到了一个方向未变但在长度上有伸缩改变的向量（方向未变不准确，有可能变反向）。这是让$A$乘以他的特征向量表现出来的性质。
+
+因此：
+
+特征向量所在直线上的向量都是特征向量；
+特征向量所在的直线，叫特征空间；
+
+特征值分解
+特征值分解是把一个n阶实对称矩阵分解为下面的形式：$$A=QΣQ^{-1}$$其中：
+
+$Q$是这个矩阵$A$的特征向量组成的矩阵，是一个正交矩阵
+$Σ$是一个对角阵，每个对角线上的元素就是一个特征值
+
+2. 正交变换与正交军阵2.1. 正交变换什么是正交变换？正交变换：在线性空间中，保持向量长度不变的线性变换。正交变换的定义是什么？设$V$为欧式空间，$T$是$V$的一个线性变换。如果$T$保持$V$中任一向量$x$的长度不变，即有：$$(x,x)=(Tx,Tx)$$那么称$T$是$V$的一个正交变换。（即内积不变）
+注：$(x,x)$是向量内积怎样的变换算是正交变换？线性变换$T$为正交变换的充要条件是，对于欧式空间$V$中任二向量$x,y$都有：$$(x,y)=(Tx,Ty)$$
+2.2. 正交矩阵正交矩阵的定义是什么？如果实方阵$Q$满足：$$T^TQ=I,或 Q^{-1}=Q^T$$则称$Q$为正交矩阵
+其中，$I$是单位矩阵。正交矩阵有哪些特点？
+
+正交矩阵的行列式必定为$+-1$
+行列式值为+1的正交矩阵，称为特
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/10/数学-矩阵相关知识复习/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/09/Python-简单搜索引擎的实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/09/Python-简单搜索引擎的实现/" itemprop="url">简单搜索引擎的实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T22:04:23+08:00">
+                2017-07-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:58:58+08:00">
+                2017-07-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/09/Python-简单搜索引擎的实现/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/07/09/Python-简单搜索引擎的实现/" class="cy_cmt_count" data-xid="2017/07/09/Python-简单搜索引擎的实现/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,838
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          这是很久以前的IRIE的期末大作业。现在贴在自己的博客上。
+实验要求：
+
+用爬虫采集特定网站的信息；
+设计实现信息检索与提取系统，对采集的信息进行检索提取；
+结合webpy与html实现界面展示。
+
+1. 相关知识1.1. 爬虫网络爬虫是捜索引擎抓取系统中重要的组成部分，其主要目的是将互联网上的网页下载到本地形成一个文件或互联网内容的镜像备份。流程如下：a.  从给定的入口网址把第一个网页下载下来b.  从第一个网页中提取出所有新的网页地址，放入下载列表中c.  按下载列表中的地址，下载所有新的网页d.  从所有新的网页中找出没有下载过的网页地址，更新下载列表e.  重复3、4两步，直到更新后的下载列表为空表时停止其实就是简化成下面的步骤：a.  按下载列表进行下载b.  更新下载列表c.  循环操作a，b，直到列表为空结束在本次作业中我们使用python编码实现爬虫的功能，其中用到的python组件有：urllib2：用于获取URLs（Uniform Resource Locators）的组件，以urlopen函数的形式提供一个非常简单的接口，具有利用不同协议获取URLs的能力，同时提供了一个比较复杂的接口来处理一般情况，如：基础验证，cookies代理和其他。通过handlers和openers的对象提供。urllib2支持获取不同格式的URLs并利用它们相关网络协议（例如FTP，HTTP）进行获取。BeautifulSoup：是python的一个库，最主要的功能是从网页抓取数据。它提供简单的、python式的函数用来处理导航、搜索、修改分析树等功能。可以通过解析文档为用户
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/09/Python-简单搜索引擎的实现/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/09/机器学习实践-转化率预估之贝叶斯平滑/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1717,591 +2314,6 @@ ByteBuffer
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/" itemprop="url">OpenMessaging源码阅读2-demo</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-19T16:32:48+08:00">
-                2017-05-19
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:54:51+08:00">
-                2017-07-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件比赛/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件比赛</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/" class="cy_cmt_count" data-xid="2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  746
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1. producer操作tips:以下涉及到的代码是关键步骤代码。
-
-====================构造n个Topic和n个Queue====================
- 1234String topic1 = "TOPIC1"; //实际测试时大概会有100个Topic左右String queue2 = "QUEUE2"; //实际测试时，queue数目与消费线程数目相同List&lt;Message&gt; messagesForTopic1 = new ArrayList&lt;&gt;(1024);List&lt;Message&gt; messagesForQueue1 = new ArrayList&lt;&gt;(1024);
-
-====================向Topic和Queue中create数据====================
- 1messagesForTopic1.add(producer.createBytesMessageToTopic(topic1,  (topic1 + i).getBytes()));
-
-
-
-调用producer的producer.createBytesMessageToTopic()方法来创建BytesMessage
-将上一步产生的标准消息扔进messagesForTopic1中，即调用了每个messagesForTopic1.add()来向这个Topic中添加消息
-
-需要注意的是：
-
-messageFactory,而createBytesMessageToTopic()正是通过message
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/17/中间件比赛-RocketMQ简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/17/中间件比赛-RocketMQ简介/" itemprop="url">RocketMQ简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-17T10:49:03+08:00">
-                2017-05-17
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:27:02+08:00">
-                2017-07-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件比赛/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件比赛</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/05/17/中间件比赛-RocketMQ简介/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/17/中间件比赛-RocketMQ简介/" class="cy_cmt_count" data-xid="2017/05/17/中间件比赛-RocketMQ简介/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  951
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          RocketMQ:分布式开放消息系统
-1. 消息中间件需要解决哪些问题？1.1. 发布订阅（Publish/Subscribe）发布订阅是消息中间件的最基本功能，也是相对于传统RPC通信而言。在此不再详述。
-1.2. 消息优先级（Message Priority）两种方式：
-
-严格优先级，例如0-65535。开销大，精准，但可能没有必要。
-档位优先级。高、中、低，或其他。每个优先级可以用不同的topic表示，发消息时，指定不同的topic来表示优先级。精确性低。
-
-1.3. 消息有序性（Message Order）
-一个订单的发出的消息顺序不能变
-订单之间是可以并行消费
-
-1.4. 消息过滤（Message Filter）1.4.1. 消息协商器（Broker端）消息过滤在Broker中，按照Consumer的要求做过滤
-
-优点是减少了对于Consumer无用消息的网络传输。
-缺点是增加了Broker的负担，实现相对复杂。
-
-淘宝Notify支持多种过滤方式：包含直接按照消息类型过滤，灵活的语法表达式过滤，几乎可以满足最苛刻的过滤需求。
-淘宝RocketMQ支持按照简单的Message Tag过滤，也支持按照Message Header、body进行过滤。
-CORBA Notification规范中也支持灵活的语法表达式过滤。
-1.4.2. Consumer端消息过滤这种过滤方式可由应用完全自定义实现，但是缺点是很多无用的消息要传输到Consumer端。
-1.4.3. 消息持久化（Message Persistence）持久化（Persistence）：即把数据（如内存中的对象
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/17/中间件比赛-RocketMQ简介/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/16/机器学习实践-CVR-转化率预估资料/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/16/机器学习实践-CVR-转化率预估资料/" itemprop="url">转化率预估资料</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T13:36:42+08:00">
-                2017-05-16
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T16:05:24+08:00">
-                2017-07-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/腾讯算法大赛-CVR预估/" itemprop="url" rel="index">
-                    <span itemprop="name">腾讯算法大赛-CVR预估</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/05/16/机器学习实践-CVR-转化率预估资料/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/16/机器学习实践-CVR-转化率预估资料/" class="cy_cmt_count" data-xid="2017/05/16/机器学习实践-CVR-转化率预估资料/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  14
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-火光摇曳
-美团点评技术团队
-
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/16/机器学习实践-CVR-转化率预估资料/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2351,7 +2363,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">105</span>
+                <span class="site-state-item-count">108</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2426,7 +2438,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共226.4k字</span>
+  <span class="post-count">博客全站共231.6k字</span>
 </div>
 
 
