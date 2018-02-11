@@ -101,7 +101,7 @@
 <meta property="og:description" content="我们常常使用 JDK 提供的迭代接口进行 Java 集合的迭代。 12345Iterator iterator = list.iterator();        while(iterator.hasNext())&amp;#123;            String string = iterator.next();            //do something        &amp;#125; 迭代">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-30-19-53-43.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-30-21-04-07.png">
-<meta property="og:updated_time" content="2018-01-30T13:44:15.398Z">
+<meta property="og:updated_time" content="2018-02-11T09:36:14.510Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java-Iterator">
 <meta name="twitter:description" content="我们常常使用 JDK 提供的迭代接口进行 Java 集合的迭代。 12345Iterator iterator = list.iterator();        while(iterator.hasNext())&amp;#123;            String string = iterator.next();            //do something        &amp;#125; 迭代">
@@ -367,8 +367,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-30T21:44:15+08:00">
-                2018-01-30
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-11T17:36:14+08:00">
+                2018-02-11
               </time>
             
           </span>
@@ -433,7 +433,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  2,855
+                  2,978
                 </span>
               
 
@@ -535,6 +535,9 @@
 <p>对于一个容器，如果想要遍历它的话，如果不用迭代器的话，需要了解其内部实现，比如链表和数组的访问是不一样的</p>
 <p>迭代器里提供了抽象的next 和 hasNext方法，通过实现这两个方法，就可以把访问容器内容的逻辑封装成统一的数据访问接口</p>
 <p>所有实现了某一种迭代器模型的容器就都可以用统一的方法去访问了而不需要考虑不同容器的内部实现</p>
+<h1 id="相关题">4. 相关题</h1><h2 id="Peeking-Iterator">4.1. Peeking Iterator</h2><p>实现一个具有peek功能的迭代器</p>
+<p>一开始想复杂了。其实很简单。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">Iterator&lt;Integer&gt; iterator;</div><div class="line">Integer peek; <span class="comment">// 记录下一个即将出去的数据</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">PeekingIterator</span><span class="params">(Iterator&lt;Integer&gt; iterator)</span> </span>&#123;</div><div class="line">    <span class="comment">// initialize any member here.</span></div><div class="line">    <span class="keyword">this</span>.iterator = iterator;</div><div class="line">    moveNext();</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Returns the next element in the iteration without advancing the iterator.</span></div><div class="line"><span class="function"><span class="keyword">public</span> Integer <span class="title">peek</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> peek;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// hasNext() and next() should behave the same as in the Iterator interface.</span></div><div class="line"><span class="comment">// Override them if needed.</span></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> Integer <span class="title">next</span><span class="params">()</span> </span>&#123;</div><div class="line">    Integer res = peek;</div><div class="line">    moveNext();</div><div class="line">    <span class="keyword">return</span> res;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span> != peek;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">moveNext</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(iterator.hasNext())&#123;</div><div class="line">        peek = iterator.next();</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        peek = <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -657,7 +660,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-count">110</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -668,7 +671,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -714,7 +717,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#迭代器接口"><span class="nav-text">1. 迭代器接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ArrayList的Iterator实现"><span class="nav-text">2. ArrayList的Iterator实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迭代器模式"><span class="nav-text">3. 迭代器模式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#迭代器接口"><span class="nav-text">1. 迭代器接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ArrayList的Iterator实现"><span class="nav-text">2. ArrayList的Iterator实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迭代器模式"><span class="nav-text">3. 迭代器模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关题"><span class="nav-text">4. 相关题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Peeking-Iterator"><span class="nav-text">4.1. Peeking Iterator</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -748,7 +751,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共243.7k字</span>
+  <span class="post-count">博客全站共250.8k字</span>
 </div>
 
 
