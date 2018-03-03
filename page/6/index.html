@@ -319,6 +319,210 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/25/数据库常用语句/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/25/数据库常用语句/" itemprop="url">数据库常用语句</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T15:37:12+08:00">
+                2017-07-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-29T19:45:16+08:00">
+                2018-01-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/25/数据库常用语句/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/07/25/数据库常用语句/" class="cy_cmt_count" data-xid="2017/07/25/数据库常用语句/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  289
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1. 启动/关闭
+启动：sudo systemctl start mysqld或mysql -u root -p
+查看状态：sudo systemctl status mysqld
+
+2. linux下执行sql脚本进入到mysql后，执行source /路径/tester.sql;即可
+3. databases操作
+列出所有数据库：SHOW DATABASES;
+创建数据库：CREATE DATABASE database_name;
+进入某数据库：USE database_name;
+
+4. tables操作
+列出所有表：SHOW TABLES;
+创建表：
+  1234567CREATE TABLE 表名称(列名称1 数据类型,列名称2 数据类型,列名称3 数据类型,....)
+
+输出表头：SHOW COLUMNS FROM Table_name;
+
+
+5. MYSQL数据类型MySQL 数据类型
+6. 相关Leetcode题6.1. Left Join教程：SQL LEFT JOIN 关键字
+LEFT JOIN 关键字从左表（table1）返回所有的行，即使右表（table2）中没有匹配。如果右表中没有匹配，则结果为 NULL。
+6.2. Combine Two TablesPerson表有PersonId, FirstName, LastName. Adress表有AdressId, PersonId, City, State. 获得数据：FirstName, LastName, City, State。例如
+12345678910111213141516171819P
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/25/数据库常用语句/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/16/机器学习实践-推荐系统初探/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1373,8 +1577,8 @@ $Σ$是一个对角阵，每个对角线上的元素就是一个特征值
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-02T17:01:56+08:00">
-                2018-03-02
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-03T12:50:49+08:00">
+                2018-03-03
               </time>
             
           </span>
@@ -1434,7 +1638,7 @@ $Σ$是一个对角阵，每个对角线上的元素就是一个特征值
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  2,838
+                  2,828
                 </span>
               
 
@@ -2110,207 +2314,6 @@ DNN论文分享 - Item2vec: Neural Item Embedding for Collaborative Filtering
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结/" itemprop="url">机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-07T15:17:49+08:00">
-                2017-06-07
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T14:17:49+08:00">
-                2017-07-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/腾讯算法大赛-CVR预估/" itemprop="url" rel="index">
-                    <span itemprop="name">腾讯算法大赛-CVR预估</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结/" class="cy_cmt_count" data-xid="2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  4,828
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          “这一段奔波太过匆忙，有时来不及回头张望。”
-腾讯“人工寻找trick”大赛初赛今天结束了。最终初赛线上logloss为0.099104，排名为64名： 
-复赛成绩0.101941，排名26名： 
-虽然与前排大神的分相差甚远，虽结果不那么如人意，也是对这个领域入了个门。
-1. 赛题详细赛题见官方网站
-已知：17-30天移动APP的广告、用户的转化情况，及相关上下文。预测：第31天指定用户和对应广告的转化率。
-评估方式：$$logloss=-\frac{1}{N}\sum_{i=1}^N(y_ilog(p_i)+(1-y_i)log(1-p_i))$$
-其中，
-
-N是测试样本总数
-$y_i$是二值变量，取值为0或1，表示第i个样本的label
-$p_i$是模型预测第i个样本label为1的概率
-
-总之，就是预测的越准越好（这不废话么2333）
-2. 主要流程这是Kaggle上数据挖掘比赛的黄金流程图： 
-其实对于这个比赛的初赛而言，线上是容易过拟合的。因为线上只有一个集，可反复提交多次来使得线上得分很高，但实际上模型是有些过拟合的。不过这不是重点。
-接下来一步步做说明
-3. 数据分析与清洗训练集train.csv没有大问题，我注意的只是后几天的一些数据没有回流的问题。
-值得注意的是，本次竞赛的训练数据提供的截止第31天0点的广告日志，因此，对于最后几天的训练数据，也就是说后五天部分用户实际上是转化了，但广告主还没有来得及将这条转化汇报给广告系统，导致数据集中的label被误标记为了0（实际上是1）。（如果我还没有描述清楚，这里具体可以看官网赛题FAQ.1）
-这里我采取了一种很暴力
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2360,7 +2363,7 @@ $p_i$是模型预测第i个样本label为1的概率
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-count">112</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2435,7 +2438,7 @@ $p_i$是模型预测第i个样本label为1的概率
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共252.4k字</span>
+  <span class="post-count">博客全站共257.6k字</span>
 </div>
 
 
