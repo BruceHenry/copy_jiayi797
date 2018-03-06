@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/07/10/596398011f9e0.png">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/07/11/59643b2a666c7.png">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/07/11/59643cbeed773.png">
-<meta property="og:updated_time" content="2017-07-11T07:24:30.214Z">
+<meta property="og:updated_time" content="2018-03-06T07:18:19.204Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SVD分解">
 <meta name="twitter:description" content="简介  SVD(Singular Value Decomposition，奇异值分解)是对实数矩阵(甚至复数矩阵)的一种因式分解。 任意的一个矩阵都可以做SVD分解。相比SVD分解，和SVD相近的特征值分解只能应用于方阵。 SVD分解可用来解决非方阵不能计算逆矩阵的问题。  1. SVD定义设一个$m\times n$的矩阵$M$,它的SVD分解是：$$M=UΣV^*$$其中：  $U$是一个$m">
@@ -373,8 +373,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:24:30+08:00">
-                2017-07-11
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-06T15:18:19+08:00">
+                2018-03-06
               </time>
             
           </span>
@@ -515,9 +515,8 @@
 <h2 id="特征值分解与奇异值分解">2.3. 特征值分解与奇异值分解</h2><p>参考文献<a href="https://www.cnblogs.com/LeftNotEasy/archive/2011/01/19/svd-and-applications.html" target="_blank" rel="external">机器学习中的数学(5)-强大的矩阵奇异值分解(SVD)及其应用</a>提到，奇异值和特征值可以对应起来。</p>
 <h2 id="部分奇异值分解">2.4. 部分奇异值分解</h2><p>在很多情况下，前10%甚至1%的奇异值的和就占了全部的奇异值之和的99%以上了。也就是说，我们也可以用前r大的奇异值来近似描述矩阵，这里定义一下部分奇异值分解：<br>$$A_{m\times n}\approx U_{m\times r}Σ_{r_\times r}V^T_{r\times n}$$<br> r是一个远小于m、n的数，这样矩阵的乘法看起来像是下面的样子：<br><img src="https://ooo.0o0.ooo/2017/07/10/596398011f9e0.png" alt=""><br>右边的三个矩阵相乘的结果将会是一个接近于A的矩阵，在这儿，r越接近于n，则相乘的结果越接近于A。而这三个矩阵的面积之和（在存储观点来说，矩阵面积越小，存储量就越小）要远远小于原始的矩阵A，我们如果想要压缩空间来表示原矩阵A，我们存下这里的三个矩阵：U、Σ、V就好了。</p>
 <p><strong>小例子</strong></p>
-<p>接下来我们给出一个用python的SVD分解小例子。</p>
-<pre><code>&apos;&apos;&apos;Python
-#coding=utf-8
+<p>接下来我们给出一个用python的SVD分解小例子。<br>​<br>    ‘’’Python</p>
+<pre><code>#coding=utf-8
 # 首先做一些数据声明
 from sklearn.decomposition import TruncatedSVD
 from matplotlib import pyplot as plt
@@ -711,7 +710,7 @@ print svd.explained_variance_ratio_
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">112</span>
+                <span class="site-state-item-count">115</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -802,7 +801,7 @@ print svd.explained_variance_ratio_
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共257.6k字</span>
+  <span class="post-count">博客全站共262.0k字</span>
 </div>
 
 

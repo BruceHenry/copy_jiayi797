@@ -319,6 +319,605 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/08/机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/08/机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）/" itemprop="url">机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-08T15:20:57+08:00">
+                2017-03-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T15:54:23+08:00">
+                2018-02-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/o2o优惠券使用预测/" itemprop="url" rel="index">
+                    <span itemprop="name">o2o优惠券使用预测</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/03/08/机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/03/08/机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）/" class="cy_cmt_count" data-xid="2017/03/08/机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,244
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          感觉自己还是太渣，看了些许算法，并不知道有什么卵用。决定好好分析分析别人的思路，也许能够对我带来些许启发。
+本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[https://github.com/wepe/O2O-Coupon-Usage-Forecast]。
+本文主要对数据的抽取extract_feature.py做一些详细的分析。
+1. 解决方案概述本赛题提供了用户线下消费和优惠券领取核销行为的纪录表，用户线上点击/消费和优惠券领取核销行为的纪录表，记录的时间区间是2016.01.01至2016.06.30,需要预测的是2016年7月份用户领取优惠劵后是否核销。根据这两份数据表，我们首先对数据集进行划分，然后提取了用户相关的特征、商家相关的特征，优惠劵相关的特征，用户与商家之间的交互特征，以及利用本赛题的leakage得到的其它特征（这部分特征在实际业务中是不可能获取到的）。最后训练了XGBoost，GBDT，RandomForest进行模型融合。
+源码分析
+第二赛季暂时没有平台，所以本文只对第一赛季的源码进行分析。
+文件：O2O-Coupon-Usage-Forecast/code/wepon/season one 
+这个文件夹存放第一赛季的代码
+
+extract_feature.py划分数据集，提取特征，生成训练集（dataset1和dataset2）和预测集（dataset3）。
+xgb.py 训练xgboost模型，生成特征重要性文件，生成预测结果。单模型第一赛季A榜AUC得分0.798.
+
+2. 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/08/机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/06/机器学习算法-提升决策树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/06/机器学习算法-提升决策树/" itemprop="url">机器学习算法-提升决策树</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-06T19:28:33+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T16:06:40+08:00">
+                2018-02-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/03/06/机器学习算法-提升决策树/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/03/06/机器学习算法-提升决策树/" class="cy_cmt_count" data-xid="2017/03/06/机器学习算法-提升决策树/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,208
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          上一节中介绍了《随机森林算法》，该算法使用bagging的方式作出一些决策树来，同时在决策树的学习过程中加入了更多的随机因素。该模型可以自动做到验证过程同时还可以进行特征选择。 
+本节，我们结合AdaBoost+决策树算法。
+1. AdaBoost决策树算法引入在AdaBoost中每一轮迭代，都会给数据更新一个权重，利用这个权重，我们学习得到一个g，在这里我们得到一个决策树，最终利用线性组合的方式得到多个决策树组成的G。
+=======================================AdaBoost-DTree(DD)对于t=1,2,…,T，循环执行：
+
+更新数据的权重$u(t)$；
+通过决策树算法$DTree(D,u(t))$得到$g_t$；
+计算$g_t$的投票权重$α_t$。
+
+返回$G=LinearHypo({(g_t,α_t)})$。
+========================================
+问题：如何要在决策树中，加入权重ut
+解决方案有两种：
+
+一种是通过算法加权，在计算Ein的地方嵌入权重计算，比如AdaBoost采用的最小化加权误差；
+另一种方法是将算法当成黑盒不变更，通过数据集加权，根据权重在bootstrap时“复制”数据，也就是加权的重采样。
+
+AdaBoost决策树通常用后一种，即：$AdaBoost+sampling∝u^{(t)}+DTree(D_t) $
+2. 加权的决策树算法(Weighted Decision Tree Algorithm) 之前含有权重的算法中，我们在误差估计中加入了权重u：
+  
+为
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/06/机器学习算法-提升决策树/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/05/机器学习算法-AdaBoost/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/05/机器学习算法-AdaBoost/" itemprop="url">机器学习算法-AdaBoost</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-05T17:31:52+08:00">
+                2017-03-05
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-04T19:41:47+08:00">
+                2018-03-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/03/05/机器学习算法-AdaBoost/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/03/05/机器学习算法-AdaBoost/" class="cy_cmt_count" data-xid="2017/03/05/机器学习算法-AdaBoost/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,000
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1. Boosting提升（boosting）：从弱学习算法（正确率低）出发，反复学习，得到一系列弱分类器（基本分类器），然后组合这些弱分类器，构成一个强分类器。（三个臭皮匠顶个诸葛亮）
+提升（boosting）方法需要解决的问题：
+
+如何获得更多的弱分类器————如何改变训练数据的权值或概率分布————提高被前一轮错误分类样本的权值，降低被正确分类样本的权值。
+如何将弱分类器合成一个强分类器————加权多数表决：加大误差小的分类器的权值，减小误差大的分类器的权值。
+
+提升方法有很多，最具代表性的就是AdaBoost算法。
+2. AdaBoost算法假设给定一个二分类训练数据集$T=\{(x_1,y_1),(x_2,y_2),…,(x_N,y_N)\}$
+其中，每个样本点由【特征+标签】组成
+特征：$x_i\in X \subseteq R^n $
+标签：$y_i \in Y={-1,+1}$
+AdaBoost利用以下算法，从训练数据中学习一系列弱分类器或基本分类器，并将这些弱分类器线性组合成一个强分类器
+输入:
+
+数据集$T={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)}$
+弱学习算法
+
+输出：最终分类器$G(x)$
+步骤：
+
+初始化训练数据的权值(每个都设为1/N)：$$D_1=(w_{11},w_{1i},…,w_{1N}),w_{1i}=\frac{1}{N},i=1,2,…,N$$其中$w_{ki}$ 代表迭代第k次时，第i个样本被抽到的概率！！！
+对$m=1,2,…,M$:使用带权值$D_m$的训练集学习，得到基本分类器$G_m(x):X\rig
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/05/机器学习算法-AdaBoost/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/05/机器学习算法-随机森林算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -791,8 +1390,8 @@ CART算法中每个节点（看做是一个决策桩decision stump）对数据�
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T16:07:05+08:00">
-                2018-02-05
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-04T19:17:45+08:00">
+                2018-03-04
               </time>
             
           </span>
@@ -852,7 +1451,7 @@ CART算法中每个节点（看做是一个决策桩decision stump）对数据�
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  277
+                  441
                 </span>
               
 
@@ -879,11 +1478,15 @@ CART算法中每个节点（看做是一个决策桩decision stump）对数据�
           这位前辈写的很好。今天也没有时间看视频。看看他的博客也就足够了。混合和装袋
 1. baggingbagging——基于数据随机重抽样的分类器构建方法。
 2. boosting新的分类器根据已训练出的分类器的性能来进行训练；分类结果基于所有分类器的加权求和得到。
-3. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均，所以是降低模型的 variance. Bagging 比如 Random Forest 这种先天并行的算法都有这个效果。
-Boosting 则是迭代算法，每一次迭代都根据上一次迭代的预测结果对样本进行加权，所以随着迭代不断进行，误差会越来越小，所以模型的 bias 会不断降低。这种算法无法并行，例子比如 Adaptive Boosting.
-作者：匿名用户链接：https://www.zhihu.com/question/26760839/answer/33963551来源：知乎著作权归作者所有，转载请联系作者获得授权。
+3. bagging和boosting区别Bagging 是 Bootstrap Aggregating 的简称，意思就是再取样 (Bootstrap) 然后在每个样本上训练出来的模型取平均。各模型分布近似相同，但不独立。
 
-          
+从偏差角度看。由于$Bais =\frac{\sum Bais_i}{n} $ ，所以 Bagging后的偏差与单个模型相近。
+从方差角度看。如果各模型独立，整体方差 =$ Var(E[X_i]) =\frac{Var(X_i)}{N}​$ (这是方差的性质)；如果各模型完全一样，则$Var(E[X_i]) = Var(Xi)​$。那么因此Bagging可以减少方差。
+
+而随机森林通过随机选取特征子集做拟合的方式修正了各子树，因此随机森林中基学习器的多样性不仅来自于样本扰动，还来自于特征扰动。使得方差进一步降低，提高了泛化能力。
+Boosting 则是迭代算法，每一次迭代都根据上一次迭代的预测结果对样本进行加权，所以随着迭代不断进行，误差会越来越小，所以模型的 bias 会不断降低。而这种sequential、adaptive的策略导致各子模型之前强相关，也就是以上分析中，如果各模型完全一样，那么方差就不会有很大的降低。这种算法无法并行，例子比如 Adaptive Boosting.
+4. 参考文献
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/03/04/机器学习算法-boosting和bagging/#more" rel="contents">
@@ -1736,585 +2339,6 @@ TIPS:
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/02/从出租车行驶数据筛选出OD点数据/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/02/从出租车行驶数据筛选出OD点数据/" itemprop="url">从出租车行驶数据筛选出OD点数据</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-02T14:12:00+08:00">
-                2017-03-02
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-04-24T21:26:32+08:00">
-                2017-04-24
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/03/02/从出租车行驶数据筛选出OD点数据/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/03/02/从出租车行驶数据筛选出OD点数据/" class="cy_cmt_count" data-xid="2017/03/02/从出租车行驶数据筛选出OD点数据/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  733
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          动手前先动脑，这句话献给自己。
-0.1. 目标从出租车行驶数据中，筛选出OD点。
-0.2. 数据集123456789101112131415161718名称：2012年11月1日 北京市出租车GPS数据格式：txt文本文件数据项及顺序：车辆标识,触发事件,运营状态,GPS时间,GPS经度,GPS纬度,GPS速度,GPS方向,GPS状态车辆标识：6个字符触发事件：0=变空车，1=变载客，2=设防，3=撤防，4=其它运营状态：0=空车，1=载客，2=驻车，3=停运，4=其它GPS时间GPS经度GPS纬度GPS速度：取值000-255内整数，以公里/小时为单位GPS方位：取值000-360内整数，以度为单位GPS状态：0=无效，1=有效结束串：回车符+换行符数据示例:123456,0,0,20110414160613,116.4078674,40.2220650,21,274,1
-0.3. 思路
-将数据点按照“车牌号、运营时间、运营状态”依次从小到大排序
-筛出同一车牌号的运营状态变化的时刻的数据
-
-0.4. 方法
-方法一：导入数据库，再写脚本操作数据。可能是我对数据库实在没缘分，这个方法没有成功。
-
-方法二：将车牌号分段后，在每段上进行如上思路所示的操作。
-
-
-为了更好地分段，我们先对车牌号段进行分析。
-0.4.1. 车牌号段分析查询车的数目：12409个
-1SELECT COUNT(DISTINCT id) FROM SET1
-脚本名：data1IDcount.py
-地址：81服务器上，D:\jiayi\wxt
-听说数据集有三千多万，所以我决定每一千个数据取一条进行粗略分析。
-车牌
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/02/从出租车行驶数据筛选出OD点数据/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/01/机器学习算法-ROC和AUC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/01/机器学习算法-ROC和AUC/" itemprop="url">机器学习算法-ROC和AUC</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-01T12:02:39+08:00">
-                2017-03-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T15:56:21+08:00">
-                2018-02-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/03/01/机器学习算法-ROC和AUC/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/03/01/机器学习算法-ROC和AUC/" class="cy_cmt_count" data-xid="2017/03/01/机器学习算法-ROC和AUC/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  1,231
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          0.0.1. AUC定义用途：用来度量分类模型好坏的一个标准背景：
-
-有些时候，仅仅依靠正确率是不妥当的。
-能客观反映对正样本、负样本综合预测的能力，还要考虑消除样本倾斜的影响。
-
-0.0.2. ROC
-ROC:Receiver Operating Characteristic
-ROC曲线：横坐标是false positive rate(FPR)，纵坐标是true positive rate(TPR)。
-对某个分类器而言，我们可以根据其在测试样本上的表现得到一个TPR和FPR点对。这样，此分类器就可以映射成ROC平面上的一个点。
-调整这个分类器分类时候使用的阈值，我们就可以得到一个经过(0, 0)，(1, 1)的曲线，这就是此分类器的ROC曲线。
-
-tip：FPR和TPR先来看一个普遍的二分类问题的结果，预测值和实际值有4种组合情况，看下面的表格：我们定义$$ TruePositiveRate(TPR) = \frac{TP}{TP+FN=P} = \frac{正确预测1}{正确预测1+错误预测1=1的数量}=实际正样本正确预测的比例$$$$ FalsePositiveRate(FPR) = \frac{FP}{FP+TN=N} = \frac{错误预测0}{错误预测0+正确预测0=0的数量}=实际负样本错误预测的比例$$
-0.0.2.1. 如何一个分类器的画ROC曲线概率输出：即表示分类器认为某个样本具有多大的概率属于正样本（或负样本），来动态调整一个样本是否属于正负样本例：
-
-图中共有20个测试样本
-“Class”一栏表示每个测试样本真正的标签（p表示正样本，n表示负样本）
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/01/机器学习算法-ROC和AUC/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/02/28/机器学习算法-PLA-线性感知机/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/28/机器学习算法-PLA-线性感知机/" itemprop="url">机器学习算法-PLA-线性感知机</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-28T22:05:26+08:00">
-                2017-02-28
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-25T15:24:05+08:00">
-                2018-01-25
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/02/28/机器学习算法-PLA-线性感知机/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/02/28/机器学习算法-PLA-线性感知机/" class="cy_cmt_count" data-xid="2017/02/28/机器学习算法-PLA-线性感知机/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  437
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          感觉自己记性越来越差。寒假前看的东西，回来忘得一干二净。从此认真做笔记，不能再重蹈覆辙。——题记（第一次使用markdown，不太习惯，后面的公式没有继续打。现在去学习一下好用一些的公式编辑方法）
-1. 简介定义：感知机是二类分类的线性模型。
-输入：实例的特征向量
-输出：实例的类别（±1）
-2. 感知机模型感知机——由输入空间到输出空间的函数：
-$$f(x)=sign(wx+b)$$
-###Tips:$ w \in R^n $：权值，weight$ b \in R $：偏值，bias输入空间（特征空间）：$ X \in R^n $输出空间：$ y={+1,-1} $输入：$ x \in X $表示实例的特征向量，对应于输入空间的点输出：$ y \in Y $，表示实例的类别
-3. 感知机学习策略
-感知机学习目标：求得一个能将训练集正实例点和负实例点完全正确分开的分离超平面 = 确定模型参数w,b。
-感知机学习策略：定义（经验）损失函数并将损失函数极小化。
-损失函数的选择：
-
-
-《统计学习方法》中介绍到的损失函数：所有误分类点到超平面S的总距离：一般不考虑w,即损失函数为：M:误分类点的个数
-《西瓜书》里提到的误差是均方误差：然后用最小二乘法求解w,b。
-
-
-误分类点越少，损失函数越小。
-
-将感知机学习问题转化为求解损失函数最优化问题​    
-4. 感知机学习算法4.1. 感知机学习算法的原始形式 
-4.2. 算法的收敛性
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/28/机器学习算法-PLA-线性感知机/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2364,7 +2388,7 @@ $$f(x)=sign(wx+b)$$
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">112</span>
+                <span class="site-state-item-count">115</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2439,7 +2463,7 @@ $$f(x)=sign(wx+b)$$
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共257.6k字</span>
+  <span class="post-count">博客全站共262.0k字</span>
 </div>
 
 

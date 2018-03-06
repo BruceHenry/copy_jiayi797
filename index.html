@@ -366,8 +366,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-03T14:39:35+08:00">
-                2018-03-03
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-05T14:47:25+08:00">
+                2018-03-05
               </time>
             
           </span>
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,561
+                  1,567
                 </span>
               
 
@@ -436,6 +436,8 @@
 <li><a href="/2017/11/24/算法-二分查找/" title="算法-二分查找">算法-二分查找</a>。二分查找是有序数组查找target的有利算法。</li>
 <li><a href="/2018/01/19/算法-位操作/" title="算法-位操作">算法-位操作</a> 。 位操作对于某些程序的优化来说，还是起着很大的作用。理解计算机处理数字的方式，才会写出更好的程序。</li>
 <li><a href="/2018/01/29/算法-数学相关习题/" title="算法-数学相关习题">算法-数学相关习题</a> 。介绍了素数晒、概率等相关基础知识。</li>
+<li><a href="/2018/03/05/算法-卡兰特数/" title="算法-卡兰特数">算法-卡兰特数</a>
+</li>
 </ul>
 <h2 id="动态规划">1.2. 动态规划</h2><ul>
 <li><a href="/2017/11/17/算法-DP/" title="算法-DP">算法-DP</a> 。本来动态规划应该放入数组里，因为DP很多都是应用在数组里解决重复计算的问题。但这块对我来说实在是有点难。因此特意开坑。</li>
@@ -493,8 +495,7 @@
 </li>
 </ul>
 <h3 id="集成学习">4.1.2. 集成学习</h3><ul>
-<li><a href="/2017/03/04/机器学习算法-boosting和bagging/" title="机器学习算法-boosting和bagging">机器学习算法-boosting和bagging</a>  </li>
-<li><a href="/2017/03/05/机器学习算法-AdaBoost/" title="机器学习算法-AdaBoost">机器学习算法-AdaBoost</a>  
+<li><a href="/2017/03/04/机器学习算法-boosting和bagging/" title="机器学习算法-boosting和bagging">机器学习算法-boosting和bagging</a>  
 </li>
 </ul>
 <ul>
@@ -503,6 +504,7 @@
 </ul>
 </li>
 <li><strong>Boosting</strong><ul>
+<li><a href="/2017/03/05/机器学习算法-AdaBoost/" title="机器学习算法-AdaBoost">机器学习算法-AdaBoost</a>  </li>
 <li><a href="/2017/03/05/机器学习算法-决策树和CART/" title="机器学习算法-决策树和CART">机器学习算法-决策树和CART</a>  </li>
 <li><a href="/2017/03/06/机器学习算法-提升决策树/" title="机器学习算法-提升决策树">机器学习算法-提升决策树</a>  </li>
 <li><a href="/2017/03/15/机器学习算法-GBDT/" title="机器学习算法-GBDT">机器学习算法-GBDT</a>  
@@ -536,6 +538,570 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2048/10/24/本站简介/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2018/03/06/机器学习实践-XGboost与LightGBM对比/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/06/机器学习实践-XGboost与LightGBM对比/" itemprop="url">机器学习实践-XGboost与LightGBM对比</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T15:18:10+08:00">
+                2018-03-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-06T15:47:46+08:00">
+                2018-03-06
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习实践/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习实践</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/03/06/机器学习实践-XGboost与LightGBM对比/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2018/03/06/机器学习实践-XGboost与LightGBM对比/" class="cy_cmt_count" data-xid="2018/03/06/机器学习实践-XGboost与LightGBM对比/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,038
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="XGBoost">1. XGBoost</h1><p>XGBoost作为一款经过优化的分布式梯度提升（Gradient Boosting）库，具有高效，灵活和高可移植性的特点。基于梯度提升框架，XGBoost实现了并行方式的决策树提升(Tree Boosting)，从而能够快速准确地解决各种数据科学问题。XGBoost不仅支持各种单机操作系统（如：Windows，Linus和OS X），而且支持集群分布式计算(如：AWS，GCE，Azure和Yarn)和云数据流系统（如：Flink和Spark）。</p>
+<p>XGBoost是由华盛顿大学（University of Washington）的陈天奇作为 Distributed (Deep) Machine Learning Community (DMLC) 组员所开发的一个研究项目。在陈天奇与队友一起赢得了Higgs Machine Learning Challenge后，许多的数据科学竞赛队伍使用XGBoost并获得了冠军，促进了该工具在数据科学应用中的广泛使用。</p>
+<h1 id="LightGBM">2. LightGBM</h1><p>LightGBM（Light Gradient Boosting Machine）同样是一款基于决策树算法的分布式梯度提升框架。为了满足工业界缩短模型计算时间的需求，LightGBM的设计思路主要是两点：1. 减小数据对内存的使用，保证单个机器在不牺牲速度的情况下，尽可能地用上更多的数据；2. 减小通信的代价，提升多机并行时的效率，实现在计算上的线性加速。由此可见，LightGBM的设计初衷就是提供一个快速高效、低内存占用、高准确度、支持并行和大规模数据处理的数据科学工具。</p>
+<p>LightGBM是微软旗下的Distributed Machine Learning Toolkit （DMKT）的一个项目，由2014年首届阿里巴巴大数据竞赛获胜者之一柯国霖主持开发。虽然其开源时间才仅仅2个月，但是其快速高效的特点已经在数据科学竞赛中崭露头角。Allstate Claims Severity竞赛中的冠军解决方案里就使用了LightGBM，并对其大嘉赞赏。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/06/机器学习实践-XGboost与LightGBM对比/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2018/03/05/算法-卡兰特数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/05/算法-卡兰特数/" itemprop="url">算法-卡兰特数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-05T12:53:38+08:00">
+                2018-03-05
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-05T15:51:23+08:00">
+                2018-03-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/03/05/算法-卡兰特数/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2018/03/05/算法-卡兰特数/" class="cy_cmt_count" data-xid="2018/03/05/算法-卡兰特数/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,912
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="出栈顺序问题">1. 出栈顺序问题</h1><p>今天看到一道出栈顺序的面试题，很心的思路。特来注意一下。</p>
+<p><strong>问题定义</strong></p>
+<p>一个栈(无穷大)的进栈序列为1，2，3，…，n，有多少个不同的出栈序列?</p>
+<p><strong>解题思路</strong></p>
+<ol>
+<li>假设进栈序列为$[a,b,c,d]$ . 设$f(k)$ 表示还剩k个元素时的出栈序列数目（元素内容并不影响数目，例如abc与abd的出栈序列数目是一样的）</li>
+<li>如果a第1个出栈，那么只有可能就是a进栈后马上出栈。还剩bcd等待操作。那么就是子问题$f(3)$</li>
+<li>如果a第2个出栈，那么一定有一个元素先比a进栈，这个元素只可能是b。那么就是子问题$f(1)$。 而还剩下cd等待操作，那么cd就是子问题$f(2)$</li>
+<li>如果a第3个出栈，那么一定有2个元素比a先出栈，这2个元素只可能是bc，就是子问题$f(2)$ 。而剩下的d就是$f(1)$</li>
+<li>如果a第4个出栈，那么一定是a进栈后，等到bcd都出栈后再出栈。那么bcd就是$f(3)$</li>
+</ol>
+<p>结合以上所有情况，即$f(4) = f(3) + f(2)\times f(1) + f(1) \times f(2) + f(3)$</p>
+<p>为了好看，我们定义$f(0) = 1$ ，然后推广到n，那么可以得到：</p>
+<p>$$f(n) =f(0)\times f(n) + f（1)\times f(n-1) +…+f(k)(n-k)+…+ f(n-1) \times f(1) + f(n) \times f(0)$$</p>
+<p>$$ = \sum_{i=0}^{n-1} f(i)f(n-i)$$</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/05/算法-卡兰特数/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2018/03/04/机器学习面试总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/04/机器学习面试总结/" itemprop="url">机器学习面试总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-04T16:39:49+08:00">
+                2018-03-04
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-04T17:02:40+08:00">
+                2018-03-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习实践/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习实践</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/03/04/机器学习面试总结/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2018/03/04/机器学习面试总结/" class="cy_cmt_count" data-xid="2018/03/04/机器学习面试总结/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  38
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+agging与boosting两种集成模型的偏差和方差的理解
+模型任何之——Bagging和Boostting的区别
+机器学习算法比较
+
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/04/机器学习面试总结/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -815,8 +1381,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-03T22:58:05+08:00">
-                2018-03-03
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-04T15:05:38+08:00">
+                2018-03-04
               </time>
             
           </span>
@@ -876,7 +1442,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  3,069
+                  3,089
                 </span>
               
 
@@ -1740,597 +2306,6 @@ UrlService.deco
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2018/01/29/算法-数学相关习题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/29/算法-数学相关习题/" itemprop="url">算法-数学相关习题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-29T18:10:15+08:00">
-                2018-01-29
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-06T21:31:41+08:00">
-                2018-02-06
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/01/29/算法-数学相关习题/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2018/01/29/算法-数学相关习题/" class="cy_cmt_count" data-xid="2018/01/29/算法-数学相关习题/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  876
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1. 素数1.1. 判断n是素数解法一，暴解
-如果n是素数，那么n不能被任何数（1和n除外）的数字整除。暴力的方法就是从2~n-1进行探测，探测$\frac{n}{k}, k = 2,3,…,n-1$ 是否是整数 
-1234567private boolean ifPrime(int n)&#123;  if(n &lt; 2) return false;  for(int k = 2; k &lt; n; ++k)&#123;    if(n % k == 0) return false;  &#125;  return true;&#125;
-解法二，优化
-事实上，如果n不是素数，那么一定存在$n = a \times b$ ，而a和b的可能性有：
-
-
-
-a
-b
-
-
-
-
-2
-n/2
-
-
-3
-n/3
-
-
-…
-…
-
-
-n/3
-3
-
-
-n/2
-2
-
-
-
-我们发现，a和b有重复计算的部分，即如果a &lt; sqrt(n) , 那么b &gt; sqrt(n) 。因此a只用探测到sqrt(n)即可。
-12345678private boolean ifPrime(int n)&#123;  if(n &lt; 2) return false;  int sqrt = (int)Math.sqrt(n);  for(int k = 2; k &lt; sqrt; ++k)&#123;    if(n % k == 0) return false;  &#125;  return true;&#125;
-解法三，素数筛——生成素数序列：埃拉托斯特尼筛法
-素数筛能非常高效地生成素数序列。
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/01/29/算法-数学相关习题/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2018/01/29/Java-LinkedHashMap原理探究/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/29/Java-LinkedHashMap原理探究/" itemprop="url">Java-LinkedHashMap原理探究</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-29T16:01:57+08:00">
-                2018-01-29
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-29T19:45:16+08:00">
-                2018-01-29
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/01/29/Java-LinkedHashMap原理探究/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2018/01/29/Java-LinkedHashMap原理探究/" class="cy_cmt_count" data-xid="2018/01/29/Java-LinkedHashMap原理探究/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  2,799
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在之前的 <a href="/2018/01/27/系统设计-缓存算法/" title="系统设计-缓存算法">系统设计-缓存算法</a>  一文里我用到了LinkedHashMap。这是最近刚接触到的一个新的数据结构。在此进行原理的探究。</p>
-<p>LinkedHashMap 是 HashMap 的一个子类，它<strong>保留插入的顺序</strong>，如果需要输出的顺序和输入时的相同，那么就选用 LinkedHashMap。</p>
-<p>LinkedHashMap 实现与 HashMap 的不同之处在于，LinkedHashMap 维护着一个运行于所有条目的双重链接列表。此链接列表定义了迭代顺序，该迭代顺序可以是插入顺序或者是访问顺序。</p>
-<p>注意，此实现不是同步的。如果多个线程同时访问链接的哈希映射，而其中至少一个线程从结构上修改了该映射，则它必须保持外部同步。</p>
-<p>根据链表中元素的顺序可以分为：按插入顺序的链表，和按访问顺序(调用 get 方法)的链表。默认是按插入顺序排序，如果指定按访问顺序排序，那么调用get方法后，会将这次访问的元素移至链表尾部，不断访问可以形成按访问顺序排序的链表。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/01/29/Java-LinkedHashMap原理探究/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2018/01/28/Java-Hashtable原理探究/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/28/Java-Hashtable原理探究/" itemprop="url">Java-Hashtable原理探究</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-28T22:11:11+08:00">
-                2018-01-28
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-29T19:45:16+08:00">
-                2018-01-29
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/01/28/Java-Hashtable原理探究/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2018/01/28/Java-Hashtable原理探究/" class="cy_cmt_count" data-xid="2018/01/28/Java-Hashtable原理探究/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  1,803
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>和 HashMap 一样，Hashtable 也是一个散列表，它存储的内容是键值对。</p>
-<p>Hashtable 在 Java 中的定义为：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hashtable</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;  </span></div><div class="line">    <span class="keyword">extends</span> <span class="title">Dictionary</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;  </div><div class="line">    <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>&#123;&#125;</div></pre></td></tr></table></figure>
-<p>从源码中我们可以看出：</p>
-<ul>
-<li>Hashtable继承于Dictionary类 —— 任何可将键值映射到相应值的类的一种抽象父类。每个键和值都是对象。</li>
-<li>实现了Map<k,v>, Cloneable, java.io.Serializable 接口</k,v></li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/01/28/Java-Hashtable原理探究/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2380,7 +2355,7 @@ n/2
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">112</span>
+                <span class="site-state-item-count">115</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2455,7 +2430,7 @@ n/2
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共257.6k字</span>
+  <span class="post-count">博客全站共262.0k字</span>
 </div>
 
 

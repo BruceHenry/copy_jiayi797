@@ -319,6 +319,600 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/26/算法-最小生成树算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/26/算法-最小生成树算法/" itemprop="url">算法-最小生成树算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-26T20:01:21+08:00">
+                2017-03-26
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-23T17:09:07+08:00">
+                2018-01-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/03/26/算法-最小生成树算法/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/03/26/算法-最小生成树算法/" class="cy_cmt_count" data-xid="2017/03/26/算法-最小生成树算法/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,214
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          带权图分为有向和无向，无向图的最短路径又叫做最小生成树，有prime算法和kruskal算法；有向图的最短路径算法有dijkstra算法和floyd算法。
+最小生成树问题：给定一个连通无向图，寻找一颗无环树，使得树上所有边权值之和最小。
+ 
+1. 最小生成树的贪心策略的通用方法1.1. 问题描述已知：连通无向图$G=(V,E)$，权重函数$w:E \rightarrow R$循环不变式：在每边循环之前，A是某颗最小生成树的一个子集。伪代码
+GENERIC-MST(G,w)
+A={}
+while A does not form a spanning tree // 当A不是一个生成树时
+    find an edge(u,v) that is safe for A // 找到一条A的安全边
+    A = A ∪ {(u,v)}
+return A
+注：安全边是指加入A后，不会使得A违反循环不变式。即 A ∪ {(u,v)}也是某颗最小生成树的一个子集
+问题：如何寻找安全边
+1.2. 求安全边定理：设A是图G的某最小生成树的一个子集。设（S,V-S）是图G中尊重集合A的任意一个切割，又设(u,v)是横跨切割(S,V-S)的一条轻量级边，则边(u,v)对于集合A是安全的。
+切割：图中的线切割尊重集合A：集合A中不存在横跨切割的边（如图a中的灰粗线构成的集合）轻量级边：横跨一个切割的所有边中权重最小的边（不唯一）。
+ 
+2. Kruskal和Prim关系
+
+
+term
+集合A
+说明
+共性
+
+
+
+
+Kruskal
+森林
+结点是原图结点，安全边是权重最小的连接两个不同分量的边
+都是用具体
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/26/算法-最小生成树算法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/23/ACM-poj1860-CurrencyExchange/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/23/ACM-poj1860-CurrencyExchange/" itemprop="url">ACM-poj1860-CurrencyExchange</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-23T22:40:15+08:00">
+                2017-03-23
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-04-24T21:26:32+08:00">
+                2017-04-24
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ACM/" itemprop="url" rel="index">
+                    <span itemprop="name">ACM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/03/23/ACM-poj1860-CurrencyExchange/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/03/23/ACM-poj1860-CurrencyExchange/" class="cy_cmt_count" data-xid="2017/03/23/ACM-poj1860-CurrencyExchange/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  961
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1. DescriptionSeveral currency exchange points are working in our city. Let us suppose that each point specializes in two particular currencies and performs exchange operations only with these currencies. There can be several points specializing in the same pair of currencies. Each point has its own exchange rates, exchange rate of A to B is the quantity of B you get for 1A. Also each exchange point has some commission, the sum you have to pay for your exchange operation. Commission is always collected in source currency.For example, if you want to exchange 100 US Dollars into Russian Rubles at the exchange point, where the exchange rate is 29.75, and the commission is 0.39 you will get (100
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/23/ACM-poj1860-CurrencyExchange/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/23/算法-单源最短路径问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797的专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/23/算法-单源最短路径问题/" itemprop="url">算法-单源最短路径问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-23T16:02:59+08:00">
+                2017-03-23
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-23T17:33:24+08:00">
+                2018-01-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/03/23/算法-单源最短路径问题/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/03/23/算法-单源最短路径问题/" class="cy_cmt_count" data-xid="2017/03/23/算法-单源最短路径问题/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,612
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          单源最短路径问题：给定一个图 $G=(V,E)$ ，我们希望找到从给定源节点$s\in V$到每个节点$v \in V$的最短路径。
+先总结：
+Bellman-Ford算法：采用动态规划进行设计。待总结。简单，还能侦探含源节点的负权重回路。Dijkstra算法：采用贪心算法范式进行设计。复杂度低，但要求权重非负。
+1. 最短路径树一颗根节点为s的最短路径树是一个有向子图$G’=(V’,E’)$，这里$V’\in V$,$E’\in E$,满足：
+
+$V’$是图G中从源节点s可以到达的所有结点的集合；
+$G’$形成一颗根节点为s的树；
+对于所有结点$v\in V’$,图$G’$中从结点s到结点v的唯一简单路径是图G中从结点s到结点v的一条最短路径。
+
+2. 松弛操作对每个节点v，我们维持一个属性v.d，记录s→v的最短路径估计
+松弛操作：比较s→u→v与s→v的d,然后进行更新。
+RELEAX(u,v,w)
+    if v.d&gt;u.d+w(u,v)
+        v.d=u.d+w(u,v)
+        v.π=u
+3. Bellman-Ford算法目标：解决单源最短路径问题条件：边权重可负输入：带权有向图$G=(V,E)$和权重函数$w:E→R$输出：布尔值，是否存在一个从源节点可以到达的负权重回路。若存在，则算法无解。
+思路：Bellman-Ford通过对边进行松弛操作来渐进地降低从源节点s到每个节点v的最短路径估计值v.d，直到该估计值与实际的最短路径权重$δ(s,v)$相同为止。
+初始函数：
+INITIALIZE-SINGLE-SOURCE(G,s)
+   
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/23/算法-单源最短路径问题/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/22/ACM-Radar-Installation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -927,8 +1521,8 @@ persontype = np.dtype({
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T16:08:34+08:00">
-                2018-02-05
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-04T19:45:21+08:00">
+                2018-03-04
               </time>
             
           </span>
@@ -988,7 +1582,7 @@ persontype = np.dtype({
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  501
+                  559
                 </span>
               
 
@@ -1014,6 +1608,11 @@ persontype = np.dtype({
           
           之前的AdaBoostDTree的误差函数是指数型的。GBDT的误差函数是任意指定的。GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。
 1. GBDT的误差函数 
+
+紫色部分：之前学过的所有树的结果叠加
+红色和蓝色部分：本轮学习的模型
+将之前学习的树与本轮学习的模型叠加，就得到了本次的预测值
+
 2. 目标
 求函数h(x)的形式
 求h(x)的步长η
@@ -1041,7 +1640,7 @@ persontype = np.dtype({
  
 为了方便计算，我们将平方内的项取负：
  
-上式的$y_n-s_n$即residuals（残差）.这是一个单变量的线性回归问题，其中输入是用gt转换后的数据，输出是残差(residual)
+上式的$y_
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1696,611 +2295,6 @@ dataset2.label.replace(-1,0,inplace=True)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/08/机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/08/机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）/" itemprop="url">机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-08T15:20:57+08:00">
-                2017-03-08
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T15:54:23+08:00">
-                2018-02-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/o2o优惠券使用预测/" itemprop="url" rel="index">
-                    <span itemprop="name">o2o优惠券使用预测</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/03/08/机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/03/08/机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）/" class="cy_cmt_count" data-xid="2017/03/08/机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  3,244
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          感觉自己还是太渣，看了些许算法，并不知道有什么卵用。决定好好分析分析别人的思路，也许能够对我带来些许启发。
-本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[https://github.com/wepe/O2O-Coupon-Usage-Forecast]。
-本文主要对数据的抽取extract_feature.py做一些详细的分析。
-1. 解决方案概述本赛题提供了用户线下消费和优惠券领取核销行为的纪录表，用户线上点击/消费和优惠券领取核销行为的纪录表，记录的时间区间是2016.01.01至2016.06.30,需要预测的是2016年7月份用户领取优惠劵后是否核销。根据这两份数据表，我们首先对数据集进行划分，然后提取了用户相关的特征、商家相关的特征，优惠劵相关的特征，用户与商家之间的交互特征，以及利用本赛题的leakage得到的其它特征（这部分特征在实际业务中是不可能获取到的）。最后训练了XGBoost，GBDT，RandomForest进行模型融合。
-源码分析
-第二赛季暂时没有平台，所以本文只对第一赛季的源码进行分析。
-文件：O2O-Coupon-Usage-Forecast/code/wepon/season one 
-这个文件夹存放第一赛季的代码
-
-extract_feature.py划分数据集，提取特征，生成训练集（dataset1和dataset2）和预测集（dataset3）。
-xgb.py 训练xgboost模型，生成特征重要性文件，生成预测结果。单模型第一赛季A榜AUC得分0.798.
-
-2. 
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/08/机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/06/机器学习算法-提升决策树/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/06/机器学习算法-提升决策树/" itemprop="url">机器学习算法-提升决策树</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-06T19:28:33+08:00">
-                2017-03-06
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T16:06:40+08:00">
-                2018-02-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/03/06/机器学习算法-提升决策树/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/03/06/机器学习算法-提升决策树/" class="cy_cmt_count" data-xid="2017/03/06/机器学习算法-提升决策树/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  3,208
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          上一节中介绍了《随机森林算法》，该算法使用bagging的方式作出一些决策树来，同时在决策树的学习过程中加入了更多的随机因素。该模型可以自动做到验证过程同时还可以进行特征选择。 
-本节，我们结合AdaBoost+决策树算法。
-1. AdaBoost决策树算法引入在AdaBoost中每一轮迭代，都会给数据更新一个权重，利用这个权重，我们学习得到一个g，在这里我们得到一个决策树，最终利用线性组合的方式得到多个决策树组成的G。
-=======================================AdaBoost-DTree(DD)对于t=1,2,…,T，循环执行：
-
-更新数据的权重$u(t)$；
-通过决策树算法$DTree(D,u(t))$得到$g_t$；
-计算$g_t$的投票权重$α_t$。
-
-返回$G=LinearHypo({(g_t,α_t)})$。
-========================================
-问题：如何要在决策树中，加入权重ut
-解决方案有两种：
-
-一种是通过算法加权，在计算Ein的地方嵌入权重计算，比如AdaBoost采用的最小化加权误差；
-另一种方法是将算法当成黑盒不变更，通过数据集加权，根据权重在bootstrap时“复制”数据，也就是加权的重采样。
-
-AdaBoost决策树通常用后一种，即：$AdaBoost+sampling∝u^{(t)}+DTree(D_t) $
-2. 加权的决策树算法(Weighted Decision Tree Algorithm) 之前含有权重的算法中，我们在误差估计中加入了权重u：
-  
-为
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/06/机器学习算法-提升决策树/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/05/机器学习算法-AdaBoost/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797的专栏">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/05/机器学习算法-AdaBoost/" itemprop="url">机器学习算法-AdaBoost</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-05T17:31:52+08:00">
-                2017-03-05
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T16:37:54+08:00">
-                2018-02-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/03/05/机器学习算法-AdaBoost/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/03/05/机器学习算法-AdaBoost/" class="cy_cmt_count" data-xid="2017/03/05/机器学习算法-AdaBoost/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  2,003
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1. Boosting提升（boosting）：从弱学习算法（正确率低）出发，反复学习，得到一系列弱分类器（基本分类器），然后组合这些弱分类器，构成一个强分类器。（三个臭皮匠顶个诸葛亮）
-提升（boosting）方法需要解决的问题：
-
-如何获得更多的弱分类器————如何改变训练数据的权值或概率分布————提高被前一轮错误分类样本的权值，降低被正确分类样本的权值。
-如何将弱分类器合成一个强分类器————加权多数表决：加大误差小的分类器的权值，减小误差大的分类器的权值。
-
-提升方法有很多，最具代表性的就是AdaBoost算法。
-2. AdaBoost算法假设给定一个二分类训练数据集$T=\{(x_1,y_1),(x_2,y_2),…,(x_N,y_N)\}$
-其中，每个样本点由实例+标记组成
-实例：$x_i\in X \subseteq R^n $
-标记：$y_i \in Y={-1,+1}$
-AdaBoost利用以下算法，从训练数据中学习一系列弱分类器或基本分类器，并将这些弱分类器线性组合成一个强分类器
-输入:
-
-数据集$T={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)}$
-弱学习算法
-
-输出：最终分类器$G(x)$
-步骤：
-
-初始化训练数据的权值(每个都设为1/N)：
-
-$$D_1=(w_{11},w_{1i},…,w_{1N}),w_{1i}=\frac{1}{N},i=1,2,…,N$$其中$w_{ki}$ 代表迭代第k次时，第i个样本被抽到的概率！！！
-
-对$m=1,2,…,M$:
-
-
-使用带权值$D_m​$的训练集学习，得到基本分类器$G_m(x):
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/05/机器学习算法-AdaBoost/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2350,7 +2344,7 @@ $$D_1=(w_{11},w_{1i},…,w_{1N}),w_{1i}=\frac{1}{N},i=1,2,…,N$$其中$w_{ki}$ 
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">112</span>
+                <span class="site-state-item-count">115</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2425,7 +2419,7 @@ $$D_1=(w_{11},w_{1i},…,w_{1N}),w_{1i}=\frac{1}{N},i=1,2,…,N$$其中$w_{ki}$ 
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共257.6k字</span>
+  <span class="post-count">博客全站共262.0k字</span>
 </div>
 
 
