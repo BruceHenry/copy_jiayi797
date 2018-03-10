@@ -319,6 +319,209 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/10/数学-矩阵相关知识复习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/10/数学-矩阵相关知识复习/" itemprop="url">矩阵相关知识复习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T10:33:46+08:00">
+                2017-07-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-05T19:01:06+08:00">
+                2018-03-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数学/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/10/数学-矩阵相关知识复习/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/07/10/数学-矩阵相关知识复习/" class="cy_cmt_count" data-xid="2017/07/10/数学-矩阵相关知识复习/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,253
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1. 特征值与奇异值特征值与特征向量
+如果一个向量$v$是方阵$A$的特征向量，那么：$$Av=\lambda v$$
+
+$\lambda$:特征值
+$v$:特征向量把$A$乘到$v$上，得到一个$\lambda v$，也就是意味着我们得到了一个方向未变但在长度上有伸缩改变的向量（方向未变不准确，有可能变反向）。这是让$A$乘以他的特征向量表现出来的性质。也就是说，$v$ 在 $A$ 的作用下，保持方向不变，进行比例为$\lambda$ 的伸缩
+
+因此：
+
+特征向量所在直线上的向量都是特征向量；
+特征向量所在的直线（包含了所有特征向量），叫特征空间；
+
+特征值分解
+假设矩阵$A$ 有n个线性无关的特征向量$[v^{1}, v^{2}, …, v^{n}]$ ，对应着特征值$[\lambda_1, \lambda_2,…,\lambda_n]$ 。我们将特征向量连成一个矩阵，使得每一列是一个特征向量：$V = [v^{1}, v^{2}, …, v^{n}]$ ，类似地将特征值连成一个向量$\lambda = [[\lambda_1, \lambda_2,…,\lambda_n]]^T$
+特征值分解是把一个n阶实对称矩阵分解为下面的形式：$$A=Vdiag(\lambda)V^{-1}$$
+其中：
+
+$V$是这个矩阵$A$的特征向量组成的矩阵，是一个正交矩阵
+$diag(\lambda)$是一个对角阵，每个对角线上的元素就是一个特征值
+
+特征值分解有利于我们分析矩阵的性质，就像质因数分解一样有助于我们理解整数。
+特征向量可能不唯一，而特征值一定唯一。
+2. 正交变换与正交军阵2.
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/10/数学-矩阵相关知识复习/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/09/搜索引擎-简单搜索引擎的实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2103,208 +2306,6 @@ messageFactory,而createBytesMessageToTopic()正是通过message
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/17/中间件比赛-RocketMQ简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/17/中间件比赛-RocketMQ简介/" itemprop="url">RocketMQ简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-17T10:49:03+08:00">
-                2017-05-17
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:27:02+08:00">
-                2017-07-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件比赛/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件比赛</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/05/17/中间件比赛-RocketMQ简介/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/17/中间件比赛-RocketMQ简介/" class="cy_cmt_count" data-xid="2017/05/17/中间件比赛-RocketMQ简介/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  951
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          RocketMQ:分布式开放消息系统
-1. 消息中间件需要解决哪些问题？1.1. 发布订阅（Publish/Subscribe）发布订阅是消息中间件的最基本功能，也是相对于传统RPC通信而言。在此不再详述。
-1.2. 消息优先级（Message Priority）两种方式：
-
-严格优先级，例如0-65535。开销大，精准，但可能没有必要。
-档位优先级。高、中、低，或其他。每个优先级可以用不同的topic表示，发消息时，指定不同的topic来表示优先级。精确性低。
-
-1.3. 消息有序性（Message Order）
-一个订单的发出的消息顺序不能变
-订单之间是可以并行消费
-
-1.4. 消息过滤（Message Filter）1.4.1. 消息协商器（Broker端）消息过滤在Broker中，按照Consumer的要求做过滤
-
-优点是减少了对于Consumer无用消息的网络传输。
-缺点是增加了Broker的负担，实现相对复杂。
-
-淘宝Notify支持多种过滤方式：包含直接按照消息类型过滤，灵活的语法表达式过滤，几乎可以满足最苛刻的过滤需求。
-淘宝RocketMQ支持按照简单的Message Tag过滤，也支持按照Message Header、body进行过滤。
-CORBA Notification规范中也支持灵活的语法表达式过滤。
-1.4.2. Consumer端消息过滤这种过滤方式可由应用完全自定义实现，但是缺点是很多无用的消息要传输到Consumer端。
-1.4.3. 消息持久化（Message Persistence）持久化（Persistence）：即把数据（如内存中的对象
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/17/中间件比赛-RocketMQ简介/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2354,7 +2355,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">116</span>
+                <span class="site-state-item-count">117</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2429,7 +2430,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共268.5k字</span>
+  <span class="post-count">博客全站共272.4k字</span>
 </div>
 
 

@@ -31,6 +31,7 @@
 <li><a href="/2017/11/13/算法-Trie树/" title="算法-Trie树">算法-Trie树</a> 。 用树状结构表示很多个单词，以此加速单词的搜索。我想采用此结构的原因在于单词中的字母只有26个，数分支较少。如果是中文的话恐怕情况就不那么乐观了。（但这仅仅是个人猜测，待验证）</li>
 <li><a href="/2018/01/23/算法-线段树/" title="算法-线段树">算法-线段树</a> 。介绍了线段树的概念和一道经典题目</li>
 <li><a href="/2018/03/03/算法-B树/" title="算法-B树">算法-B树</a> 简单介绍了B树的原理</li>
+<li><a href="/2018/03/09/算法-红黑树/" title="算法-红黑树">算法-红黑树</a> 简单介绍了红黑树的原理</li>
 </ul>
 <h2 id="图模块">1.5. 图模块</h2><ul>
 <li><a href="/2017/11/21/算法-DFS/" title="算法-DFS">算法-DFS</a> 。深度优先遍历看似简单，但事实上写起程序来还是有点棘手的。因为每道题的边界条件不同，细节之处就不同了。</li>
@@ -114,6 +115,155 @@
 <p>===========================================================</p>
 <a id="more"></a>]]></content>
       
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[算法-红黑树]]></title>
+      <url>/2018/03/09/%E7%AE%97%E6%B3%95-%E7%BA%A2%E9%BB%91%E6%A0%91/</url>
+      <content type="html"><![CDATA[<p>红黑树本质上是一种二叉查找树，但它在二叉查找树的基础上额外添加了一个标记（颜色），同时具有一定的规则。这些规则使红黑树保证了一种平衡，插入、删除、查找的最坏时间复杂度都为 O(logn)。</p>
+<p>它的统计性能要好于平衡二叉树（AVL树），因此，红黑树在很多地方都有应用。比如在 <a href="https://link.juejin.im/?target=http%3A%2F%2Flib.csdn.net%2Fbase%2Fjavaee" target="_blank" rel="external">Java</a> 集合框架中，很多部分(TreeMap, TreeSet 等)都有红黑树的应用，这些集合均提供了很好的性能。</p>
+<p>由于 TreeMap 就是由红黑树实现的，因此本文将使用 TreeMap 的相关操作的代码进行分析、论证。</p>
+<a id="more"></a>
+<h1 id="红黑树定义">1. 红黑树定义</h1><p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-33-31.png" alt=""> </p>
+<p>红黑树在原有的二叉查找树基础上增加了如下几个要求：</p>
+<ul>
+<li>每个节点要么是红色，要么是黑色</li>
+<li>根节点永远是红色</li>
+<li>所有叶子结点都是黑色的【这里所说的叶子节点指的是上图中的Null节点】</li>
+<li>红色节点的子节点一定都是黑色【红色节点一定不连续，黑色节点可以连续】</li>
+<li>从任意节点到其子树中每个叶子节点的路径都包含相同的黑色节点</li>
+</ul>
+<p>因此我们定义<strong>黑色高度</strong>：从根节点到叶节点的路径上黑色节点的个数，叫做树的黑色高度。</p>
+<h1 id="红黑树的操作">2. 红黑树的操作</h1><h2 id="左旋和右旋">2.1. 左旋和右旋</h2><p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-38-40.png" alt=""> </p>
+<p>红黑树的左右旋是比较重要的操作，左右旋的目的是调整红黑节点结构，转移黑色节点位置，使其在进行插入、删除后仍能保持红黑树的 5 条性质。</p>
+<p><strong>右旋</strong></p>
+<p>y 节点的右旋就是把 y 变成 左孩子 x 的右孩子，同时把 x 的右孩子送给 x 当左子树。</p>
+<p>简单点记就是：右旋把左子树里的一个节点（上图 β）移动到了右子树。</p>
+<p><strong>左旋</strong></p>
+<p>可以看到，x 节点的左旋就是把 x 变成 右孩子 y 的左孩子，同时把 y 的左孩子送给 x 当右子树。</p>
+<p>简单点记就是：左旋把右子树里的一个节点（上图 β）移动到了左子树。</p>
+<h2 id="插入">2.2. 插入</h2><p>红黑树的插入主要分两步：</p>
+<ul>
+<li>首先和二叉查找树的插入一样，查找、插入</li>
+<li>然后调整结构，保证满足红黑树状态<ul>
+<li>对结点进行重新着色</li>
+<li>以及对树进行相关的旋转操作</li>
+</ul>
+</li>
+</ul>
+<p>红黑树的插入在二叉查找树插入的基础上，为了重新恢复平衡，继续做了插入修复操作。现在重点看看如何恢复平衡。</p>
+<ol>
+<li>红黑树的第 5 条特征规定，任一节点到它子树的每个叶子节点的路径中都包含同样数量的黑节点。也就是说当我们往红黑树中插入一个黑色节点时，会违背这条特征。</li>
+<li>同时第 4 条特征规定红色节点的左右孩子一定都是黑色节点，当我们给一个红色节点下插入一个红色节点时，会违背这条特征。</li>
+</ol>
+<p>因此我们需要在插入节点后进行结构和颜色调整，保证红黑树始终满足这 5 条特征。为了减少不确定性，我们把插入的节点直接染成红色，这样就不会影响特征 5，只要专心调整满足特征 4 ，也就是专心<strong>不要让两个红色节点连着就好了</strong>。</p>
+<p>染成红色后，我们只要关心父节点是否为红，如果是红的，就要把父节点进行变化，让父节点变成黑色，或者换一个黑色节点当父亲，这些操作的同时不能影响不同路径上的黑色节点数一致的规则。接下来继续看看这种操作带来的两种可能性：</p>
+<p><strong>情况1，父节点和叔叔节点都是红色</strong></p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-49-56.png" alt=""> </p>
+<p>假设插入的是节点 N，这时父亲节点 P 和叔叔节点 U 都是红色，爷爷节点 G 一定是黑色。</p>
+<p>红色节点的孩子不能是红色，这时不管 N 是 P 的左孩子还是右孩子，只要同时把 P 和 U 染成黑色，G 染成红色即可。这样这个子树左右两边黑色个数一致，也满足特征 4。</p>
+<p>但是这样改变后 G 染成红色，G 的父亲如果是红色岂不是又违反特征 4 了？<br>这个问题和我们插入、染红后一致，因此需要以 爷爷节点 G 为新的调整节点，再次进行调整操作，以此循环，直到父亲节点不是红的，就没有问题了。</p>
+<p><strong>情况2，父亲节点为红色，叔叔节点为黑色</strong></p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-51-01.png" alt=""> </p>
+<p>假设插入的是节点 N，这时父亲节点 P 是红色，叔叔节点 U 是黑色，爷爷节点 G 一定是黑色。</p>
+<p>红色节点的孩子不能是红色，但是直接把父亲节点 P 涂成黑色也不行，这条路径多了个黑色节点。怎么办呢？</p>
+<p>既然改变不了你，那我们就此别过吧，我换一个更适合我的！</p>
+<p>我们怎么把 P 弄走呢？看来看去，还是右旋最合适，通过把 爷爷节点 G 右旋，P 变成了这个子树的根节点，G 变成了 P 的右子树。</p>
+<p>右旋后 G 跑到了右子树上，这时把 P 变成黑的，多了一个黑节点，再把 G 变成红的，就平衡了！</p>
+<p>上面讲的是插入节点 N 在父亲节点 P 的左孩子位置。如果 N 是 P 的右孩子，就需要多进行一次左旋，把情况化解成上述情况，也就是如下操作所示：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-53-10.png" alt=""> </p>
+<h2 id="删除">2.3. 删除</h2><p>红黑树的插入平衡需要好好理解下，如果前面没有理解，删除后的调整平衡更加难懂，前方高能，请注意！</p>
+<p>红黑树的删除也是分两步：</p>
+<ol>
+<li>二叉查找树的删除</li>
+<li>结构调整</li>
+</ol>
+<p><strong>二叉查找树的删除</strong>分三种情况：</p>
+<ol>
+<li>要删除的节点正好是叶子节点，直接删除就 OK 了；</li>
+<li>只有左孩子或者右孩子，直接把这个孩子上移放到要删除的位置就好了；</li>
+<li>有两个孩子，就需要选一个合适的孩子节点作为新的根节点，该节点称为 继承节点。</li>
+</ol>
+<p><strong>删除后的平衡调整</strong></p>
+<p>那么删除节点后，为了保持红黑树的5个特性，我们还需要进行一些考虑：</p>
+<ul>
+<li>如果当前待删除节点是红色的，它被删除之后对当前树的特性不会造成任何破坏影响。 </li>
+<li>而如果被删除的节点是黑色的，这就需要进行进一步的调整来保证后续的树结构满足要求。</li>
+</ul>
+<p>因此我们需要考虑当删除黑色节点的情况。</p>
+<p>为了保证删除节点父亲节点左右两边黑色节点数一致，就要想办法搞到平衡，具体的平衡方法有如下几种方法：</p>
+<ol>
+<li>把父亲节点另一边（即删除节点的兄弟树）其中一个节点弄成红色，也少一个黑色</li>
+<li>或者把另一边多的黑色节点转过来一个</li>
+</ol>
+<p>删除节点在父亲节点的左子树还是右子树，调整方式都是对称的，这里以当前节点为父节点的左孩子为例进行分析。我们讨论以下几种情况：</p>
+<p><strong>第一步</strong></p>
+<p>兄弟如果是红的，说明孩子都是黑的【旋转的情况 1 】</p>
+<ul>
+<li>把兄弟搞成黑的</li>
+<li>父亲搞成红的</li>
+<li>左旋转父亲（嘿嘿，兄弟给我分一个黑孩子）</li>
+<li>接下来对比旋转后的兄弟</li>
+</ul>
+<p>这一步的目的是将兄弟节点变成黑的，转变成第二步两种情形中的某一种情况。</p>
+<p>在做后续变化前，这棵树还是保持着原来的平衡。</p>
+<p><strong>第二步</strong></p>
+<p><strong>情况1，兄弟节点的孩子都是黑色</strong></p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-01-31.png" alt=""> </p>
+<ul>
+<li>把兄弟搞成红的</li>
+<li>continue 下一波（这个子树搞完了，研究父亲节点，去搞上一级树，进入第三步）</li>
+</ul>
+<p>这里将兄弟节点变成红色后，从它的父节点到下面的所有路径就都统一少了 1 个，同时也不影响别的特征，但是把兄弟节点变红后，如果有父亲节点也是红的，就可能违反红黑树的特征 4，因此需要到更高一级树进行鉴别、调整。</p>
+<p><strong>情况2：兄弟节点的孩子至多有一个黑的</strong></p>
+<ul>
+<li>把不是黑的那个孩子搞黑【旋转的情况 2 】<ul>
+<li>兄弟搞红</li>
+<li>兄弟右旋转</li>
+<li>以后对比旋转后的兄弟</li>
+</ul>
+</li>
+<li>把兄弟涂成跟父亲一样的颜色【旋转的情况 3 】</li>
+<li>然后把父亲搞黑</li>
+<li>把兄弟的右孩子搞黑</li>
+<li>父亲节点左旋</li>
+<li>研究根节点，进入第三步</li>
+</ul>
+<p>旋转的情况 2 是将兄弟节点的左右孩子都移动到右边，方便后续操作，如下图所示：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-02-08.png" alt=""></p>
+<p>旋转的情况 3 将兄弟的孩子移到左边来，同时黑色的父亲变到了左边（总之就是让左边多些黑色节点），如下图所示：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-05-00.png" alt=""> </p>
+<p><strong>第三步</strong></p>
+<ul>
+<li>如果研究的不是根节点并且是黑的，重新进入第一步，研究上一级树；</li>
+<li>如果研究的是根节点或者这个节点不是黑的，就退出<ul>
+<li>把研究的这个节点涂成黑的。</li>
+</ul>
+</li>
+</ul>
+<p>第三步中选择根节点为结束标志，是因为在第二步中，有可能出现我们正好给删除黑色节点的子树补上了一个黑色节点，同时不影响其他子树，这时我们的调整已经完成，可以直接设置调整节点 x = root，等于宣告调整结束。</p>
+<p>因为我们当前调整的可能只是一棵树中间的子树，这里头的节点可能还有父节点，这么一直往上到根节点。当前子树少了一个黑色节点，要保证整体合格还是不够的。</p>
+<p>这里需要在代码里有一个保证。假设这里 B 已经是红色的了。那么调整结束，最后对 B 节点，也就是调整目标 x 所指向的这个节点涂成黑色。这样保证前面亏的那一个黑色节点就补回来了。</p>
+<p>前面讨论的这4种情况是在当前节点是父节点的左子节点的条件下进行的。如果当前节点是父节点的右子节点，则可以对应的做对称的操作处理，过程也是一样的。</p>
+<p>其中具体旋转方向根据调整节点在父节点的左/右位置决定。</p>
+<h1 id="总结">3. 总结</h1><p>红黑树并不是真正的平衡二叉树，但在实际应用中，红黑树的统计性能要高于平衡二叉树，但极端性能略差。</p>
+<p>红黑树的插入、删除调整逻辑比较复杂，但最终目的是满足红黑树的 5 个特性，尤其是 4 和 5。</p>
+<p>在插入调整时为了简化操作我们直接把插入的节点涂成红色，这样只要保证插入节点的父节点不是红色就可以了。</p>
+<p>而在删除后的调整中，针对删除黑色节点，所在子树缺少一个节点，需要进行弥补或者对别人造成一个黑色节点的伤害。具体调整方法取决于兄弟节点所在子树的情况。</p>
+<p>红黑树的插入、删除在树形数据结构中算比较复杂的，理解起来比较难，但只要记住，红黑树有其特殊的平衡规则，而我们为了维持平衡，根据邻树的状况进行旋转或者涂色。</p>
+<p>红黑树这么难理解，必定有其过人之处。它的有序、快速特性在很多场景下都有用到，比如 Java 集合框架的 TreeMap, TreeSet 等。</p>
+<h1 id="参考文献">4. 参考文献</h1><ol>
+<li><a href="https://juejin.im/entry/58371f13a22b9d006882902d" target="_blank" rel="external">面试旧敌之红黑树（直白介绍深入理解）</a></li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> 算法 </category>
+            
+        </categories>
+        
         
     </entry>
     
@@ -728,7 +878,8 @@
 </ol>
 <p>对于每个版块的每个页面，执行以上循环操作。每个页面包含10篇左右文章。由于每篇文章打开需要约1秒，因此一页需要10多秒。北邮人论坛设置反爬虫机制，每连续访问10次后就要休息10秒才可以继续爬。而【毕业生找工作】等热门版面每日的更新量达300+条。那么完成一次此版面的爬取需要10分钟。三个版面的爬取大约需要20分钟。这个时间太长了，不利于后续的实施构建索引。</p>
 <p>为了加速爬取速度，我们采用了多线程爬取技术。为了避免重复写入，因此每个线程只负责一个页面。当爬取完毕时，将数据扔到“待写入队列”里排队写入MySQL。</p>
-<h1 id="检索">2. 检索</h1><h2 id="原理">2.1. 原理</h2><h3 id="分词、建倒排索引">2.1.1. 分词、建倒排索引</h3><p>对于标记为“未索引”的文章，利用jieba分词模块，首先按是否为汉字、数字、英文字符及标点符号对新闻内容进行梳理，去除掉信息缺失的数据，然后用jieba分词对标题及内容进行分词，并去掉停用词、生僻字等，得到文章的分词内容【这一步骤在爬虫模块已完成】。对每个词来说更新“词-文章序号”的倒排列表。倒排列表的结构如下：</p>
+<h1 id="检索">2. 检索</h1><h2 id="原理">2.1. 原理</h2><h3 id="分词、建倒排索引">2.1.1. 分词、建倒排索引</h3><p>后记：看看<a href="http://www.cnblogs.com/pinard/p/6677078.html" target="_blank" rel="external">分词原理</a></p>
+<p>对于标记为“未索引”的文章，利用jieba分词模块，首先按是否为汉字、数字、英文字符及标点符号对新闻内容进行梳理，去除掉信息缺失的数据，然后用jieba分词对标题及内容进行分词，并去掉停用词、生僻字等，得到文章的分词内容【这一步骤在爬虫模块已完成】。对每个词来说更新“词-文章序号”的倒排列表。倒排列表的结构如下：</p>
 <table>
 <thead>
 <tr>
@@ -798,7 +949,7 @@
 <tr>
 <th>词</th>
 <th>文档频率</th>
-<th>倒排记录表</th>
+<th>倒排记录表【文档编号，本词的TF-IDF】</th>
 </tr>
 </thead>
 <tbody>
@@ -819,6 +970,28 @@
 </tr>
 </tbody>
 </table>
+<p>考虑到词频等会随着文档的更新变化，因此次表可以进行一下优化：</p>
+<p>倒排记录表优化为：</p>
+<table>
+<thead>
+<tr>
+<th>词</th>
+<th>包含该词的文章数</th>
+<th>倒排记录表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>包含该词的文章数</td>
+<td>文档编号、该词在本文档出现的次数、文章总词数</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><strong>TF-IDF</strong></p>
 <p>$$词频 TF = \frac{某词在文章中的出现次数}{文章总词数}$$</p>
 <p>$$逆文档频率 IDF = log(\frac{文章总数}{包含该词的文章数 + 1})$$</p>
@@ -831,6 +1004,7 @@
 <li>在词典中定位【中国，招聘】这两个词，返回其倒排记录表。【中国 –&gt; [1,0.2] , [3,0.7] , [4,0.4]】，【招聘 –&gt; [4,0.6]】</li>
 <li>文档4中，中国和招聘两个词的权重值和为1；而文档1的权重为0.2；文档3的权重为0.7</li>
 </ol>
+<p>这里还有一个优化：由于只需要前K篇文档，因此可以通过堆结构，留下来前K个文档即可。</p>
 <h2 id="流程图">2.2. 流程图</h2><p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-02-23-00-07.png" alt=""> </p>
 <h2 id="数据库设计-1">2.3. 数据库设计</h2><p>将爬好的数据进行实时计算，填入下表</p>
 <table>
@@ -901,7 +1075,30 @@
 <li>添加文档后，优先更新内存上的索引</li>
 <li>当内存索引满时，将其整合到磁盘上的索引中</li>
 </ul>
-<h1 id="参考文献">5. 参考文献</h1><ol>
+<h2 id="索引去除技术">4.3. 索引去除技术</h2><p>对于一个包含多个词项的查询来说，其实我们只考虑那些至少包含一个查询词项的文档。于是我们可以考虑使用如下的启发式方法。</p>
+<ol>
+<li>只考虑那些词项的idf值超过一定阈值的文档。也就是说，只考虑那些idf值较高的词项所对应的倒排记录表，因为那些idf值比较低的词其实可以看成停用词，对评分结果也没什么大的贡献。</li>
+<li>只考虑包含较多的查询词项的文档。但这样有一个风险：最后候选结果可能少于K个。</li>
+</ol>
+<h1 id="其它相关">5. 其它相关</h1><h2 id="搜索引擎体系结构">5.1. 搜索引擎体系结构</h2><p>从下图可以看到，从功能模块上划分，天网系统由四个子系统构成：</p>
+<ul>
+<li>搜索子系统：主控、搜集器、原始db</li>
+<li>索引子系统：索引器、索引数据库</li>
+<li>检索子系统：检索器、用户接口</li>
+<li>日志挖掘子系统：用户行为日志数据库、日志分析器</li>
+</ul>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-23-04-59.png" alt=""> </p>
+<h2 id="分布式搜集系统结构">5.2. 分布式搜集系统结构</h2><p>单机搜集、单机服务的系统结构（我们习惯称之为集中式结构） 不适应Web上信息规模的迅猛发展。因此分布式并行结构应运而生。</p>
+<p>系统分布的核心是数据的分布。</p>
+<ul>
+<li>对搜集部分而言，实际是将 URL 分布。在执行搜集任务的机器之间，保证它们搜集的 URL 不会重复。</li>
+<li>对查询部分，则是将索引数据分布在执行检索任务的机器之间。 </li>
+</ul>
+<p>如上所述的系统概貌如下图所示</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-23-32-24.png" alt=""> </p>
+<p>搜集节点之间相互协调，分配 URL，保证一个 Web 主机的全部网页只能存在于一个搜集节点上。每个索引节点对应搜集节点搜集的网页</p>
+<p>查询代理节点通过多播向所有索引节点发送查询命令，等待搜集到全部索引节点返回的检索结果后，对所有结果依据相关度排序，并缓存一定数量的结果，最后向用户返回结果的首页。用户的后续查询（翻页），将会在缓存命中，不必再次启动后面的网络查询，这将大大减少查询的响应时间，降低后台查询系统的负载，从而提高查询系统的性能 </p>
+<h1 id="参考文献">6. 参考文献</h1><ol>
 <li><a href="">自制搜索引擎</a></li>
 <li><a href="http://blog.csdn.net/guoziqing506/article/details/64122287" target="_blank" rel="external">B树与B+树</a></li>
 <li><a href="http://www.ruanyifeng.com/blog/2013/03/tf-idf.html" target="_blank" rel="external">TF-IDF与余弦相似性的应用（一）：自动提取关键词</a></li>
@@ -9907,6 +10104,31 @@ run thread_name_2    4
     </entry>
     
     <entry>
+      <title><![CDATA[python——os模块]]></title>
+      <url>/2017/05/04/Python-os%E6%93%8D%E4%BD%9C/</url>
+      <content type="html"><![CDATA[<h1 id="os模块">1. os模块</h1><p>os模块的作用：</p>
+<p>　　os，语义为操作系统，所以肯定就是操作系统相关的功能了，可以处理文件和目录这些我们日常手动需要做的操作，就比如说：显示当前目录下所有文件/删除某个文件/获取文件大小……</p>
+<p>　　另外，os模块不受平台限制，也就是说：当我们要在linux中显示当前命令时就要用到pwd命令，而Windows中cmd命令行下就要用到这个，额…我擦，我还真不知道，（甭管怎么着，肯定不是pwd），这时候我们使用python中os模块的os.path.abspath(name)功能，甭管是linux或者Windows都可以获取当前的绝对路径。</p>
+<h1 id="文件夹操作">2. 文件夹操作</h1><h2 id="检验文件夹是否存在">2.1. 检验文件夹是否存在</h2><pre><code>os.path.exists(directory)
+</code></pre><h2 id="创建文件夹">2.2. 创建文件夹</h2><pre><code>os.makedirs(directory)
+</code></pre><p>实例：<br>检验文件夹是否存在，若不存在，则创建之</p>
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_dir</span><span class="params">(directory)</span>:</span></div><div class="line">    flag=os.path.exists(directory)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> flag:</div><div class="line">        os.makedirs(directory)</div></pre></td></tr></table></figure>
+</code></pre><h2 id="遍历指定目录名，显示目录下所有文件">2.3. 遍历指定目录名，显示目录下所有文件</h2><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pathDir =  os.listdir(filepath)</div><div class="line">    <span class="keyword">for</span> allDir <span class="keyword">in</span> pathDir:</div><div class="line">        <span class="keyword">print</span> allDir</div></pre></td></tr></table></figure>
+</code></pre><h1 id="参考文献">3. 参考文献</h1><ol>
+<li><a href="http://www.cnblogs.com/MnCu8261/p/5483657.html" target="_blank" rel="external">python基础之模块之os模块</a></li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[pandas相关技巧]]></title>
       <url>/2017/05/04/Python-pandas%E7%AC%94%E8%AE%B0/</url>
       <content type="html"><![CDATA[<h1 id="用pandas求差集">1. 用pandas求差集</h1><p>从df1中去除掉df2的内容</p>
@@ -9953,31 +10175,6 @@ blue        0      0      1
 8    C      3
 </code></pre><h1 id="ipython运行python">6. ipython运行python</h1><p>启动新的namespace运行： %run main.py</p>
 <p>在原有的namespace运行：%run -i main.py</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[python——os模块]]></title>
-      <url>/2017/05/04/Python-os%E6%93%8D%E4%BD%9C/</url>
-      <content type="html"><![CDATA[<h1 id="os模块">1. os模块</h1><p>os模块的作用：</p>
-<p>　　os，语义为操作系统，所以肯定就是操作系统相关的功能了，可以处理文件和目录这些我们日常手动需要做的操作，就比如说：显示当前目录下所有文件/删除某个文件/获取文件大小……</p>
-<p>　　另外，os模块不受平台限制，也就是说：当我们要在linux中显示当前命令时就要用到pwd命令，而Windows中cmd命令行下就要用到这个，额…我擦，我还真不知道，（甭管怎么着，肯定不是pwd），这时候我们使用python中os模块的os.path.abspath(name)功能，甭管是linux或者Windows都可以获取当前的绝对路径。</p>
-<h1 id="文件夹操作">2. 文件夹操作</h1><h2 id="检验文件夹是否存在">2.1. 检验文件夹是否存在</h2><pre><code>os.path.exists(directory)
-</code></pre><h2 id="创建文件夹">2.2. 创建文件夹</h2><pre><code>os.makedirs(directory)
-</code></pre><p>实例：<br>检验文件夹是否存在，若不存在，则创建之</p>
-<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_dir</span><span class="params">(directory)</span>:</span></div><div class="line">    flag=os.path.exists(directory)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> flag:</div><div class="line">        os.makedirs(directory)</div></pre></td></tr></table></figure>
-</code></pre><h2 id="遍历指定目录名，显示目录下所有文件">2.3. 遍历指定目录名，显示目录下所有文件</h2><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pathDir =  os.listdir(filepath)</div><div class="line">    <span class="keyword">for</span> allDir <span class="keyword">in</span> pathDir:</div><div class="line">        <span class="keyword">print</span> allDir</div></pre></td></tr></table></figure>
-</code></pre><h1 id="参考文献">3. 参考文献</h1><ol>
-<li><a href="http://www.cnblogs.com/MnCu8261/p/5483657.html" target="_blank" rel="external">python基础之模块之os模块</a></li>
-</ol>
 ]]></content>
       
         <categories>

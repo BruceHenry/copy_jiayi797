@@ -92,15 +92,26 @@
 
 
 
-<meta name="description" content="comeOn">
-<meta property="og:type" content="website">
-<meta property="og:title" content="jiayi797">
-<meta property="og:url" content="http://jiayi797.github.io/about/tags/多线程/index.html">
+<meta name="description" content="红黑树本质上是一种二叉查找树，但它在二叉查找树的基础上额外添加了一个标记（颜色），同时具有一定的规则。这些规则使红黑树保证了一种平衡，插入、删除、查找的最坏时间复杂度都为 O(logn)。 它的统计性能要好于平衡二叉树（AVL树），因此，红黑树在很多地方都有应用。比如在 Java 集合框架中，很多部分(TreeMap, TreeSet 等)都有红黑树的应用，这些集合均提供了很好的性能。 由于 Tr">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法-红黑树">
+<meta property="og:url" content="http://jiayi797.github.io/about/2018/03/09/算法-红黑树/index.html">
 <meta property="og:site_name" content="jiayi797">
-<meta property="og:description" content="comeOn">
+<meta property="og:description" content="红黑树本质上是一种二叉查找树，但它在二叉查找树的基础上额外添加了一个标记（颜色），同时具有一定的规则。这些规则使红黑树保证了一种平衡，插入、删除、查找的最坏时间复杂度都为 O(logn)。 它的统计性能要好于平衡二叉树（AVL树），因此，红黑树在很多地方都有应用。比如在 Java 集合框架中，很多部分(TreeMap, TreeSet 等)都有红黑树的应用，这些集合均提供了很好的性能。 由于 Tr">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-33-31.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-38-40.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-49-56.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-51-01.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-53-10.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-01-31.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-02-08.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-05-00.png">
+<meta property="og:updated_time" content="2018-03-09T12:08:02.809Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jiayi797">
-<meta name="twitter:description" content="comeOn">
+<meta name="twitter:title" content="算法-红黑树">
+<meta name="twitter:description" content="红黑树本质上是一种二叉查找树，但它在二叉查找树的基础上额外添加了一个标记（颜色），同时具有一定的规则。这些规则使红黑树保证了一种平衡，插入、删除、查找的最坏时间复杂度都为 O(logn)。 它的统计性能要好于平衡二叉树（AVL树），因此，红黑树在很多地方都有应用。比如在 Java 集合框架中，很多部分(TreeMap, TreeSet 等)都有红黑树的应用，这些集合均提供了很好的性能。 由于 Tr">
+<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-33-31.png">
 
 
 
@@ -128,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://jiayi797.github.io/about/tags/多线程/"/>
+  <link rel="canonical" href="http://jiayi797.github.io/about/2018/03/09/算法-红黑树/"/>
 
 
 
 
 
-  <title>标签: 多线程 | jiayi797</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>算法-红黑树 | jiayi797</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -179,7 +190,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -307,44 +318,349 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>多线程<small>标签</small>
-      </h1>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2018/03/09/算法-红黑树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">算法-红黑树</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T19:31:31+08:00">
+                2018-03-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-09T20:08:02+08:00">
+                2018-03-09
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/03/09/算法-红黑树/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/03/09/算法-红黑树/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,121
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>红黑树本质上是一种二叉查找树，但它在二叉查找树的基础上额外添加了一个标记（颜色），同时具有一定的规则。这些规则使红黑树保证了一种平衡，插入、删除、查找的最坏时间复杂度都为 O(logn)。</p>
+<p>它的统计性能要好于平衡二叉树（AVL树），因此，红黑树在很多地方都有应用。比如在 <a href="https://link.juejin.im/?target=http%3A%2F%2Flib.csdn.net%2Fbase%2Fjavaee" target="_blank" rel="external">Java</a> 集合框架中，很多部分(TreeMap, TreeSet 等)都有红黑树的应用，这些集合均提供了很好的性能。</p>
+<p>由于 TreeMap 就是由红黑树实现的，因此本文将使用 TreeMap 的相关操作的代码进行分析、论证。</p>
+<a id="more"></a>
+<h1 id="红黑树定义">1. 红黑树定义</h1><p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-33-31.png" alt=""> </p>
+<p>红黑树在原有的二叉查找树基础上增加了如下几个要求：</p>
+<ul>
+<li>每个节点要么是红色，要么是黑色</li>
+<li>根节点永远是红色</li>
+<li>所有叶子结点都是黑色的【这里所说的叶子节点指的是上图中的Null节点】</li>
+<li>红色节点的子节点一定都是黑色【红色节点一定不连续，黑色节点可以连续】</li>
+<li>从任意节点到其子树中每个叶子节点的路径都包含相同的黑色节点</li>
+</ul>
+<p>因此我们定义<strong>黑色高度</strong>：从根节点到叶节点的路径上黑色节点的个数，叫做树的黑色高度。</p>
+<h1 id="红黑树的操作">2. 红黑树的操作</h1><h2 id="左旋和右旋">2.1. 左旋和右旋</h2><p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-38-40.png" alt=""> </p>
+<p>红黑树的左右旋是比较重要的操作，左右旋的目的是调整红黑节点结构，转移黑色节点位置，使其在进行插入、删除后仍能保持红黑树的 5 条性质。</p>
+<p><strong>右旋</strong></p>
+<p>y 节点的右旋就是把 y 变成 左孩子 x 的右孩子，同时把 x 的右孩子送给 x 当左子树。</p>
+<p>简单点记就是：右旋把左子树里的一个节点（上图 β）移动到了右子树。</p>
+<p><strong>左旋</strong></p>
+<p>可以看到，x 节点的左旋就是把 x 变成 右孩子 y 的左孩子，同时把 y 的左孩子送给 x 当右子树。</p>
+<p>简单点记就是：左旋把右子树里的一个节点（上图 β）移动到了左子树。</p>
+<h2 id="插入">2.2. 插入</h2><p>红黑树的插入主要分两步：</p>
+<ul>
+<li>首先和二叉查找树的插入一样，查找、插入</li>
+<li>然后调整结构，保证满足红黑树状态<ul>
+<li>对结点进行重新着色</li>
+<li>以及对树进行相关的旋转操作</li>
+</ul>
+</li>
+</ul>
+<p>红黑树的插入在二叉查找树插入的基础上，为了重新恢复平衡，继续做了插入修复操作。现在重点看看如何恢复平衡。</p>
+<ol>
+<li>红黑树的第 5 条特征规定，任一节点到它子树的每个叶子节点的路径中都包含同样数量的黑节点。也就是说当我们往红黑树中插入一个黑色节点时，会违背这条特征。</li>
+<li>同时第 4 条特征规定红色节点的左右孩子一定都是黑色节点，当我们给一个红色节点下插入一个红色节点时，会违背这条特征。</li>
+</ol>
+<p>因此我们需要在插入节点后进行结构和颜色调整，保证红黑树始终满足这 5 条特征。为了减少不确定性，我们把插入的节点直接染成红色，这样就不会影响特征 5，只要专心调整满足特征 4 ，也就是专心<strong>不要让两个红色节点连着就好了</strong>。</p>
+<p>染成红色后，我们只要关心父节点是否为红，如果是红的，就要把父节点进行变化，让父节点变成黑色，或者换一个黑色节点当父亲，这些操作的同时不能影响不同路径上的黑色节点数一致的规则。接下来继续看看这种操作带来的两种可能性：</p>
+<p><strong>情况1，父节点和叔叔节点都是红色</strong></p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-49-56.png" alt=""> </p>
+<p>假设插入的是节点 N，这时父亲节点 P 和叔叔节点 U 都是红色，爷爷节点 G 一定是黑色。</p>
+<p>红色节点的孩子不能是红色，这时不管 N 是 P 的左孩子还是右孩子，只要同时把 P 和 U 染成黑色，G 染成红色即可。这样这个子树左右两边黑色个数一致，也满足特征 4。</p>
+<p>但是这样改变后 G 染成红色，G 的父亲如果是红色岂不是又违反特征 4 了？<br>这个问题和我们插入、染红后一致，因此需要以 爷爷节点 G 为新的调整节点，再次进行调整操作，以此循环，直到父亲节点不是红的，就没有问题了。</p>
+<p><strong>情况2，父亲节点为红色，叔叔节点为黑色</strong></p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-51-01.png" alt=""> </p>
+<p>假设插入的是节点 N，这时父亲节点 P 是红色，叔叔节点 U 是黑色，爷爷节点 G 一定是黑色。</p>
+<p>红色节点的孩子不能是红色，但是直接把父亲节点 P 涂成黑色也不行，这条路径多了个黑色节点。怎么办呢？</p>
+<p>既然改变不了你，那我们就此别过吧，我换一个更适合我的！</p>
+<p>我们怎么把 P 弄走呢？看来看去，还是右旋最合适，通过把 爷爷节点 G 右旋，P 变成了这个子树的根节点，G 变成了 P 的右子树。</p>
+<p>右旋后 G 跑到了右子树上，这时把 P 变成黑的，多了一个黑节点，再把 G 变成红的，就平衡了！</p>
+<p>上面讲的是插入节点 N 在父亲节点 P 的左孩子位置。如果 N 是 P 的右孩子，就需要多进行一次左旋，把情况化解成上述情况，也就是如下操作所示：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-53-10.png" alt=""> </p>
+<h2 id="删除">2.3. 删除</h2><p>红黑树的插入平衡需要好好理解下，如果前面没有理解，删除后的调整平衡更加难懂，前方高能，请注意！</p>
+<p>红黑树的删除也是分两步：</p>
+<ol>
+<li>二叉查找树的删除</li>
+<li>结构调整</li>
+</ol>
+<p><strong>二叉查找树的删除</strong>分三种情况：</p>
+<ol>
+<li>要删除的节点正好是叶子节点，直接删除就 OK 了；</li>
+<li>只有左孩子或者右孩子，直接把这个孩子上移放到要删除的位置就好了；</li>
+<li>有两个孩子，就需要选一个合适的孩子节点作为新的根节点，该节点称为 继承节点。</li>
+</ol>
+<p><strong>删除后的平衡调整</strong></p>
+<p>那么删除节点后，为了保持红黑树的5个特性，我们还需要进行一些考虑：</p>
+<ul>
+<li>如果当前待删除节点是红色的，它被删除之后对当前树的特性不会造成任何破坏影响。 </li>
+<li>而如果被删除的节点是黑色的，这就需要进行进一步的调整来保证后续的树结构满足要求。</li>
+</ul>
+<p>因此我们需要考虑当删除黑色节点的情况。</p>
+<p>为了保证删除节点父亲节点左右两边黑色节点数一致，就要想办法搞到平衡，具体的平衡方法有如下几种方法：</p>
+<ol>
+<li>把父亲节点另一边（即删除节点的兄弟树）其中一个节点弄成红色，也少一个黑色</li>
+<li>或者把另一边多的黑色节点转过来一个</li>
+</ol>
+<p>删除节点在父亲节点的左子树还是右子树，调整方式都是对称的，这里以当前节点为父节点的左孩子为例进行分析。我们讨论以下几种情况：</p>
+<p><strong>第一步</strong></p>
+<p>兄弟如果是红的，说明孩子都是黑的【旋转的情况 1 】</p>
+<ul>
+<li>把兄弟搞成黑的</li>
+<li>父亲搞成红的</li>
+<li>左旋转父亲（嘿嘿，兄弟给我分一个黑孩子）</li>
+<li>接下来对比旋转后的兄弟</li>
+</ul>
+<p>这一步的目的是将兄弟节点变成黑的，转变成第二步两种情形中的某一种情况。</p>
+<p>在做后续变化前，这棵树还是保持着原来的平衡。</p>
+<p><strong>第二步</strong></p>
+<p><strong>情况1，兄弟节点的孩子都是黑色</strong></p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-01-31.png" alt=""> </p>
+<ul>
+<li>把兄弟搞成红的</li>
+<li>continue 下一波（这个子树搞完了，研究父亲节点，去搞上一级树，进入第三步）</li>
+</ul>
+<p>这里将兄弟节点变成红色后，从它的父节点到下面的所有路径就都统一少了 1 个，同时也不影响别的特征，但是把兄弟节点变红后，如果有父亲节点也是红的，就可能违反红黑树的特征 4，因此需要到更高一级树进行鉴别、调整。</p>
+<p><strong>情况2：兄弟节点的孩子至多有一个黑的</strong></p>
+<ul>
+<li>把不是黑的那个孩子搞黑【旋转的情况 2 】<ul>
+<li>兄弟搞红</li>
+<li>兄弟右旋转</li>
+<li>以后对比旋转后的兄弟</li>
+</ul>
+</li>
+<li>把兄弟涂成跟父亲一样的颜色【旋转的情况 3 】</li>
+<li>然后把父亲搞黑</li>
+<li>把兄弟的右孩子搞黑</li>
+<li>父亲节点左旋</li>
+<li>研究根节点，进入第三步</li>
+</ul>
+<p>旋转的情况 2 是将兄弟节点的左右孩子都移动到右边，方便后续操作，如下图所示：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-02-08.png" alt=""></p>
+<p>旋转的情况 3 将兄弟的孩子移到左边来，同时黑色的父亲变到了左边（总之就是让左边多些黑色节点），如下图所示：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-05-00.png" alt=""> </p>
+<p><strong>第三步</strong></p>
+<ul>
+<li>如果研究的不是根节点并且是黑的，重新进入第一步，研究上一级树；</li>
+<li>如果研究的是根节点或者这个节点不是黑的，就退出<ul>
+<li>把研究的这个节点涂成黑的。</li>
+</ul>
+</li>
+</ul>
+<p>第三步中选择根节点为结束标志，是因为在第二步中，有可能出现我们正好给删除黑色节点的子树补上了一个黑色节点，同时不影响其他子树，这时我们的调整已经完成，可以直接设置调整节点 x = root，等于宣告调整结束。</p>
+<p>因为我们当前调整的可能只是一棵树中间的子树，这里头的节点可能还有父节点，这么一直往上到根节点。当前子树少了一个黑色节点，要保证整体合格还是不够的。</p>
+<p>这里需要在代码里有一个保证。假设这里 B 已经是红色的了。那么调整结束，最后对 B 节点，也就是调整目标 x 所指向的这个节点涂成黑色。这样保证前面亏的那一个黑色节点就补回来了。</p>
+<p>前面讨论的这4种情况是在当前节点是父节点的左子节点的条件下进行的。如果当前节点是父节点的右子节点，则可以对应的做对称的操作处理，过程也是一样的。</p>
+<p>其中具体旋转方向根据调整节点在父节点的左/右位置决定。</p>
+<h1 id="总结">3. 总结</h1><p>红黑树并不是真正的平衡二叉树，但在实际应用中，红黑树的统计性能要高于平衡二叉树，但极端性能略差。</p>
+<p>红黑树的插入、删除调整逻辑比较复杂，但最终目的是满足红黑树的 5 个特性，尤其是 4 和 5。</p>
+<p>在插入调整时为了简化操作我们直接把插入的节点涂成红色，这样只要保证插入节点的父节点不是红色就可以了。</p>
+<p>而在删除后的调整中，针对删除黑色节点，所在子树缺少一个节点，需要进行弥补或者对别人造成一个黑色节点的伤害。具体调整方法取决于兄弟节点所在子树的情况。</p>
+<p>红黑树的插入、删除在树形数据结构中算比较复杂的，理解起来比较难，但只要记住，红黑树有其特殊的平衡规则，而我们为了维持平衡，根据邻树的状况进行旋转或者涂色。</p>
+<p>红黑树这么难理解，必定有其过人之处。它的有序、快速特性在很多场景下都有用到，比如 Java 集合框架的 TreeMap, TreeSet 等。</p>
+<h1 id="参考文献">4. 参考文献</h1><ol>
+<li><a href="https://juejin.im/entry/58371f13a22b9d006882902d" target="_blank" rel="external">面试旧敌之红黑树（直白介绍深入理解）</a></li>
+</ol>
 
-      <h2 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2017/05/12/Java-多线程/" itemprop="url">
-              
-                <span itemprop="name">多线程</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-12T13:51:34+08:00"
-              content="2017-05-12" >
-          05-12
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2048/10/24/本站简介/" rel="next" title="本站简介">
+                <i class="fa fa-chevron-left"></i> 本站简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/08/系统设计-以GFS为例探索分布式文件系统/" rel="prev" title="系统设计-以GFS为例探索分布式文件系统">
+                系统设计-以GFS为例探索分布式文件系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -352,6 +668,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
 
         </div>
         
@@ -371,8 +693,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -434,6 +765,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#红黑树定义"><span class="nav-text">1. 红黑树定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#红黑树的操作"><span class="nav-text">2. 红黑树的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#左旋和右旋"><span class="nav-text">2.1. 左旋和右旋</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入"><span class="nav-text">2.2. 插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除"><span class="nav-text">2.3. 删除</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">3. 总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">4. 参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -569,6 +916,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
