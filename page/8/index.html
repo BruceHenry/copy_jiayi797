@@ -319,7 +319,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/17/中间件比赛-RocketMQ简介/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/10/数学-矩阵相关知识复习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -338,7 +338,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/17/中间件比赛-RocketMQ简介/" itemprop="url">RocketMQ简介</a></h1>
+                <a class="post-title-link" href="/2017/07/10/数学-矩阵相关知识复习/" itemprop="url">矩阵相关知识复习</a></h1>
         
 
         <div class="post-meta">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-17T10:49:03+08:00">
-                2017-05-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T10:33:46+08:00">
+                2017-07-10
               </time>
             
 
@@ -366,8 +366,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:27:02+08:00">
-                2017-07-11
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-05T19:01:06+08:00">
+                2018-03-05
               </time>
             
           </span>
@@ -385,8 +385,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件比赛/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件比赛</span>
+                  <a href="/categories/数学/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
                   </a>
                 </span>
 
@@ -404,8 +404,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2017/05/17/中间件比赛-RocketMQ简介/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/17/中间件比赛-RocketMQ简介/" class="cy_cmt_count" data-xid="2017/05/17/中间件比赛-RocketMQ简介/" itemprop="commentsCount" ></span>
+                <a href="/2017/07/10/数学-矩阵相关知识复习/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/07/10/数学-矩阵相关知识复习/" class="cy_cmt_count" data-xid="2017/07/10/数学-矩阵相关知识复习/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -427,7 +427,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  951
+                  1,253
                 </span>
               
 
@@ -451,31 +451,32 @@
       
         
           
-          RocketMQ:分布式开放消息系统
-1. 消息中间件需要解决哪些问题？1.1. 发布订阅（Publish/Subscribe）发布订阅是消息中间件的最基本功能，也是相对于传统RPC通信而言。在此不再详述。
-1.2. 消息优先级（Message Priority）两种方式：
+          1. 特征值与奇异值特征值与特征向量
+如果一个向量$v$是方阵$A$的特征向量，那么：$$Av=\lambda v$$
 
-严格优先级，例如0-65535。开销大，精准，但可能没有必要。
-档位优先级。高、中、低，或其他。每个优先级可以用不同的topic表示，发消息时，指定不同的topic来表示优先级。精确性低。
+$\lambda$:特征值
+$v$:特征向量把$A$乘到$v$上，得到一个$\lambda v$，也就是意味着我们得到了一个方向未变但在长度上有伸缩改变的向量（方向未变不准确，有可能变反向）。这是让$A$乘以他的特征向量表现出来的性质。也就是说，$v$ 在 $A$ 的作用下，保持方向不变，进行比例为$\lambda$ 的伸缩
 
-1.3. 消息有序性（Message Order）
-一个订单的发出的消息顺序不能变
-订单之间是可以并行消费
+因此：
 
-1.4. 消息过滤（Message Filter）1.4.1. 消息协商器（Broker端）消息过滤在Broker中，按照Consumer的要求做过滤
+特征向量所在直线上的向量都是特征向量；
+特征向量所在的直线（包含了所有特征向量），叫特征空间；
 
-优点是减少了对于Consumer无用消息的网络传输。
-缺点是增加了Broker的负担，实现相对复杂。
+特征值分解
+假设矩阵$A$ 有n个线性无关的特征向量$[v^{1}, v^{2}, …, v^{n}]$ ，对应着特征值$[\lambda_1, \lambda_2,…,\lambda_n]$ 。我们将特征向量连成一个矩阵，使得每一列是一个特征向量：$V = [v^{1}, v^{2}, …, v^{n}]$ ，类似地将特征值连成一个向量$\lambda = [[\lambda_1, \lambda_2,…,\lambda_n]]^T$
+特征值分解是把一个n阶实对称矩阵分解为下面的形式：$$A=Vdiag(\lambda)V^{-1}$$
+其中：
 
-淘宝Notify支持多种过滤方式：包含直接按照消息类型过滤，灵活的语法表达式过滤，几乎可以满足最苛刻的过滤需求。
-淘宝RocketMQ支持按照简单的Message Tag过滤，也支持按照Message Header、body进行过滤。
-CORBA Notification规范中也支持灵活的语法表达式过滤。
-1.4.2. Consumer端消息过滤这种过滤方式可由应用完全自定义实现，但是缺点是很多无用的消息要传输到Consumer端。
-1.4.3. 消息持久化（Message Persistence）持久化（Persistence）：即把数据（如内存中的对象
+$V$是这个矩阵$A$的特征向量组成的矩阵，是一个正交矩阵
+$diag(\lambda)$是一个对角阵，每个对角线上的元素就是一个特征值
+
+特征值分解有利于我们分析矩阵的性质，就像质因数分解一样有助于我们理解整数。
+特征向量可能不唯一，而特征值一定唯一。
+2. 正交变换与正交军阵2.
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/05/17/中间件比赛-RocketMQ简介/#more" rel="contents">
+            <a class="btn" href="/2017/07/10/数学-矩阵相关知识复习/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -521,7 +522,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/16/机器学习实践-CVR-转化率预估资料/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/09/搜索引擎-简单搜索引擎的实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -540,7 +541,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/16/机器学习实践-CVR-转化率预估资料/" itemprop="url">转化率预估资料</a></h1>
+                <a class="post-title-link" href="/2017/07/09/搜索引擎-简单搜索引擎的实现/" itemprop="url">简单搜索引擎的实现</a></h1>
         
 
         <div class="post-meta">
@@ -552,8 +553,8 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T13:36:42+08:00">
-                2017-05-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T22:04:23+08:00">
+                2017-07-09
               </time>
             
 
@@ -568,7 +569,800 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T16:05:24+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-03T12:50:49+08:00">
+                2018-03-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/搜索引擎/" itemprop="url" rel="index">
+                    <span itemprop="name">搜索引擎</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/09/搜索引擎-简单搜索引擎的实现/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/07/09/搜索引擎-简单搜索引擎的实现/" class="cy_cmt_count" data-xid="2017/07/09/搜索引擎-简单搜索引擎的实现/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,828
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          这是很久以前的IRIE的期末大作业。现在贴在自己的博客上。
+实验要求：
+
+用爬虫采集特定网站的信息；
+设计实现信息检索与提取系统，对采集的信息进行检索提取；
+结合webpy与html实现界面展示。
+
+1. 相关知识1.1. 爬虫网络爬虫是捜索引擎抓取系统中重要的组成部分，其主要目的是将互联网上的网页下载到本地形成一个文件或互联网内容的镜像备份。流程如下：a.  从给定的入口网址把第一个网页下载下来b.  从第一个网页中提取出所有新的网页地址，放入下载列表中c.  按下载列表中的地址，下载所有新的网页d.  从所有新的网页中找出没有下载过的网页地址，更新下载列表e.  重复3、4两步，直到更新后的下载列表为空表时停止其实就是简化成下面的步骤：a.  按下载列表进行下载b.  更新下载列表c.  循环操作a，b，直到列表为空结束在本次作业中我们使用python编码实现爬虫的功能，其中用到的python组件有：urllib2：用于获取URLs（Uniform Resource Locators）的组件，以urlopen函数的形式提供一个非常简单的接口，具有利用不同协议获取URLs的能力，同时提供了一个比较复杂的接口来处理一般情况，如：基础验证，cookies代理和其他。通过handlers和openers的对象提供。urllib2支持获取不同格式的URLs并利用它们相关网络协议（例如FTP，HTTP）进行获取。BeautifulSoup：是python的一个库，最主要的功能是从网页抓取数据。它提供简单的、python式的函数用来处理导航、搜索、修改分析树等功能。可以通过解析文档为用户
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/09/搜索引擎-简单搜索引擎的实现/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/09/机器学习实践-转化率预估之贝叶斯平滑/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/09/机器学习实践-转化率预估之贝叶斯平滑/" itemprop="url">机器学习实践-转化率预估之贝叶斯平滑</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T20:11:32+08:00">
+                2017-07-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-07T14:24:38+08:00">
+                2018-03-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/腾讯算法大赛-CVR预估/" itemprop="url" rel="index">
+                    <span itemprop="name">腾讯算法大赛-CVR预估</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/09/机器学习实践-转化率预估之贝叶斯平滑/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/07/09/机器学习实践-转化率预估之贝叶斯平滑/" class="cy_cmt_count" data-xid="2017/07/09/机器学习实践-转化率预估之贝叶斯平滑/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,372
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1. 问题描述在做比赛的过程中，我们发现了有转化率这个指标在大量数据下是有效的。理想情况下，例如某个广告点击量是10000次，转化量是100次，那转化率就是1%。但有时，例如某个广告点击量是2次，转化量是1次，这样算来转化率为50%。但此时这个指标在数学上是无效的。因为大数定律告诉我们，在试验不变的条件下，重复试验多次，随机事件的频率近似于它的概率。后者点击量只有2次，不满足“重复试验多次”的条件。
+那么如何解决这个问题呢？
+整体思路：用估计值来模拟实际CVR。
+2. 解决方案实际上，广告妆化率是随着时间迁移和用户喜好变化而变化的。因此我们可以利用先验知识来持续性地调整CVR。计算广告训练与平滑思想给出了一个很好的解决方案：贝叶斯平滑。
+考虑到时序序列模型，我们把从第一天到第n天的所有先验知识汇总到第n天的结果，并以此来对第n+1天的CTR进行平滑。在广告平滑上，没有什么方法比贝叶斯平滑能够更好的利用先验知识了，而帮助贝叶斯平滑方法实现目标的就是Beta分布。Beta分布的强大之处在于，通过改变其中的两个参数α和β，你可以让Beta分布的图形变成任意形状，而且在加入先验知识前后，通过贝叶斯变换，对CTR的预估都可以表示为Beta分布。
+Beta分布中参数α和β的本质含义，即：α表示点击数，β表示曝光数。因为贝叶斯平滑的具体公式（后面再讲这个公式的原理）就是：
+$$SmoothCTR = \frac{(α + CurrentC - 1)}{( α + β + CurrentI -2)}$$
+能不能直接把历史点击和历史曝光分别赋值给α和β来进行计算呢？显然不行，因为这么做就会犯之前
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/09/机器学习实践-转化率预估之贝叶斯平滑/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/06/21/机器学习实践-CVR-word-embedding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/21/机器学习实践-CVR-word-embedding/" itemprop="url">机器学习实践-CVR-word-embedding</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-21T16:01:35+08:00">
+                2017-06-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T16:00:14+08:00">
+                2018-02-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/腾讯算法大赛-CVR预估/" itemprop="url" rel="index">
+                    <span itemprop="name">腾讯算法大赛-CVR预估</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/06/21/机器学习实践-CVR-word-embedding/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/06/21/机器学习实践-CVR-word-embedding/" class="cy_cmt_count" data-xid="2017/06/21/机器学习实践-CVR-word-embedding/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  246
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          在做比赛的过程中，我曾用过word embedding生成app特征，对结果提升了有几个万分点。
+论文：tem2vec: Neural Item Embedding for Collaborative Filtering
+1. 思想这篇文章比较朴素，创新性不高，基本是参照了google的word2vec方法，应用到推荐场景的i2i相似度计算中，但实际效果看还有有提升的。主要做法是把item视为word，用户的行为序列视为一个集合，item间的共现为正样本，并按照item的频率分布进行负样本采样，缺点是相似度的计算还只是利用到了item共现信息，1).忽略了user行为序列信息; 2).没有建模用户对不同item的喜欢程度高低。
+2. 实现主要代码来自于写论文的作者分享的代码
+3. 参考文献
+DNN论文分享 - Item2vec: Neural Item Embedding for Collaborative Filtering
+达观数据推荐算法实现：协同过滤之item embedding
+
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/21/机器学习实践-CVR-word-embedding/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/06/10/机器学习实践-不平衡类的处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/10/机器学习实践-不平衡类的处理/" itemprop="url">机器学习实践-不平衡类的处理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-10T15:26:36+08:00">
+                2017-06-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T15:59:04+08:00">
+                2018-02-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/腾讯算法大赛-CVR预估/" itemprop="url" rel="index">
+                    <span itemprop="name">腾讯算法大赛-CVR预估</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/06/10/机器学习实践-不平衡类的处理/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/06/10/机器学习实践-不平衡类的处理/" class="cy_cmt_count" data-xid="2017/06/10/机器学习实践-不平衡类的处理/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,961
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          最近在做比赛，发现在工业上，很多分类问题的标签分布都是不平衡的。如参考文献标签倾斜修正方法记要所属，比如用分类器去判断x光片中的癌症，这是一个二元分类问题，由于癌症的比例是非常小的，比如0.001。那么，将这些样本放到大多数分类模型中训练，模型的表现会非常相似，将所有数据都预测为没有癌症，因为这样也可以得到99.999%的准确率。
+1. 常见的解决办法参考文献解决真实世界问题：如何在不平衡类上使用机器学习？说，从不平衡数据中学习，是一项已被研究了 20 年之久的问题。它曾是许多论文、研讨会、特别议程的主题（一项最近的调查就有大约 220 个引用）。人们尝试了许多方法，但结果各不相同，所以至今没有得到明晰的答案。当数据科学家们第一次遇到这个问题，他们往往会问：「如果我的数据是不平衡的，我该怎么做？」而这一问题是没有固定答案的，就像你问「哪个学习算法是最好的」一样：答案取决于数据。
+一般来说，有下面几种方法：
+
+什么也不做
+
+通过某些方法使得数据更加平衡：
+
+
+对少数类进行过采样
+
+
+
+对多数类进行欠采样
+
+
+
+合成新的少数类
+
+
+
+舍弃所有少数类，切换成一个异常检测框架。
+
+
+在算法层面之上（或之后）：
+
+
+调整类的权重（错误分类成本）
+
+
+
+调整决策阈值
+
+
+
+使已有的算法对少数类更加敏感
+
+
+
+构造一个在不平衡数据上表现更好的全新算法。
+
+
+
+2. 一种标签倾斜修正方法参考文献Practical Lessons from Predicting Clicks on Ads atFacebook6.3指出，欠采样可以加快训练速度，提升模型表现。需要注意的是，就算数据被欠采样，其实
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/10/机器学习实践-不平衡类的处理/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结/" itemprop="url">机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-07T15:17:49+08:00">
+                2017-06-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T14:17:49+08:00">
                 2017-07-11
               </time>
             
@@ -606,8 +1400,8 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2017/05/16/机器学习实践-CVR-转化率预估资料/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/16/机器学习实践-CVR-转化率预估资料/" class="cy_cmt_count" data-xid="2017/05/16/机器学习实践-CVR-转化率预估资料/" itemprop="commentsCount" ></span>
+                <a href="/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结/" class="cy_cmt_count" data-xid="2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -629,7 +1423,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  14
+                  4,828
                 </span>
               
 
@@ -653,15 +1447,30 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
       
         
           
-          
-火光摇曳
-美团点评技术团队
+          “这一段奔波太过匆忙，有时来不及回头张望。”
+腾讯“人工寻找trick”大赛初赛今天结束了。最终初赛线上logloss为0.099104，排名为64名： 
+复赛成绩0.101941，排名26名： 
+虽然与前排大神的分相差甚远，虽结果不那么如人意，也是对这个领域入了个门。
+1. 赛题详细赛题见官方网站
+已知：17-30天移动APP的广告、用户的转化情况，及相关上下文。预测：第31天指定用户和对应广告的转化率。
+评估方式：$$logloss=-\frac{1}{N}\sum_{i=1}^N(y_ilog(p_i)+(1-y_i)log(1-p_i))$$
+其中，
 
+N是测试样本总数
+$y_i$是二值变量，取值为0或1，表示第i个样本的label
+$p_i$是模型预测第i个样本label为1的概率
 
-          
+总之，就是预测的越准越好（这不废话么2333）
+2. 主要流程这是Kaggle上数据挖掘比赛的黄金流程图： 
+其实对于这个比赛的初赛而言，线上是容易过拟合的。因为线上只有一个集，可反复提交多次来使得线上得分很高，但实际上模型是有些过拟合的。不过这不是重点。
+接下来一步步做说明
+3. 数据分析与清洗训练集train.csv没有大问题，我注意的只是后几天的一些数据没有回流的问题。
+值得注意的是，本次竞赛的训练数据提供的截止第31天0点的广告日志，因此，对于最后几天的训练数据，也就是说后五天部分用户实际上是转化了，但广告主还没有来得及将这条转化汇报给广告系统，导致数据集中的label被误标记为了0（实际上是1）。（如果我还没有描述清楚，这里具体可以看官网赛题FAQ.1）
+这里我采取了一种很暴力
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/05/16/机器学习实践-CVR-转化率预估资料/#more" rel="contents">
+            <a class="btn" href="/2017/06/07/机器学习实践-CVR-Tencent_CVR预估初赛&复赛思路总结/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -707,7 +1516,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/14/中间件比赛-李健胜解决方案/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/24/机器学习算法-特征选择与正则化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -726,7 +1535,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/14/中间件比赛-李健胜解决方案/" itemprop="url">阿里中间件初赛-李健胜解决方案</a></h1>
+                <a class="post-title-link" href="/2017/05/24/机器学习算法-特征选择与正则化/" itemprop="url">特征选择与正则化</a></h1>
         
 
         <div class="post-meta">
@@ -738,8 +1547,8 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-14T14:19:14+08:00">
-                2017-05-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-24T14:40:33+08:00">
+                2017-05-24
               </time>
             
 
@@ -754,7 +1563,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:26:43+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T18:29:28+08:00">
                 2017-07-11
               </time>
             
@@ -773,8 +1582,8 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件比赛/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件比赛</span>
+                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习算法</span>
                   </a>
                 </span>
 
@@ -792,8 +1601,8 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2017/05/14/中间件比赛-李健胜解决方案/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/14/中间件比赛-李健胜解决方案/" class="cy_cmt_count" data-xid="2017/05/14/中间件比赛-李健胜解决方案/" itemprop="commentsCount" ></span>
+                <a href="/2017/05/24/机器学习算法-特征选择与正则化/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/05/24/机器学习算法-特征选择与正则化/" class="cy_cmt_count" data-xid="2017/05/24/机器学习算法-特征选择与正则化/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -815,7 +1624,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  961
+                  1,328
                 </span>
               
 
@@ -839,29 +1648,38 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
       
         
           
-          1. 参考资料
-李健胜，阿里中间件大赛初赛解题思路
-1对应的代码
+          特征选择：很重要
+tip:冗余特征(redundant feature)：
 
-2. 题目要求主角：消息中间件目的：实现消息中间件的推拉模式。即生产者制造消息，使用消息队列储存消息，消费者从消息队列拉取消息。要点：持久化的消息队列
-2.1. Producer需要实现
-创建一个消息，给消息指定Topic（可以由多个Consumer消费）BytesMessage createBytesMessageToTopic(String topic, byte[] body);
+本特征能被其它特征中推演出来。它不一定有坏处，但也不一定有好处。例如：考虑立方体对象，若已有特征“长”、“宽”，则“底面积”是冗余特征。
+冗余特征在很多时候不起作用，会增加学习过程的负担。
+但如果学习目标是估算立方体体积，则“底面积”特征会对学习更好。
 
-创建一个消息，给消息指定Queue（只能由一个Consumer消费）BytesMessage createBytesMessageToQueue(String queue, byte[] body);
+结论：如果某冗余特征恰好对应完成学习任务所需的“中间概念”，则该冗余特征是有益的。
+1. 子集搜索与评价特征选取时，若没有任何领域知识进行先验假设，只能遍历所有可能子集。–&gt;不可取！
+可行做法:产生个“候选子集”，评价它的好坏，基于评价结果产生下一个候选子集。
+1.1. 问题一，如何评价结果获取下一个候选特征子集？子集搜索
 
-发送消息，message中应当包含目的地（Queue，Topic只能选其一），对于发往同一个Topic和Queue的message顺序要保持一致。void send(Message message);
+前向搜索
 
 
-2.2. PullConsumer需要实现
-绑定到一个Queue，并订阅topics，即从这些topic和Queue读取消息。void attachQueue(String queueName, Collection topics);
-规范要求实现阻塞的接口，由properties来设置阻塞时间，但本赛题不需要用到该特性， 请实现一个非阻塞(也即阻塞时间为0)调用, 也即没有消息则返回nullMessage poll();
+给定特征集合${a_1,a_2,…,a_d}$,将每个特征看做一个候选子集。对d个候选单特征子集进行评价，假定${a_2}$最优，将${a_2}$做为第一轮选定集；
+加入一个新特征，构成包含两个特征的候选子集，假定在这$d-1$个候选两特征子集中${a_2,a_4}$最优，则将${a_2,a_4}$作为本轮选定集；
+…
+k+1轮时，不再更好，停止迭代
 
-2.3. 测试流程
-创建Topic，创建Queue 创建Producer，多个Producer创建指
+
+后向搜索每次都删除掉一个特征
+
+1.2. 问题二，如何评价候选特征子集？信息增益
+
+给定数据集$D$,假定$D$中第$i$类样本所占的比例为$p_i(i=1,2,…,|Y|)$.
+假定所有样本属性均为离散型
+对属性子集$A$,假定根据其取值将$D$分成了$V$个子集${D^1,D^2,…,D^V}$,每个子集中的样本在A上取值相同，则属性子集$A$的信息增益
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/05/14/中间件比赛-李健胜解决方案/#more" rel="contents">
+            <a class="btn" href="/2017/05/24/机器学习算法-特征选择与正则化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -907,7 +1725,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/13/中间件比赛-OpenMessaging源码阅读1/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/22/Java-Buffer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -926,7 +1744,7 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/13/中间件比赛-OpenMessaging源码阅读1/" itemprop="url">OpenMessaging源码阅读1</a></h1>
+                <a class="post-title-link" href="/2017/05/22/Java-Buffer/" itemprop="url">java-Buffer</a></h1>
         
 
         <div class="post-meta">
@@ -938,8 +1756,8 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-13T15:29:31+08:00">
-                2017-05-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-22T20:17:39+08:00">
+                2017-05-22
               </time>
             
 
@@ -954,208 +1772,8 @@ CORBA Notification规范中也支持灵活的语法表达式过滤。
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:55:15+08:00">
-                2017-07-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件比赛/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件比赛</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/05/13/中间件比赛-OpenMessaging源码阅读1/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/13/中间件比赛-OpenMessaging源码阅读1/" class="cy_cmt_count" data-xid="2017/05/13/中间件比赛-OpenMessaging源码阅读1/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  1,165
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          考虑到自己记性实在太差，还是好好记笔记吧。本节主要看以下几个接口：
-
-Meaasage
-Producer
-PullConsumer
-
-1. Message.javaMessage接口是所有OMS消息中的根接口。最常用的消息就是BytesMessage。
-标准Message大多消息导向（message-oriented）的中间件（MOM）产品更趋向于将消息认做轻实体，这个轻实体包含一个header和一个body：
-
-header:包含用来路由和识别的信息域；
-body:包含将会被发送的应用信息；
-
-本Message本消息是一个仅包含与具体消息对象相关的property(财产)的轻量级实体。主要包含以下几个方面：
-
-Header:所有消息都有同样的header域。header域的值用来给客户端(clients)和提供商（providers）唯一标示消息，以及路由消息。
-Properties(财产，特性)：每个消息都有一个消息自有的部分，这部分用来提供“应用定义(application-defined)”的property(财产)值。这一部分为支持“应用定义”消息的过滤提供了很有效的机制。
-
-源码解读
-123456789101112131415161718192021222324public interface Message &#123;     /*headers()返回Message对象的header域，返回值类型是keyValue。*/    KeyValue headers();    /*properties()返回消息自有的property域。返回值类型是keyValu
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/13/中间件比赛-OpenMessaging源码阅读1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/12/Java-多线程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/12/Java-多线程/" itemprop="url">多线程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-12T13:51:34+08:00">
-                2017-05-12
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:52:01+08:00">
-                2017-07-11
+              <time title="更新于" itemprop="dateModified" datetime="2017-05-22T20:41:17+08:00">
+                2017-05-22
               </time>
             
           </span>
@@ -1192,8 +1810,8 @@ Properties(财产，特性)：每个消息都有一个消息自有的部分，�
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2017/05/12/Java-多线程/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/12/Java-多线程/" class="cy_cmt_count" data-xid="2017/05/12/Java-多线程/" itemprop="commentsCount" ></span>
+                <a href="/2017/05/22/Java-Buffer/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/05/22/Java-Buffer/" class="cy_cmt_count" data-xid="2017/05/22/Java-Buffer/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -1215,7 +1833,7 @@ Properties(财产，特性)：每个消息都有一个消息自有的部分，�
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  662
+                  591
                 </span>
               
 
@@ -1239,229 +1857,29 @@ Properties(财产，特性)：每个消息都有一个消息自有的部分，�
       
         
           
-          线程(thread)：每个任务称为一个线程线程和进程区别：
-
-每个进程有自己独立的变量，而线程则共享数据。
-线程是进程的执行单元
-线程是进程的组成部分。一个进程可以有多个线程，一个线程必须有一个父进程。
-线程可以拥有自己的堆栈、自己的程序计数器和自己的局部变量，但不拥有系统资源（与父进程其它线程共享该进程则资源）
-
-1. 线程的创建有以下两种方法：
-
-通过继承Thread来创建线程
-通过实现Runnable接口创建线程
-
-1.1. 通过继承Thread来创建线程要点：通过继承Thread类创建并启动多线程步骤：
-
-定义Thread类的子类，并重写run()方法（线程执行体）
-创建Thread子类的实例(创建线程对象)
-调用start()（启用该线程）
- 12345678public class FirstThread extends Thread &#123;    public void run()&#123;        System.out.println("run\t"+getName()+"\t");//getName()返回thread name    &#125;    public static void main(String[] args)&#123;        new FirstThread().start();    &#125;&#125;
-
-
-以上代码输出：
-run  Thread-0
-一个有意思的现象
-运行如下代码时：
-12345678910111213public class FirstThread extends Thread &#123
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/12/Java-多线程/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/11/中间件比赛-OpenMessaging简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/11/中间件比赛-OpenMessaging简介/" itemprop="url">OpenMessaging简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-11T22:58:55+08:00">
-                2017-05-11
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:55:29+08:00">
-                2017-07-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件比赛/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件比赛</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/05/11/中间件比赛-OpenMessaging简介/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/11/中间件比赛-OpenMessaging简介/" class="cy_cmt_count" data-xid="2017/05/11/中间件比赛-OpenMessaging简介/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  668
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          OpenMessaging的主要关系如下图所示：
+          引言
+说到缓冲区，不得不提Java NIO。
+Java NIO(New IO)是一个可以替代标准Java IO API的IO API（从Java 1.4开始)，Java NIO提供了与标准IO不同的IO工作方式。
+Java NIO: Channels and Buffers（通道和缓冲区）
+1. 什么是缓冲区Buffer定义
+代码的角度来讲（可以查看JDK中Buffer、ByteBuffer、DoubleBuffer等的源码），Buffer类内部其实就是一个基本数据类型的数组，以及对这个缓冲数组的各种操作；
+常见的缓冲区如ByteBuffer、IntBuffer、DoubleBuffer…内部对应的数组依次是byte、int、double…
+Buffer与通道的关系
+标准的IO基于字节流和字符流进行操作的，而NIO是基于通道（Channel）和缓冲区（Buffer）进行操作，数据总是从通道读取到缓冲区中，或者从缓冲区写入到通道中。
+继承结构
+以ByteBuffer为例：
  
-其中，各部分的内容和关系见下述。
-1. NamespaceNamespace就像一个cgroup namespace,是用来创建一个有安全保障的独立的空间。每个namespace都有自己的producer,consumer,topic,queue等等。OpenMessaging用 ​MessagingAccessPoint​（消息访问点）来访问/读/写指定namespace的​资源​。
-2. ProducerOpenmessaging定义了两种Producer:​Producer​和 ​SequenceProducer​
-
-​Producer​:提供各种send方法，用来将一个消息送往指定的destination,Topic或者Queue。支持三种方式：同步、异步、单向(oneway)
-SequenceProducer:重点在于速度，且支持批处理。能发送多个数据并一次提交。
-
-3. ConsumerOpenmessaging定义了两种Consumer::PullConsumer、PushConsumer和StreamConsumer.每种Consumer仅支持来自于Queue的consume消息。
-
-PullConsumer:从指定队列中pulls消息。支持“submit the consumeresult by acknowledgement at any time”。每个PullConsumer仅能从固定的队列中pull消息。
-PushConsumer:可从多个队列中接收消息，且这个消息是由MOM server push
+Buffer是顶层抽象类，ByteBuffer继承Buffer，也是抽象类，ByteBuffer最常见的两个具体实现类如下：
+DirectByteBuffer（JVM堆外部、通过unsafe.allocateMemory实现）、HeapByteBuffer（JVM堆）
+缓冲区用途
+写，然后读出
+2. 缓冲区的四个属性
+容量(capacity)capacity指的是缓冲区能够容纳元素的最大数量，这个值在缓冲区创建时被设定，而且不能够改变，如下，我们创建了一个最大容量为10的字节缓冲区；
+ByteBuffer 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/05/11/中间件比赛-OpenMessaging简介/#more" rel="contents">
+            <a class="btn" href="/2017/05/22/Java-Buffer/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1507,7 +1925,7 @@ PushConsumer:可从多个队列中接收消息，且这个消息是由MOM server
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/11/中间件比赛-中间件入门/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/21/中间件比赛-内存映射文件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -1526,7 +1944,7 @@ PushConsumer:可从多个队列中接收消息，且这个消息是由MOM server
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/11/中间件比赛-中间件入门/" itemprop="url">中间件入门</a></h1>
+                <a class="post-title-link" href="/2017/05/21/中间件比赛-内存映射文件/" itemprop="url">内存映射文件</a></h1>
         
 
         <div class="post-meta">
@@ -1538,8 +1956,8 @@ PushConsumer:可从多个队列中接收消息，且这个消息是由MOM server
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-11T16:52:49+08:00">
-                2017-05-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-21T14:55:49+08:00">
+                2017-05-21
               </time>
             
 
@@ -1554,7 +1972,7 @@ PushConsumer:可从多个队列中接收消息，且这个消息是由MOM server
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:26:11+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:26:27+08:00">
                 2017-07-11
               </time>
             
@@ -1592,8 +2010,8 @@ PushConsumer:可从多个队列中接收消息，且这个消息是由MOM server
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2017/05/11/中间件比赛-中间件入门/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/11/中间件比赛-中间件入门/" class="cy_cmt_count" data-xid="2017/05/11/中间件比赛-中间件入门/" itemprop="commentsCount" ></span>
+                <a href="/2017/05/21/中间件比赛-内存映射文件/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/05/21/中间件比赛-内存映射文件/" class="cy_cmt_count" data-xid="2017/05/21/中间件比赛-内存映射文件/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -1615,7 +2033,7 @@ PushConsumer:可从多个队列中接收消息，且这个消息是由MOM server
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  880
+                  613
                 </span>
               
 
@@ -1639,23 +2057,22 @@ PushConsumer:可从多个队列中接收消息，且这个消息是由MOM server
       
         
           
-          1. 中间件概念中间件：处于操作系统和应用程序之间的软件。
-中间件简单解释，可以理解为面向信息系统交互，集成过程中的通用部分的集合，屏蔽了底层的通讯，交互，连接等复杂又通用化的功能，以产品的形式提供出来，系统在交互时，直接采用中间件进行连接和交互即可，避免了大量的代码开发和人工成本。
-其实，理论上来讲，中间件所提供的功能通过代码编写都可以实现，只不过开发的周期和需要考虑的问题太多，逐渐的，这些部分，以中间件产品的形式进行了替代。
-比如常见的消息中间件，即系统之间的通讯与交互的专用通道，类似于邮局，系统只需要把传输的消息交给中间件，由中间件负责传递，并保证传输过程中的各类问题，如网络问题，协议问题，两端的开发接口问题等均由消息中间件屏蔽了，出现了网络故障时，消息中间件会负责缓存消息，以避免信息丢失。相当于你想给美国发一个邮包，只需要把邮包交给邮局，填写地址和收件人，至于运送过程中的一系列问题你都不需要关心了。
-2. 中间件分类
-消息中间件（MOM：Message-Oriented Middleware）
-数据中间件（Database Middleware）
-远程过程调用中间件（RPC：Remote Process Call）
-对象请求代理中间件（ORB：Object Request Broker）
-事务处理中间件（TP Monitor：Transaction Process Monitor）
-J2EE中间件
+          内存映射文件：利用虚拟内存实现将文件“映射”到内存中。文件对应于内存中的一个字节数组，对文件的操作变为对这个字节数组的操作，而字节数组的操作直接映射到文件上。这样这个文件就可以当做是一个内存数组一样的访问，这比传统的文件操作要快得多。
+映射：硬盘上文件的位置与进程逻辑地址空间中一块大小相同的区域之间的一一对应
+不过，这种映射是操作系统提供的一种假象，文件一般不会马上加载到内存，操作系统只是记录下了这回事，当实际发生读写时，才会按需加载。
+这种按需加载的方式，使得内存映射文件可以方便处理非常大的文件，内存放不下整个文件也不要紧，操作系统会自动进行处理，将需要的内容读到内存，将修改的内容保存到硬盘，将不再使用的内存释放。
+内存映射文件也有局限性，比如，它不太适合处理小文件，它是按页分配内存的，对于小文件，会浪费空间，另外，映射文件要消耗一定的操作系统资源，初始化比较慢。
+1. java使用内存映射1.1. 步骤
+引入java.nio包
+从文件中获得一个通道(channel)。
+ 1FileChannel channel = FileChanne.open(path,options)
 
-3. Open-Messaging是一个建立行业内的指引和消息的协议（charter）。它的streaming规范提供了一个可用于电子商务、物联网和大数据的基础框架。它的主
+通过调用FileChannel类的map方法从这个通道中获得一个ByteBuffer,它代表内存中的字节数组。其中，映射文件区域与映射模式支持三种方式：
+1.2. – FileChannel.MapMode.READ_ONLY:缓冲区只读FileChannel.MapMode.READ_WRITE：可读写。任何缓冲区的修改都会写回文件（非立即）– FileChannel.MapMode.PRIVATE
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/05/11/中间件比赛-中间件入门/#more" rel="contents">
+            <a class="btn" href="/2017/05/21/中间件比赛-内存映射文件/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1701,7 +2118,7 @@ J2EE中间件
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/04/Python-os操作/">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiayi797">
@@ -1720,7 +2137,7 @@ J2EE中间件
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/04/Python-os操作/" itemprop="url">python——os模块</a></h1>
+                <a class="post-title-link" href="/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/" itemprop="url">OpenMessaging源码阅读2-demo</a></h1>
         
 
         <div class="post-meta">
@@ -1732,8 +2149,8 @@ J2EE中间件
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-04T16:06:29+08:00">
-                2017-05-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-19T16:32:48+08:00">
+                2017-05-19
               </time>
             
 
@@ -1748,7 +2165,7 @@ J2EE中间件
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:27:52+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:54:51+08:00">
                 2017-07-11
               </time>
             
@@ -1767,8 +2184,8 @@ J2EE中间件
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/中间件比赛/" itemprop="url" rel="index">
+                    <span itemprop="name">中间件比赛</span>
                   </a>
                 </span>
 
@@ -1786,8 +2203,8 @@ J2EE中间件
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2017/05/04/Python-os操作/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/04/Python-os操作/" class="cy_cmt_count" data-xid="2017/05/04/Python-os操作/" itemprop="commentsCount" ></span>
+                <a href="/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/" class="cy_cmt_count" data-xid="2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/" itemprop="commentsCount" ></span>
                 </a>
               
             
@@ -1809,7 +2226,7 @@ J2EE中间件
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  295
+                  746
                 </span>
               
 
@@ -1833,399 +2250,26 @@ J2EE中间件
       
         
           
-          1. os模块os模块的作用：
-　　os，语义为操作系统，所以肯定就是操作系统相关的功能了，可以处理文件和目录这些我们日常手动需要做的操作，就比如说：显示当前目录下所有文件/删除某个文件/获取文件大小……
-　　另外，os模块不受平台限制，也就是说：当我们要在linux中显示当前命令时就要用到pwd命令，而Windows中cmd命令行下就要用到这个，额…我擦，我还真不知道，（甭管怎么着，肯定不是pwd），这时候我们使用python中os模块的os.path.abspath(name)功能，甭管是linux或者Windows都可以获取当前的绝对路径。
-2. 文件夹操作2.1. 检验文件夹是否存在os.path.exists(directory)
-2.2. 创建文件夹os.makedirs(directory)
-实例：检验文件夹是否存在，若不存在，则创建之
-1234def check_dir(directory):    flag=os.path.exists(directory)    if not flag:        os.makedirs(directory)
-2.3. 遍历指定目录名，显示目录下所有文件123pathDir =  os.listdir(filepath)    for allDir in pathDir:        print allDir
-3. 参考文献
-python基础之模块之os模块
+          1. producer操作tips:以下涉及到的代码是关键步骤代码。
+
+====================构造n个Topic和n个Queue====================
+ 1234String topic1 = "TOPIC1"; //实际测试时大概会有100个Topic左右String queue2 = "QUEUE2"; //实际测试时，queue数目与消费线程数目相同List&lt;Message&gt; messagesForTopic1 = new ArrayList&lt;&gt;(1024);List&lt;Message&gt; messagesForQueue1 = new ArrayList&lt;&gt;(1024);
+
+====================向Topic和Queue中create数据====================
+ 1messagesForTopic1.add(producer.createBytesMessageToTopic(topic1,  (topic1 + i).getBytes()));
 
 
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/04/Python-os操作/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+调用producer的producer.createBytesMessageToTopic()方法来创建BytesMessage
+将上一步产生的标准消息扔进messagesForTopic1中，即调用了每个messagesForTopic1.add()来向这个Topic中添加消息
 
-    <div>
-      
-    </div>
+需要注意的是：
 
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/04/Python-pandas笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/04/Python-pandas笔记/" itemprop="url">pandas相关技巧</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-04T16:06:29+08:00">
-                2017-05-04
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-10-25T10:59:20+08:00">
-                2017-10-25
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/05/04/Python-pandas笔记/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/04/Python-pandas笔记/" class="cy_cmt_count" data-xid="2017/05/04/Python-pandas笔记/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  404
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1. 用pandas求差集从df1中去除掉df2的内容
-data={‘id’:[1,2,3]}data2={‘id’:[3,1,4]}df1=pd.DataFrame(data)df2=pd.DataFrame(data2)print df1print df2df3=df1[~df1[‘id’].isin(df2[‘id’])]print df3
-2. 求某个时间区间的数据集tart_t=’2016-04-05 00:00:00’end_t=’2016-04-16 00:00:00’action.time=pd.to_datetime(action.time,format=’%Y-%m-%d %H:%M:%S’)starttime=pd.to_datetime(start_t,format=’%Y-%m-%d %H:%M:%S’)endtime=pd.to_datetime(end_t,format=’%Y-%m-%d %H:%M:%S’)action=action[(action.time=starttime)]
-3. dummies我理解get_dummies是将拥有不同值的变量转换为0/1数值。打个比方，小明有黄、红、蓝三种颜色的帽子，小明今天戴黄色帽子用1表示，红色帽子用2表示，蓝色帽子用3表示。但1、2、3数值大小本身是没有意义的，只是用于区分帽子的颜色，因此在实际分析时，需要将1、2、3转化为0、1，如下代码所示：
-import pandas as pd
-xiaoming=pd.DataFrame([1,2,3],index=[&apos;yellow&apos;,
+messageFactory,而createBytesMessageToTopic()正是通过message
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/05/04/Python-pandas笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/05/04/java学习笔记-3-Object/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/04/java学习笔记-3-Object/" itemprop="url">java学习笔记3-Object（equal/hashCode/toString）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-04T11:47:33+08:00">
-                2017-05-04
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-09-04T20:18:37+08:00">
-                2017-09-04
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/05/04/java学习笔记-3-Object/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/05/04/java学习笔记-3-Object/" class="cy_cmt_count" data-xid="2017/05/04/java学习笔记-3-Object/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  1,304
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1. Object特性
-所有类的超类
-可以引用任何对象
-
-2. equals方法Object类中的equals方法判断两对象是否有相同的引用
-2.1. equals的重写在实际coding中，一般我们都会对equals方法进行重写，例:
-
-对于超类Employee：
- 12345678910111213141516171819202122class Employee&#123;    ...    public boolean equals(Object otherObject)&#123;        //如果otherObject与this是同一个引用        if(this == therObject) return true;        //如果therObject为空        if(therObject == null) return false;        //如果类型不同        if(getClass() != otherObject.getClass()) return false;        //现在我们已经确认了otherObject是一个非空的Employee对象        //为了比较实例域，我们将otherObject转换为Employee类型        Employee other = (Employee) otherObject        //检测实例域是否相等        return name.equals(other.name)            &amp;&amp; salary == o
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/04/java学习笔记-3-Object/#more" rel="contents">
+            <a class="btn" href="/2017/05/19/中间件比赛-OpenMessaging源码阅读2-demo/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2266,7 +2310,7 @@ xiaoming=pd.DataFrame([1,2,3],index=[&apos;yellow&apos;,
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2311,7 +2355,7 @@ xiaoming=pd.DataFrame([1,2,3],index=[&apos;yellow&apos;,
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">117</span>
+                <span class="site-state-item-count">128</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2322,7 +2366,7 @@ xiaoming=pd.DataFrame([1,2,3],index=[&apos;yellow&apos;,
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2333,7 +2377,7 @@ xiaoming=pd.DataFrame([1,2,3],index=[&apos;yellow&apos;,
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2386,7 +2430,7 @@ xiaoming=pd.DataFrame([1,2,3],index=[&apos;yellow&apos;,
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共272.4k字</span>
+  <span class="post-count">博客全站共281.1k字</span>
 </div>
 
 
