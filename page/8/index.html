@@ -758,8 +758,8 @@ $diag(\lambda)$是一个对角阵，每个对角线上的元素就是一个特�
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-07T14:24:38+08:00">
-                2018-03-07
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-12T15:38:31+08:00">
+                2018-03-12
               </time>
             
           </span>
@@ -819,7 +819,7 @@ $diag(\lambda)$是一个对角阵，每个对角线上的元素就是一个特�
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  3,372
+                  3,823
                 </span>
               
 
@@ -850,7 +850,10 @@ $diag(\lambda)$是一个对角阵，每个对角线上的元素就是一个特�
 考虑到时序序列模型，我们把从第一天到第n天的所有先验知识汇总到第n天的结果，并以此来对第n+1天的CTR进行平滑。在广告平滑上，没有什么方法比贝叶斯平滑能够更好的利用先验知识了，而帮助贝叶斯平滑方法实现目标的就是Beta分布。Beta分布的强大之处在于，通过改变其中的两个参数α和β，你可以让Beta分布的图形变成任意形状，而且在加入先验知识前后，通过贝叶斯变换，对CTR的预估都可以表示为Beta分布。
 Beta分布中参数α和β的本质含义，即：α表示点击数，β表示曝光数。因为贝叶斯平滑的具体公式（后面再讲这个公式的原理）就是：
 $$SmoothCTR = \frac{(α + CurrentC - 1)}{( α + β + CurrentI -2)}$$
-能不能直接把历史点击和历史曝光分别赋值给α和β来进行计算呢？显然不行，因为这么做就会犯之前
+公式由来：
+
+一般来说，点击还是不点击，这是服从伯努利二项分布的。
+而二项分布的共轭分布就
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -2430,7 +2433,7 @@ messageFactory,而createBytesMessageToTopic()正是通过message
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共281.1k字</span>
+  <span class="post-count">博客全站共281.8k字</span>
 </div>
 
 

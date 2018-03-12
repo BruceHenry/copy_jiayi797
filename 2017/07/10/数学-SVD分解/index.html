@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/07/10/596398011f9e0.png">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/07/11/59643b2a666c7.png">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/07/11/59643cbeed773.png">
-<meta property="og:updated_time" content="2018-03-06T07:18:19.204Z">
+<meta property="og:updated_time" content="2018-03-12T07:45:57.055Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SVD分解">
 <meta name="twitter:description" content="简介  SVD(Singular Value Decomposition，奇异值分解)是对实数矩阵(甚至复数矩阵)的一种因式分解。 任意的一个矩阵都可以做SVD分解。相比SVD分解，和SVD相近的特征值分解只能应用于方阵。 SVD分解可用来解决非方阵不能计算逆矩阵的问题。  1. SVD定义设一个$m\times n$的矩阵$M$,它的SVD分解是：$$M=UΣV^*$$其中：  $U$是一个$m">
@@ -373,8 +373,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-06T15:18:19+08:00">
-                2018-03-06
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-12T15:45:57+08:00">
+                2018-03-12
               </time>
             
           </span>
@@ -439,7 +439,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  2,669
+                  2,686
                 </span>
               
 
@@ -515,45 +515,9 @@
 <h2 id="特征值分解与奇异值分解">2.3. 特征值分解与奇异值分解</h2><p>参考文献<a href="https://www.cnblogs.com/LeftNotEasy/archive/2011/01/19/svd-and-applications.html" target="_blank" rel="external">机器学习中的数学(5)-强大的矩阵奇异值分解(SVD)及其应用</a>提到，奇异值和特征值可以对应起来。</p>
 <h2 id="部分奇异值分解">2.4. 部分奇异值分解</h2><p>在很多情况下，前10%甚至1%的奇异值的和就占了全部的奇异值之和的99%以上了。也就是说，我们也可以用前r大的奇异值来近似描述矩阵，这里定义一下部分奇异值分解：<br>$$A_{m\times n}\approx U_{m\times r}Σ_{r_\times r}V^T_{r\times n}$$<br> r是一个远小于m、n的数，这样矩阵的乘法看起来像是下面的样子：<br><img src="https://ooo.0o0.ooo/2017/07/10/596398011f9e0.png" alt=""><br>右边的三个矩阵相乘的结果将会是一个接近于A的矩阵，在这儿，r越接近于n，则相乘的结果越接近于A。而这三个矩阵的面积之和（在存储观点来说，矩阵面积越小，存储量就越小）要远远小于原始的矩阵A，我们如果想要压缩空间来表示原矩阵A，我们存下这里的三个矩阵：U、Σ、V就好了。</p>
 <p><strong>小例子</strong></p>
-<p>接下来我们给出一个用python的SVD分解小例子。<br>​<br>    ‘’’Python</p>
-<pre><code>#coding=utf-8
-# 首先做一些数据声明
-from sklearn.decomposition import TruncatedSVD
-from matplotlib import pyplot as plt
-from numpy import random
-import numpy as np
-from mpl_toolkits.mplot3d import Axes3D
-import pandas as pd
-fig = plt.figure()
-ax = Axes3D(fig)
-ax=plt.subplot(111,projection=&apos;3d&apos;)
-ax.set_zlabel(&apos;Z&apos;) #坐标轴
-ax.set_ylabel(&apos;Y&apos;)
-ax.set_xlabel(&apos;X&apos;)
-X = np.arange(0, 4, 0.125) + 0.2 * random.randn(32)
-Y = np.arange(0, 4, 0.125) + 0.2 * random.randn(32)
-Z = np.arange(0, 4, 0.125) + 0.2 * random.randn(32)
-# 数据是3维×32维
-data = [[x, y, z] for x, y, z in zip(X, Y, Z)]
-
-
-# 分解，n_components是主元素个数，也就是维度
-svd = TruncatedSVD(n_components=2, algorithm=&quot;arpack&quot;, n_iter=1000)
-transformed_data = svd.fit_transform(data)
-# 还原
-data_inverse = svd.inverse_transform(transformed_data)
-
-#画图
-X_ = [x[0] for x in data_inverse]
-Y_ = [y[1] for y in data_inverse]
-Z_ = [z[2] for z in data_inverse]
-ax.scatter(X, Y, Z, c=&apos;r&apos;)#原始数据是红色
-ax.scatter(X_, Y_, Z_, c=&apos;b&apos;)#分解后的数据是蓝色
-plt.savefig(&quot;svd.png&quot;)
-plt.show()
-print svd.explained_variance_ratio_
-&apos;&apos;&apos;
-</code></pre><p>当降到二维，再还原时，我们看到：<br><img src="https://ooo.0o0.ooo/2017/07/11/59643b2a666c7.png" alt=""><br>降到一维，再还原，我们看到：<br><img src="https://ooo.0o0.ooo/2017/07/11/59643cbeed773.png" alt=""> </p>
+<p>接下来我们给出一个用python的SVD分解小例子。<br>​<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#coding=utf-8</span></div><div class="line"><span class="comment"># 首先做一些数据声明</span></div><div class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> TruncatedSVD</div><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> random</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line">fig = plt.figure()</div><div class="line">ax = Axes3D(fig)</div><div class="line">ax=plt.subplot(<span class="number">111</span>,projection=<span class="string">'3d'</span>)</div><div class="line">ax.set_zlabel(<span class="string">'Z'</span>) <span class="comment">#坐标轴</span></div><div class="line">ax.set_ylabel(<span class="string">'Y'</span>)</div><div class="line">ax.set_xlabel(<span class="string">'X'</span>)</div><div class="line">X = np.arange(<span class="number">0</span>, <span class="number">4</span>, <span class="number">0.125</span>) + <span class="number">0.2</span> * random.randn(<span class="number">32</span>)</div><div class="line">Y = np.arange(<span class="number">0</span>, <span class="number">4</span>, <span class="number">0.125</span>) + <span class="number">0.2</span> * random.randn(<span class="number">32</span>)</div><div class="line">Z = np.arange(<span class="number">0</span>, <span class="number">4</span>, <span class="number">0.125</span>) + <span class="number">0.2</span> * random.randn(<span class="number">32</span>)</div><div class="line"><span class="comment"># 数据是3维×32维</span></div><div class="line">data = [[x, y, z] <span class="keyword">for</span> x, y, z <span class="keyword">in</span> zip(X, Y, Z)]</div></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 分解，n_components是主元素个数，也就是维度</span></div><div class="line">svd = TruncatedSVD(n_components=<span class="number">2</span>, algorithm=<span class="string">"arpack"</span>, n_iter=<span class="number">1000</span>)</div><div class="line">transformed_data = svd.fit_transform(data)</div><div class="line"><span class="comment"># 还原</span></div><div class="line">data_inverse = svd.inverse_transform(transformed_data)</div><div class="line"></div><div class="line"><span class="comment">#画图</span></div><div class="line">X_ = [x[<span class="number">0</span>] <span class="keyword">for</span> x <span class="keyword">in</span> data_inverse]</div><div class="line">Y_ = [y[<span class="number">1</span>] <span class="keyword">for</span> y <span class="keyword">in</span> data_inverse]</div><div class="line">Z_ = [z[<span class="number">2</span>] <span class="keyword">for</span> z <span class="keyword">in</span> data_inverse]</div><div class="line">ax.scatter(X, Y, Z, c=<span class="string">'r'</span>)<span class="comment">#原始数据是红色</span></div><div class="line">ax.scatter(X_, Y_, Z_, c=<span class="string">'b'</span>)<span class="comment">#分解后的数据是蓝色</span></div><div class="line">plt.savefig(<span class="string">"svd.png"</span>)</div><div class="line">plt.show()</div><div class="line"><span class="keyword">print</span> svd.explained_variance_ratio_</div><div class="line"><span class="string">'''</span></div></pre></td></tr></table></figure>
+<p>当降到二维，再还原时，我们看到：<br><img src="https://ooo.0o0.ooo/2017/07/11/59643b2a666c7.png" alt=""><br>降到一维，再还原，我们看到：<br><img src="https://ooo.0o0.ooo/2017/07/11/59643cbeed773.png" alt=""> </p>
 <h1 id="SVD与潜在语义索引">3. SVD与潜在语义索引</h1><p>$$A=UΣV^T$$</p>
 <p>吴军老师在矩阵计算与文本处理中的分类问题中谈到：三个矩阵有非常清楚的物理含义。</p>
 <ul>
@@ -571,6 +535,7 @@ print svd.explained_variance_ratio_
 <li>U_{m\times m}表示行间元素（一般是用户）的相似度</li>
 <li>V^T_{n\times n}表示列间元素（一般是商品）的相似度<br>根据好友张思遥的理解，是通过数学的方法，来将行和列的拆开，放在两个矩阵里。<br><strong>降维</strong><br>根据PCA理论（强烈建议看斯坦福大学安德鲁老师的机器学习课程，这里有前辈的笔记<a href="http://blog.csdn.net/stdcoutzyx/article/details/37568225" target="_blank" rel="external">斯坦福ML公开课笔记14——主成分分析</a>，我们可以取前$r$维来对矩阵进行近似表示：<br>$$A_{m\times n}\approx U_{m\times r}Σ_{m\times n}V^T_{r\times n}$$</li>
 </ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">svd = TruncatedSVD(n_components=<span class="number">5</span>, n_iter=<span class="number">7</span>, random_state=<span class="number">42</span>)</div><div class="line">U = svd.fit(install_data)</div><div class="line">U, Sigma, VT = randomized_svd(install_data,n_components=<span class="number">10</span>)</div><div class="line">U = DataFrame(U)</div></pre></td></tr></table></figure>
 <h1 id="项目代码">4. 项目代码</h1><p><a href="https://github.com/jiayi797/svd_app_recommend" target="_blank" rel="external">SVD项目代码</a></p>
 <h1 id="参考文献">5. 参考文献</h1><ol>
 <li><a href="http://www.qiujiawei.com/linear-algebra-9/" target="_blank" rel="external">线性代数之奇异值(SVD)分解</a></li>
@@ -801,7 +766,7 @@ print svd.explained_variance_ratio_
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共281.1k字</span>
+  <span class="post-count">博客全站共281.8k字</span>
 </div>
 
 

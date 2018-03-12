@@ -99,7 +99,7 @@
 <meta property="og:url" content="http://jiayi797.github.io/about/2017/07/09/机器学习实践-转化率预估之贝叶斯平滑/index.html">
 <meta property="og:site_name" content="jiayi797">
 <meta property="og:description" content="1. 问题描述在做比赛的过程中，我们发现了有转化率这个指标在大量数据下是有效的。理想情况下，例如某个广告点击量是10000次，转化量是100次，那转化率就是1%。但有时，例如某个广告点击量是2次，转化量是1次，这样算来转化率为50%。但此时这个指标在数学上是无效的。因为大数定律告诉我们，在试验不变的条件下，重复试验多次，随机事件的频率近似于它的概率。后者点击量只有2次，不满足“重复试验多次”的条件">
-<meta property="og:updated_time" content="2018-03-07T06:24:38.330Z">
+<meta property="og:updated_time" content="2018-03-12T07:38:31.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习实践-转化率预估之贝叶斯平滑">
 <meta name="twitter:description" content="1. 问题描述在做比赛的过程中，我们发现了有转化率这个指标在大量数据下是有效的。理想情况下，例如某个广告点击量是10000次，转化量是100次，那转化率就是1%。但有时，例如某个广告点击量是2次，转化量是1次，这样算来转化率为50%。但此时这个指标在数学上是无效的。因为大数定律告诉我们，在试验不变的条件下，重复试验多次，随机事件的频率近似于它的概率。后者点击量只有2次，不满足“重复试验多次”的条件">
@@ -364,8 +364,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-07T14:24:38+08:00">
-                2018-03-07
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-12T15:38:31+08:00">
+                2018-03-12
               </time>
             
           </span>
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  3,372
+                  3,823
                 </span>
               
 
@@ -459,8 +459,24 @@
 <p>考虑到时序序列模型，我们把从第一天到第n天的所有先验知识汇总到第n天的结果，并以此来对第n+1天的CTR进行平滑。在广告平滑上，没有什么方法比贝叶斯平滑能够更好的利用先验知识了，而帮助贝叶斯平滑方法实现目标的就是Beta分布。Beta分布的强大之处在于，通过改变其中的两个参数α和β，你可以让Beta分布的图形变成任意形状，而且在加入先验知识前后，通过贝叶斯变换，对CTR的预估都可以表示为Beta分布。</p>
 <p>Beta分布中参数α和β的本质含义，即：α表示点击数，β表示曝光数。因为贝叶斯平滑的具体公式（后面再讲这个公式的原理）就是：</p>
 <p>$$SmoothCTR = \frac{(α + CurrentC - 1)}{( α + β + CurrentI -2)}$$</p>
-<p>能不能直接把历史点击和历史曝光分别赋值给α和β来进行计算呢？显然不行，因为这么做就会犯之前我们提到的那些问题，比如不同日期的曝光、点击权重应该不一样。所以基础的贝叶斯平滑是不能解决我们刚才提到的问题的，我们需要深入研究Beta分布的特性，用一种新的方法通过先验知识求解α和β，从而计算SmoothCTR。</p>
-<h1 id="参数估计">3. 参数估计</h1><p>参考文献<a href="https://www.bbsmax.com/A/A7zgmjRk54/" target="_blank" rel="external">CTR预估中的贝叶斯平滑方法（二）参数估计和代码实现</a></p>
+<p>公式由来：</p>
+<ul>
+<li>一般来说，点击还是不点击，这是服从伯努利二项分布的。</li>
+<li>而二项分布的共轭分布就是Beta分布，也就是说，点击率服从Beta分布</li>
+<li>我们可以从历史数据当中学到历史数据的Beta分布的具体参数，也就是先验分布$\pi(r)$ （不加任何条件限制的分布）</li>
+<li>共轭先验有一个特性：如果找到一个$\pi(r)$，它是$\pi(x|r)$的共轭先验，那么r的后验分布$\pi(r|x)$和先验分布$\pi(r)$会有一样的形式。</li>
+<li>这个特性告诉我们：先验分布$\pi(r)$ （也就是历史数据）的分布与后验分布$\pi(r|x)$ （也就是x条件下点击率r的分布）是一个形式的</li>
+<li>既然我们知道了先验分布$\pi(r)$ （也就是历史数据）的分布是beta分布，那么我们就知道了后验分布$\pi(r|x)$ （也就是x条件下点击率r的分布）分布也是beta分布</li>
+<li>也就是说 ：先验分布$\pi(r)$ （也就是历史数据） + 后验知识 —-&gt; 后验分布$\pi(r|x)$ （也就是x条件下点击率r的分布）</li>
+<li>那么接下来我们就需要求解后验分布$\pi(r|x)$的beta分布参数了</li>
+<li>根据什么什么证明，后验分布的参数$\alpha = \alpha<code>+ C, \beta = \beta</code> + I  - C$</li>
+<li>其中I是展示数量，C是点击数量，$\alpha<code>和 \beta</code>$ 是历史数据的beta分布参数</li>
+<li>那么后验分布$\pi(r|x)$ 就是 $beta( \alpha<code>+ C,  \beta</code> + I -  C)$</li>
+<li>如果我们要让点击率误差最小，那么取后验分布的均值，就是最好的点击率了！！！！也就是：<br>$$mean = \frac{\alpha}{\alpha + \beta} =  \frac{\alpha` + C}{\alpha + \beta + I}$$</li>
+<li>是不是很机智！！！</li>
+</ul>
+<h1 id="参数估计">3. 参数估计</h1><p>能不能直接把历史点击和历史曝光分别赋值给α和β来进行计算呢？显然不行，因为这么做就会犯之前我们提到的那些问题，比如不同日期的曝光、点击权重应该不一样。所以基础的贝叶斯平滑是不能解决我们刚才提到的问题的，我们需要深入研究Beta分布的特性，用一种新的方法通过先验知识求解α和β，从而计算SmoothCTR。</p>
+<p>参考文献<a href="https://www.bbsmax.com/A/A7zgmjRk54/" target="_blank" rel="external">CTR预估中的贝叶斯平滑方法（二）参数估计和代码实现</a></p>
 <h2 id="矩估计">3.1. 矩估计</h2><p>矩估计的方法要追溯到19世纪的Karl Pearson，是基于一种简单的 “替换” 思想建立起来的一种估计方法。 其基本思想是用样本矩估计总体矩. 由大数定理，如果未知参数和总体的某个(些)矩有关系，我们可以很自然地来构造未知参数的估计。具体计算步骤如下：</p>
 <p>Beta分布除了两个显性的重要参数α和β外，还有两个相对隐形但同样重要的参数，均值和方差，通过均值和方差可以唯一确定α和β的值，它们的数学关系如下：(见参考链接<a href="http://www.mathchina.net/dvbbs/dispbbs.asp?boardid=5&amp;Id=842" target="_blank" rel="external">beta（贝塔）分布的数学期望和方差</a>)</p>
 <p>$$均值 mean =\frac{\alpha}{\alpha+\beta}$$<br>$$方差 var =\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta + 1)}$$</p>
@@ -735,7 +751,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共281.1k字</span>
+  <span class="post-count">博客全站共281.8k字</span>
 </div>
 
 
