@@ -123,6 +123,74 @@
     </entry>
     
     <entry>
+      <title><![CDATA[OOD-电梯系统]]></title>
+      <url>/2018/07/08/OOD-%E7%94%B5%E6%A2%AF%E7%B3%BB%E7%BB%9F/</url>
+      <content type="html"><![CDATA[<p>如何设计一个电梯系统？</p>
+<h1 id="Clarify">1. Clarify</h1><h1 id="Core-Object">2. Core Object</h1><p>Core Object，就是定义几个核心的类。承上启下，成为Use case的依据</p>
+<p>步骤：</p>
+<ol>
+<li>根据Input和Output线性分析<br>思考：电梯系统的输入和输出分别是什么呢？<img src="http://om1bxijvl.bkt.clouddn.com/2018-07-08-17-00-13.png" alt=""> </li>
+<li>思考各个模块都有什么内容？<br><img src="http://om1bxijvl.bkt.clouddn.com/2018-07-08-17-01-34.png" alt=""> 需要注意的+Public,-Private,Protected(能被子类访问)这些属性</li>
+</ol>
+<h1 id="Use-Case">3. Use Case</h1><p>就是一个个功能。<br>根据一个个CoreObject，列举每个CoreObject对应有哪些Use case</p>
+<ul>
+<li>ElevatorSystem<ul>
+<li>处理请求，分发</li>
+</ul>
+</li>
+<li>Request </li>
+<li>Elevator<ul>
+<li>处理外部的请求（外面的人想进去，按按钮）</li>
+<li>处理内部请求</li>
+<li>开门</li>
+<li>关门</li>
+<li>检查重量</li>
+</ul>
+</li>
+<li>ElevatorButton<ul>
+<li>按下去</li>
+</ul>
+</li>
+</ul>
+<h1 id="Class">4. Class</h1><p>类图（Class diagram）</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-07-08-17-11-17.png" alt=""> </p>
+<ul>
+<li><p>遍历每一个use case<br><img src="http://om1bxijvl.bkt.clouddn.com/2018-07-08-17-15-25.png" alt=""> </p>
+</li>
+<li><p>对每个use case更加详细描述在做什么</p>
+<ul>
+<li><p><strong>Handle request</strong>：就是要把请求分发给某个电梯。那就给ElevatorSystem加一个方法：<br><img src="http://om1bxijvl.bkt.clouddn.com/2018-07-08-17-14-49.png" alt=""> </p>
+<p>一个小问题，万一没分配成功，例如现在电梯都坏了，怎么办？——使用Exceptions。加一个类：<img src="http://om1bxijvl.bkt.clouddn.com/2018-07-08-17-21-39.png" alt=""> </p>
+</li>
+<li><p><strong>Take external Reques</strong>t：除了电梯系统要handle，某个电梯也需要handle请求。那就给电梯加一个handleExternalRequest<img src="http://om1bxijvl.bkt.clouddn.com/2018-07-08-17-24-28.png" alt=""> </p>
+<p>除此以外，我们还有待停list：<br><img src="http://om1bxijvl.bkt.clouddn.com/2018-07-08-17-28-05.png" alt=""> </p>
+</li>
+<li><p><strong>Take internal Request</strong>：需要让电梯能处理internal的请求。<img src="http://om1bxijvl.bkt.clouddn.com/2018-07-08-17-30-31.png" alt=""><br>除此之外，我们还需要判断现在internal的请求是不是合法的。那就再加一个isQuestValid()和两个状态变量：<br><img src="http://om1bxijvl.bkt.clouddn.com/2018-07-08-17-31-50.png" alt="">  </p>
+</li>
+<li><p><strong>Open gate</strong></p>
+<p>给电梯加一个openGate()方法<br><img src="http://om1bxijvl.bkt.clouddn.com/2018-07-08-17-46-39.png" alt=""> </p>
+</li>
+<li><p><strong>Close gate</strong></p>
+<p><strong>Check weight</strong></p>
+<p><strong>press button</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>最终：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-07-08-17-51-31.png" alt=""> </p>
+]]></content>
+      
+        <categories>
+            
+            <category> OOD </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[系统设计-聊天系统与访问限制系统]]></title>
       <url>/2018/03/29/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1-%E8%81%8A%E5%A4%A9%E7%B3%BB%E7%BB%9F%E4%B8%8E%E8%AE%BF%E9%97%AE%E9%99%90%E5%88%B6%E7%B3%BB%E7%BB%9F/</url>
       <content type="html"><![CDATA[<p>大纲</p>
