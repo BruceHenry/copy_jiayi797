@@ -123,6 +123,276 @@
     </entry>
     
     <entry>
+      <title><![CDATA[搜索引擎-ES引擎架构和原理]]></title>
+      <url>/2018/08/11/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E-ES%E5%BC%95%E6%93%8E%E6%9E%B6%E6%9E%84%E5%92%8C%E5%8E%9F%E7%90%86/</url>
+      <content type="html"><![CDATA[<p>Elasticsearch 是一个分布式可扩展的实时搜索和分析引擎,一个建立在全文搜索引擎 Apache Lucene(TM) 基础上的搜索引擎.当然 Elasticsearch 并不仅仅是 Lucene 那么简单，它不仅包括了全文搜索功能，还可以进行以下工作:</p>
+<ul>
+<li>分布式实时文件存储，并将每一个字段都编入索引，使其可以被搜索。</li>
+<li>实时分析的分布式搜索引擎。</li>
+<li>可以扩展到上百台服务器，处理PB级别的结构化或非结构化数据。</li>
+</ul>
+<h1 id="排序算法">1. 排序算法</h1><h2 id="检索过程">1.1. 检索过程</h2><p>检索过程是搜索引擎接收用户的query进行一系列处理并返回相关结果的过程. 商业搜索引擎在检索过程中需要考虑2个因素: 1) 相关性 2) 重要性.</p>
+<p><strong>相关性</strong>是指返回结果和输入query是否相关, 这是搜索引擎基本问题之一, 目前常用的算法有BM25和空间向量模型. 这个两个算法ElasticSearch都支持, 一般商业搜索引擎都用BM25算法. BM25算法会计算每个doc和query的相关性分, 我们使用Dscore表示.</p>
+<p><strong>重要性</strong>是指商品被信赖的程度, 我们应该吧最被消费之信赖的商品返回给消费者, 而不是让消费之自己鉴别. 尤其是在商品充分竞争的电商搜索, 我们必须赋予商品合理的重要性分数, 才能保证搜索结果的优质. 重要性分, 又叫做静态分, 使用Tscore表示.</p>
+<p>搜索引擎最终的排序依据是:</p>
+<p>Score = Dscore * Tscore</p>
+<p>即综合考虑静态分和动态分, 给用户相关且重要的商品.</p>
+<p>检索的过程大致抽象为如下几个步骤.</p>
+<p>step 1. 对原始query进行query分析<br>step 2. 在as中根据query分析结果进行query重写<br>step 3. 在as中使用重写后的query检索es<br>step 4. 在es查询过程中根据静态分和动态分综合排序<br>step 5. 在as中吧es返回的结果进行重排<br>step 6. 返回结果</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-11-21-34-15.png" alt=""> </p>
+<h2 id="BM25">1.2. BM25</h2><p>BM25（Best Match25）是在信息检索系统中根据提出的query对document进行评分的算法。它主要由Stephen E. Robertson, Karen Spärck Jones等人在上世纪70到80年代提出。BM25算法首先由Okapi系统实现（Okapi是伦敦城市大学实现的信息检索系统），所以又称为Okapi BM25。</p>
+<p>BM25是一种BOW（bag-of-words）模型，BOW模型只考虑document中词频，不考虑句子结构或者语法关系之类，把document当做装words的袋子，具体袋子里面可以是杂乱无章的。准确的说，BM25并不是一个单一的函数，而是一个评分函数家族，一个最著名的版本如下，给定一个Query <em>T</em>(由关键词<em>t</em>1, <em>t</em>2, …, <em>t</em>n组成)，则一个文档 d 的BM25得分为：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-11-21-53-27.png" alt=""> </p>
+<h2 id="商品静态score计算技术">1.3. 商品静态score计算技术</h2><p>在电商搜索引擎里面商品的静态分是有网页搜索里面的pagerank同等的价值和重要性, 他们都是doc固有的和查询query无关的价值度量. pagerank通过doc之间的投票关系进行运算, 相对而言商品的静态分的因素会更多一些. 商品静态计算过程和pagerank一样需要解决如下2个问题: 1. 稳定性. pagerank可以保证一个网站不会因为简单链接堆砌可以线性提升网站的排名. 同样, 商品静态分的计算不可以让商品可以通过增加单一指标线性增加分值(比如刷单对搜索引擎的质量的影响).<br>\2. 区分度. 在保证稳定性的基础上商品静态分要有足够的区分度可以保证同样搜索的条件下, 排在前面的商品的质量比排在后面的商品的质量高.</p>
+<p>我们假设商品的静态分有3个决定性因素, 1.下单数, 2. 好评率 3. 发货速度</p>
+<p>静态分我们使用Tsocre表示, Tscore可以写成如下形式:</p>
+<p>Tscore = a <em> f(下单数) + b </em> g(好评率) + c * h(发货速度)</p>
+<p>a,b,c是权重参数, 用于平衡各个指标的影响程度. f,g,h是代表函数用于把原始的指标转化成合理的度量.</p>
+<p>首先, 我们需要寻找合理的代表函数.</p>
+<ol>
+<li>首先对各个指标取log. log的导数是一个减函数, 表示为了获得更好的分数需要花费越来越多的代价.</li>
+<li>标准化. 标准化的目的让各个度量可以在同一区间内进行比较. 比如下单数的取值是0~10000, 而好评率的取值为0~1. 这种情况会影响到数据分析的结果和方便性, 为了消除指标之间的量纲的影响, 需要进行数据标准化处理, 以解决数据指标之间的可比性.最常用的标准化方法是z-score标准化方法.</li>
+</ol>
+<p>最后, 选择合适的权重 经过log-zscore归一化以后, 我们基本上吧f,g,h的表示的代表函数说明清楚. Tscore = a<em>f(下单数) + b</em>g(好评率) + c*h(发货速度), 下一步就是确定a,b,c的参数. 一般有两个方法:</p>
+<p>a) 专家法. 根据我们的日常经验动态调整权重参数;<br>b) 实验法. 首先在专家的帮助下赋一个初始值, 然后改变单一变量的方法根据abtest的结果来动态调整参数.</p>
+<h2 id="Others">1.4. Others</h2><p>。。。这里内容很多，详见参考文献1。。。今天心态崩了。。。看不进去了。。。</p>
+<h1 id="评价指标">2. 评价指标</h1><h2 id="准确率、召回率、F1">2.1. 准确率、召回率、F1</h2><p>信息检索、分类、识别、翻译等领域两个最基本指标是召回率(Recall Rate)和准确率(Precision Rate)，召回率也叫查全率，准确率也叫查准率，概念公式<strong>:</strong> </p>
+<p>召回率(<strong>R</strong>ecall)  =  系统检索到的相关文件 / 系统所有相关的文件总数</p>
+<p>准确率(<strong>P</strong>recision) =  系统检索到的相关文件 / 系统所有检索到的文件总数</p>
+<p>Tips:准确率和召回率是互相影响的，理想情况下肯定是做到两者都高，但是一般情况下准确率高、召回率就低，召回率低、准确率高，当然如果两者都低，那是什么地方出问题了。 一般情况，用不同的阀值，统计出一组不同阀值下的精确率和召回率，如下图： </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-11-22-02-52.png" alt=""> </p>
+<p>如果是做搜索，那就是保证召回的情况下提升准确率；如果做疾病监测、反垃圾，则是保准确率的条件下，提升召回。</p>
+<p>所以，在两者都要求高的情况下，可以用F1来衡量:</p>
+<p>F1 = 2 <em> P </em> R / (P + R)   </p>
+<h2 id="mAP-mean-Averate-Precision">2.2. mAP(mean Averate Precision)</h2><p>mAP是为解决P，R，F-measure的单点值局限性的。为了得到 一个能够反映全局性能的指标，可以看考察下图，其中两条曲线(方块点与圆点)分布对应了两个检索系统的准确率-召回率曲线。 </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-11-22-05-36.png" alt=""> </p>
+<p>可以看出，虽然两个系统的性能曲线有所交叠但是以圆点标示的系统的性能在绝大多数情况下要远好于用方块标示的系统。从中我们可以 发现一点，如果一个系统的性能较好，其曲线应当尽可能的向上突出。</p>
+<p>更加具体的，曲线与坐标轴之间的面积应当越大。</p>
+<p>最理想的系统， 其包含的面积应当是1，而所有系统的包含的面积都应当大于0。这就是用以评价信息检索系统的最常用性能指标，平均准确率mAP其规范的定义如下:(其中P，R分别为准确率与召回率，Q为检索次数)</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-11-22-05-59.png" alt=""> </p>
+<h1 id="文件存储">3. 文件存储</h1><p>Elasticsearch是面向文档型数据库，一条数据在这里就是一个文档，用JSON作为文档序列化的格式，比如下面这条用户数据： </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="string">"name"</span> :     <span class="string">"John"</span>,</div><div class="line"><span class="string">"sex"</span> :      <span class="string">"Male"</span>,</div><div class="line"><span class="string">"age"</span> :      <span class="number">25</span>,</div><div class="line"><span class="string">"birthDate"</span>: <span class="string">"1990/05/01"</span>,</div><div class="line"><span class="string">"about"</span> :    <span class="string">"I love to go rock climbing"</span>,</div><div class="line"><span class="string">"interests"</span>: [ <span class="string">"sports"</span>, <span class="string">"music"</span> ]</div></pre></td></tr></table></figure>
+<h1 id="倒排索引">4. 倒排索引</h1><p>Elasticsearch分别为每个field都建立了一个倒排索引，Kate, John, 24, Female这些叫term，而[1,2]就是<strong>Posting List</strong>。Posting list就是一个int的数组，存储了所有符合某个term的文档id。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">|  Term  | Posting List |</div><div class="line">| --     |:----:|</div><div class="line">| Female | <span class="number">1</span>    |</div><div class="line">| Male   | [<span class="number">2</span>,<span class="number">3</span>] |</div></pre></td></tr></table></figure>
+<p><strong>Term Dictionary</strong></p>
+<p>Elasticsearch为了能快速找到某个term，将所有的term排个序，二分法查找term，logN的查找效率，就像通过字典查找一样，这就是Term Dictionary。现在再看起来，似乎和传统数据库通过B-Tree的方式类似啊，为什么说比B-Tree的查询快呢？</p>
+<p><strong>Term Index</strong></p>
+<p>B-Tree通过减少磁盘寻道次数来提高查询性能，Elasticsearch也是采用同样的思路，直接通过内存查找term，不读磁盘，但是如果term太多，term dictionary也会很大，放内存不现实，于是有了Term Index，就像字典里的索引页一样，A开头的有哪些term，分别在哪页，可以理解term index是一颗树：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-11-21-20-06.png" alt=""> </p>
+<p>这棵树不会包含所有的term，它包含的是term的一些前缀。通过term index可以快速地定位到term dictionary的某个offset，然后从这个位置再往后顺序查找。 </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-11-21-20-39.png" alt=""> </p>
+<p>所以term index不需要存下所有的term，而仅仅是他们的一些前缀与Term Dictionary的block之间的映射关系，再结合FST(Finite State Transducers)的压缩技术，可以使term index缓存到内存中。从term index查到对应的term dictionary的block位置之后，再去磁盘上找term，大大减少了磁盘随机读的次数。 </p>
+<h1 id="参考文献">5. 参考文献</h1><ol>
+<li><a href="https://tech.youzan.com/you_zan_searchengine2/" target="_blank" rel="external">有赞搜索引擎实践(算法篇)</a></li>
+<li><a href="https://www.biaodianfu.com/information_retrieval.html" target="_blank" rel="external">推荐系统、搜索引擎、自然语言处理常用指标</a></li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> 搜索引擎 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[操作系统-死锁]]></title>
+      <url>/2018/08/05/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%AD%BB%E9%94%81/</url>
+      <content type="html"><![CDATA[<p>死锁是进程死锁的简称，是由Dijkstra于1965年研究银行家算法时首先提出来的。它是计算机系统乃至并发程序设计中最难处理的问题之一。 抛开语言，用一个例子来聊一聊死锁问题，聊一聊它是怎么产生的？应该怎么防止？</p>
+<p><strong>经典哲学家就餐问题</strong></p>
+<p><strong>场景</strong>：五个哲学家围在圆桌旁，每个人左手边有一只筷子。每个哲学家必须同时拿到两只筷子才能吃饭。（互斥使用）</p>
+<p><strong>问题模型</strong>：应用程序中并发线程执行中时，协调处理共享资源。</p>
+<p><strong>死锁</strong>：如果五个哲学家同时拿起左手边的筷子，就会死锁；</p>
+<p><strong>死锁的四个必要条件</strong>：</p>
+<ul>
+<li>互斥条件：一个资源每次只能被一个进程使用（一只筷子只能被一个人用）</li>
+<li>请求与保持条件：一个进程因请求资源而阻塞时，对已获得的资源保持不放 （哲学家不拿到第二支筷子，他就一直死等）</li>
+<li>不剥夺条件 :进程已获得的资源，在末使用完之前，不能强行剥夺（不能抢别人手里的筷子）</li>
+<li>循环等待条件:若干进程之间形成一种头尾相接的循环等待资源关系 （五个哲学家相互等待）</li>
+</ul>
+<p>一般来说，只要破坏掉死锁的其中一个必要条件，即可避免死锁。而互斥条件一般比较难以解决，所以我们从另外的三个条件入手。</p>
+<p><strong>可能的解决方案</strong>：</p>
+<ul>
+<li><p>破坏死锁的请求与保持条件：</p>
+<ul>
+<li>仅当左右两边筷子都可用时，才允许他拿筷子。也就是说将拿两支筷子变成原子操作。比较简单的办法就是再加一个锁，所以同一个时间点只会有一个哲学家在拿筷子 </li>
+<li>这种方法的好处是简单、易于实现且很安全，缺点却是资源被严重浪费，使进程延迟运行 </li>
+</ul>
+</li>
+<li><p>破坏死锁的不剥夺条件：</p>
+<ul>
+<li>当哲学家拿了一边的筷子以后，在去拿另一边的筷子的时候，发现无法拿，就放弃已经拿的筷子，以后在重新拿 </li>
+<li>这种方法的缺点就是一个资源在使用一段时间后，它的被迫释放可能会造成前段工作的失效 </li>
+</ul>
+</li>
+<li><p>破坏循环等待条件：</p>
+<ul>
+<li>让哲学家按照某一种顺序去请求资源，使得在所形成的资源分配图中，不可能再出现环路。<ul>
+<li>给哲学家编号，让奇数号的哲学家先拿右边的筷子，在拿左边的筷子，偶数号的哲学家先拿左边的筷子，在拿右边的筷子 </li>
+<li>让最多4个哲学家能够有机会拿筷子，其中至少有一个哲学家能够拿起两边的筷子，不会产生死锁 </li>
+</ul>
+</li>
+<li>这种设计很考验技巧，很有可能使得程序的扩展性变得很差。 </li>
+</ul>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 操作系统 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[机器学习算法-LDA主题模型]]></title>
+      <url>/2018/08/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95-LDA%E4%B8%BB%E9%A2%98%E6%A8%A1%E5%9E%8B/</url>
+      <content type="html"><![CDATA[<h1 id="基本概览">1. 基本概览</h1><p>概率主题模型：隐含狄利克雷分布（Latent Dirichlet Allocation，简称LDA）。 </p>
+<p>按照wiki上的介绍，LDA由Blei, David M.、Ng, Andrew Y.、Jordan于2003年提出，是一种<a href="http://zh.wikipedia.org/wiki/%E4%B8%BB%E9%A2%98%E6%A8%A1%E5%9E%8B" target="_blank" rel="external">主题模型</a>，它可以<strong>将文档集中每篇文档的主题以概率分布的形式给出</strong>，从而通过分析一些文档抽取出它们的主题（分布）出来后，便可以根据主题（分布）进行主题聚类或文本分类。同时，它是一种典型的词袋模型，即一篇文档是由一组词构成，词与词之间没有先后顺序的关系。 </p>
+<p> LDA模型有一个前提，就是一篇<strong>文档生成</strong>的方式（注意是文档哦）如下： </p>
+<ul>
+<li>从狄利克雷分布$\alpha$中取样生成文档i的主题分布$\theta_i$</li>
+<li>从文档i的主题分布$\theta_i$中取样生成文档i第j个词的主题$z_{i,j}$</li>
+<li>从狄利克雷分布$\beta$中取样生成主题$z_{i,j}$对应的词语分布$\phi_{z_{i,j}}$</li>
+<li>从词语的多项式分布$\phi_{z_{i,j}}$中采样最终生成词语$w_{i,j}$</li>
+</ul>
+<a id="more"></a>
+<p>其中，类似Beta分布是二项式分布的共轭先验概率分布，而狄利克雷分布（Dirichlet分布）是多项式分布的共轭先验概率分布。 </p>
+<p> 此外，LDA的图模型结构如下图所示（类似<a href="http://blog.csdn.net/v_july_v/article/details/40984699#t6" target="_blank" rel="external">贝叶斯网络</a>结构）： </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-05-13-45-51.png" alt=""> </p>
+<p>知道理解LDA，可以分为下述5个步骤：</p>
+<ol>
+<li>一个函数：gamma函数</li>
+<li>四个分布：二项分布、多项分布、beta分布、Dirichlet分布</li>
+<li>一个概念和一个理念：共轭先验和贝叶斯框架</li>
+<li>两个模型：pLSA、LDA</li>
+<li><p>一个采样：Gibbs采样</p>
+<p>本文便按照上述5个步骤来阐述。</p>
+</li>
+</ol>
+<h1 id="几个分布">2. 几个分布</h1><h2 id="二项分布">2.1. 二项分布</h2><p>二项分布是从伯努利分布推进的。伯努利分布，又称两点分布或0-1分布，是一个离散型的随机分布，其中的随机变量只有两类取值，非正即负{+，-}。而二项分布即重复n次的伯努利试验，记为$X\text{~}b(n,p)$。简言之，只做一次实验，是伯努利分布，重复做了n次，是二项分布。二项分布的概率密度函数为：</p>
+<p>$$P(K=k)= \begin{pmatrix} n \ k \ \end{pmatrix} p^k(1-p)^{n-k} $$</p>
+<p> 对于k=0,1,2,….,n，其中的$ \begin{pmatrix} n \ k \ \end{pmatrix} =\frac{n!}{k!(n-k)!}$是二项式系数，又记作$C(n,k)$。</p>
+<h2 id="多项分布">2.2. 多项分布</h2><p>多项分布，是二项分布扩展到多维的情况</p>
+<p>多项分布是指单次试验中的随机变量的取值不再是0-1的，而是有多种离散值可能（1,2,3…,k）。比如投掷6个面的骰子实验，N次实验结果服从K=6的多项分布。其中 </p>
+<p>$$\sum_{i=1}^kp_i=1, p_i &gt; 0$$</p>
+<p>多项分布的概率密度函数为：</p>
+<p>$$P(x_1,x_2,…,x_k;p_1,p_2,…,p_k)=\frac{n!}{x_1!…x_k!}p_1^{x^1}…p_k^{x_k}$$</p>
+<h2 id="Beta分布">2.3. Beta分布</h2><p>Beta分布是二项分布的共轭先验分布</p>
+<p>给定参数$\alpha&gt;0, \beta &gt; 0$，取值范围为[0,1]的随机变量x的概率密度函数：</p>
+<p>$$f(x;\alpha, \beta)=\frac{1}{B(\alpha, \beta)}x^{\alpha-1}(1-x)^{\beta-1}$$</p>
+<p>其中，</p>
+<p>$$\frac{1}{B(\alpha,\beta)}=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}, \Gamma(z)=\int_0^{\infty} {t^{-1}e^{-t}} \,{\rm d}t  $$</p>
+<p>其中，$\Gamma(x)$是gamma函数。</p>
+<h2 id="Dirichlet分布">2.4. Dirichlet分布</h2><p>Dirichlet分布，是beta分布在高维度上的推广</p>
+<p>Dirichlet分布的的密度函数形式跟beta分布的密度函数如出一辙 ：</p>
+<p>$${\displaystyle f(x_{1},\dots ,x_{K};\alpha _{1},\dots ,\alpha _{K})={\frac {1}{\mathrm {B} (\alpha )}}\prod _{i=1}^{K}x_{i}^{\alpha _{i}-1}}$$</p>
+<p>其中，${\mathrm  {B}}(\alpha )={\frac  {\prod _{i=1}^{K}\Gamma (\alpha _{i})}{\Gamma {\bigl (}\sum _{i=1}^{K}\alpha _{i}{\bigr )}}},\qquad \alpha =(\alpha _{1},\dots ,\alpha _{K}).$</p>
+<p>至此，我们可以看二项分布和多项分布很相似，Beta分布和Dirichlet 分布很相似，而至于“Beta分布是二项式分布的共轭先验概率分布，而狄利克雷分布（Dirichlet分布）是多项式分布的共轭先验概率分布”。</p>
+<h2 id="总结">2.5. 总结</h2><p>我们知道beta分布是二项式分布的共轭先验概率分布。对于非负实数$\alpha,\beta$，我们有如下关系：</p>
+<p>$$Beta(p|\alpha,\beta)=Count(m_1,m_2)=Beta(p|\alpha+m_1, \beta+m_2)$$</p>
+<p>其中$(m_1,m_2)$对应的是二项分布$B(m_1+m_2,p)$的计数。针对于这种观测到的数据符合二项分布，参数的先验分布和后验分布都是Beta分布的情况，就是Beta-Binomial 共轭。 </p>
+<p>我们知道狄利克雷分布（Dirichlet分布）是多项式分布的共轭先验概率分布，把$\alpha$从整数集合拓展到实数集合，从而得到更一般的表达式：</p>
+<p>$$Dir(\vec{p}|\vec{\alpha})=MultCount(\vec{m})=Beta(p|\vec{\alpha}+\vec{m})$$</p>
+<p> 针对于这种观测到的数据符合多项分布，参数的先验分布和后验分布都是Dirichlet 分布的情况，就是 Dirichlet-Multinomial 共轭。 </p>
+<h1 id="主题模型LDA">3. 主题模型LDA</h1><p>在杀到终极boss——LDA模型之前，再循序渐进理解基础模型：Unigram model、mixture of unigrams model，以及跟LDA最为接近的pLSA模型。为了方便描述，首先定义一些变量： </p>
+<ul>
+<li>$w$表示词，$V$表示所有单词个数</li>
+<li>$z$表示主题，$k$是主题个数</li>
+<li>$D=(w_1,…,w_M)$表示语料库，M是文档数目</li>
+<li>$w=(w_1,…,w_N)$表示文档，N是文档中的词数</li>
+</ul>
+<h2 id="Unigram-model">3.1. Unigram model</h2><p>对于文档$w=(w_1,…,w_N)$，用$p(w_n)$表示词$w_n$的先验概率，生成文档w的概率为：</p>
+<p>$$p(w)=\prod_{n=1}^Np(w_n)$$</p>
+<p>其图模型为：</p>
+<p>图中被涂色的w表示可观测变量，N表示一篇文档中总共N个单词，M表示M篇文档 </p>
+<p><img src="C:\Users\jiayi\AppData\Local\Temp\1533450274330.png" alt="1533450274330"></p>
+<p>或为： </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-05-14-24-57.png" alt=""> </p>
+<p>unigram model假设文本中的词服从Multinomial分布，而我们已经知道Multinomial分布的先验分布为Dirichlet分布。 </p>
+<p>上图中的$w_n$表示在文本中观察到的第n个词，$n\in[1,N]$表示该文本中一共有N个单词。加上方框表示重复，即一共有N个这样的随机变量$w_n$。其中，p和$\alpha$是隐含未知变量。</p>
+<ul>
+<li>p是词服从的Multinomial分布的参数</li>
+<li>α是Dirichlet分布（即Multinomial分布的先验分布）的参数。</li>
+</ul>
+<p>一般α由经验事先给定，p由观察到的文本中出现的词学习得到，表示文本中出现每个词的概率。</p>
+<h2 id="PLSA模型">3.2. PLSA模型</h2><p>因为跟LDA模型最为接近的便是下面要阐述的这个pLSA模型，理解了pLSA模型后，到LDA模型也就一步之遥——给pLSA加上贝叶斯框架，便是LDA。 </p>
+<h3 id="根据主题词生成文档">3.2.1. 根据主题词生成文档</h3><p>实际中，一篇文章往往有多个主题，只是这多个主题各自在文档中出现的概率大小不一样。比如介绍一个国家的文档中，往往会分别从教育、经济、交通等多个主题进行介绍。那么在pLSA中，<strong>文档是怎样被生成的呢</strong>？ </p>
+<p>假设你要写M篇文档，由于一篇文档由各个不同的词组成，所以你需要确定每篇文档里每个位置上的词。</p>
+<p>再假定你一共有K个可选的主题，有V个可选的词。一般来说，选主题和选词都是两个随机的过程，先从主题分布{教育：0.5，经济：0.3，交通：0.2}中抽取出主题：教育，然后从该主题对应的词分布{大学：0.5，老师：0.3，课程：0.2}中抽取出词：大学。  最后，你不停的重复扔“文档-主题”骰子和”主题-词项“骰子，重复N次（产生N个词），完成一篇文档，重复这产生一篇文档的方法M次，则完成M篇文档。 </p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-05-14-31-04.png" alt=""> </p>
+<p>上述过程抽象出来即是PLSA的文档生成模型。在这个过程中，我们并未关注词和词之间的出现顺序，所以pLSA是一种词袋方法。具体说来，该模型假设一组共现(co-occurrence)词项关联着一个隐含的主题类别$z_k\in{z_1,…,z_K}$。同时定义：</p>
+<ul>
+<li>$P(d_i)$表示海量文档中某篇文档被选中的概率；</li>
+<li>$P(w_j|d_i)$表示词$w_j$在给定文档$d_i$中出现的概率；</li>
+<li>$P(z_k|d_i)$表示具体某个主题$z_k$在给定文档$d_i$下出现的概率</li>
+<li><p>$P(w_j|z_k)$表示具体某个词$w_j$在给定主题$z_k$下出现的概率。与主题关系越密切的词，其条件概率越大。</p>
+<p>利用上述的第1、3、4个概率，我们便可以按照如下的步骤得到“文档-词项”的生成模型： </p>
+</li>
+</ul>
+<ol>
+<li>按照概率$P(d_i)$选择一篇文档$d_i$</li>
+<li>选定文档$d_i$后，从主题分布中按照概率$P(z_k|d_i)$选择一个隐含的主题类别$z_k$</li>
+<li>选定$z_k$后，从词分布中按照概率$P(w_j|z_k)$选一个词$w_j$</li>
+</ol>
+<p>所以pLSA中生成文档的整个过程便是选定文档生成主题，确定主题生成词。 </p>
+<h3 id="根据文档反推主题分布">3.2.2. 根据文档反推主题分布</h3><p>反过来，既然文档已经产生，那么如何根据已经产生好的文档反推其主题呢？这个利用看到的文档推断其隐藏的主题（分布）的过程（其实也就是产生文档的逆过程），便是主题建模的目的：自动地发现文档集中的主题（分布）。</p>
+<p>换言之，人类根据文档生成模型写成了各类文章，然后丢给了计算机，相当于计算机看到的是一篇篇已经写好的文章。现在计算机需要根据一篇篇文章中看到的一系列词归纳出当篇文章的主题，进而得出各个主题各自不同的出现概率：主题分布。即文档d和单词w是可被观察到的，但主题z却是隐藏的。</p>
+<p>如下图所示（图中被涂色的d、w表示可观测变量，未被涂色的z表示未知的隐变量，N表示一篇文档中总共N个单词，M表示M篇文档）：</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-05-14-39-44.png" alt=""> </p>
+<p>上图中，文档d和词w是我们得到的样本（样本随机，参数虽未知但固定，所以pLSA属于频率派思想。区别于下文要介绍的LDA中：样本固定，参数未知但不固定，是个随机变量，服从一定的分布，所以LDA属于贝叶斯派思想），可观测得到，所以对于任意一篇文档，其$P(z_k|d_i)$是已知的。 </p>
+<p> 从而可以根据大量已知的文档-词项信息 $P(w_j|d_i)$训练出文档-主题和$P(z_k|d_i)$主题-词项，如$P(w_j|z_k)$下公式所示： </p>
+<p>$$P(w_j|d_i)=\sum_{k=1}^KP(w_j|z_k)P(z_k|d_i)$$</p>
+<p>故得到文档中每个词的生成概率为： </p>
+<p>$$P(d_i,w_j)=P(d_i)P(w_j|d_i)=P(d_i)\sum_{k=1}^KP(w_j|z_k)P(z_k|d_i)$$</p>
+<p>由于$P(d_i)$可事先计算求出，而$P(w_j|z_k)$和$P(z_k|d_i)$未知，所以$\theta=(P(w_j|z_k),P(z_k|d_i))$就是我们要估计的参数。</p>
+<p>用什么方法进行估计呢，常用的参数估计方法有极大似然估计MLE、最大后验证估计MAP、贝叶斯估计等等。因为该待估计的参数中含有隐变量z，所以我们可以考虑EM算法。 </p>
+<p>。。。来日填补EM</p>
+<h2 id="LDA模型">3.3. LDA模型</h2><p>事实上，理解了pLSA模型，也就差不多快理解了LDA模型，因为LDA就是在pLSA的基础上加层贝叶斯框架，即LDA就是pLSA的贝叶斯版本（正因为LDA被贝叶斯化了，所以才需要考虑历史先验知识，才加的两个先验参数）。 </p>
+<p>​    在pLSA模型中，我们按照如下的步骤得到“文档-词项”的生成模型：</p>
+<ol>
+<li>按照概率$P(d_i)$选择一篇文档$d_i$</li>
+<li>选定文档$d_i$后，从主题分布中按照概率$P(z_k|d_i)$选择一个隐含的主题类别$z_k$</li>
+<li>选定$z_k$后，从词分布中按照概率$P(w_j|z_k)$选一个词$w_j$</li>
+</ol>
+<p>​    下面，咱们对比下本文开头所述的LDA模型中一篇文档生成的方式是怎样的：</p>
+<ol>
+<li>按照概率$P(d_i)$选择一篇文档$d_i$</li>
+<li>从狄利克雷分布$\alpha$中取样生成文档$d_i$的主题分布$\theta_i$</li>
+<li>从主题分布$\theta_i$中取样生成文档$d_i$的第j个主题$z_{i,j}$</li>
+<li>从狄利克雷分布$$\beta$$中取样生成主题对应的词语分布$\phi_{z_{ij}}$</li>
+<li>从词语多项式分布中词语分布$\phi_{z_{ij}}$采样生成最终词语$w_{ij}$</li>
+</ol>
+<p>从上面两个过程可以看出，LDA在PLSA的基础上，为主题分布和词分布分别加了两个Dirichlet先验。</p>
+<p>继续拿之前讲解PLSA的例子进行具体说明。如前所述，在PLSA中，选主题和选词都是两个随机的过程，先从主题分布{教育：0.5，经济：0.3，交通：0.2}中抽取出主题：教育，然后从该主题对应的词分布{大学：0.5，老师：0.3，课程：0.2}中抽取出词：大学。</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-05-14-50-02.png" alt=""> </p>
+<p> 而在LDA中，选主题和选词依然都是两个随机的过程，依然可能是先从主题分布{教育：0.5，经济：0.3，交通：0.2}中抽取出主题：教育，然后再从该主题对应的词分布{大学：0.5，老师：0.3，课程：0.2}中抽取出词：大学。</p>
+<p>​    那PLSA跟LDA的区别在于什么地方呢？区别就在于：</p>
+<ul>
+<li>PLSA中，主题分布和词分布是唯一确定的，能明确的指出主题分布可能就是{教育：0.5，经济：0.3，交通：0.2}，词分布可能就是{大学：0.5，老师：0.3，课程：0.2}。</li>
+<li>但在LDA中，主题分布和词分布不再唯一确定不变，即无法确切给出。例如主题分布可能是{教育：0.5，经济：0.3，交通：0.2}，也可能是{教育：0.6，经济：0.2，交通：0.2}，到底是哪个我们不再确定（即不知道），因为它是随机的可变化的。但再怎么变化，也依然服从一定的分布，即主题分布跟词分布由Dirichlet先验随机确定。</li>
+</ul>
+<p>…来日再来</p>
+<h1 id="参考文献">4. 参考文献</h1><ol>
+<li><a href="https://blog.csdn.net/v_july_v/article/details/41209515" target="_blank" rel="external">通俗理解LDA主题模型</a></li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> 机器学习算法 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深度学习算法-网络优化]]></title>
       <url>/2018/07/29/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96/</url>
       <content type="html"><![CDATA[<p>再不学深度学习，就真的跟不上了。</p>
@@ -11592,31 +11862,6 @@ run thread_name_2    4
     </entry>
     
     <entry>
-      <title><![CDATA[python——os模块]]></title>
-      <url>/2017/05/04/Python-os%E6%93%8D%E4%BD%9C/</url>
-      <content type="html"><![CDATA[<h1 id="os模块">1. os模块</h1><p>os模块的作用：</p>
-<p>　　os，语义为操作系统，所以肯定就是操作系统相关的功能了，可以处理文件和目录这些我们日常手动需要做的操作，就比如说：显示当前目录下所有文件/删除某个文件/获取文件大小……</p>
-<p>　　另外，os模块不受平台限制，也就是说：当我们要在linux中显示当前命令时就要用到pwd命令，而Windows中cmd命令行下就要用到这个，额…我擦，我还真不知道，（甭管怎么着，肯定不是pwd），这时候我们使用python中os模块的os.path.abspath(name)功能，甭管是linux或者Windows都可以获取当前的绝对路径。</p>
-<h1 id="文件夹操作">2. 文件夹操作</h1><h2 id="检验文件夹是否存在">2.1. 检验文件夹是否存在</h2><pre><code>os.path.exists(directory)
-</code></pre><h2 id="创建文件夹">2.2. 创建文件夹</h2><pre><code>os.makedirs(directory)
-</code></pre><p>实例：<br>检验文件夹是否存在，若不存在，则创建之</p>
-<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_dir</span><span class="params">(directory)</span>:</span></div><div class="line">    flag=os.path.exists(directory)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> flag:</div><div class="line">        os.makedirs(directory)</div></pre></td></tr></table></figure>
-</code></pre><h2 id="遍历指定目录名，显示目录下所有文件">2.3. 遍历指定目录名，显示目录下所有文件</h2><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pathDir =  os.listdir(filepath)</div><div class="line">    <span class="keyword">for</span> allDir <span class="keyword">in</span> pathDir:</div><div class="line">        <span class="keyword">print</span> allDir</div></pre></td></tr></table></figure>
-</code></pre><h1 id="参考文献">3. 参考文献</h1><ol>
-<li><a href="http://www.cnblogs.com/MnCu8261/p/5483657.html" target="_blank" rel="external">python基础之模块之os模块</a></li>
-</ol>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[pandas相关技巧]]></title>
       <url>/2017/05/04/Python-pandas%E7%AC%94%E8%AE%B0/</url>
       <content type="html"><![CDATA[<h1 id="用pandas求差集">1. 用pandas求差集</h1><p>从df1中去除掉df2的内容</p>
@@ -11663,6 +11908,31 @@ blue        0      0      1
 8    C      3
 </code></pre><h1 id="ipython运行python">6. ipython运行python</h1><p>启动新的namespace运行： %run main.py</p>
 <p>在原有的namespace运行：%run -i main.py</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[python——os模块]]></title>
+      <url>/2017/05/04/Python-os%E6%93%8D%E4%BD%9C/</url>
+      <content type="html"><![CDATA[<h1 id="os模块">1. os模块</h1><p>os模块的作用：</p>
+<p>　　os，语义为操作系统，所以肯定就是操作系统相关的功能了，可以处理文件和目录这些我们日常手动需要做的操作，就比如说：显示当前目录下所有文件/删除某个文件/获取文件大小……</p>
+<p>　　另外，os模块不受平台限制，也就是说：当我们要在linux中显示当前命令时就要用到pwd命令，而Windows中cmd命令行下就要用到这个，额…我擦，我还真不知道，（甭管怎么着，肯定不是pwd），这时候我们使用python中os模块的os.path.abspath(name)功能，甭管是linux或者Windows都可以获取当前的绝对路径。</p>
+<h1 id="文件夹操作">2. 文件夹操作</h1><h2 id="检验文件夹是否存在">2.1. 检验文件夹是否存在</h2><pre><code>os.path.exists(directory)
+</code></pre><h2 id="创建文件夹">2.2. 创建文件夹</h2><pre><code>os.makedirs(directory)
+</code></pre><p>实例：<br>检验文件夹是否存在，若不存在，则创建之</p>
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_dir</span><span class="params">(directory)</span>:</span></div><div class="line">    flag=os.path.exists(directory)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> flag:</div><div class="line">        os.makedirs(directory)</div></pre></td></tr></table></figure>
+</code></pre><h2 id="遍历指定目录名，显示目录下所有文件">2.3. 遍历指定目录名，显示目录下所有文件</h2><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pathDir =  os.listdir(filepath)</div><div class="line">    <span class="keyword">for</span> allDir <span class="keyword">in</span> pathDir:</div><div class="line">        <span class="keyword">print</span> allDir</div></pre></td></tr></table></figure>
+</code></pre><h1 id="参考文献">3. 参考文献</h1><ol>
+<li><a href="http://www.cnblogs.com/MnCu8261/p/5483657.html" target="_blank" rel="external">python基础之模块之os模块</a></li>
+</ol>
 ]]></content>
       
         <categories>

@@ -319,6 +319,580 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/02/SQL-SQL游标/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/02/SQL-SQL游标/" itemprop="url">SQL游标</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-02T19:58:22+08:00">
+                2017-03-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:58:09+08:00">
+                2017-07-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/03/02/SQL-SQL游标/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/03/02/SQL-SQL游标/" class="cy_cmt_count" data-xid="2017/03/02/SQL-SQL游标/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,262
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1. 简介1.0.1. 场景从某一结果集中地逐一读记录
+1.0.2. 游标本质能从包括多条数据记录的结果集中每次提取一条记录的机制。
+我们知道关系数据库管理系统实质是面向集合的，在MS SQL SERVER 中并没有一种描述表中单一记录的表达形式，除非使用where 子句来限制只有一条记录被选中。因此我们必须借助于游标来进行面向单条记录的数据处理。
+1.0.3. 游标种类
+Transact_SQL 游标
+API 游标
+客户游标
+
+2. 游标操作使用游标有四种基本的步骤:声明游标、打开游标、提取数据、关闭游标。
+2.0.1. 声明游标游标的声明包括两个部分:游标的名称 + 这个游标所用到的SQL语句。
+例：要声明一个叫作Cus-tomerCursor的游标用以查询地址在北京的客户的姓名、帐号及其余额: 
+1234DECLARE CustomerCursor CURSOR FOR SELECT acct_no,name,balance FROM customer WHERE province=&quot;北京&quot;;
+TIPS:
+
+声明游标的这一段代码行是不执行的,不能将debug时的断点设在这一代码行上,也不能用IF语句来声明两个同名的游标,如下列的代码就是错误的。 
+
+1234567891011IF Is_prov=&quot;北京&quot;THEN DECLARE CustomerCursor CURSOR FOR SELECT acct_no,name,balance FROM customer WHERE province=&quot;北京&quot;; ELSE
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/02/SQL-SQL游标/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/02/从出租车行驶数据筛选出OD点数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/02/从出租车行驶数据筛选出OD点数据/" itemprop="url">从出租车行驶数据筛选出OD点数据</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-02T14:12:00+08:00">
+                2017-03-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-04-24T21:26:32+08:00">
+                2017-04-24
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/03/02/从出租车行驶数据筛选出OD点数据/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/03/02/从出租车行驶数据筛选出OD点数据/" class="cy_cmt_count" data-xid="2017/03/02/从出租车行驶数据筛选出OD点数据/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  733
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          动手前先动脑，这句话献给自己。
+0.1. 目标从出租车行驶数据中，筛选出OD点。
+0.2. 数据集123456789101112131415161718名称：2012年11月1日 北京市出租车GPS数据格式：txt文本文件数据项及顺序：车辆标识,触发事件,运营状态,GPS时间,GPS经度,GPS纬度,GPS速度,GPS方向,GPS状态车辆标识：6个字符触发事件：0=变空车，1=变载客，2=设防，3=撤防，4=其它运营状态：0=空车，1=载客，2=驻车，3=停运，4=其它GPS时间GPS经度GPS纬度GPS速度：取值000-255内整数，以公里/小时为单位GPS方位：取值000-360内整数，以度为单位GPS状态：0=无效，1=有效结束串：回车符+换行符数据示例:123456,0,0,20110414160613,116.4078674,40.2220650,21,274,1
+0.3. 思路
+将数据点按照“车牌号、运营时间、运营状态”依次从小到大排序
+筛出同一车牌号的运营状态变化的时刻的数据
+
+0.4. 方法
+方法一：导入数据库，再写脚本操作数据。可能是我对数据库实在没缘分，这个方法没有成功。
+
+方法二：将车牌号分段后，在每段上进行如上思路所示的操作。
+
+
+为了更好地分段，我们先对车牌号段进行分析。
+0.4.1. 车牌号段分析查询车的数目：12409个
+1SELECT COUNT(DISTINCT id) FROM SET1
+脚本名：data1IDcount.py
+地址：81服务器上，D:\jiayi\wxt
+听说数据集有三千多万，所以我决定每一千个数据取一条进行粗略分析。
+车牌
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/02/从出租车行驶数据筛选出OD点数据/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/03/01/机器学习算法-ROC和AUC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/01/机器学习算法-ROC和AUC/" itemprop="url">机器学习算法-ROC和AUC</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-01T12:02:39+08:00">
+                2017-03-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T15:56:21+08:00">
+                2018-02-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/03/01/机器学习算法-ROC和AUC/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/03/01/机器学习算法-ROC和AUC/" class="cy_cmt_count" data-xid="2017/03/01/机器学习算法-ROC和AUC/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,231
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          0.0.1. AUC定义用途：用来度量分类模型好坏的一个标准背景：
+
+有些时候，仅仅依靠正确率是不妥当的。
+能客观反映对正样本、负样本综合预测的能力，还要考虑消除样本倾斜的影响。
+
+0.0.2. ROC
+ROC:Receiver Operating Characteristic
+ROC曲线：横坐标是false positive rate(FPR)，纵坐标是true positive rate(TPR)。
+对某个分类器而言，我们可以根据其在测试样本上的表现得到一个TPR和FPR点对。这样，此分类器就可以映射成ROC平面上的一个点。
+调整这个分类器分类时候使用的阈值，我们就可以得到一个经过(0, 0)，(1, 1)的曲线，这就是此分类器的ROC曲线。
+
+tip：FPR和TPR先来看一个普遍的二分类问题的结果，预测值和实际值有4种组合情况，看下面的表格：我们定义$$ TruePositiveRate(TPR) = \frac{TP}{TP+FN=P} = \frac{正确预测1}{正确预测1+错误预测1=1的数量}=实际正样本正确预测的比例$$$$ FalsePositiveRate(FPR) = \frac{FP}{FP+TN=N} = \frac{错误预测0}{错误预测0+正确预测0=0的数量}=实际负样本错误预测的比例$$
+0.0.2.1. 如何一个分类器的画ROC曲线概率输出：即表示分类器认为某个样本具有多大的概率属于正样本（或负样本），来动态调整一个样本是否属于正负样本例：
+
+图中共有20个测试样本
+“Class”一栏表示每个测试样本真正的标签（p表示正样本，n表示负样本）
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/01/机器学习算法-ROC和AUC/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/02/28/机器学习算法-PLA-线性感知机/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -956,7 +1530,7 @@ $$E_{out}(h)=\mathcal{E}_{(x,y)\text~P}(w^Tx-y)^2$$
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">133</span>
+                <span class="site-state-item-count">136</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -967,7 +1541,7 @@ $$E_{out}(h)=\mathcal{E}_{(x,y)\text~P}(w^Tx-y)^2$$
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1031,7 +1605,7 @@ $$E_{out}(h)=\mathcal{E}_{(x,y)\text~P}(w^Tx-y)^2$$
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共296.1k字</span>
+  <span class="post-count">博客全站共303.0k字</span>
 </div>
 
 

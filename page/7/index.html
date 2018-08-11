@@ -319,6 +319,584 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/10/26/数学-最大似然估计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/26/数学-最大似然估计/" itemprop="url">数学-最大似然估计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-26T21:03:27+08:00">
+                2017-10-26
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-10-28T15:50:52+08:00">
+                2017-10-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数学/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/10/26/数学-最大似然估计/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/10/26/数学-最大似然估计/" class="cy_cmt_count" data-xid="2017/10/26/数学-最大似然估计/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  439
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          其实在之前的博客朴素贝叶斯的理解一文中曾经提到过最大似然估计。
+极大似然估计的核心思想是：我们已知$x$已发生，我们再根据实际情况写出$x$发生的概率$p(x;θ)$。目标函数是使得这个概率$p(x;θ)$最大，然后求得$θ$：
+$$\theta_{ML}=arg max_\theta p(X;\theta)=arg max_\theta ∏_{i=1}^mp(x^{i};\theta)$$
+上公式中：$p(X;\theta)$是样本集$X$出现的概率；$p(x^{i};\theta)$是某个样本出现的概率；左式等于右式原因是每个样本出现的概率独立；
+
+多个数的连乘容易溢出，我们可以将它转化为log运算：$$\theta_{ML}=arg max_\theta \sum{i=1}^mlog p(x^{i};\theta)$$将上式除以$m$，得到一种期望：$$\theta_{ML}=arg max_\theta E_{x\text{~}p’_{data}}log p(x^{i};\theta) \tag{公式1}$$这个式子的含义是：在经验分布$x\text{~}p^`$上，求得一个$\theta$，使得模型分布的期望最大化。
+此时我们暂时先不看上面这个公式。我们从另一个角度——误差来衡量。训练集上的经验分布$p’_{data}​$和模型之间的分布差异可以用KL散度衡量：
+$$D_{KL}(p’_{data}||p_{model}) = E_{x\text{~}p’_{data}}[logp’_{data}(x)-logp_{model}(x)]$$
+我们的目标是使上式最小化。
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/26/数学-最大似然估计/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/10/25/深度学习算法-误差函数探究/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/25/深度学习算法-误差函数探究/" itemprop="url">深度学习算法-误差函数探究</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T11:11:00+08:00">
+                2017-10-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-12-16T14:17:59+08:00">
+                2017-12-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习算法/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/10/25/深度学习算法-误差函数探究/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/10/25/深度学习算法-误差函数探究/" class="cy_cmt_count" data-xid="2017/10/25/深度学习算法-误差函数探究/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  672
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          之前我们在神经网络简介中曾经提到过误差函数。这一节我们总结一下误差函数。
+误差函数一般有两种来源：
+
+如果参数模型定义了一个分布$p(y|x;\theta)$，我们采用最大似然原理得到代价函数：训练数据和模型预测间的交叉熵。这个在之后会详细解释。
+如果不预测y的完整概率分布，仅仅预测在给定x条件下y的某种统计量，那就用某些专门的损失函数来计算。
+
+1. 方法1，使用最大似然学习条件分布可以在博客最大似然估计中看到，参数模型定义了一个分布$p(y|x;\theta)$，为了求得参数，我们使用最大似然原理，得到最终的目标函数是最小化代价函数J——训练数据和模型预测间的交叉熵:
+$$J(\theta)=-E_{x,y\sim p’_{data}}log p_{model}(y|x)$$
+上式的意义是：在$x,y$服从训练数据$ p’_{data}$分布下，使得模型的$-Elog p_{model}(y|x)$最小。
+用似然解决问题带来的好处：
+
+当明确了一个模型$p(y|x)$时，就自动地确定了代价函数$logp(y|x)$。
+对数函数能帮我们避免梯度过小（例如有的输出单元有一个指数函数，取对数后梯度就不那么小了）
+
+2. 方法2，简单学习条件统计量我们用历史的数据，计算出特征x下y发生的概率：$f(x)=p(y|x)$，将它作为x特征下y的预测。学习这个条件统计量的过程就是我们这节介绍的方法。
+2.1. 均方误差通过解优化问题：
+$$f^*=arg min_f E_{x,y\sim p_{data}}||y-f(x)||^2 \tag{均方误差最小化时的f^{※}}$$
+得到$f^
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/25/深度学习算法-误差函数探究/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/09/25/机器学习算法-L2R进一步了解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiayi797">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayi797">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/25/机器学习算法-L2R进一步了解/" itemprop="url">机器学习算法-L2R进一步了解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T15:30:16+08:00">
+                2017-09-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-09-25T18:46:20+08:00">
+                2017-09-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习算法/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/09/25/机器学习算法-L2R进一步了解/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://jiayi797.github.io/about/2017/09/25/机器学习算法-L2R进一步了解/" class="cy_cmt_count" data-xid="2017/09/25/机器学习算法-L2R进一步了解/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4,555
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          之前的博客中简单介绍了Learning to Rank的基本原理，也讲到了Learning to Rank的几类常用的方法：pointwise，pairwise，listwise。这篇博客就pairwise中的RankSVM、GBRank和LambdaRank做简要介绍。
+RankSVM是2000年提出的；GBRank是2007年提出的；LambdaMART是2008年提出的。因此我们按照提出顺序来讲解这三种算法。
+1. 引言机器学习一般都是解决分类问题。而在Rank中我们遇到的是排序问题。那么如何将排序问题转化为分类问题成了当下的关键。
+1.1. 如何将排序问题转化为分类问题？对于一个query-doc pair（检索-文档结果对），我们可以将其用一个feature vector表示：x。而排序函数为f(x)，我们根据f(x)的大小来决定哪个doc排在前面，哪个doc排在后面。即如果f(xi) &gt; f(xj)，则xi应该排在xj的前面，反之亦然。可以用下面的公式表示：
+ 
+理论上，f(x)可以是任意函数，为了简单起见，我们假设其为线性函数：如果这个排序函数f(x)是一个线性函数，那么我们便可以将一个排序问题转化为一个二元分类问题。理由如下：首先，对于任意两个feature vector xi和 xj，在f(x)是线性函数的前提下，下面的关系都是存在的：然后，便可以对xi和 xj的差值向量考虑二元分类问题。特别地，我们可以对其赋值一个label： 
+有一个很好的例子说明了如何将排序问题转化为分类问题，在L2R的笔记中已提到过，此处不再多加阐述。
+将排序问题转化为分类问题之
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/25/机器学习算法-L2R进一步了解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/09/05/深度学习算法-神经网络/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1700,599 +2278,6 @@ i++并重复第二步直到i==n-1。排序完成。
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/22/算法-希尔排序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/22/算法-希尔排序/" itemprop="url">希尔排序</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T17:09:32+08:00">
-                2017-07-22
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-10T13:36:37+08:00">
-                2018-03-10
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/排序算法/" itemprop="url" rel="index">
-                    <span itemprop="name">排序算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/07/22/算法-希尔排序/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/07/22/算法-希尔排序/" class="cy_cmt_count" data-xid="2017/07/22/算法-希尔排序/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  994
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          0.1. 思想希尔排序的实质是分组插入排序，又称缩小增量排序。
-该方法的基本思想是：
-
-先将整个待排元素序列分割成若干个子序列（由相隔某个“增量”的元素组成的），对这些子序列分别进行直接插入排序
-依次缩减增量再进行排序
-待整个序列中的元素基本有序（增量足够小）时，再对全体元素进行一次直接插入排序。
-
-因为直接插入排序在元素基本有序的情况下（接近最好情况），效率是很高的，因此希尔排序在时间效率上比前两种方法有较大提高。
-0.2. 例子现在我们要将这样一个数组排序，一共有10个元素
- 
-
-第一次 增量 gap = 10/2 = 5
-
- 
-整个数组被分成了5个子数组，分别是[49,13]，[38,27]，[65,49]，[97,55]，[26,4]然后对这五个子数组进行插入排序，得到下面结果
- 
-
-第二次 增量 gap = 5/2 = 2
-
- 
-这次我们把整个数组分成了两个子数组，分别是[13,49,4,38,97],[27,55,49,65,26]对这个两个子数组排序，结果如下： 
-
-第三次 增量 gap = 2/2 = 1此时整个数组已经接近有序，对整个数组进行全排列
-
- 
-最终得到数组有序
- 
-0.3. 代码1234567891011121314151617181920//希尔排序void HillSort(int a[], int len) &#123;    int delta = len/2;    while (delta &gt; 0) &#123;        for (int i = 0; i &lt; delta; i++) &#123;//分成了delta个
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/22/算法-希尔排序/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/20/算法-插入排序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/20/算法-插入排序/" itemprop="url">插入排序</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-20T09:47:19+08:00">
-                2017-07-20
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-10T13:37:08+08:00">
-                2018-03-10
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/排序算法/" itemprop="url" rel="index">
-                    <span itemprop="name">排序算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/07/20/算法-插入排序/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/07/20/算法-插入排序/" class="cy_cmt_count" data-xid="2017/07/20/算法-插入排序/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  318
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          0.1. 思想直接插入排序(Insertion Sort)的基本思想是：每次将一个待排序的记录，按其关键字大小插入到前面已经排好序的子序列中的适当位置，直到全部记录插入完成为止。
-设数组为a[0…n-1]。
-
-初始时，a[0]自成1个有序区，无序区为a[1..n-1]。令i=1
-
-将a[i]并入当前的有序区a[0…i-1]中形成a[0…i]的有序区间。
-
-i++并重复第二步直到i==n-1。排序完成。
-
-
-在查找某元素应该插入到前面有序序列的位置时，我们可以采用边交换边插入的方式，直到无需交换
-0.2. 代码1234567891011121314void InsertSort(int a[],int len) &#123;    for (int i = 1; i &lt; len; i++) &#123;        //查找应该插入的位置        for (int j = i; j &gt; 0; j--)&#123;            if (a[j - 1] &gt; a[j]) &#123;                int temp = a[j];                a[j] = a[j - 1];                a[j - 1] = temp;            &#125;            else                break;        &#125;    &#125;&#125;
-其中交换元素部分可以调用STL中的swap函数实现
-12345678910111213//插入排序void 
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/20/算法-插入排序/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://jiayi797.github.io/about/2017/07/20/算法-冒泡排序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="jiayi797">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiayi797">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/20/算法-冒泡排序/" itemprop="url">冒泡排序</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-20T00:54:24+08:00">
-                2017-07-20
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-10T13:36:49+08:00">
-                2018-03-10
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/排序算法/" itemprop="url" rel="index">
-                    <span itemprop="name">排序算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/07/20/算法-冒泡排序/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://jiayi797.github.io/about/2017/07/20/算法-冒泡排序/" class="cy_cmt_count" data-xid="2017/07/20/算法-冒泡排序/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  717
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          0.1. 思想
-依次比较相邻的两个数据，如果前面的比后面的大，就将其交换
-这样交换一轮之后，整个序列中最大的就“沉”到了最后面的位置
-重复上述过程，依次把第二大、第三大…的数字放到后面的位置。
-
-0.2. 代码1234567891011void BubbleSort(int a[], int len) &#123;    for (int i = 0; i &lt; len; i++) &#123;//一共需要遍历len轮        for (int j = 0; j &lt; len -1-i; j++) &#123;//后面的len-1个数据            if (a[j] &gt; a[j + 1]) &#123;                int temp = a[j + 1];                a[j + 1] = a[j];                a[j] = temp;            &#125;        &#125;    &#125;&#125;
-接下来可以优化一下，上面的程序中一共进行了N轮比较，其实如果有一趟没有发生交换就说明这时候每两个相邻数据都已经呈现前边比后边小的状态了，此时已经达到有序状态了，所以后面就无需再继续比较了
-0.2.1. 改进代码1234567891011121314151617void BubbleSort(int a[], int len) &#123;    int flag = 1;    for (int i = 0; i &lt; len; i++) &#123;//一共需
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/20/算法-冒泡排序/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2342,7 +2327,7 @@ i++并重复第二步直到i==n-1。排序完成。
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">133</span>
+                <span class="site-state-item-count">136</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2353,7 +2338,7 @@ i++并重复第二步直到i==n-1。排序完成。
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2417,7 +2402,7 @@ i++并重复第二步直到i==n-1。排序完成。
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共296.1k字</span>
+  <span class="post-count">博客全站共303.0k字</span>
 </div>
 
 
