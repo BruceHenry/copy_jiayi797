@@ -92,20 +92,22 @@
 
 
 
-<meta name="description" content="本次我们探究一下GBDT实现。 先从调包开始说起，一般来说我们是这样调用GBDT的： 123456789101112131415161718192021222324252627282930import numpy as npfrom sklearn.ensemble import GradientBoostingRegressor# 初始化模型gbdt=GradientBoostingRegres">
+<meta name="description" content="本次我们探究一下sk-learn的GBDT实现。">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习算法-sklearn GBDT 源码浅读">
 <meta property="og:url" content="http://jiayi797.github.io/about/2018/08/19/机器学习算法-sklearn-GBDT-源码浅读/index.html">
 <meta property="og:site_name" content="jiayi797">
-<meta property="og:description" content="本次我们探究一下GBDT实现。 先从调包开始说起，一般来说我们是这样调用GBDT的： 123456789101112131415161718192021222324252627282930import numpy as npfrom sklearn.ensemble import GradientBoostingRegressor# 初始化模型gbdt=GradientBoostingRegres">
+<meta property="og:description" content="本次我们探究一下sk-learn的GBDT实现。">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-08-19-17-11-55.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-08-19-17-25-07.png">
-<meta property="og:image" content="c:/Users/jiayi/AppData/Local/Temp/1534672974730.png">
-<meta property="og:updated_time" content="2018-08-19T10:03:00.375Z">
+<meta property="og:image" content="http://jiayi797.github.io/about/2018/08/19/机器学习算法-sklearn-GBDT-源码浅读/机器学习算法-sklearn-GBDT-源码浅读.assets/1534831611712.png">
+<meta property="og:image" content="http://jiayi797.github.io/about/2018/08/19/机器学习算法-sklearn-GBDT-源码浅读/机器学习算法-sklearn-GBDT-源码浅读.assets/1534831638381.png">
+<meta property="og:image" content="http://jiayi797.github.io/about/2018/08/19/机器学习算法-sklearn-GBDT-源码浅读/机器学习算法-sklearn-GBDT-源码浅读.assets/1534992886367.png">
+<meta property="og:updated_time" content="2018-08-24T11:16:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习算法-sklearn GBDT 源码浅读">
-<meta name="twitter:description" content="本次我们探究一下GBDT实现。 先从调包开始说起，一般来说我们是这样调用GBDT的： 123456789101112131415161718192021222324252627282930import numpy as npfrom sklearn.ensemble import GradientBoostingRegressor# 初始化模型gbdt=GradientBoostingRegres">
+<meta name="twitter:description" content="本次我们探究一下sk-learn的GBDT实现。">
 <meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2018-08-19-17-11-55.png">
 
 
@@ -368,8 +370,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-19T18:03:00+08:00">
-                2018-08-19
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-24T19:16:55+08:00">
+                2018-08-24
               </time>
             
           </span>
@@ -434,7 +436,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,715
+                  3,720
                 </span>
               
 
@@ -456,7 +458,8 @@
       
 
       
-        <p>本次我们探究一下GBDT实现。</p>
+        <p>本次我们探究一下sk-learn的GBDT实现。</p>
+<a id="more"></a>
 <p>先从调包开始说起，一般来说我们是这样调用GBDT的：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingRegressor</div><div class="line"><span class="comment"># 初始化模型</span></div><div class="line">gbdt=GradientBoostingRegressor(</div><div class="line">      loss=<span class="string">'ls'</span></div><div class="line">    , learning_rate=<span class="number">0.1</span></div><div class="line">    , n_estimators=<span class="number">100</span></div><div class="line">    , subsample=<span class="number">1</span></div><div class="line">    , min_samples_split=<span class="number">2</span></div><div class="line">    , min_samples_leaf=<span class="number">1</span></div><div class="line">    , max_depth=<span class="number">3</span></div><div class="line">    , init=<span class="keyword">None</span></div><div class="line">    , random_state=<span class="keyword">None</span></div><div class="line">    , max_features=<span class="keyword">None</span></div><div class="line">    , alpha=<span class="number">0.9</span></div><div class="line">    , verbose=<span class="number">0</span></div><div class="line">    , max_leaf_nodes=<span class="keyword">None</span></div><div class="line">    , warm_start=<span class="keyword">False</span></div><div class="line">)</div><div class="line"><span class="comment"># 训练</span></div><div class="line">X = np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>],[<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>]])</div><div class="line">y= np.array([<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>])</div><div class="line">gbdt.fit(X,y)</div><div class="line"></div><div class="line"><span class="comment"># 预测</span></div><div class="line">X_test = np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>],[<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>]])</div><div class="line">pred=gbdt.predict(X_test)</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(pred.shape[<span class="number">0</span>]):</div><div class="line">    <span class="keyword">print</span> (pred[i],test_id[i])</div></pre></td></tr></table></figure>
 <p>我们首先看一下<code>GradientBoostingRegressor()</code>这个类</p>
@@ -500,7 +503,149 @@
 </ul>
 <p>嗯现在过程就很明朗了！接下来要解决的就是究竟如何生成单颗树了！那就让我们看看DecisionTreeRegressor类吧！</p>
 <h1 id="DecisionTreeRegressor类">3. DecisionTreeRegressor类</h1><p>大概看一眼这个类：</p>
-<p><img src="C:\Users\jiayi\AppData\Local\Temp\1534672974730.png" alt="1534672974730"></p>
+<p><img src="机器学习算法-sklearn-GBDT-源码浅读.assets/1534831611712.png" alt="1534831611712"></p>
+<p>只有两个方法，而且方法里是直接调用的父类接口，那我们下面重点放在父类BaseDecisionTree类上！</p>
+<h1 id="BaseDecisionTree类">4. BaseDecisionTree类</h1><p>这个类写了一颗树是怎样训练的。</p>
+<p>大概看一眼：</p>
+<p><img src="机器学习算法-sklearn-GBDT-源码浅读.assets/1534831638381.png" alt="1534831638381"></p>
+<p>那么我们重点看fit。fit方法代码比较长，简短来看其实就是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, X, y, sample_weight=None, check_input=True,</span></span></div><div class="line">        X_idx_sorted=None):</div><div class="line"></div><div class="line">  ....省略很多代码....</div><div class="line"></div><div class="line">    <span class="comment"># Build tree 建树</span></div><div class="line"></div><div class="line">    <span class="comment"># criterion - 评价标准</span></div><div class="line">    criterion = CRITERIA_REG[self.criterion](self.n_outputs_,</div><div class="line">                                                     n_samples)</div><div class="line">    <span class="comment"># SPLITTERS - 分裂器</span></div><div class="line">    SPLITTERS = SPARSE_SPLITTERS <span class="keyword">if</span> issparse(X) <span class="keyword">else</span> DENSE_SPLITTERS</div><div class="line"></div><div class="line">    splitter = SPLITTERS[self.splitter](criterion,</div><div class="line">                                            self.max_features_,</div><div class="line">                                            min_samples_leaf,</div><div class="line">                                            min_weight_leaf,</div><div class="line">                                            random_state,</div><div class="line">                                            self.presort)</div><div class="line">    <span class="comment"># 树</span></div><div class="line">    self.tree_ = Tree(self.n_features_, self.n_classes_, self.n_outputs_)</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment"># 如果max_leaf_nodes没给定，就深度优先建树；如果给定了，就用BestFirst的策略建树</span></div><div class="line">    <span class="comment"># Use BestFirst if max_leaf_nodes given; use DepthFirst otherwise</span></div><div class="line">    <span class="keyword">if</span> max_leaf_nodes &lt; <span class="number">0</span>:</div><div class="line">        builder = DepthFirstTreeBuilder(splitter, min_samples_split,</div><div class="line">                                        min_samples_leaf,</div><div class="line">                                        min_weight_leaf,</div><div class="line">                                        max_depth,</div><div class="line">                                        self.min_impurity_decrease,</div><div class="line">                                        min_impurity_split)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        builder = BestFirstTreeBuilder(splitter, min_samples_split,</div><div class="line">                                       min_samples_leaf,</div><div class="line">                                       min_weight_leaf,</div><div class="line">                                       max_depth,</div><div class="line">                                       max_leaf_nodes,</div><div class="line">                                       self.min_impurity_decrease,</div><div class="line">                                       min_impurity_split)</div><div class="line"> </div><div class="line">    builder.build(self.tree_, X, y, sample_weight, X_idx_sorted)</div><div class="line"></div><div class="line">    self.n_classes_ = self.n_classes_[<span class="number">0</span>]</div><div class="line">    self.classes_ = self.classes_[<span class="number">0</span>]</div><div class="line"></div><div class="line">    <span class="keyword">return</span> self</div></pre></td></tr></table></figure>
+<p>也就是说，在确定各种参数（评价标准、分裂标准、树生长方式等）后，用DF或BF方式生成树。我们主要看深度优先建树。</p>
+<h1 id="DepthFirstTreeBuilder类">5. DepthFirstTreeBuilder类</h1><p>大概扫一眼：</p>
+<p><img src="机器学习算法-sklearn-GBDT-源码浅读.assets/1534992886367.png" alt="1534992886367"></p>
+<p>我们知道上面的代码调用了build()函数。</p>
+<h2 id="建树">5.1. 建树</h2><p>那我们仔细看看这个，卧槽居然是空的，pass??? 不可以！中华民族的女人绝不服输！我去网上找找！</p>
+<p>嗯原来这个是用Cython写的，在这里<a href="https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/tree/_tree.pyx" target="_blank" rel="external">_tree.pyx</a></p>
+<p>代码非常长。首先我们回顾一下深度优先的非递归写法，利用栈向左探底，再扔进去右。而这份代码也是遵从了这样的思路。总体架构：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># push root node onto stack</span></div><div class="line">rc = stack.push(<span class="number">0</span>, n_node_samples, <span class="number">0</span>, _TREE_UNDEFINED, <span class="number">0</span>, INFINITY, <span class="number">0</span>)</div><div class="line"><span class="keyword">while</span> <span class="keyword">not</span> stack.is_empty():</div><div class="line">    <span class="comment"># 栈顶弹出</span></div><div class="line">    stack.pop(&amp;stack_record)</div><div class="line">    </div><div class="line">    【根据stack_record计算当前节点是否应该继续分裂】</div><div class="line">    </div><div class="line">    <span class="comment"># 如果继续分裂，就把左右扔进去</span></div><div class="line">    </div><div class="line">	<span class="keyword">if</span> <span class="keyword">not</span> is_leaf:</div><div class="line">        <span class="comment"># Push right child on stack - 将左孩子扔进去</span></div><div class="line">        rc = stack.push(split.pos, end, depth + <span class="number">1</span>, node_id, <span class="number">0</span>,</div><div class="line">                        split.impurity_right, n_constant_features)</div><div class="line">        <span class="comment"># Push left child on stack - 将右孩子扔进去</span></div><div class="line">        rc = stack.push(start, split.pos, depth + <span class="number">1</span>, node_id, <span class="number">1</span>,</div><div class="line">                            split.impurity_left, n_constant_features)</div></pre></td></tr></table></figure>
+<p>那么关键问题就是两个：</p>
+<ol>
+<li>如何判断当前节点是否该继续分裂</li>
+<li>分裂之后变成什么</li>
+</ol>
+<p>我们一个个解决。</p>
+<h2 id="分裂条件">5.2. 分裂条件</h2><p>我们看一下分裂条件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">n_node_samples = end - start</div><div class="line">splitter.node_reset(start, end, &amp;weighted_n_node_samples)</div><div class="line"></div><div class="line">is_leaf = (depth &gt;= max_depth <span class="keyword">or</span></div><div class="line">               n_node_samples &lt; min_samples_split <span class="keyword">or</span></div><div class="line">               n_node_samples &lt; <span class="number">2</span> * min_samples_leaf <span class="keyword">or</span></div><div class="line">               weighted_n_node_samples &lt; <span class="number">2</span> * min_weight_leaf)</div></pre></td></tr></table></figure>
+<p>如果当前节点是叶节点，那么它至少满足以下条件的其中之一：</p>
+<ul>
+<li>深度超了 —— depth &gt;= max_depth</li>
+<li>样本数不够 —— n_node_samples &lt; min_samples_split</li>
+<li>样本数不足以分裂 —— n_node_samples &lt; 2 * min_samples_leaf</li>
+<li>样本的权重和小于阈值 —— weighted_n_node_samples &lt; 2 * min_weight_leaf</li>
+</ul>
+<h2 id="分裂过程">5.3. 分裂过程</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="keyword">not</span> is_leaf:</div><div class="line">    splitter.node_split(impurity, &amp;split, &amp;n_constant_features)</div><div class="line">    is_leaf = (is_leaf <span class="keyword">or</span> split.pos &gt;= end <span class="keyword">or</span></div><div class="line">               (split.improvement + EPSILON &lt;</div><div class="line">                min_impurity_decrease))</div></pre></td></tr></table></figure>
+<p>上述代码表示，如果当前节点是叶节点，那么它至少满足以下条件的其中之一：</p>
+<ul>
+<li>分割位置超出范围 —— split.pos &gt;= end</li>
+<li>本次分裂带来的信息增益提升不够大 —— split.improvement + EPSILON &lt;  min_impurity_decrease</li>
+</ul>
+<p>那么重点就在于split如何计算的信息增益improvement了！我们看看。回退到之前BaseDecisionTree类的fit方法，我们看到分裂器是 SPLITTERS = SPARSE_SPLITTERS if issparse(X) else DENSE_SPLITTERS。也就是说如果数据是非稀疏的，那就是用DENSE_SPLITTERS来做分裂器。那么我们来看看DENSE_SPLITTERS吧。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">DENSE_SPLITTERS = &#123;<span class="string">"best"</span>: _splitter.BestSplitter,</div><div class="line">                   <span class="string">"random"</span>: _splitter.RandomSplitter&#125;</div></pre></td></tr></table></figure>
+<p>那么我们从BestSplitter入手。</p>
+<h2 id="BestSpliter类">5.4. BestSpliter类</h2><p>源码：<a href="https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/tree/_splitter.pyx" target="_blank" rel="external">_splitter.pyx</a></p>
+<p>主要看node_split()函数，就是在[start,end]之间寻找一个最优切分点。我把这个函数简化一下。首先我们定义几个feature的区间：</p>
+<ul>
+<li><code>[:n_drawn_constant]</code>，已经用过了的连续（constant）特征。</li>
+<li><code>[n_drawn_constant:n_known_constant]</code>，还没用过的连续特征。</li>
+<li><code>[n_known_constant:n_total_constant]</code>，新发现的连续特征。</li>
+<li><code>[n_total_constant:f_i],</code>还没用过的非连续特征 </li>
+<li><code>[f_i:n_features]</code>表示已经用过了的连续特征</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">cdef int node_split(self, double impurity, SplitRecord* split,</div><div class="line">                    SIZE_t* n_constant_features) nogil <span class="keyword">except</span> <span class="number">-1</span>:</div><div class="line">    <span class="string">"""Find the best split on node samples[start:end]"""</span></div><div class="line">    初始化</div><div class="line">    f_i = n_features <span class="comment"># 剩余的feature个数</span></div><div class="line">    <span class="keyword">while</span> (f_i &gt; n_total_constants <span class="keyword">and</span>  <span class="comment"># 剩余feature个数过少时停止</span></div><div class="line">       (n_visited_features &lt; max_features <span class="keyword">or</span> </div><div class="line">        n_visited_features &lt;= n_found_constants + n_drawn_constants)): <span class="comment"># 至少有一个feature是非常数</span></div><div class="line">	    <span class="comment"># 随便选一个特征</span></div><div class="line">        f_j = rand_int(n_drawn_constants, f_i - n_found_constants,</div><div class="line">                           random_state)</div><div class="line">        <span class="keyword">if</span> f_j &lt; n_known_constants:</div><div class="line">            <span class="comment"># f_j是属于区间[n_drawn_constants, n_known_constants]，也就是说是还没用过的连续特征</span></div><div class="line">            <span class="comment">#把f_j放到[:n_drawn_constant]区间的末尾</span></div><div class="line">            tmp = features[f_j]</div><div class="line">            features[f_j] = features[n_drawn_constants]</div><div class="line">            features[n_drawn_constants] = tmp</div><div class="line">            n_drawn_constants += <span class="number">1</span></div><div class="line"></div><div class="line">         <span class="keyword">else</span>:</div><div class="line">            <span class="comment"># f_j 在区间 [n_known_constants, f_i - n_found_constants]，即f_j是新发现的连续特征</span></div><div class="line">            <span class="comment"># 将f_j挪到n_total_constants, f_i]区间</span></div><div class="line">            f_j += n_found_constants</div><div class="line">            current.feature = features[f_j]</div><div class="line">            feature_offset = self.X_feature_stride * current.feature</div><div class="line">            </div><div class="line">            排序工作，并将排序记录下来以便下次使用，省略代码</div><div class="line">            </div><div class="line">            <span class="comment"># 开始寻找分割区间</span></div><div class="line">            p = start</div><div class="line"></div><div class="line">            <span class="keyword">while</span> p &lt; end:</div><div class="line">                p += <span class="number">1</span></div><div class="line">                <span class="keyword">if</span> p &lt; end:</div><div class="line">                    current.pos = p</div><div class="line">                    <span class="comment"># Reject if min_samples_leaf is not guaranteed</span></div><div class="line">                    <span class="comment"># 如果当前分割点分割后，左右节点个数过少，就跳过</span></div><div class="line">                    <span class="keyword">if</span> (((current.pos - start) &lt; min_samples_leaf) <span class="keyword">or</span></div><div class="line">                        ((end - current.pos) &lt; min_samples_leaf)):</div><div class="line">                        <span class="keyword">continue</span></div><div class="line">					  <span class="comment"># 计算当前节点分割点的评价标准</span></div><div class="line">                        self.criterion.update(current.pos)</div><div class="line"></div><div class="line">                        <span class="comment"># Reject if min_weight_leaf is not satisfied</span></div><div class="line">                        <span class="keyword">if</span> ((self.criterion.weighted_n_left &lt; min_weight_leaf) <span class="keyword">or</span></div><div class="line">                            (self.criterion.weighted_n_right &lt; min_weight_leaf)):</div><div class="line">                            <span class="keyword">continue</span></div><div class="line">                        current_proxy_improvement = self.criterion.proxy_impurity_improvement()</div><div class="line">				       <span class="comment"># 选择最好收益的作为当前分割点</span></div><div class="line">                        <span class="keyword">if</span> current_proxy_improvement &gt; best_proxy_improvement:</div><div class="line">                            best_proxy_improvement = current_proxy_improvement</div><div class="line">                            <span class="comment"># sum of halves is used to avoid infinite value</span></div><div class="line">                            current.threshold = Xf[p - <span class="number">1</span>] / <span class="number">2.0</span> + Xf[p] / <span class="number">2.0</span></div><div class="line"></div><div class="line">                            <span class="keyword">if</span> ((current.threshold == Xf[p]) <span class="keyword">or</span></div><div class="line">                                (current.threshold == INFINITY) <span class="keyword">or</span></div><div class="line">                                (current.threshold == -INFINITY)):</div><div class="line">                                current.threshold = Xf[p - <span class="number">1</span>]</div><div class="line"></div><div class="line">                                best = current  <span class="comment"># copy</span></div></pre></td></tr></table></figure>
+<p>以上的步骤很明朗了。其实就是依次遍历每个特征的每个分裂点，找到一个最好的！</p>
+<p>接下来我们来看看如何评价这个分裂点的好坏。</p>
+<h2 id="Criterion类">5.5. Criterion类</h2><p><a href="https://www.jianshu.com/p/44a6eaa6318c" target="_blank" rel="external">GBDT源码分析之二：决策树</a>所述，这个类定义和实现了树结构的分裂策略。</p>
+<p><a href="https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/tree/_criterion.pyx" target="_blank" rel="external">_criterion.pyx</a>里主要定义和实现了各种关于不纯度计算的类，包括（下表参考自<a href="https://tech.youzan.com/ji-qi-xue-xi-da-bian-che-zhi-nan-jue-ce-shu-1/" target="_blank" rel="external">机器学习搭便车指南–决策树</a>）：</p>
+<h3 id="Criterion接口">5.5.1. Criterion接口</h3><p>是一个抽象类。主要定义了如下接口：</p>
+<ul>
+<li><code>update(new_pos)</code>：将分裂点从原来的pos移动到new_pos. 其实就是将[pos:new_pos]这些点从右节点移动到左节点上。</li>
+<li><code>node_impurity()</code>：计算当前节点的不纯度</li>
+<li><code>children_impurity(left,right)</code>：计算两个子节点的不纯度</li>
+</ul>
+<p>实现了如下方法：</p>
+<ul>
+<li><code>impurity_improvement()</code>：计算当前节点的不纯度缩减量。计算方式为：<br>$$\frac{N_t}{N}*(Impurity - \frac{N_{tR}}{N_t}\times Impurity_{right} -  \frac{N_{tL}}{N_t}\times Impurity_{left} )$$<br>其中，N是样本个数；N_t是当前节点的样本个数；N_tR 是右节点的样本个数，N_tL是左节点的样本个数</li>
+<li><code>proxy_impurity_improvement()</code>：由于当前节点的不纯度是一个常数, 因此在比较不纯度缩减量时候有更加简单的方法, 这个方法在分裂过程中最常用, impurity_improvement仅当需要计算不纯度缩减绝对值时才用。其实就是以上公式的化简：<br>$$- N_{tR}\times Impurity_{right} - N_{tL}\times Impurity_{left} $$</li>
+</ul>
+<p>这里提一下Criterion表示分裂点和左右节点的方法。在Criterion类内置的变量里，有start、pos、end这样三个值，假设样本标签是samples（已排序的），则samples[start: pos]可代表分裂后的左子节点，samples[pos: end]可代表分裂后的右子节点。Criterion类在初始化时其实是空的，仅当构建树的时候才会被使用。</p>
+<h3 id="RegressionCriterion接口">5.5.2. RegressionCriterion接口</h3><p>是回归树的Criterion接口。主要实现了以下方法：</p>
+<ul>
+<li><code>update()</code>: 其实就是在更新上面公式的$N_{tR}、N_{tL}$，即左右两边的样本个数，以及左右两边的样本标签y的和。</li>
+</ul>
+<h3 id="MSE-类">5.5.3. MSE 类</h3><p>用均方误差实现不纯度impurity的定义。主要实现/重写了以下方法：</p>
+<ul>
+<li><code>node_impurity()</code>：计算当前节点的不纯度。</li>
+<li><code>proxy_impurity_improvement()</code></li>
+<li><code>children_impurity()</code></li>
+</ul>
+<h3 id="总结">5.5.4. 总结</h3><table>
+<thead>
+<tr>
+<th>主要类</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>abstract Criterion</td>
+<td>定义了一系列接口：</td>
+</tr>
+<tr>
+<td>Class ClassificationCriterion</td>
+<td>继承 Criterion; 重写node_value方法, 适应分类树的计算</td>
+</tr>
+<tr>
+<td>Class Entropy</td>
+<td>继承ClassificationCriterion; 重写<em>impurity</em>各个方法, 符合entropy的定义</td>
+</tr>
+<tr>
+<td>Class Gini</td>
+<td>继承ClassificationCriterion;</td>
+</tr>
+<tr>
+<td>Class RegressionCriterion</td>
+<td>继承 Criterion; 重写node_value方法, 适应回归树的计算</td>
+</tr>
+<tr>
+<td>class MSE</td>
+<td>继承 RegressionCriterion主要实现上文提到回归树的不纯度计算方法</td>
+</tr>
+</tbody>
+</table>
+<p>最后总结一下调用的顺序，画图，包含关系</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
@@ -680,7 +825,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GradientBoostingRegressor类"><span class="nav-text">1. GradientBoostingRegressor类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化-init"><span class="nav-text">1.1. 初始化__init__()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预测predict"><span class="nav-text">1.2. 预测predict()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BaseGradientBoosting类"><span class="nav-text">2. BaseGradientBoosting类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#训练-fit"><span class="nav-text">2.1. 训练 fit()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练-fit-stages"><span class="nav-text">2.2. 训练 _fit_stages()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练-fit-stage"><span class="nav-text">2.3. 训练 _fit_stage()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DecisionTreeRegressor类"><span class="nav-text">3. DecisionTreeRegressor类</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GradientBoostingRegressor类"><span class="nav-text">1. GradientBoostingRegressor类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化-init"><span class="nav-text">1.1. 初始化__init__()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预测predict"><span class="nav-text">1.2. 预测predict()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BaseGradientBoosting类"><span class="nav-text">2. BaseGradientBoosting类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#训练-fit"><span class="nav-text">2.1. 训练 fit()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练-fit-stages"><span class="nav-text">2.2. 训练 _fit_stages()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练-fit-stage"><span class="nav-text">2.3. 训练 _fit_stage()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DecisionTreeRegressor类"><span class="nav-text">3. DecisionTreeRegressor类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BaseDecisionTree类"><span class="nav-text">4. BaseDecisionTree类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DepthFirstTreeBuilder类"><span class="nav-text">5. DepthFirstTreeBuilder类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#建树"><span class="nav-text">5.1. 建树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分裂条件"><span class="nav-text">5.2. 分裂条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分裂过程"><span class="nav-text">5.3. 分裂过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BestSpliter类"><span class="nav-text">5.4. BestSpliter类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Criterion类"><span class="nav-text">5.5. Criterion类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Criterion接口"><span class="nav-text">5.5.1. Criterion接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RegressionCriterion接口"><span class="nav-text">5.5.2. RegressionCriterion接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MSE-类"><span class="nav-text">5.5.3. MSE 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-text">5.5.4. 总结</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -714,7 +859,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共305.0k字</span>
+  <span class="post-count">博客全站共307.2k字</span>
 </div>
 
 
