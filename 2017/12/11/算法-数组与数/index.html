@@ -99,13 +99,13 @@
 <meta property="og:url" content="http://jiayi797.github.io/about/2017/12/11/算法-数组与数/index.html">
 <meta property="og:site_name" content="jiayi797">
 <meta property="og:description" content="1. 大纲 有序数组 Merge两个有序数组 将小数组归并到大数组里 两个数组的交集 数组点乘     子数组 前缀和   Two Sum Hash Map vs Two pointers   Two Pointers">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-14-16-59-04.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-14-16-59-04.png">
 <meta property="og:image" content="http://i67.tinypic.com/2yvpfv5.jpg">
-<meta property="og:updated_time" content="2018-03-30T14:46:01.792Z">
+<meta property="og:updated_time" content="2018-12-17T07:42:06.094Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法-数组与数">
 <meta name="twitter:description" content="1. 大纲 有序数组 Merge两个有序数组 将小数组归并到大数组里 两个数组的交集 数组点乘     子数组 前缀和   Two Sum Hash Map vs Two pointers   Two Pointers">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-14-16-59-04.png">
+<meta name="twitter:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-14-16-59-04.png">
 
 
 
@@ -367,8 +367,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-30T22:46:01+08:00">
-                2018-03-30
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-17T15:42:06+08:00">
+                2018-12-17
               </time>
             
           </span>
@@ -553,7 +553,7 @@
 <h2 id="例题8，二维数组的Maximum-Subarray">3.2. 例题8，二维数组的Maximum Subarray</h2><p>前缀和</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">  i-<span class="number">1</span>  i           x</div><div class="line">   *---*---*---*---*</div><div class="line">   |   |   |   |   |</div><div class="line">j-<span class="number">1</span>*---*---*---*---*</div><div class="line">   |   |   |   |   |</div><div class="line"> j *-[i,j]-*---*---*</div><div class="line">   |   |   |   |   |</div><div class="line">   *---*---*---*---*</div><div class="line">   |   |   |   |   |</div><div class="line">y  *---*---*---*-[x,y]</div><div class="line"></div><div class="line"></div><div class="line">sum[i,j - x,y] = sum[x,y] - sum[x,j-<span class="number">1</span>] - sum[i-<span class="number">1</span>,y] + sum[i-<span class="number">1</span>,j-<span class="number">1</span>]</div></pre></td></tr></table></figure>
 <h2 id="Range-Sum-Query-2D-Immutable">3.3. Range Sum Query 2D - Immutable</h2><p>给一个二维数组，定义(row1,col1)到(row2,col2)的矩阵的和时sumRegion(row1,col1,row2,col2);求任意的两点之间的和。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-14-16-59-04.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-14-16-59-04.png" alt=""> </p>
 <p>样例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Given matrix = [</div><div class="line">  [3, 0, 1, 4, 2],</div><div class="line">  [5, 6, 3, 2, 1],</div><div class="line">  [1, 2, 0, 1, 5],</div><div class="line">  [4, 1, 0, 1, 7],</div><div class="line">  [1, 0, 3, 0, 5]</div><div class="line">]</div><div class="line"></div><div class="line">sumRegion(2, 1, 4, 3) -&gt; 8</div><div class="line">sumRegion(1, 1, 2, 2) -&gt; 11</div><div class="line">sumRegion(1, 2, 2, 4) -&gt; 12</div></pre></td></tr></table></figure>
 <p>与样题思路差不多。先将sum存下来，然后再计算sumRegion</p>
@@ -1133,7 +1133,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-count">142</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1224,7 +1224,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共307.2k字</span>
+  <span class="post-count">博客全站共309.4k字</span>
 </div>
 
 

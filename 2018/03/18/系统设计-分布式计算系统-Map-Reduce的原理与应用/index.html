@@ -99,19 +99,19 @@
 <meta property="og:url" content="http://jiayi797.github.io/about/2018/03/18/系统设计-分布式计算系统-Map-Reduce的原理与应用/index.html">
 <meta property="og:site_name" content="jiayi797">
 <meta property="og:description" content="Map Reduce : 对大数据的快速计算！ 经典场景：统计一个网页中的单词频率。（lintcode题——word count）">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-18-21-08-38.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-18-21-11-09.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-18-21-19-21.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-18-21-55-09.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-18-22-20-30.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-18-22-22-20.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-18-22-35-28.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-18-22-42-51.png">
-<meta property="og:updated_time" content="2018-03-19T14:00:50.872Z">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-21-08-38.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-21-11-09.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-21-19-21.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-21-55-09.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-22-20-30.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-22-22-20.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-22-35-28.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-22-42-51.png">
+<meta property="og:updated_time" content="2018-12-17T07:42:06.891Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="系统设计-分布式计算系统-Map Reduce的原理与应用">
 <meta name="twitter:description" content="Map Reduce : 对大数据的快速计算！ 经典场景：统计一个网页中的单词频率。（lintcode题——word count）">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-18-21-08-38.png">
+<meta name="twitter:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-21-08-38.png">
 
 
 
@@ -373,8 +373,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-19T22:00:50+08:00">
-                2018-03-19
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-17T15:42:06+08:00">
+                2018-12-17
               </time>
             
           </span>
@@ -468,14 +468,14 @@
  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">HashMap&lt;String, Integer&gt; wordcount;</div><div class="line"></div><div class="line"><span class="keyword">for</span>(word : webpage)&#123;</div><div class="line">    wordcount[word]++</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>朴素方法2：多台机器for循环</strong></p>
 <p>每个机器(machine1和machine2)各统计一行，然后用machine3汇总到一起，如下图所示</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-18-21-08-38.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-21-08-38.png" alt=""> </p>
 <p>上面存在一个问题：machine3汇总很慢！</p>
 <p><strong>Map Reduce</strong></p>
 <ul>
 <li>左边machine1和machine2进行统计，将文章拆成一个个单词 —— 分，<strong>Map</strong></li>
 <li>右边machine3只负责a和b的汇总；machine4只负责c和d的汇总 ，将机器34合并在一起—— 合，<strong>Reduce</strong></li>
 </ul>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-18-21-11-09.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-21-11-09.png" alt=""> </p>
 <p>存在的问题：</p>
 <ul>
 <li>谁负责把文件拆成一段段？</li>
@@ -491,7 +491,7 @@
 <li>Output，输出文件</li>
 </ol>
 <p>以上的6步具体对应的上面的例子，就是：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-18-21-19-21.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-21-19-21.png" alt=""> </p>
 <p>小注意：这里的统计时，并没有进行合并，而是各统计各的。这样不需要开hash表，这种表太大了。而且统计的时候非常慢，必须统计完了才传输，很墨迹。</p>
 <p>我们具体要实现什么呢？ ： 要实现Map函数和Reduce函数：</p>
 <ul>
@@ -516,7 +516,7 @@
 <li>方法2：reducer端: 把相同key排序在一起—— 存在的问题，排序很耗内存。</li>
 </ul>
 <p><strong>正确打开方式</strong></p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-18-21-55-09.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-21-55-09.png" alt=""> </p>
 <ul>
 <li>Map输出前，先进行partition和排序操作</li>
 <li>reduce主动去map端主动拿(fetch)需要的数据</li>
@@ -534,9 +534,9 @@
 </ul>
 <h2 id="lintcode-Word-Count">1.5. lintcode - Word Count</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Definition of OutputCollector:</div><div class="line"> * class OutputCollector&lt;K, V&gt; &#123;</div><div class="line"> *     public void collect(K key, V value);</div><div class="line"> *         // Adds a key/value pair to the output buffer</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCount</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Map</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(String key, String value, OutputCollector&lt;String, Integer&gt; output)</span> </span>&#123;</div><div class="line">            <span class="comment">// Write your code here</span></div><div class="line">            <span class="comment">// Output the results into output buffer.</span></div><div class="line">            <span class="comment">// Ps. output.collect(String key, int value);</span></div><div class="line">            String[] words = value.split(<span class="string">" "</span>);</div><div class="line">            <span class="keyword">for</span>(String e : words)&#123;</div><div class="line">                output.collect(e, <span class="number">1</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Reduce</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(String key, Iterator&lt;Integer&gt; values,</span></span></div><div class="line">                           OutputCollector&lt;String, Integer&gt; output) &#123;</div><div class="line">            <span class="comment">// Write your code here</span></div><div class="line">            <span class="comment">// Output the results into output buffer.</span></div><div class="line">            <span class="comment">// Ps. output.collect(String key, int value);</span></div><div class="line">            <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">            <span class="keyword">while</span>(values.hasNext())&#123;</div><div class="line">                sum += values.next();</div><div class="line">            &#125;</div><div class="line">            output.collect(key, sum);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h1 id="Apple面试题——用Map-Reduce构建倒排索引">2. Apple面试题——用Map Reduce构建倒排索引</h1><p>lintcode题 inverted index map reduce</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-18-22-20-30.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-22-20-30.png" alt=""> </p>
 <p>做法：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-18-22-22-20.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-22-22-20.png" alt=""> </p>
 <ul>
 <li>Input</li>
 <li>split : 每个文章一个机器</li>
@@ -548,7 +548,7 @@
 <h3 id="lintcode题——倒排索引的Map-reduce">2.0.1. lintcode题——倒排索引的Map reduce</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvertedIndex</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Map</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(String _, Document value,</span></span></div><div class="line">                        OutputCollector&lt;String, Integer&gt; output) &#123;</div><div class="line">            <span class="comment">// Write your code here</span></div><div class="line">            <span class="comment">// Output the results into output buffer.</span></div><div class="line">            <span class="comment">// Ps. output.collect(String key, int value);</span></div><div class="line">            String[] words = value.content.split(<span class="string">" "</span>);</div><div class="line">            <span class="keyword">for</span>(String e : words)&#123;</div><div class="line">                <span class="keyword">if</span>(e.length() &gt; <span class="number">0</span>)output.collect(e, value.id);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Reduce</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(String key, Iterator&lt;Integer&gt; values,</span></span></div><div class="line">                           OutputCollector&lt;String, List&lt;Integer&gt;&gt; output) &#123;</div><div class="line">            <span class="comment">// Write your code here</span></div><div class="line">            <span class="comment">// Output the results into output buffer.</span></div><div class="line">            <span class="comment">// Ps. output.collect(String key, List&lt;Integer&gt; value);</span></div><div class="line">            List&lt;Integer&gt; invertedIdx = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">            <span class="keyword">int</span> last = -<span class="number">1</span>;</div><div class="line">            <span class="keyword">while</span>(values.hasNext())&#123;</div><div class="line">                <span class="comment">// 索引去重</span></div><div class="line">                <span class="keyword">int</span> curr = values.next();</div><div class="line">                <span class="keyword">if</span>(curr != last)&#123;</div><div class="line">                    invertedIdx.add(curr);</div><div class="line">                    last = curr;</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">            &#125;</div><div class="line">            output.collect(key, invertedIdx);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h1 id="Apple面试题——anagram-Map-Reduce">3. Apple面试题——anagram Map Reduce</h1><p>lintcode题 anagram map reduce</p>
 <p>如果几个单词是由一样的字母组成，那么就是同一个anagram。如何用map reduce方法来操作？</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-18-22-35-28.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-22-35-28.png" alt=""> </p>
 <ul>
 <li>input</li>
 <li>split：每个机器处理一个单词</li>
@@ -566,7 +566,7 @@
 <li>reduce拿到输入，开始reduce运算</li>
 <li>输出文件—— 一定要放在gfs里，很重要，需要replica，因此要在GFS里</li>
 </ol>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-18-22-42-51.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-18-22-42-51.png" alt=""> </p>
 <h1 id="常见问题-1">5. 常见问题</h1><ol>
 <li>Mapper和Reducer是同时工作还是先Mapper后Reducer ?<br>先Mapper后Reducer</li>
 <li>万一Mapper或者Reducer挂了咋办？重启？重选机器？<br>重新分配一台机器做</li>
@@ -697,7 +697,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-count">142</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -788,7 +788,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共307.2k字</span>
+  <span class="post-count">博客全站共309.4k字</span>
 </div>
 
 

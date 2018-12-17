@@ -99,16 +99,16 @@
 <meta property="og:url" content="http://jiayi797.github.io/about/2017/03/08/机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）/index.html">
 <meta property="og:site_name" content="jiayi797">
 <meta property="og:description" content="感觉自己还是太渣，看了些许算法，并不知道有什么卵用。决定好好分析分析别人的思路，也许能够对我带来些许启发。 本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[https://github.com/wepe/O2O-Coupon-Usage-Forecast]。 本文主要对数据的抽取extract_feature.py做一些详细的分">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-10-27.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-09-22-39-21.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-09-22-43-02.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-34-44.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-33-13.png">
-<meta property="og:updated_time" content="2018-02-05T07:54:23.626Z">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-09-20-10-27.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-09-22-39-21.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-09-22-43-02.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-09-20-34-44.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-09-20-33-13.png">
+<meta property="og:updated_time" content="2018-12-17T07:42:01.060Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习实践-O2O优惠券预测-对第一名的思路源码分析（一）">
 <meta name="twitter:description" content="感觉自己还是太渣，看了些许算法，并不知道有什么卵用。决定好好分析分析别人的思路，也许能够对我带来些许启发。 本文主要针对天池大数据竞赛之“O2O优惠券使用预测”的冠军队伍的思路和源码分析。在此感谢无私的前辈(诗人都藏在水底)[https://github.com/wepe/O2O-Coupon-Usage-Forecast]。 本文主要对数据的抽取extract_feature.py做一些详细的分">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-10-27.png">
+<meta name="twitter:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-09-20-10-27.png">
 
 
 
@@ -370,8 +370,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T15:54:23+08:00">
-                2018-02-05
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-17T15:42:01+08:00">
+                2018-12-17
               </time>
             
           </span>
@@ -644,17 +644,17 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#将测试集dataset3的userid存在t中</span></div><div class="line">t = dataset3[[<span class="string">'user_id'</span>]]</div><div class="line"><span class="comment">#给t添加一个列，列名是this_month_user_receive_all_coupon_count，值都是1</span></div><div class="line">t[<span class="string">'this_month_user_receive_all_coupon_count'</span>] = <span class="number">1</span></div><div class="line"><span class="comment">#按照user_id分组，将user_id重复的项目的this_month_user_receive_all_coupon_count相加，然后进行reset_index</span></div><div class="line"><span class="comment">#其实就是算出每个用户使用优惠券的总次数</span></div><div class="line">t = t.groupby(<span class="string">'user_id'</span>).agg(<span class="string">'sum'</span>).reset_index()</div></pre></td></tr></table></figure>
 <p>t1:统计每个用户，使用不同优惠券的次数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">t1 = dataset3[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>]]</div><div class="line">t1[<span class="string">'this_month_user_receive_same_coupon_count'</span>] = <span class="number">1</span></div><div class="line"><span class="comment">#按照user_id和coupon_id进行分组</span></div><div class="line"><span class="comment">#统计每个用户，使用不同优惠券的次数</span></div><div class="line">t1 = t1.groupby([<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>]).agg(<span class="string">'sum'</span>).reset_index()</div></pre></td></tr></table></figure>
-<p>t2:找出每个人，消费每个券的时间，并用冒号分隔例如：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-10-27.png" alt=""> </p>
+<p>t2:找出每个人，消费每个券的时间，并用冒号分隔例如：<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-09-20-10-27.png" alt=""> </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">t2 = dataset3[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'date_received'</span>]]</div><div class="line">t2.date_received = t2.date_received.astype(<span class="string">'str'</span>)</div><div class="line"><span class="comment"># 按照user_id','coupon_id排序后，提出来date_received，进行agg运算</span></div><div class="line"><span class="comment"># agg运算：用冒号连接起来</span></div><div class="line">t2 = t2.groupby([<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>])[<span class="string">'date_received'</span>].agg(<span class="keyword">lambda</span> x:<span class="string">':'</span>.join(x)).reset_index()</div></pre></td></tr></table></figure>
 <p>t2:每个用户使用某张优惠券（使用次数大于1次）的首次和末次使用时间</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#apply会返回每个优惠券的使用次数</span></div><div class="line">t2[<span class="string">'receive_number'</span>] = t2.date_received.apply(<span class="keyword">lambda</span> s:len(s.split(<span class="string">':'</span>)))</div><div class="line"><span class="comment">#筛出使用次数大于1次的数据</span></div><div class="line">t2 = t2[t2.receive_number&gt;<span class="number">1</span>]</div><div class="line"><span class="comment">#对max_date_received赋值为最近一次的使用时间</span></div><div class="line">t2[<span class="string">'max_date_received'</span>] = t2.date_received.apply(<span class="keyword">lambda</span> s:max([int(d) <span class="keyword">for</span> d <span class="keyword">in</span> s.split(<span class="string">':'</span>)]))</div><div class="line"><span class="comment">#对min_date_received赋值为最早一次的使用时间</span></div><div class="line">t2[<span class="string">'min_date_received'</span>] = t2.date_received.apply(<span class="keyword">lambda</span> s:min([int(d) <span class="keyword">for</span> d <span class="keyword">in</span> s.split(<span class="string">':'</span>)]))</div><div class="line"><span class="comment"># 重新定义t2为以下项目</span></div><div class="line">t2 = t2[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'max_date_received'</span>,<span class="string">'min_date_received'</span>]]</div></pre></td></tr></table></figure>
 <p>t3:每个用户使用优惠券的时间、本次优惠券与首次使用的间隔、末次使用的间隔</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">t3 = dataset3[[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>,<span class="string">'date_received'</span>]]</div><div class="line"><span class="comment">#merge，将两个数据集合并</span></div><div class="line"><span class="comment">#将t2和t3在['user_id','coupon_id']上进行左帧合并，即根据t3合并t2的user_id','coupon_id</span></div><div class="line"><span class="comment">#t2[['user_id','coupon_id','max_date_received','min_date_received']]</span></div><div class="line"><span class="comment">#t3[['user_id','coupon_id','date_received']]</span></div><div class="line"><span class="comment">#因此合并方式为：找到每个用户每张优惠券的消费时间和对应券的max_date_received与min_date_received</span></div><div class="line">t3 = pd.merge(t3,t2,on=[<span class="string">'user_id'</span>,<span class="string">'coupon_id'</span>],how=<span class="string">'left'</span>)</div><div class="line"><span class="comment">#t3的this_month_user_receive_same_coupon_lastone项目设置为:此用户消费本张优惠券与最近一次消费本张优惠券的间隔</span></div><div class="line"></div><div class="line">t3 = t3.apply(pd.to_numeric, args=(<span class="string">'coerce'</span>,))</div><div class="line">t3[<span class="string">'this_month_user_receive_same_coupon_lastone'</span>] = t3.max_date_received - t3.date_received</div><div class="line"><span class="comment">#此用户消费本张优惠券与第一次消费本张优惠券的间隔</span></div><div class="line">t3[<span class="string">'this_month_user_receive_same_coupon_firstone'</span>] = t3.date_received - t3.min_date_received</div></pre></td></tr></table></figure>
 <p>上面跑到<code>t3[&#39;this_month_user_receive_same_coupon_lastone&#39;] = t3.max_date_received - t3.date_received</code>的时候会出现<code>TypeError: unsupported operand type(s) for -: &#39;float&#39; and &#39;str&#39;</code>.</p>
-<p>在执行这句话之前，我们看到<code>t3.date_received</code>的类型为<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-22-39-21.png" alt=""> </p>
+<p>在执行这句话之前，我们看到<code>t3.date_received</code>的类型为<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-09-22-39-21.png" alt=""> </p>
 <p>因此我们需要将数据类型先转换为float。在网上查到本方法对本代码有效（暂不知原因）。<a href="http://stackoverflow.com/questions/14450020/unsupported-operand-in-pandas-dataframe-operation" target="_blank" rel="external">参考文献</a></p>
 <p><code>t3 = t3.apply(pd.anumeric, args=(&#39;coerce&#39;,))</code></p>
-<p>把这句话加上后，我们看到<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-22-43-02.png" alt=""> </p>
+<p>把这句话加上后，我们看到<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-09-22-43-02.png" alt=""> </p>
 <p>定义函数is_firstlastone判断优惠券是否是末次使用</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_firstlastone</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="keyword">if</span> x==<span class="number">0</span>:</div><div class="line">        <span class="keyword">return</span> <span class="number">1</span></div><div class="line">    <span class="keyword">elif</span> x&gt;<span class="number">0</span>:</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span></div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span> <span class="comment">#those only receive once</span></div></pre></td></tr></table></figure>
 <p>t3:加上两个数据，…</p>
@@ -842,8 +842,8 @@ dataset3.to_csv(&apos;data/dataset3.csv&apos;,index=None)
 <h2 id="pandas的merge的how参数">6.3. pandas的merge的how参数</h2><p>原代码出现了<code>t3 = pd.merge(t3,t2,on=[&#39;user_id&#39;,&#39;coupon_id&#39;],how=&#39;left&#39;)</code></p>
 <p>how参数主要决定了哪一个keys会被包含在结果表中。它的值有四种可能性：<code>left,right,outer,inner</code>。我们主要看<code>left和right</code></p>
 <p>how=’left’:遍历left表，找与right一样的，依次放入行。 如果没有，则设为NAN</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-34-44.png" alt=""> </p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-09-20-33-13.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-09-20-34-44.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-09-20-33-13.png" alt=""> </p>
 <p>因此<code>t3 = pd.merge(t3,t2,on=[&#39;user_id&#39;,&#39;coupon_id&#39;],how=&#39;left&#39;)</code>的意思是：</p>
 <p>根据t3合并t2的user_id’,’coupon_id</p>
 
@@ -968,7 +968,7 @@ dataset3.to_csv(&apos;data/dataset3.csv&apos;,index=None)
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-count">142</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1059,7 +1059,7 @@ dataset3.to_csv(&apos;data/dataset3.csv&apos;,index=None)
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共307.2k字</span>
+  <span class="post-count">博客全站共309.4k字</span>
 </div>
 
 

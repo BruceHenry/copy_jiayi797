@@ -99,25 +99,25 @@
 <meta property="og:url" content="http://jiayi797.github.io/about/2018/03/11/系统设计-爬虫系统与搜索建议系统/index.html">
 <meta property="og:site_name" content="jiayi797">
 <meta property="og:description" content="大纲  设计一个web爬虫 线程安全的生产者-消费者模式 搜索建议系统  1. 爬虫搜索引擎如何爬取网页呢？也就是我们想获取如下所示的表：   那么想要用程序完成这个目标，我们首先要知道一个事实，也就是互联网上的内容其实是互相索引的，也就是就像如下的大网一样：   假设一共有1trillion个网页，而且至少一周更新一次。那么每秒要爬取1.6m网页。每页大概10k，那么些网页存储下来大概需要10p">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-20-43-31.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-20-45-46.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-21-00-09.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-21-16-37.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-21-20-11.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-21-56-25.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-01-00.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-04-54.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-13-52.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-21-31.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-23-31.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-34-32.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-41-28.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-42-22.png">
-<meta property="og:updated_time" content="2018-03-11T14:43:52.156Z">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-20-43-31.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-20-45-46.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-21-00-09.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-21-16-37.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-21-20-11.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-21-56-25.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-01-00.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-04-54.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-13-52.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-21-31.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-23-31.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-34-32.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-41-28.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-42-22.png">
+<meta property="og:updated_time" content="2018-12-17T07:42:07.067Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="系统设计-爬虫系统与搜索建议系统">
 <meta name="twitter:description" content="大纲  设计一个web爬虫 线程安全的生产者-消费者模式 搜索建议系统  1. 爬虫搜索引擎如何爬取网页呢？也就是我们想获取如下所示的表：   那么想要用程序完成这个目标，我们首先要知道一个事实，也就是互联网上的内容其实是互相索引的，也就是就像如下的大网一样：   假设一共有1trillion个网页，而且至少一周更新一次。那么每秒要爬取1.6m网页。每页大概10k，那么些网页存储下来大概需要10p">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-20-43-31.png">
+<meta name="twitter:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-20-43-31.png">
 
 
 
@@ -379,8 +379,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-11T22:43:52+08:00">
-                2018-03-11
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-17T15:42:07+08:00">
+                2018-12-17
               </time>
             
           </span>
@@ -474,21 +474,21 @@
 <li>搜索建议系统</li>
 </ul>
 <h1 id="爬虫">1. 爬虫</h1><p>搜索引擎如何爬取网页呢？也就是我们想获取如下所示的表：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-20-43-31.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-20-43-31.png" alt=""> </p>
 <p>那么想要用程序完成这个目标，我们首先要知道一个事实，也就是互联网上的内容其实是互相索引的，也就是就像如下的大网一样：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-20-45-46.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-20-45-46.png" alt=""> </p>
 <p>假设一共有1trillion个网页，而且至少一周更新一次。那么每秒要爬取1.6m网页。每页大概10k，那么些网页存储下来大概需要10p的存储空间。</p>
 <p><strong>单线程爬虫</strong></p>
 <p>一般来说，爬虫是用BFS进行爬取的。对于单线程的爬虫来说，就是搞一个队列：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-21-00-09.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-21-00-09.png" alt=""> </p>
 <p><strong>生产者-消费者模型</strong></p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-21-16-37.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-21-16-37.png" alt=""> </p>
 <p>也就是生产者一直往里怼任务，消费者拿任务。中间有一个Buffer(原因是存取速度不一样)。</p>
 <p>那么回头看看我们的爬虫，其实URL extractor就是生产者，而Web page loader就是消费者。</p>
 <p>但是单线程有一个问题，就是慢的很。解决——多线程爬虫</p>
 <p><strong>多线程爬虫</strong></p>
 <p>这些线程共享同一个URL队列，那么这个队列就要加锁。（DFS没有办法实现这个多线程，因此用BFS）</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-21-20-11.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-21-20-11.png" alt=""> </p>
 <p>需要注意的是，争取共享资源，就要考虑以下三个机制：</p>
 <ul>
 <li>sleep —— 就是随机睡一会，但问题在于无法立马知道资源可以使用了</li>
@@ -502,11 +502,11 @@
 </ul>
 <p>因此我们可以改进一下：</p>
 <p><strong>分布式爬虫</strong></p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-21-56-25.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-21-56-25.png" alt=""> </p>
 <p>分布式爬虫虽然解决了线程不能太多的问题，但是又带来了一个问题：URL队列在内存中放不下了（假设1trillion，差不多要40T的内存）！这是不行的。那么我们考虑一下存在硬盘里，也就是数据库里。</p>
 <p>最要命的限制是：没有办法控制网页的顺序和优先级啊！</p>
 <p>解决：给数据库加入一个优先级的列，再加一个频率的列</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-01-00.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-01-00.png" alt=""> </p>
 <p>每一行是一个任务：</p>
 <ul>
 <li>ID,URL</li>
@@ -514,7 +514,7 @@
 <li>priority：优先级</li>
 <li>available_time：控制抓取频率，也就是这个时刻之后再进行抓取。如果本次有更新，那么就把时间设置地更近一些；如果本次没有更新，那么就把时间设置地更远一些</li>
 </ul>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-04-54.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-04-54.png" alt=""> </p>
 <ul>
 <li>webPageStorage : 分布式存储，存储爬取的东西</li>
 <li>爬虫</li>
@@ -527,7 +527,7 @@
 <p><strong>遇到的问题</strong></p>
 <p><strong>task table 最终会非常大！1 trillion 个task，而且会越来越大</strong></p>
 <p>解决——拆表，加速select</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-13-52.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-13-52.png" alt=""> </p>
 <p>那么拆表就有一个细节需要注意，需要一个scheduler，用来安排去哪里要数据。</p>
 <p><strong>网页抓取频率问题</strong></p>
 <p>如何控制抓取频率呢？有一个暴力的方法：</p>
@@ -538,9 +538,9 @@
 <p><strong>如何处理死循环问题？</strong></p>
 <p>有些网站是互相指向的，比如sina.com。而且所有的URL都是与sina.com差不多的。这样就会使用大量的资源去抓取这种巨型网站，太耗费资源了。对于那些小博客就不公平。</p>
 <p>解决办法：单位时间对同一个网站，不要分配过多的计算资源就好啦。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-21-31.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-21-31.png" alt=""> </p>
 <h1 id="Typeahead">2. Typeahead</h1><p>Google Type ahead —— </p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-23-31.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-23-31.png" alt=""> </p>
 <p>我们以google Suggesion为例</p>
 <p><strong>场景</strong></p>
 <ul>
@@ -551,17 +551,17 @@
 </ul>
 <p><strong>服务</strong></p>
 <p>要求：敲下一个字母，就赶紧返回热门词才行</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-34-32.png" alt=""></p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-34-32.png" alt=""></p>
 <ul>
 <li>QuerySerivce : 完成typeahead行为</li>
 <li>DataCollectionService : 收集数据、将热门词数据提供给QueryService</li>
 </ul>
 <p>影响QueryService的执行时间的最关键因素就是数据结构，其实用Trie树就够了。这里不做过多的介绍。</p>
 <p>DataCollectionService对Trie的更新就是个问题。当然不可以直接更新线上Memory中的索引。解决方式，就是在另一台机器上进行更新，另一台机器上的Trie跟这台机器磁盘上的Trie一样的。那就在另一台机器上先加载Trie树到内存，然后更新，再写入硬盘。再同步过去。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-41-28.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-41-28.png" alt=""> </p>
 <p><strong>Trie树一台机器的内存存不下咋办？</strong></p>
 <p>分机器存哇。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-22-42-22.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-11-22-42-22.png" alt=""> </p>
 <p>那么怎么分呢？</p>
 <ul>
 <li>按照字母分？ 会存在严重的不平衡问题，因为有的字母的词超多。</li>
@@ -690,7 +690,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-count">142</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -781,7 +781,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共307.2k字</span>
+  <span class="post-count">博客全站共309.4k字</span>
 </div>
 
 

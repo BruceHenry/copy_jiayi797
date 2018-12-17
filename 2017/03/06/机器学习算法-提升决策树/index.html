@@ -99,37 +99,37 @@
 <meta property="og:url" content="http://jiayi797.github.io/about/2017/03/06/机器学习算法-提升决策树/index.html">
 <meta property="og:site_name" content="jiayi797">
 <meta property="og:description" content="上一节中介绍了《随机森林算法》，该算法使用bagging的方式作出一些决策树来，同时在决策树的学习过程中加入了更多的随机因素。该模型可以自动做到验证过程同时还可以进行特征选择。  本节，我们结合AdaBoost+决策树算法。 1. AdaBoost决策树算法引入在AdaBoost中每一轮迭代，都会给数据更新一个权重，利用这个权重，我们学习得到一个g，在这里我们得到一个决策树，最终利用线性组合的方式">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-46-47.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-14.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-50.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-59-58.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-19-02.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-21-14.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-16-16-29-28.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-16-16-29-39.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-35-34.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-38-40.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-41-04.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-13-20.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-20-39.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-21-01.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-58-44.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-59-15.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-58-44.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-02-45.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-03-24.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-07.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-29.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-39.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-54.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-25-13.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-25-32.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-06-19.png">
-<meta property="og:updated_time" content="2018-02-05T08:06:40.451Z">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-09-46-47.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-09-54-14.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-09-54-50.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-09-59-58.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-10-19-02.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-10-21-14.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-16-16-29-28.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-16-16-29-39.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-14-35-34.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-14-38-40.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-14-41-04.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-19-13-20.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-19-20-39.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-19-21-01.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-19-58-44.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-19-59-15.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-19-58-44.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-02-45.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-03-24.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-04-07.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-04-29.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-05-39.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-05-54.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-15-13-25-13.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-15-13-25-32.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-06-19.png">
+<meta property="og:updated_time" content="2018-12-17T07:42:02.568Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习算法-提升决策树">
 <meta name="twitter:description" content="上一节中介绍了《随机森林算法》，该算法使用bagging的方式作出一些决策树来，同时在决策树的学习过程中加入了更多的随机因素。该模型可以自动做到验证过程同时还可以进行特征选择。  本节，我们结合AdaBoost+决策树算法。 1. AdaBoost决策树算法引入在AdaBoost中每一轮迭代，都会给数据更新一个权重，利用这个权重，我们学习得到一个g，在这里我们得到一个决策树，最终利用线性组合的方式">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-46-47.png">
+<meta name="twitter:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-09-46-47.png">
 
 
 
@@ -391,8 +391,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T16:06:40+08:00">
-                2018-02-05
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-17T15:42:02+08:00">
+                2018-12-17
               </time>
             
           </span>
@@ -498,20 +498,20 @@
 </ul>
 <p>AdaBoost决策树通常用后一种，即：$AdaBoost+sampling∝u^{(t)}+DTree(D_t) $</p>
 <h1 id="加权的决策树算法-Weighted-Decision-Tree-Algorithm">2. 加权的决策树算法(Weighted Decision Tree Algorithm)</h1><p> 之前含有权重的算法中，我们在误差估计中加入了权重<code>u</code>：</p>
-<p> <img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-46-47.png" alt=""> </p>
+<p> <img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-09-46-47.png" alt=""> </p>
 <p>为了对决策树中加入权重，且不改变原算法的健壮性，我们设法对输入的<code>数据</code>进行<code>权重加成</code>。而权重等效于数据的重复次数。根据这种方式得到一组新的数据，那么这组新的数据中的比例大概就是和权重的比例呈正比的，也就是说它能够表达权重对于数据的意义。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-14.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-09-54-14.png" alt=""> </p>
 <p>在AdaBoost-DTree中，为了简单起见，我们不去改变AdaBoost的框架，也不去修改决策树的内部细节，而只是通过基于权重的训练数据的采样来实现。</p>
 <p>即如下图所示的：AdaBoost提升决策树=AdaBoost提升+关于权重u的数据抽样+决策树</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-54-50.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-09-54-50.png" alt=""> </p>
 <h2 id="弱决策树算法">2.1. 弱决策树算法</h2><p>在AdaBoost算法中，我们<strong>通过错误率<code>εt</code>来计算单个的g的权重αt</strong>，那么如果我们使用决策树作为g的时候，g是一个完全长成的树，该树对整个数据集进行细致的切分导致Ein=0，那么这使得εt=0，但计算得到的权重αt会变成无限大。</p>
 <p>其意义是，如果使用一个能力很强的树作为g的话，那么该算法会赋予该树无限大的权重或票数，最终得到了一棵“独裁”的树（因为AdaBoost的哲学意义是庶民政治，就是集中多方的意见，及时有的意见可能是错误的），违背了AdaBoost的宗旨。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-09-59-58.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-09-59-58.png" alt=""> </p>
 <p>上面的问题出在使用了所有的数据和让树完全长成这两方面。针对这两个问题，我们要通过<code>剪枝</code>和<code>部分训练数据</code>得到一个弱一点的树。<br>所以实际上，AdaBoost-DTree是通过sampling的方式得到部分训练数据，通过剪枝的方式限制树的高度，得到弱一点的决策树。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-19-02.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-10-19-02.png" alt=""> </p>
 <p>下面介绍最弱的决策树。</p>
 <h2 id="决策桩，AdaBoost-Stump">2.2. 决策桩，AdaBoost-Stump</h2><p>什么样是树才是弱决策树呢？<br>我们这里限制这棵树只有一层（即它仅基于单个特征来做决策），即决策桩(Decision Stump)。这样我们需要让CART树的不纯度(impurity)尽可能低，学习一个决策桩。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-10-21-14.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-10-21-14.png" alt=""> </p>
 <p>所以，使用决策桩作为弱分类器的AdaBoost称为AdaBoost-Stump，它是一种特殊的AdaBoost-DTree。</p>
 <h2 id="决策桩的实现">2.3. 决策桩的实现</h2><p>本节主要参考《机器学习实战》p120</p>
 <h3 id="实验数据adaboost-py">2.3.1. 实验数据adaboost.py</h3><pre><code>from numpy import *
@@ -526,7 +526,7 @@ dataMat,classLabels = adaboost.loadSimpData()
 <pre><code>def buildStump(dataArr,classLabels,D):
     dataMatrix = mat(dataArr)
     labelMat = mat(classLabels).T # T是做转置
-</code></pre><p><code>dataMatrix</code>形式为<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-16-16-29-28.png" alt=""><br><code>labelMat</code>形式为<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-16-16-29-39.png" alt=""> </p>
+</code></pre><p><code>dataMatrix</code>形式为<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-16-16-29-28.png" alt=""><br><code>labelMat</code>形式为<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-16-16-29-39.png" alt=""> </p>
 <p>先令一些变量，之后解释。</p>
 <pre><code>m,n = shape(dataMatrix)
 numSteps = 10.0#步长
@@ -559,45 +559,45 @@ minError = inf
 </code></pre><p>最后，返回最佳的决策桩，和误差</p>
 <pre><code>return bestStump,minError,bestClasEst
 </code></pre><h1 id="求解AdaBoost决策树">3. 求解AdaBoost决策树</h1><h2 id="AdaBoost的权重与投票分数的关系">3.1. AdaBoost的权重与投票分数的关系</h2><p>回顾AdaBoost算法：</p>
-<p>从权重<code>ut</code>，通过<code>◆t</code>对<code>u(t+1)</code>进行修正，而两个公式可以合成为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-35-34.png" alt=""> </p>
-<p>如下图，接着我们将<code>u(t+1)</code>展开(表达为<code>u(1)乘以一坨</code>)，最终可以变成连加；<br>我们发现图中橘色部分<code>∑αt·gt(xn)</code>是G(x)的分数！它现在出现在Adaboost的权重表达式中；<br>我们称橘色<code>∑αt·gt(xn)</code>为<strong>投票分数(voting score)</strong>：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-38-40.png" alt=""> </p>
-<p><strong>结论</strong>：AdaBoost里面每一个数据的权重，和<code>exp(-yn( 投票分数 on xn))</code>呈正比。即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-14-41-04.png" alt=""> </p>
+<p>从权重<code>ut</code>，通过<code>◆t</code>对<code>u(t+1)</code>进行修正，而两个公式可以合成为：<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-14-35-34.png" alt=""> </p>
+<p>如下图，接着我们将<code>u(t+1)</code>展开(表达为<code>u(1)乘以一坨</code>)，最终可以变成连加；<br>我们发现图中橘色部分<code>∑αt·gt(xn)</code>是G(x)的分数！它现在出现在Adaboost的权重表达式中；<br>我们称橘色<code>∑αt·gt(xn)</code>为<strong>投票分数(voting score)</strong>：<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-14-38-40.png" alt=""> </p>
+<p><strong>结论</strong>：AdaBoost里面每一个数据的权重，和<code>exp(-yn( 投票分数 on xn))</code>呈正比。即：<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-14-41-04.png" alt=""> </p>
 <h2 id="投票分数-Voting-Score-和间隔-Margin-的关系">3.2. 投票分数(Voting Score)和间隔(Margin)的关系</h2><p>线性混合(linear blending)等价于将假设看做是特征转换的线性模型：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-13-20.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-19-13-20.png" alt=""> </p>
 <p>其中<code>αt·gt(xn)</code>如果换作是<code>wT·φ(xn)</code>可能就更清楚了，这与下面给出的在SVM中的margin表达式对比，我们可以明白投票分数<code>∑αt·gt(xn)</code>的物理意义，即可以看做是没有正规化的边界(margin)。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-20-39.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-19-20-39.png" alt=""> </p>
 <p>所以，<code>yn·(voting score)</code>是有符号的、没有正规化的边界距离，从这个角度来说，我们希望<code>yn·(voting score)</code>越大越好，因为这样的泛化能力越强。于是，<code>exp(-yn·(voting score))</code>越小越好，那么<code>un(T+1)</code>越小越好。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-21-01.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-19-21-01.png" alt=""> </p>
 <p><strong>结论</strong>：AdaBoost在迭代过程中，是让<code>∑un(t)</code>越来越小的过程，在这个过程中，逐渐达到SVM中最大分类间隔的效果。</p>
 <h2 id="AdaBoost误差函数">3.3. AdaBoost误差函数</h2><p>上面解释到了，AdaBoost在迭代学习的过程，就是希望让<code>∑un(t)</code>越来越小的过程，那么我们<strong>新的目标</strong>就是最佳化权重和<code>∑un(T+1)</code>：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-58-44.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-19-58-44.png" alt=""> </p>
 <p>我们可以画出<code>0/1错误</code>和<code>AdaBoost误差函数err(s,y) = exp(-ys)</code>的函数曲线，我们发现AdaBoost的误差函数（称为exponential error measure）实际上也是0/1错误函数的上限函数，于是，<strong>我们可以通过最小化该函数来起到最佳化的效果</strong>。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-59-15.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-19-59-15.png" alt=""> </p>
 <h2 id="AdaBoost误差函数的梯度下降求解">3.4. AdaBoost误差函数的梯度下降求解</h2><p>本节目的————最小化AdaBoost的误差函数<code>Ein</code>：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-19-58-44.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-19-58-44.png" alt=""> </p>
 <p>这个任务比较麻烦，因为是Σ套着exp再套着Σ，因此需要一些前人的智慧了。</p>
 <p>我们可以将<code>Ein</code>函数在所在点的附近做泰勒展开，我们就可以发现在该点的附近可以被梯度所描述，我们希望求一个最好的方向（最大梯度相反的方向），然后在该方向上走一小步，这样我们就可以做到比现在的函数效果好一点点，依次进行梯度下降，最终达到最小化误差函数的效果。</p>
 <p>原始的梯度下降法：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-02-45.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-02-45.png" alt=""> </p>
 <p>为了模仿梯度下降的方法，假设前面已经AdaBoost完t-1轮了，现在要求的是一个函数gt(x)（或者称为h(x)）。</p>
 <p>在第t轮，我们沿着函数h(x)的方向走$η$的步长，可以使得目标函数迅速往min的方向走。如下：现在我们把<code>函数gt</code>当做向量，希望去找到这个<code>gt</code>（这里函数方向gt和上面介绍的最大梯度的方向向量没有什么差别，只是表示方式有所不同而已）。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-03-24.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-03-24.png" alt=""> </p>
 <p>我们解释一下上面的公式：</p>
 <ul>
 <li>(1、2行)由于前面已经执行完了<code>t-1</code>轮，因此可以把式子化简一下，把一些项目合并成<code>ut</code>的函数形式</li>
 <li>(3行左) 将<code>exp(-y·η·h(xn))</code>在原点xn=0点的泰勒展开，进一步化简得到得到<code>(1-yn·η·h(xn))</code>；（这里为什么要用0这个位置的taylor展开呢，可以理解成h(x)只是沿着原来的Σ1,t-1(alphat*g’(xn)这个函数，挪动的了一小步；这一小步，就意味着变化很小，变化很小甚至接近0，因此就可以在0点taylor展开。不晓得这种理解是否正确，意会吧）</li>
-<li>(3行右) 然后拆成两部分<code>∑un(t)</code>和<code>η·∑un(t)·yn·h(xn)</code>，第一部分是Ein，第二部分就是要最小化的目标。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-07.png" alt=""> </li>
+<li>(3行右) 然后拆成两部分<code>∑un(t)</code>和<code>η·∑un(t)·yn·h(xn)</code>，第一部分是Ein，第二部分就是要最小化的目标。<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-04-07.png" alt=""> </li>
 </ul>
 <p>到此，我们利用前人的智慧已经把目标函数给大大简化了，下面需要要求的东西有俩：</p>
 <p>1）<code>h(x)</code>是啥？</p>
 <p>2）<code>$η$</code>是啥？</p>
 <h3 id="求h-x">3.4.1. 求h(x)</h3><p>我们对<code>∑un(t)·yn·h(xn)</code>整理一下，对于二元分类情形，我们把<code>yn</code>和<code>h(xn)</code>是否同号进行分别讨论：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-04-29.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-04-29.png" alt=""> </p>
 <p>上面的公式中，我们特意将<code>∑un(t)·yn·h(xn)</code>拆成<code>-∑un(t)</code>和<code>Ein(h)</code>的形式，这里最小化<code>Ein</code>对应于AdaBoost中的A（弱学习算法），好的弱学习算法就是对应于梯度下降的函数方向。</p>
 <p><strong>结论</strong>：在AdaBoost的过程中，算法A就是good gt了！</p>
-<h3 id="求最佳化步长-η">3.4.2. 求最佳化步长$η$</h3><p>我们要最小化Eada，需要找到好的函数方向gt，但是得打这个gt的代价有些大，梯度下降的过程中，每走一小步，就需要计算得到一个gt。如果转换一下思路，我们现在已经确定了好的gt，我们希望快速找到梯度下降的最低点，那么我们需要找到一个合适的最大步长η。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-39.png" alt=""> </p>
+<h3 id="求最佳化步长-η">3.4.2. 求最佳化步长$η$</h3><p>我们要最小化Eada，需要找到好的函数方向gt，但是得打这个gt的代价有些大，梯度下降的过程中，每走一小步，就需要计算得到一个gt。如果转换一下思路，我们现在已经确定了好的gt，我们希望快速找到梯度下降的最低点，那么我们需要找到一个合适的最大步长η。<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-05-39.png" alt=""> </p>
 <p>我们这里使用贪心算法来得到最大步长η，称为steepest decent for optimization。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-05-54.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-05-54.png" alt=""> </p>
 <p>让Eada对η求偏微分，得到最陡时候的ηt，我们发现这时ηt等于AdaBoost的αt。所以在AdaBoost中αt是在偷偷地做最佳化的工作。</p>
 <p>核心在于EADA是怎么变成可对$η$求导的形式的：</p>
 <p>EADA = u1t<em>exp(-$η$) + u2t</em>exp($η$)…</p>
@@ -605,9 +605,9 @@ minError = inf
 <p>EADA2 = u1t<em>0 + u2t </em> exp($η$) …（EADA2只考虑exp(+$η$)的项，其余的补上0）</p>
 <p>则，EADA = EADA1 + EADA1 = (Σunt) <em> ( (1-epson)exp(-$η$) + epson</em>exp($η$) )</p>
 <p>随后的求导步骤就是很自然的了，因此就验证了之前的结论，$η$t = sqrt( (1-epsont)/epsont) )就是最优的。前一次课直接给出了这个结论，并没有说为什么，这次算是给出了一个相对理论些的推导。</p>
-<p><strong>结论</strong>：通过求解<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-25-13.png" alt=""><br>，我们得到最佳的<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-15-13-25-32.png" alt=""> </p>
+<p><strong>结论</strong>：通过求解<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-15-13-25-13.png" alt=""><br>，我们得到最佳的<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-15-13-25-32.png" alt=""> </p>
 <h3 id="小结">3.4.3. 小结</h3><p>在第二小节中，我们从另外一个角度介绍了AdaBoost算法，它其实是steepest gradient decent。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-07-20-06-19.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-07-20-06-19.png" alt=""> </p>
 <p>上面的式子很清楚了，我们将AdaBoost的误差函数看做是指数误差函数，AdaBoost就是在这个函数上一步一步做最佳化，每一步求得一个h，并将该h当做是gt，决定这个gt上面要走多长的距离ηt，最终得到这个gt的票数αt。</p>
 <h1 id="AdaBoost决策树总结">4. AdaBoost决策树总结</h1><ol>
 <li>AdaBoost本次的u(t+1)与<code>exp(-yn( 投票分数 on xn))</code>成正比</li>
@@ -742,7 +742,7 @@ minError = inf
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-count">142</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -833,7 +833,7 @@ minError = inf
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共307.2k字</span>
+  <span class="post-count">博客全站共309.4k字</span>
 </div>
 
 

@@ -99,14 +99,14 @@
 <meta property="og:url" content="http://jiayi797.github.io/about/2017/03/02/机器学习算法-LR/index.html">
 <meta property="og:site_name" content="jiayi797">
 <meta property="og:description" content="在说LR之前，我们先回顾一下logistic分布。 1. logistic分布如果连续随机变量$X$服从logistic分布，则$X$具有下列分布函数和密度函数： $$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$ $$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$ 其中 $u$为位置参数 $r&amp;gt">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-11-06-23-03-41.png">
-<meta property="og:updated_time" content="2018-01-25T07:23:29.497Z">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-02-20-46-41.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-02-21-35-03.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-11-06-23-03-41.png">
+<meta property="og:updated_time" content="2018-12-17T07:42:01.900Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习算法-LR">
 <meta name="twitter:description" content="在说LR之前，我们先回顾一下logistic分布。 1. logistic分布如果连续随机变量$X$服从logistic分布，则$X$具有下列分布函数和密度函数： $$F(x)=P(X&amp;lt;=x)=\frac{1}{1+e^{-(x-u)/r}}$$ $$f(x)=F’(x)=\frac{e^{-(x-u)/r}}{r(1+e^{-(x-u)/r})^2}$$ 其中 $u$为位置参数 $r&amp;gt">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png">
+<meta name="twitter:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-02-20-46-41.png">
 
 
 
@@ -368,8 +368,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-25T15:23:29+08:00">
-                2018-01-25
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-17T15:42:01+08:00">
+                2018-12-17
               </time>
             
           </span>
@@ -463,7 +463,7 @@
 <p>其中</p>
 <p>$u$为位置参数</p>
 <p>$r&gt;0$为形状参数</p>
-<p>其中，密度函数与分布函数的形状如图所示<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-20-46-41.png" alt=""> </p>
+<p>其中，密度函数与分布函数的形状如图所示<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-02-20-46-41.png" alt=""> </p>
 <p><strong>备注：分布密度函数与分布函数</strong></p>
 <p>概率密度函数$f(x)$：表示瞬时值落在某区间的概率，是幅值的概率。++用来描述连续型随机变量取值的密集程度的。++$f(x)$表示X=x的概率是$\int_0^1f(x)$。</p>
 <p>$P(X=x|x \in (0,1))=\int_0^1f(x)$</p>
@@ -488,7 +488,7 @@
 <h1 id="模型参数估计">3. 模型参数估计</h1><p>输入： 一堆（x,y）</p>
 <p>目标：估计参数w,b</p>
 <p>方法：极大似然法</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-02-21-35-03.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-02-21-35-03.png" alt=""> </p>
 <h1 id="总结">4. 总结</h1><ol>
 <li>逻辑回归是一种预测y的各类别的概率的模型，即计算P(Y=1|x)或者P(Y=0|x)</li>
 <li>与机器学习过程类似，即 通过已知的大量（x,y），拟合计算参数w,b；再用y=wx+b来计算新的x下的y；把y输入sigmoid函数中，得到y为1的概率。</li>
@@ -524,7 +524,7 @@
 </blockquote>
 <p>其中对最后一个条件等价于尽可能的让$\pi(x(i))\rightarrow y(i)$ 即 $\pi(x(i))\rightarrow A(u,y(i))$，理想情况为$\pi(x(i))= A(u,y(i))$固有：<br> $$ \sum_{i=1}^m x(i)_j\pi(x(i))_u = \sum_{i=1}^m x(i)_jA(u,y(i))\tag{15}，对所有的u，j都成立 $$ </p>
 <p>对所有类别及所有样本取$\pi()$的熵，得：<br> $$ f(v,i)=-\sum_{v=1}^k\sum_{i=1}^m\pi(x(i))_v \log(\pi(x(i))_v)\tag{16} $$<br>得到一个优化问题：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-11-06-23-03-41.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-11-06-23-03-41.png" alt=""> </p>
 <p>$$\left{<br>\begin{aligned}<br>max f(v,i)=max (-\sum_{v=1}^k \sum_{i=1}^m pi(x(i))_v log(π(x(i))_v))\\<br>\pi(x)_v&gt;0\\<br>\sum_{v=1}^k π(x)_v = 1\\<br>\sum_{i=1}^m x(i)_j π(x(i))_u = \sum_{i=1}^m x(i)_j A(u,y(i))<br>\end{aligned}<br>\right.<br>\tag{17}$$<br>利用拉格朗日对偶性求这个优化问题的对偶问题，首先引入拉格朗日函数：</p>
 <p>$$ \begin{aligned}L &amp;= \sum_{j=1}^n\sum_{v=1}^k\lambda_{v,j} \left( \sum_{i=1}^m\pi(x(i))_vx(i)_j-A(v,y(i))x(i)_j \right)\\&amp;+ \sum_{v=1}^k\sum_{i=1}^m\beta_i(\pi(x(i))_v-1)\\&amp;- \sum_{v=1}^k\sum_{i=1}^m\pi(x(i))_v\log(\pi(x(i))_v)\end{aligned}\tag{18} $$<br>其中 $$ \beta&lt;0 $$ ,由KKT条件有：<br>$$ \frac{\partial\,L}{\partial \,\pi(x(i))_u} = \lambda_u\cdot x(i)+\beta_i-\log(\pi(x(i))_u) - 1 = 0  \quad对所有i,u \tag{19}$$</p>
 <p>$$则：\pi(x(i))_u = e^{\lambda_u \cdot x(i)+\beta_i-1} \tag{20}$$ </p>
@@ -654,7 +654,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-count">142</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -745,7 +745,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共307.2k字</span>
+  <span class="post-count">博客全站共309.4k字</span>
 </div>
 
 

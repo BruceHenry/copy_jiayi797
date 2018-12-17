@@ -99,29 +99,29 @@
 <meta property="og:url" content="http://jiayi797.github.io/about/2017/03/29/数学-矩阵LU分解/index.html">
 <meta property="og:site_name" content="jiayi797">
 <meta property="og:description" content="LU分解:可以将一个矩阵分解为一个单位下三角矩阵和一个上三角矩阵的乘积（有时是它们和一个置换矩阵的乘积）。LU分解主要应用在数值分析中，用来解线性方程、求反矩阵或计算行列式。   1. LU分解条件如果n阶方阵A的各阶顺序主子式 ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU 其中k阶顺序主子式指  2. LU分解方法由于L存在可逆矩阵L’">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-31-33.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-34-31.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-36-08.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-13-15.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-54-39.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-55-24.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-57-24.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-57-48.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-58-09.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-59-09.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-05-36.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-00-46.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-02-44.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-30-10-36-28.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-16-46.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-22-05.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-39-25.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-31-11-02-01.png">
-<meta property="og:updated_time" content="2017-07-11T07:24:40.885Z">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-19-31-33.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-19-34-31.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-19-36-08.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-13-15.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-54-39.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-55-24.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-57-24.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-57-48.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-58-09.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-59-09.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-21-05-36.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-21-00-46.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-21-02-44.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-30-10-36-28.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-30-14-16-46.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-30-14-22-05.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-30-14-39-25.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-31-11-02-01.png">
+<meta property="og:updated_time" content="2018-12-17T07:42:03.527Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="矩阵LU分解及其实现">
 <meta name="twitter:description" content="LU分解:可以将一个矩阵分解为一个单位下三角矩阵和一个上三角矩阵的乘积（有时是它们和一个置换矩阵的乘积）。LU分解主要应用在数值分析中，用来解线性方程、求反矩阵或计算行列式。   1. LU分解条件如果n阶方阵A的各阶顺序主子式 ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU 其中k阶顺序主子式指  2. LU分解方法由于L存在可逆矩阵L’">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-31-33.png">
+<meta name="twitter:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-19-31-33.png">
 
 
 
@@ -383,8 +383,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:24:40+08:00">
-                2017-07-11
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-17T15:42:03+08:00">
+                2018-12-17
               </time>
             
           </span>
@@ -472,29 +472,29 @@
 
       
         <p>LU分解:可以将一个矩阵分解为一个<strong>单位下三角矩阵</strong>和一个<strong>上三角矩阵</strong>的<strong>乘积</strong>（有时是它们和一个置换矩阵的乘积）。LU分解主要应用在数值分析中，用来解线性方程、求反矩阵或计算行列式。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-31-33.png" alt=""> </p>
-<h1 id="LU分解条件">1. LU分解条件</h1><p>如果n阶方阵A的各阶顺序主子式<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-34-31.png" alt=""> ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU</p>
-<p>其中k阶顺序主子式指<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-36-08.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-19-31-33.png" alt=""> </p>
+<h1 id="LU分解条件">1. LU分解条件</h1><p>如果n阶方阵A的各阶顺序主子式<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-19-34-31.png" alt=""> ，即A的各阶顺序主子矩阵Ak都可逆，则存在唯一的单位下三角矩阵L与唯一的非奇异上三角矩阵U，使得A=LU</p>
+<p>其中k阶顺序主子式指<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-19-36-08.png" alt=""> </p>
 <h1 id="LU分解方法">2. LU分解方法</h1><p>由于L存在可逆矩阵L’，即LL’=E<br>则L’A=LL’U=U<br>因此得出一般的分解方法：<br>通过对(A,E)做初等行变换得到(U,L’),再由L’得到L.</p>
 <p>其中：</p>
 <ol>
 <li>L是单位下三角矩阵（对角线上的系数都为1的下三角矩阵）；L’也是单位上三角矩阵；</li>
 <li>U是非奇异上三角矩阵；</li>
 </ol>
-<h1 id="直接消去法的矩阵解释">3. 直接消去法的矩阵解释</h1><p>计算过程如图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-13-15.png" alt=""> </p>
+<h1 id="直接消去法的矩阵解释">3. 直接消去法的矩阵解释</h1><p>计算过程如图所示：<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-13-15.png" alt=""> </p>
 <p><strong>目的</strong>：将[A|E]–&gt;[U|L]形式，其中U是上三角矩阵</p>
 <p><strong>过程</strong>：每轮将一列的下三角消为0，就相当于给A左乘一个下三角单位矩阵Lk（对角线为1，保证变换后对角线元素不变）。</p>
-<p><strong>第一轮消元</strong>：将第一列的下三角消为0，相当于对A1左乘矩阵L1，即：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-54-39.png" alt=""><br>其中，<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-55-24.png" alt=""><br>我们注意到li1恰好使得第i行的第一列元素变为零，即ai1-li1*a11=0。</p>
-<p><strong>第二轮消元</strong>：将第二列的下三角消为0，对应于<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-57-24.png" alt=""> </p>
-<p><strong>第k轮消元</strong>:<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-57-48.png" alt=""><br>其中，<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-58-09.png" alt=""> </p>
-<p>把k轮消元相乘，即：<br><strong>整个消元过程为</strong>：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-59-09.png" alt=""> </p>
-<p><strong>总结</strong><br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-05-36.png" alt=""><br>初始（第一步）：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-00-46.png" alt=""> </p>
-<p>迭代第r步：<br>即<br>ur=f(u1,u2,…,u(r-1),l1,l2,…,l(r-1)),第r项由前r-1项计算得到<br>lr=g(u1,u2,…,u(r-1),l1,l2,…,l(r-1))<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-29-21-02-44.png" alt=""> </p>
+<p><strong>第一轮消元</strong>：将第一列的下三角消为0，相当于对A1左乘矩阵L1，即：<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-54-39.png" alt=""><br>其中，<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-55-24.png" alt=""><br>我们注意到li1恰好使得第i行的第一列元素变为零，即ai1-li1*a11=0。</p>
+<p><strong>第二轮消元</strong>：将第二列的下三角消为0，对应于<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-57-24.png" alt=""> </p>
+<p><strong>第k轮消元</strong>:<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-57-48.png" alt=""><br>其中，<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-58-09.png" alt=""> </p>
+<p>把k轮消元相乘，即：<br><strong>整个消元过程为</strong>：<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-20-59-09.png" alt=""> </p>
+<p><strong>总结</strong><br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-21-05-36.png" alt=""><br>初始（第一步）：<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-21-00-46.png" alt=""> </p>
+<p>迭代第r步：<br>即<br>ur=f(u1,u2,…,u(r-1),l1,l2,…,l(r-1)),第r项由前r-1项计算得到<br>lr=g(u1,u2,…,u(r-1),l1,l2,…,l(r-1))<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-29-21-02-44.png" alt=""> </p>
 <p>计算顺序：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-10-36-28.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-30-10-36-28.png" alt=""> </p>
 <p>需要注意的是，我们在计算时需要判断本阶的顺序主子式是否为零。</p>
 <p><strong>代码实现</strong><br>备注：其中的piovt暂时没有卵用。</p>
-<p>输入矩阵：<img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-16-46.png" alt=""> </p>
+<p>输入矩阵：<img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-30-14-16-46.png" alt=""> </p>
 <pre><code>bool lu(double *a,int *pivot,int n){//矩阵是n*n的
 double test = det(a,r,n);//检验本阶顺序主子式是否为0
  if(test==0){
@@ -532,8 +532,8 @@ for(int r=0;r&lt;n;r++){
 }
 return false;
 }
-</code></pre><p>结果：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-22-05.png" alt=""> </p>
-<p>不知道为什么，我的答案与网上的之前学长做过的这道题的答案统统不一样。仔细检查后还是查不出来。又用Matlab验证了一下LU分解，MATLAB跑的结果为：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-30-14-39-25.png" alt=""><br>与我自己的L矩阵一致。决定还是相信自己。</p>
+</code></pre><p>结果：<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-30-14-22-05.png" alt=""> </p>
+<p>不知道为什么，我的答案与网上的之前学长做过的这道题的答案统统不一样。仔细检查后还是查不出来。又用Matlab验证了一下LU分解，MATLAB跑的结果为：<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-30-14-39-25.png" alt=""><br>与我自己的L矩阵一致。决定还是相信自己。</p>
 <h1 id="列主元高斯消去法">4. 列主元高斯消去法</h1><p>主要思想是在每次计算第r行时，选取当前第r列下的最大的a[i,r]的所在的第i行作为主元，即将第i行与第r行交换，再进行计算。</p>
 <p>主要理论见参考文献-北邮理学院数值分析课件chapter5.</p>
 <p>代码：</p>
@@ -656,7 +656,7 @@ int main()
     //cout &lt;&lt; &quot;Hello world!&quot; &lt;&lt; endl;
     return 0;
 }
-</code></pre><p>输出：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-03-31-11-02-01.png" alt=""> </p>
+</code></pre><p>输出：<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-03-31-11-02-01.png" alt=""> </p>
 <h1 id="参考文献">5. 参考文献</h1><ol>
 <li><a href="https://ccjou.wordpress.com/2010/09/01/lu-%E5%88%86%E8%A7%A3/" target="_blank" rel="external">LU 分解</a></li>
 <li><a href="http://blog.csdn.net/u010945683/article/details/45803141" target="_blank" rel="external">矩阵分析——LU分解</a></li>
@@ -789,7 +789,7 @@ int main()
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-count">142</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -880,7 +880,7 @@ int main()
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共307.2k字</span>
+  <span class="post-count">博客全站共309.4k字</span>
 </div>
 
 

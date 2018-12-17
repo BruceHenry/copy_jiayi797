@@ -99,17 +99,17 @@
 <meta property="og:url" content="http://jiayi797.github.io/about/2018/08/05/机器学习算法-LDA主题模型/index.html">
 <meta property="og:site_name" content="jiayi797">
 <meta property="og:description" content="1. 基本概览概率主题模型：隐含狄利克雷分布（Latent Dirichlet Allocation，简称LDA）。  按照wiki上的介绍，LDA由Blei, David M.、Ng, Andrew Y.、Jordan于2003年提出，是一种主题模型，它可以将文档集中每篇文档的主题以概率分布的形式给出，从而通过分析一些文档抽取出它们的主题（分布）出来后，便可以根据主题（分布）进行主题聚类或文本分">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-08-05-13-45-51.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-08-05-13-45-51.png">
 <meta property="og:image" content="c:/Users/jiayi/AppData/Local/Temp/1533450274330.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-08-05-14-24-57.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-08-05-14-31-04.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-08-05-14-39-44.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-08-05-14-50-02.png">
-<meta property="og:updated_time" content="2018-08-11T14:24:41.162Z">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-08-05-14-24-57.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-08-05-14-31-04.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-08-05-14-39-44.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-08-05-14-50-02.png">
+<meta property="og:updated_time" content="2018-12-17T07:42:01.844Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习算法-LDA主题模型">
 <meta name="twitter:description" content="1. 基本概览概率主题模型：隐含狄利克雷分布（Latent Dirichlet Allocation，简称LDA）。  按照wiki上的介绍，LDA由Blei, David M.、Ng, Andrew Y.、Jordan于2003年提出，是一种主题模型，它可以将文档集中每篇文档的主题以概率分布的形式给出，从而通过分析一些文档抽取出它们的主题（分布）出来后，便可以根据主题（分布）进行主题聚类或文本分">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2018-08-05-13-45-51.png">
+<meta name="twitter:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-08-05-13-45-51.png">
 
 
 
@@ -371,8 +371,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-11T22:24:41+08:00">
-                2018-08-11
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-17T15:42:01+08:00">
+                2018-12-17
               </time>
             
           </span>
@@ -471,7 +471,7 @@
 <a id="more"></a>
 <p>其中，类似Beta分布是二项式分布的共轭先验概率分布，而狄利克雷分布（Dirichlet分布）是多项式分布的共轭先验概率分布。 </p>
 <p> 此外，LDA的图模型结构如下图所示（类似<a href="http://blog.csdn.net/v_july_v/article/details/40984699#t6" target="_blank" rel="external">贝叶斯网络</a>结构）： </p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-05-13-45-51.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-08-05-13-45-51.png" alt=""> </p>
 <p>知道理解LDA，可以分为下述5个步骤：</p>
 <ol>
 <li>一个函数：gamma函数</li>
@@ -520,7 +520,7 @@
 <p>图中被涂色的w表示可观测变量，N表示一篇文档中总共N个单词，M表示M篇文档 </p>
 <p><img src="C:\Users\jiayi\AppData\Local\Temp\1533450274330.png" alt="1533450274330"></p>
 <p>或为： </p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-05-14-24-57.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-08-05-14-24-57.png" alt=""> </p>
 <p>unigram model假设文本中的词服从Multinomial分布，而我们已经知道Multinomial分布的先验分布为Dirichlet分布。 </p>
 <p>上图中的$w_n$表示在文本中观察到的第n个词，$n\in[1,N]$表示该文本中一共有N个单词。加上方框表示重复，即一共有N个这样的随机变量$w_n$。其中，p和$\alpha$是隐含未知变量。</p>
 <ul>
@@ -532,7 +532,7 @@
 <h3 id="根据主题词生成文档">3.2.1. 根据主题词生成文档</h3><p>实际中，一篇文章往往有多个主题，只是这多个主题各自在文档中出现的概率大小不一样。比如介绍一个国家的文档中，往往会分别从教育、经济、交通等多个主题进行介绍。那么在pLSA中，<strong>文档是怎样被生成的呢</strong>？ </p>
 <p>假设你要写M篇文档，由于一篇文档由各个不同的词组成，所以你需要确定每篇文档里每个位置上的词。</p>
 <p>再假定你一共有K个可选的主题，有V个可选的词。一般来说，选主题和选词都是两个随机的过程，先从主题分布{教育：0.5，经济：0.3，交通：0.2}中抽取出主题：教育，然后从该主题对应的词分布{大学：0.5，老师：0.3，课程：0.2}中抽取出词：大学。  最后，你不停的重复扔“文档-主题”骰子和”主题-词项“骰子，重复N次（产生N个词），完成一篇文档，重复这产生一篇文档的方法M次，则完成M篇文档。 </p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-05-14-31-04.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-08-05-14-31-04.png" alt=""> </p>
 <p>上述过程抽象出来即是PLSA的文档生成模型。在这个过程中，我们并未关注词和词之间的出现顺序，所以pLSA是一种词袋方法。具体说来，该模型假设一组共现(co-occurrence)词项关联着一个隐含的主题类别$z_k\in{z_1,…,z_K}$。同时定义：</p>
 <ul>
 <li>$P(d_i)$表示海量文档中某篇文档被选中的概率；</li>
@@ -551,7 +551,7 @@
 <h3 id="根据文档反推主题分布">3.2.2. 根据文档反推主题分布</h3><p>反过来，既然文档已经产生，那么如何根据已经产生好的文档反推其主题呢？这个利用看到的文档推断其隐藏的主题（分布）的过程（其实也就是产生文档的逆过程），便是主题建模的目的：自动地发现文档集中的主题（分布）。</p>
 <p>换言之，人类根据文档生成模型写成了各类文章，然后丢给了计算机，相当于计算机看到的是一篇篇已经写好的文章。现在计算机需要根据一篇篇文章中看到的一系列词归纳出当篇文章的主题，进而得出各个主题各自不同的出现概率：主题分布。即文档d和单词w是可被观察到的，但主题z却是隐藏的。</p>
 <p>如下图所示（图中被涂色的d、w表示可观测变量，未被涂色的z表示未知的隐变量，N表示一篇文档中总共N个单词，M表示M篇文档）：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-05-14-39-44.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-08-05-14-39-44.png" alt=""> </p>
 <p>上图中，文档d和词w是我们得到的样本（样本随机，参数虽未知但固定，所以pLSA属于频率派思想。区别于下文要介绍的LDA中：样本固定，参数未知但不固定，是个随机变量，服从一定的分布，所以LDA属于贝叶斯派思想），可观测得到，所以对于任意一篇文档，其$P(z_k|d_i)$是已知的。 </p>
 <p> 从而可以根据大量已知的文档-词项信息 $P(w_j|d_i)$训练出文档-主题和$P(z_k|d_i)$主题-词项，如$P(w_j|z_k)$下公式所示： </p>
 <p>$$P(w_j|d_i)=\sum_{k=1}^KP(w_j|z_k)P(z_k|d_i)$$</p>
@@ -577,7 +577,7 @@
 </ol>
 <p>从上面两个过程可以看出，LDA在PLSA的基础上，为主题分布和词分布分别加了两个Dirichlet先验。</p>
 <p>继续拿之前讲解PLSA的例子进行具体说明。如前所述，在PLSA中，选主题和选词都是两个随机的过程，先从主题分布{教育：0.5，经济：0.3，交通：0.2}中抽取出主题：教育，然后从该主题对应的词分布{大学：0.5，老师：0.3，课程：0.2}中抽取出词：大学。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-08-05-14-50-02.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-08-05-14-50-02.png" alt=""> </p>
 <p> 而在LDA中，选主题和选词依然都是两个随机的过程，依然可能是先从主题分布{教育：0.5，经济：0.3，交通：0.2}中抽取出主题：教育，然后再从该主题对应的词分布{大学：0.5，老师：0.3，课程：0.2}中抽取出词：大学。</p>
 <p>​    那PLSA跟LDA的区别在于什么地方呢？区别就在于：</p>
 <ul>
@@ -710,7 +710,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-count">142</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -801,7 +801,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共307.2k字</span>
+  <span class="post-count">博客全站共309.4k字</span>
 </div>
 
 

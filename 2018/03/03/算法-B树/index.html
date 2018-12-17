@@ -99,23 +99,23 @@
 <meta property="og:url" content="http://jiayi797.github.io/about/2018/03/03/算法-B树/index.html">
 <meta property="og:site_name" content="jiayi797">
 <meta property="og:description" content="B树是为实现高效的磁盘存取而设计的多叉平衡搜索树。这个概念在文件系统，数据库系统中非常重要。 B树是一种查找树，我们知道，这一类树（比如二叉查找树，红黑树等等）最初生成的目的都是为了解决某种系统中，查找效率低的问题。B树也是如此，它最初启发于二叉查找树，二叉查找树的特点是每个非叶节点都只有两个孩子节点。然而这种做法会导致当数据量非常大时，二叉查找树的深度过深，搜索算法自根节点向下搜索时，需要访问的">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-03-14-50-08.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-03-14-53-26.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-00-28.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-00-42.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-00-55.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-01-12.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-01-26.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-03-33.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-04-27.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-04-41.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-22-57.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-31-31.png">
-<meta property="og:updated_time" content="2018-03-03T07:49:35.779Z">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-14-50-08.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-14-53-26.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-00-28.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-00-42.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-00-55.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-01-12.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-01-26.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-03-33.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-04-27.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-04-41.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-22-57.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-31-31.png">
+<meta property="og:updated_time" content="2018-12-17T07:42:03.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法-B树">
 <meta name="twitter:description" content="B树是为实现高效的磁盘存取而设计的多叉平衡搜索树。这个概念在文件系统，数据库系统中非常重要。 B树是一种查找树，我们知道，这一类树（比如二叉查找树，红黑树等等）最初生成的目的都是为了解决某种系统中，查找效率低的问题。B树也是如此，它最初启发于二叉查找树，二叉查找树的特点是每个非叶节点都只有两个孩子节点。然而这种做法会导致当数据量非常大时，二叉查找树的深度过深，搜索算法自根节点向下搜索时，需要访问的">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-03-14-50-08.png">
+<meta name="twitter:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-14-50-08.png">
 
 
 
@@ -377,8 +377,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-03T15:49:35+08:00">
-                2018-03-03
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-17T15:42:03+08:00">
+                2018-12-17
               </time>
             
           </span>
@@ -483,13 +483,13 @@
 <li>所有叶子节点都有相同的深度，这表明B树是绝对平衡（Balanced）的。也就是B树名字的来源。</li>
 </ul>
 <p>标准B树的形状如图所示：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-03-14-50-08.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-14-50-08.png" alt=""> </p>
 <p><strong>B树高度</strong></p>
 <p>对于一个包含n个关键字，最小度数$t \geq 2$ 的B树，其高度$h$ 一定满足：</p>
 <p>$$ h \leq \log_{t}{\frac{n + 1}{2}} $$</p>
 <p>在搜索B树时，很明显，访问节点（即读取磁盘）的次数与树的高度呈正比，而B树与红黑树和普通的二叉查找树相比，虽然高度都是对数数量级，但是显然B树中log函数的底可以比2更大，因此，和二叉树相比，极大地减少了磁盘读取的次数。</p>
 <h1 id="B树的操作">2. B树的操作</h1><h2 id="查找">2.1. 查找</h2><p>一棵已经建立好的B树如下图所示，我们的目的是查找关键字为29的文件：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-03-14-53-26.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-14-53-26.png" alt=""> </p>
 <p>先简单说明一下上图：</p>
 <ul>
 <li>图中小红方块表示对应关键字锁代表的文件存储位置。实际上可以看做一个地址。比如根节点17旁边的小红块表示关键字17所对应的文件在硬盘中的存储地址。</li>
@@ -507,21 +507,21 @@
 <p>下面用《算法导论》中的一个题目展示一下这种插入关键字的过程。</p>
 <p>现在我们要将关键字序列：F, S, Q, K, C, L, H, T, V, W, M, R, N, P, A, B, X, Y依次插入一棵最小度为2的B树中。也就是说，这棵树的节点中，最多有3个关键字，最少有1个关键字。</p>
 <p><strong>第1步</strong>，F, S, Q可以被插入一个节点（也就是根节点）</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-00-28.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-00-28.png" alt=""> </p>
 <p><strong>第2步</strong>，插入关键字K，因为节点已满，所以在插入前，发生分裂，中间关键字Q上移，建立了一个新的根节点：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-00-42.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-00-42.png" alt=""> </p>
 <p><strong>第3步</strong>，插入关键字C:</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-00-55.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-00-55.png" alt=""> </p>
 <p><strong>第4步</strong>，插入关键字L，L应该被插入到根节点的左侧的孩子中，因为此时该节点已满，所以在插入前，发生分裂：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-01-12.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-01-12.png" alt=""> </p>
 <p><strong>第5步</strong>，插入关键字H, T, V，这个过程没有发生节点的分裂：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-01-26.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-01-26.png" alt=""> </p>
 <p><strong>第6步</strong>，插入关键字W，W应该被插入到根节点的最右侧的孩子中，因为此时该节点已满，所以在插入前，关键字T上移，最右端的叶子节点发生分裂：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-03-33.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-03-33.png" alt=""> </p>
 <p><strong>第7步</strong>，插入关键字M，M应该被插入到根节点的左起第2个孩子中，因为此时该节点已满，所以在插入前，发生分裂，分裂之后，中间关键字K上移，导致根节点发生分裂，树高增加1：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-04-27.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-04-27.png" alt=""> </p>
 <p>第8步，同样的道理，插入关键字R, N, P, A, B, X, Y：最终得到的B树如下：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-04-41.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-04-41.png" alt=""> </p>
 <h2 id="删除">2.3. 删除</h2><p>删除操作的基本思想和插入操作是一样的，都是不能因为关键字的改变而改变B树的结构。插入操作主要防止的是某个节点中关键字的个数太多，所以采用了分裂；删除则是要防止某个节点中，因删除了关键字而导致这个节点的关键字个数太少，所以采用了合并操作。</p>
 <p>下面分三种情况来讨论下删除操作是如何工作的，这个过程的顺序是自根节点起向下遍历B树</p>
 <p><strong>Case - 1：</strong>如果要删除的关键字k在节点u中，而且u是叶子节点，那么直接删除k</p>
@@ -533,7 +533,7 @@
 <p>(1) 如果u.pi至少有一个相邻的兄弟比较“丰满”（即这个兄弟至少有t个关键字）。则将u中的一个关键字降至u.pi，同时令u.pi的最“丰满”的兄弟中升一个关键至u。然后继续扫描B树，寻找k</p>
 <p>(2) 如果u.pi的两个相邻的兄弟都不“丰满”（都只有t−1个关键字）。则令u.pi和其一个兄弟合并，再将u的一个关键字降至新合并的节点。使之成为该节点的中间关键字。</p>
 <p>举个例子，就可以清晰看到上面说的这几种删除的情况。拿下图所示的最小度为3的B树为例（即树中除根和叶子之外的节点只能有2，3，4三种情况的关键字个数）：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-22-57.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-22-57.png" alt=""> </p>
 <h1 id="B-树">3. B+树</h1><h2 id="B-树的结构">3.1. B+树的结构</h2><p>B+树是B树的一种变形，它更适合实际应用中操作系统的文件索引和数据库索引。定义如下：（为和大多资料保持一致，这里使用阶数m来定义B+树，而不像之前的B树中，使用的是最小度t来定义）</p>
 <ol>
 <li>每个内部节点的关键字个数为$[\frac{m}{2}, m]$ 个。其中每个关键字对应一个子树；</li>
@@ -547,7 +547,7 @@
 <li>所有分支节点的关键字都是对应子树中关键字的最大值</li>
 </ol>
 <p>比如，下图就是一个非常典型的B+树的例子。</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-03-15-31-31.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-03-15-31-31.png" alt=""> </p>
 <p>B+树和B树相比，主要的不同点在以下3项：</p>
 <ul>
 <li>内部节点中，关键字的个数与其子树的个数相同，不像B树中，子树的个数总比关键字个数多1个</li>
@@ -686,7 +686,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-count">142</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -777,7 +777,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共307.2k字</span>
+  <span class="post-count">博客全站共309.4k字</span>
 </div>
 
 

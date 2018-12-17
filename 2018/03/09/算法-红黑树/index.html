@@ -99,19 +99,19 @@
 <meta property="og:url" content="http://jiayi797.github.io/about/2018/03/09/算法-红黑树/index.html">
 <meta property="og:site_name" content="jiayi797">
 <meta property="og:description" content="红黑树本质上是一种二叉查找树，但它在二叉查找树的基础上额外添加了一个标记（颜色），同时具有一定的规则。这些规则使红黑树保证了一种平衡，插入、删除、查找的最坏时间复杂度都为 O(logn)。 它的统计性能要好于平衡二叉树（AVL树），因此，红黑树在很多地方都有应用。比如在 Java 集合框架中，很多部分(TreeMap, TreeSet 等)都有红黑树的应用，这些集合均提供了很好的性能。 由于 Tr">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-33-31.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-38-40.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-49-56.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-51-01.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-53-10.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-01-31.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-02-08.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-05-00.png">
-<meta property="og:updated_time" content="2018-03-09T12:08:02.809Z">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-19-33-31.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-19-38-40.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-19-49-56.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-19-51-01.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-19-53-10.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-20-01-31.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-20-02-08.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-20-05-00.png">
+<meta property="og:updated_time" content="2018-12-17T07:42:05.207Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法-红黑树">
 <meta name="twitter:description" content="红黑树本质上是一种二叉查找树，但它在二叉查找树的基础上额外添加了一个标记（颜色），同时具有一定的规则。这些规则使红黑树保证了一种平衡，插入、删除、查找的最坏时间复杂度都为 O(logn)。 它的统计性能要好于平衡二叉树（AVL树），因此，红黑树在很多地方都有应用。比如在 Java 集合框架中，很多部分(TreeMap, TreeSet 等)都有红黑树的应用，这些集合均提供了很好的性能。 由于 Tr">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-33-31.png">
+<meta name="twitter:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-19-33-31.png">
 
 
 
@@ -373,8 +373,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-09T20:08:02+08:00">
-                2018-03-09
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-17T15:42:05+08:00">
+                2018-12-17
               </time>
             
           </span>
@@ -465,7 +465,7 @@
 <p>它的统计性能要好于平衡二叉树（AVL树），因此，红黑树在很多地方都有应用。比如在 <a href="https://link.juejin.im/?target=http%3A%2F%2Flib.csdn.net%2Fbase%2Fjavaee" target="_blank" rel="external">Java</a> 集合框架中，很多部分(TreeMap, TreeSet 等)都有红黑树的应用，这些集合均提供了很好的性能。</p>
 <p>由于 TreeMap 就是由红黑树实现的，因此本文将使用 TreeMap 的相关操作的代码进行分析、论证。</p>
 <a id="more"></a>
-<h1 id="红黑树定义">1. 红黑树定义</h1><p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-33-31.png" alt=""> </p>
+<h1 id="红黑树定义">1. 红黑树定义</h1><p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-19-33-31.png" alt=""> </p>
 <p>红黑树在原有的二叉查找树基础上增加了如下几个要求：</p>
 <ul>
 <li>每个节点要么是红色，要么是黑色</li>
@@ -475,7 +475,7 @@
 <li>从任意节点到其子树中每个叶子节点的路径都包含相同的黑色节点</li>
 </ul>
 <p>因此我们定义<strong>黑色高度</strong>：从根节点到叶节点的路径上黑色节点的个数，叫做树的黑色高度。</p>
-<h1 id="红黑树的操作">2. 红黑树的操作</h1><h2 id="左旋和右旋">2.1. 左旋和右旋</h2><p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-38-40.png" alt=""> </p>
+<h1 id="红黑树的操作">2. 红黑树的操作</h1><h2 id="左旋和右旋">2.1. 左旋和右旋</h2><p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-19-38-40.png" alt=""> </p>
 <p>红黑树的左右旋是比较重要的操作，左右旋的目的是调整红黑节点结构，转移黑色节点位置，使其在进行插入、删除后仍能保持红黑树的 5 条性质。</p>
 <p><strong>右旋</strong></p>
 <p>y 节点的右旋就是把 y 变成 左孩子 x 的右孩子，同时把 x 的右孩子送给 x 当左子树。</p>
@@ -500,19 +500,19 @@
 <p>因此我们需要在插入节点后进行结构和颜色调整，保证红黑树始终满足这 5 条特征。为了减少不确定性，我们把插入的节点直接染成红色，这样就不会影响特征 5，只要专心调整满足特征 4 ，也就是专心<strong>不要让两个红色节点连着就好了</strong>。</p>
 <p>染成红色后，我们只要关心父节点是否为红，如果是红的，就要把父节点进行变化，让父节点变成黑色，或者换一个黑色节点当父亲，这些操作的同时不能影响不同路径上的黑色节点数一致的规则。接下来继续看看这种操作带来的两种可能性：</p>
 <p><strong>情况1，父节点和叔叔节点都是红色</strong></p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-49-56.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-19-49-56.png" alt=""> </p>
 <p>假设插入的是节点 N，这时父亲节点 P 和叔叔节点 U 都是红色，爷爷节点 G 一定是黑色。</p>
 <p>红色节点的孩子不能是红色，这时不管 N 是 P 的左孩子还是右孩子，只要同时把 P 和 U 染成黑色，G 染成红色即可。这样这个子树左右两边黑色个数一致，也满足特征 4。</p>
 <p>但是这样改变后 G 染成红色，G 的父亲如果是红色岂不是又违反特征 4 了？<br>这个问题和我们插入、染红后一致，因此需要以 爷爷节点 G 为新的调整节点，再次进行调整操作，以此循环，直到父亲节点不是红的，就没有问题了。</p>
 <p><strong>情况2，父亲节点为红色，叔叔节点为黑色</strong></p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-51-01.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-19-51-01.png" alt=""> </p>
 <p>假设插入的是节点 N，这时父亲节点 P 是红色，叔叔节点 U 是黑色，爷爷节点 G 一定是黑色。</p>
 <p>红色节点的孩子不能是红色，但是直接把父亲节点 P 涂成黑色也不行，这条路径多了个黑色节点。怎么办呢？</p>
 <p>既然改变不了你，那我们就此别过吧，我换一个更适合我的！</p>
 <p>我们怎么把 P 弄走呢？看来看去，还是右旋最合适，通过把 爷爷节点 G 右旋，P 变成了这个子树的根节点，G 变成了 P 的右子树。</p>
 <p>右旋后 G 跑到了右子树上，这时把 P 变成黑的，多了一个黑节点，再把 G 变成红的，就平衡了！</p>
 <p>上面讲的是插入节点 N 在父亲节点 P 的左孩子位置。如果 N 是 P 的右孩子，就需要多进行一次左旋，把情况化解成上述情况，也就是如下操作所示：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-19-53-10.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-19-53-10.png" alt=""> </p>
 <h2 id="删除">2.3. 删除</h2><p>红黑树的插入平衡需要好好理解下，如果前面没有理解，删除后的调整平衡更加难懂，前方高能，请注意！</p>
 <p>红黑树的删除也是分两步：</p>
 <ol>
@@ -550,7 +550,7 @@
 <p>在做后续变化前，这棵树还是保持着原来的平衡。</p>
 <p><strong>第二步</strong></p>
 <p><strong>情况1，兄弟节点的孩子都是黑色</strong></p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-01-31.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-20-01-31.png" alt=""> </p>
 <ul>
 <li>把兄弟搞成红的</li>
 <li>continue 下一波（这个子树搞完了，研究父亲节点，去搞上一级树，进入第三步）</li>
@@ -571,9 +571,9 @@
 <li>研究根节点，进入第三步</li>
 </ul>
 <p>旋转的情况 2 是将兄弟节点的左右孩子都移动到右边，方便后续操作，如下图所示：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-02-08.png" alt=""></p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-20-02-08.png" alt=""></p>
 <p>旋转的情况 3 将兄弟的孩子移到左边来，同时黑色的父亲变到了左边（总之就是让左边多些黑色节点），如下图所示：</p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-09-20-05-00.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2018-03-09-20-05-00.png" alt=""> </p>
 <p><strong>第三步</strong></p>
 <ul>
 <li>如果研究的不是根节点并且是黑的，重新进入第一步，研究上一级树；</li>
@@ -718,7 +718,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-count">142</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -809,7 +809,7 @@
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共307.2k字</span>
+  <span class="post-count">博客全站共309.4k字</span>
 </div>
 
 

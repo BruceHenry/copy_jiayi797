@@ -99,18 +99,18 @@
 <meta property="og:url" content="http://jiayi797.github.io/about/2017/12/10/深度学习实践-1-4-2-用神经网络识别猫/index.html">
 <meta property="og:site_name" content="jiayi797">
 <meta property="og:description" content="本文主要参考自吴恩达Coursera深度学习课程 DeepLearning.ai 编程作业（1-4） 吴恩达Coursera课程 DeepLearning.ai 编程作业系列，本文为《神经网络与深度学习》部分的第四周“深层神经网络”的课程作业。 本节的主要内容是：利用之前实现的神经网络，来识别图片中的猫">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-10-18-09-04.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-10-15-57-08.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-10-15-59-23.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-10-18-09-35.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-10-16-09-01.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-10-18-09-49.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-10-18-10-04.png">
-<meta property="og:updated_time" content="2017-12-16T06:17:59.563Z">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-18-09-04.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-15-57-08.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-15-59-23.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-18-09-35.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-16-09-01.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-18-09-49.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-18-10-04.png">
+<meta property="og:updated_time" content="2018-12-17T07:42:02.954Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习实践-1-4-2-用神经网络识别猫">
 <meta name="twitter:description" content="本文主要参考自吴恩达Coursera深度学习课程 DeepLearning.ai 编程作业（1-4） 吴恩达Coursera课程 DeepLearning.ai 编程作业系列，本文为《神经网络与深度学习》部分的第四周“深层神经网络”的课程作业。 本节的主要内容是：利用之前实现的神经网络，来识别图片中的猫">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-12-10-18-09-04.png">
+<meta name="twitter:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-18-09-04.png">
 
 
 
@@ -372,8 +372,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-12-16T14:17:59+08:00">
-                2017-12-16
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-17T15:42:02+08:00">
+                2018-12-17
               </time>
             
           </span>
@@ -488,7 +488,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_data</span><span class="params">()</span>:</span></div><div class="line">    train_dataset = h5py.File(<span class="string">'datasets/train_catvnoncat.h5'</span>, <span class="string">"r"</span>)</div><div class="line">    train_set_x_orig = np.array(train_dataset[<span class="string">"train_set_x"</span>][:]) <span class="comment"># your train set features</span></div><div class="line">    train_set_y_orig = np.array(train_dataset[<span class="string">"train_set_y"</span>][:]) <span class="comment"># your train set labels</span></div><div class="line"></div><div class="line">    test_dataset = h5py.File(<span class="string">'datasets/test_catvnoncat.h5'</span>, <span class="string">"r"</span>)</div><div class="line">    test_set_x_orig = np.array(test_dataset[<span class="string">"test_set_x"</span>][:]) <span class="comment"># your test set features</span></div><div class="line">    test_set_y_orig = np.array(test_dataset[<span class="string">"test_set_y"</span>][:]) <span class="comment"># your test set labels</span></div><div class="line"></div><div class="line">    classes = np.array(test_dataset[<span class="string">"list_classes"</span>][:]) <span class="comment"># the list of classes</span></div><div class="line">    </div><div class="line">    train_set_y_orig = train_set_y_orig.reshape((<span class="number">1</span>, train_set_y_orig.shape[<span class="number">0</span>]))</div><div class="line">    test_set_y_orig = test_set_y_orig.reshape((<span class="number">1</span>, test_set_y_orig.shape[<span class="number">0</span>]))</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes</div><div class="line"></div><div class="line">train_x_orig, train_y, test_x_orig, test_y, classes = load_data()</div><div class="line"></div><div class="line"><span class="comment"># 数据集样例</span></div><div class="line">index = <span class="number">10</span></div><div class="line">plt.imshow(train_x_orig[index])</div><div class="line"><span class="keyword">print</span> (<span class="string">"y = "</span> + str(train_y[<span class="number">0</span>,index]) + <span class="string">". It's a "</span> + classes[train_y[<span class="number">0</span>,index]].decode(<span class="string">"utf-8"</span>) +  <span class="string">" picture."</span>)</div></pre></td></tr></table></figure>
 <pre><code>y = 0. It&apos;s a non-cat picture.
 </code></pre><p>​    </p>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-10-18-09-04.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-18-09-04.png" alt=""> </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 再探数据集</span></div><div class="line"></div><div class="line">m_train = train_x_orig.shape[<span class="number">0</span>]</div><div class="line">num_px = train_x_orig.shape[<span class="number">1</span>]</div><div class="line">m_test = test_x_orig.shape[<span class="number">0</span>]</div><div class="line"></div><div class="line"><span class="keyword">print</span> (<span class="string">"训练集样本数: "</span> + str(m_train))</div><div class="line"><span class="keyword">print</span> (<span class="string">"测试集样本数: "</span> + str(m_test))</div><div class="line"><span class="keyword">print</span> (<span class="string">"单张图片shape: ("</span> + str(num_px) + <span class="string">", "</span> + str(num_px) + <span class="string">", 3)"</span>)</div><div class="line"><span class="keyword">print</span> (<span class="string">"train_x_orig shape: "</span> + str(train_x_orig.shape))</div><div class="line"><span class="keyword">print</span> (<span class="string">"train_y shape: "</span> + str(train_y.shape))</div><div class="line"><span class="keyword">print</span> (<span class="string">"test_x_orig shape: "</span> + str(test_x_orig.shape))</div><div class="line"><span class="keyword">print</span> (<span class="string">"test_y shape: "</span> + str(test_y.shape))</div></pre></td></tr></table></figure>
 <pre><code>训练集样本数: 209
 测试集样本数: 50
@@ -497,7 +497,7 @@ train_x_orig shape: (209L, 64L, 64L, 3L)
 train_y shape: (1L, 209L)
 test_x_orig shape: (50L, 64L, 64L, 3L)
 test_y shape: (1L, 50L)
-</code></pre><p>为了方便运算，我们需要将图片reshape为标准格式：如下图所示：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-10-15-57-08.png" alt=""><br>而reshape的代码如下所示：</p>
+</code></pre><p>为了方便运算，我们需要将图片reshape为标准格式：如下图所示：<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-15-57-08.png" alt=""><br>而reshape的代码如下所示：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Reshape the training and test examples </span></div><div class="line">train_x_flatten = train_x_orig.reshape(train_x_orig.shape[<span class="number">0</span>], <span class="number">-1</span>).T   <span class="comment"># The "-1" makes reshape flatten the remaining dimensions</span></div><div class="line">test_x_flatten = test_x_orig.reshape(test_x_orig.shape[<span class="number">0</span>], <span class="number">-1</span>).T</div><div class="line"></div><div class="line"><span class="comment"># Standardize data to have feature values between 0 and 1.</span></div><div class="line">train_x = train_x_flatten/<span class="number">255.</span></div><div class="line">test_x = test_x_flatten/<span class="number">255.</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> (<span class="string">"train_x's shape: "</span> + str(train_x.shape))</div><div class="line"><span class="keyword">print</span> (<span class="string">"test_x's shape: "</span> + str(test_x.shape))</div><div class="line"></div><div class="line"><span class="comment"># 12,288  =  64×64×3</span></div></pre></td></tr></table></figure>
 <pre><code>train_x&apos;s shape: (12288L, 209L)
 test_x&apos;s shape: (12288L, 50L)
@@ -507,7 +507,7 @@ test_x&apos;s shape: (12288L, 50L)
 <li>两层的神经网络</li>
 <li>L层的深度神经网络</li>
 </ul>
-<h1 id="两层神经网络">3. 两层神经网络</h1><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-10-15-59-23.png" alt=""> </p>
+<h1 id="两层神经网络">3. 两层神经网络</h1><p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-15-59-23.png" alt=""> </p>
 <p>上图的模型可以总结为：INPUT -&gt; LINEAR -&gt; RELU -&gt; LINEAR -&gt; SIGMOID -&gt; OUTPUT.</p>
 <p>详细地说，也就是：</p>
 <ul>
@@ -545,11 +545,11 @@ Cost after iteration 2100: 0.0663074813227
 Cost after iteration 2200: 0.0591932950104
 Cost after iteration 2300: 0.0533614034856
 Cost after iteration 2400: 0.0485547856288
-</code></pre><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-10-18-09-35.png" alt=""> </p>
+</code></pre><p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-18-09-35.png" alt=""> </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 接下来预测</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(X, y, parameters)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    This function is used to predict the results of a  L-layer neural network.</div><div class="line"></div><div class="line">    Arguments:</div><div class="line">    X -- data set of examples you would like to label</div><div class="line">    parameters -- parameters of the trained model</div><div class="line"></div><div class="line">    Returns:</div><div class="line">    p -- predictions for the given dataset X</div><div class="line">    """</div><div class="line"></div><div class="line">    m = X.shape[<span class="number">1</span>]</div><div class="line">    n = len(parameters) / <span class="number">2</span> <span class="comment"># number of layers in the neural network</span></div><div class="line">    p = np.zeros((<span class="number">1</span>,m))</div><div class="line"></div><div class="line">    <span class="comment"># Forward propagation</span></div><div class="line">    probas, caches = L_model_forward(X, parameters)</div><div class="line"></div><div class="line">    </div><div class="line">    <span class="comment"># convert probas to 0/1 predictions</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, probas.shape[<span class="number">1</span>]):</div><div class="line">        <span class="keyword">if</span> probas[<span class="number">0</span>,i] &gt; <span class="number">0.1</span>:</div><div class="line">            p[<span class="number">0</span>,i] = <span class="number">1</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            p[<span class="number">0</span>,i] = <span class="number">0</span></div><div class="line"></div><div class="line">    print(<span class="string">"Accuracy: "</span>  + str(float(np.sum(p == y)/float(m))))</div><div class="line">    <span class="keyword">return</span> p</div><div class="line"></div><div class="line">predictions_train = predict(train_x, train_y, parameters)</div><div class="line"></div><div class="line">predictions_test = predict(test_x, test_y, parameters)</div></pre></td></tr></table></figure>
 <pre><code>Accuracy: 0.961722488038
 Accuracy: 0.74
-</code></pre><h1 id="L层深度神经网络">4. L层深度神经网络</h1><p>虽然说L层深度神经网络很繁琐，但我们可以通过下面的方式来简化它：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-10-16-09-01.png" alt=""> </p>
+</code></pre><h1 id="L层深度神经网络">4. L层深度神经网络</h1><p>虽然说L层深度神经网络很繁琐，但我们可以通过下面的方式来简化它：<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-16-09-01.png" alt=""> </p>
 <p>上图的模型可以总结为：[LINEAR -&gt; RELU] × (L-1) -&gt; LINEAR -&gt; SIGMOID</p>
 <p>详细地说，也就是：</p>
 <ul>
@@ -597,13 +597,13 @@ Cost after iteration 2100: 0.032915
 Cost after iteration 2200: 0.030472
 Cost after iteration 2300: 0.028388
 Cost after iteration 2400: 0.026615
-</code></pre><p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-10-18-09-49.png" alt=""> </p>
+</code></pre><p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-18-09-49.png" alt=""> </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 预测</span></div><div class="line"></div><div class="line">pred_train = predict(train_x, train_y, parameters)</div><div class="line"></div><div class="line">pred_test = predict(test_x, test_y, parameters)</div></pre></td></tr></table></figure>
 <pre><code>Accuracy: 0.980861244019
 Accuracy: 0.78
 </code></pre><h1 id="结果分析">5. 结果分析</h1><p>首先我们来看看有哪些图片被我们的模型分错了：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">print_mislabeled_images(classes, test_x, test_y, pred_test)</div></pre></td></tr></table></figure>
-<p><img src="http://om1bxijvl.bkt.clouddn.com/2017-12-10-18-10-04.png" alt=""> </p>
+<p><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-12-10-18-10-04.png" alt=""> </p>
 <p>我们发现主要有以下几类：</p>
 <ul>
 <li>猫的身子是歪的</li>
@@ -737,7 +737,7 @@ Accuracy: 0.78
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-count">142</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -828,7 +828,7 @@ Accuracy: 0.78
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共307.2k字</span>
+  <span class="post-count">博客全站共309.4k字</span>
 </div>
 
 

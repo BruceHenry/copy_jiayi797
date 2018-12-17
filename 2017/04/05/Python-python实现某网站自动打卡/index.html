@@ -99,14 +99,14 @@
 <meta property="og:url" content="http://jiayi797.github.io/about/2017/04/05/Python-python实现某网站自动打卡/index.html">
 <meta property="og:site_name" content="jiayi797">
 <meta property="og:description" content="最近学校出了个科学上网的小网站，但流量有限，可以通过每天打卡来获取几十兆流量。奈何自己记性很差，总忘记打卡。因此决定写一个自动打卡的小程序。 1. 思路总结 用抓包工具仔细分析下登陆以及回帖时post了哪些数据，这些数据从何而来（chrome） python requests库，用requests.Session().post来登陆和回帖，用get来读取页面内容； 登陆之后，正则找到“签到”或”不">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-04-05-15-55-17.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-04-05-16-12-54.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-04-05-16-20-21.png">
-<meta property="og:updated_time" content="2017-07-11T07:28:24.107Z">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-04-05-15-55-17.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-04-05-16-12-54.png">
+<meta property="og:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-04-05-16-20-21.png">
+<meta property="og:updated_time" content="2018-12-17T07:42:00.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python实现某网站自动打卡">
 <meta name="twitter:description" content="最近学校出了个科学上网的小网站，但流量有限，可以通过每天打卡来获取几十兆流量。奈何自己记性很差，总忘记打卡。因此决定写一个自动打卡的小程序。 1. 思路总结 用抓包工具仔细分析下登陆以及回帖时post了哪些数据，这些数据从何而来（chrome） python requests库，用requests.Session().post来登陆和回帖，用get来读取页面内容； 登陆之后，正则找到“签到”或”不">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2017-04-05-15-55-17.png">
+<meta name="twitter:image" content="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-04-05-15-55-17.png">
 
 
 
@@ -368,8 +368,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-07-11T15:28:24+08:00">
-                2017-07-11
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-17T15:42:00+08:00">
+                2018-12-17
               </time>
             
           </span>
@@ -474,7 +474,7 @@
 </ol>
 <h2 id="HTTP消息">2.2. HTTP消息</h2><p>更多关于HTTP请求过程，见参考资料<a href="https://foofish.net/http-request-process.html" target="_blank" rel="external">一次完整的HTTP请求过程</a></p>
 <p>HTTP 是一种无状态的协议,协议本身不保留之前的一切请求信息和响应信息，也就是说，对于一个刚刚发送了 HTTP 请求的客户端再次发起请求时，服务端并不知道之前访问过。这样设计的理由是为了更快地处理大量事务，确保协议的可伸缩性，而特意把 HTTP 协议设计如此简单。<br>但是，无状态导致业务处理就变得棘手了，一个简单的例子就是网上购物的时候，当我在一个页面把商品加入购物车的时候，正当我要跳转到支付页面时，如果没有一种机制来保持我的登录状态，那么之前选的商品全部丢失了。<br>因此，为了在无状态的HTTP协议之上维护会话状态，使服务器可以知道当前是和哪个客户端打交道，于是Cookie技术应运而生，Cookie通俗的理解就是服务端分配给客户端的一个标识。</p>
-<h2 id="Cookie原理">2.3. Cookie原理</h2><p>Cookie原理其实也非常简单，总共4个步骤维护HTTP会话。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-05-15-55-17.png" alt=""> </p>
+<h2 id="Cookie原理">2.3. Cookie原理</h2><p>Cookie原理其实也非常简单，总共4个步骤维护HTTP会话。<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-04-05-15-55-17.png" alt=""> </p>
 <ol>
 <li>浏览器第一次发起HTTP请求时，没有携带任何Cookie信息，服务器收到请求并返回给浏览器的HTTP响应，同时HTTP响应包括了一个响应头Set-Cookie字段，它的值是要设置的Cookie。 </li>
 <li>浏览器收到来自服务器的HTTP响应，响应头中发现有Set-Cookie字段，就会将该字段的值保存在内存或者硬盘中。 </li>
@@ -482,11 +482,11 @@
 <li>服务器收到这个HTTP请求，发现请求头中有Cookie字段，便知道之前就和这个用户打过交道了。 </li>
 </ol>
 <p>理解了Cookie的基本原理之后，我们就可以尝试用Python来实现模拟登录。 </p>
-<h1 id="点击登陆后，究竟发生了什么？">3. 点击登陆后，究竟发生了什么？</h1><p>为了看看浏览器究竟做了什么，我们首先进入登录界面，随便输入一个密码，点击登录。打开Chrome开发者工具条(F12)。选择Network下的Headers：<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-05-16-12-54.png" alt=""> </p>
+<h1 id="点击登陆后，究竟发生了什么？">3. 点击登陆后，究竟发生了什么？</h1><p>为了看看浏览器究竟做了什么，我们首先进入登录界面，随便输入一个密码，点击登录。打开Chrome开发者工具条(F12)。选择Network下的Headers：<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-04-05-16-12-54.png" alt=""> </p>
 <p>从上图我们可以发现以下关键信息：</p>
 <ol>
 <li>登陆的URL地址是General下面的Request URL的那个。</li>
-<li>登录需要提供的表单（Form Data）有三个，email(用户名),passwd（密码）,remember_me(就是那个“记住我”的选项，我们可以从它的html中搜索得出，如下图)。<br><img src="http://om1bxijvl.bkt.clouddn.com/2017-04-05-16-20-21.png" alt=""> </li>
+<li>登录需要提供的表单（Form Data）有三个，email(用户名),passwd（密码）,remember_me(就是那个“记住我”的选项，我们可以从它的html中搜索得出，如下图)。<br><img src="http://jiayi797.oss-cn-beijing.aliyuncs.com/2017-04-05-16-20-21.png" alt=""> </li>
 </ol>
 <p>到这里，基本上摸清了浏览器登录时所需要的数据是如何获取的了，那么现在就可以开始撸代码用Python模拟浏览器来登录。</p>
 <p>由于我今天登陆的网站实在是太简易了，也不需要分析header就可以登陆。所以此处省略header的分析。</p>
@@ -659,7 +659,7 @@ logging.info(str)#写入日志
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-count">142</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -750,7 +750,7 @@ logging.info(str)#写入日志
 
 <div class="theme-info">
   <div class="powered-by">感谢hexo.Next</div>
-  <span class="post-count">博客全站共307.2k字</span>
+  <span class="post-count">博客全站共309.4k字</span>
 </div>
 
 
